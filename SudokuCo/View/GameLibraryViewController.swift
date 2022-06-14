@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  GameLibraryViewController.swift
 //  SudokuCo
 //
 //  Created by Анастасия Горячевская on 14.06.2022.
@@ -7,13 +7,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class GameLibraryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
-
 }
-
