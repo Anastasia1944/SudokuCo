@@ -34,6 +34,12 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         myGamesTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         myGamesTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        myGamesTableView.separatorStyle = .none
+    }
+    
+    func transitionToGameVC(game: String) {
+        print(game)
     }
 }
 
@@ -45,8 +51,10 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! MyGameTableViewCell
-        //gameCell.textLabel?.text = myGames[indexPath.row]
         gameCell.gameButton.setTitle(myGames[indexPath.row], for: .normal)
+        gameCell.buttonTapCallback = {
+            self.transitionToGameVC(game: self.myGames[indexPath.row])
+        }
         return gameCell
     }
 }

@@ -9,10 +9,12 @@ import UIKit
 
 class MyGameTableViewCell: UITableViewCell {
     
+    var buttonTapCallback: () -> ()  = { }
+    
     var gameButton: UIButton = {
         let gameButton = UIButton()
         gameButton.backgroundColor = .gray
-        gameButton.layer.cornerRadius = 20
+        gameButton.layer.cornerRadius = 25
         gameButton.setTitle("Game", for: .normal)
         gameButton.setTitleColor(.white, for: .normal)
         return gameButton
@@ -30,6 +32,8 @@ class MyGameTableViewCell: UITableViewCell {
         
         contentView.addSubview(gameButton)
         
+        gameButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        
         gameButton.translatesAutoresizingMaskIntoConstraints = false
         gameButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
         gameButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
@@ -37,6 +41,10 @@ class MyGameTableViewCell: UITableViewCell {
         gameButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
         gameButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         
+    }
+    
+    @objc func didTapButton(){
+        buttonTapCallback()
     }
     
     required init?(coder: NSCoder) {
