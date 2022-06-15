@@ -9,12 +9,11 @@ import UIKit
 
 class SudokuGrid: UIView {
     let frameWidth = UIScreen.main.bounds.width
-    let frameHeigh = UIScreen.main.bounds.height
+    var frameHeigh = UIScreen.main.bounds.height
     
     let gap = CGFloat(10)
     
     var oneSquareSide = CGFloat(0)
-    var oneSmallSuareSide = CGFloat(0)
     var gridWidth = CGFloat(0)
     
     override init(frame: CGRect) {
@@ -22,6 +21,7 @@ class SudokuGrid: UIView {
         
         gridWidth = frameWidth - 2 * gap
         oneSquareSide = CGFloat(gridWidth / 9)
+        frameHeigh = frameHeigh - 100
         
         drawLines()
     }
@@ -34,27 +34,37 @@ class SudokuGrid: UIView {
         let xVar = gap
         let yVar = CGFloat((frameHeigh - frameWidth + 2 * gap) / 2)
         
-        var height = CGFloat(0)
         var borderWidth = CGFloat(0)
-        
         
         for i in 0...9 {
             if i % 3 == 0 {
-                height = 1.0
                 borderWidth = 1.0
             } else {
-                height = 0.5
                 borderWidth = 0.2
             }
-            let lineViewY = UIView(frame: CGRect(x: xVar, y: yVar + CGFloat(i) * oneSquareSide, width: gridWidth, height: height))
-            lineViewY.layer.borderWidth = borderWidth
-            lineViewY.layer.borderColor = UIColor.black.cgColor
-            self.addSubview(lineViewY)
             
-            let lineViewX = UIView(frame: CGRect(x: xVar + CGFloat(i) * oneSquareSide, y: yVar, width: height, height: gridWidth))
-            lineViewX.layer.borderWidth = borderWidth
-            lineViewX.layer.borderColor = UIColor.black.cgColor
-            self.addSubview(lineViewX)
+            let lineY = UIBezierPath()
+            lineY.move(to: .init(x: xVar, y: yVar + CGFloat(i) * oneSquareSide))
+            lineY.addLine(to: .init(x: xVar + gridWidth, y: yVar + CGFloat(i) * oneSquareSide))
+            
+            let shapeLayerY = CAShapeLayer()
+            shapeLayerY.path = lineY.cgPath
+            shapeLayerY.strokeColor = UIColor.black.cgColor
+            shapeLayerY.lineWidth = borderWidth
+            
+            self.layer.addSublayer(shapeLayerY)
+            
+            
+            let lineX = UIBezierPath()
+            lineX.move(to: .init(x: xVar + CGFloat(i) * oneSquareSide, y: yVar))
+            lineX.addLine(to: .init(x: xVar + CGFloat(i) * oneSquareSide, y: yVar + gridWidth))
+            
+            let shapeLayerX = CAShapeLayer()
+            shapeLayerX.path = lineX.cgPath
+            shapeLayerX.strokeColor = UIColor.black.cgColor
+            shapeLayerX.lineWidth = borderWidth
+            
+            self.layer.addSublayer(shapeLayerX)
         }
     }
 }
