@@ -39,7 +39,10 @@ class MyGamesViewController: UIViewController {
     }
     
     func transitionToGameVC(game: String) {
-        print(game)
+        let sudokuClassicVC = SudokuClassicViewController()
+        sudokuClassicVC.modalPresentationStyle = .fullScreen
+        
+        navigationController?.pushViewController(sudokuClassicVC, animated: true)
     }
 }
 
