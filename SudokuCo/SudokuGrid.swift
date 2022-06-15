@@ -7,30 +7,32 @@
 
 import UIKit
 
-class SudokuGrid: UIView {
-    let frameWidth = UIScreen.main.bounds.width
-    var frameHeigh = UIScreen.main.bounds.height
+class SudokuGrid {
     
-    let gap = CGFloat(10)
+    private var sudokuGridView = UIView()
     
-    var oneSquareSide = CGFloat(0)
-    var gridWidth = CGFloat(0)
+    private let frameWidth = UIScreen.main.bounds.width
+    private var frameHeigh = UIScreen.main.bounds.height
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private let gap = CGFloat(10)
+    
+    private var oneSquareSide = CGFloat(0)
+    private var gridWidth = CGFloat(0)
+    
+    init(deviationY: CGFloat = CGFloat(0)) {
         
         gridWidth = frameWidth - 2 * gap
         oneSquareSide = CGFloat(gridWidth / 9)
-        frameHeigh = frameHeigh - 100
+        frameHeigh = frameHeigh + deviationY
         
         drawLines()
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    func getView() -> UIView {
+        return sudokuGridView
     }
     
-    func drawLines() {
+    private func drawLines() {
         let xVar = gap
         let yVar = CGFloat((frameHeigh - frameWidth + 2 * gap) / 2)
         
@@ -52,7 +54,7 @@ class SudokuGrid: UIView {
             shapeLayerY.strokeColor = UIColor.black.cgColor
             shapeLayerY.lineWidth = borderWidth
             
-            self.layer.addSublayer(shapeLayerY)
+            self.sudokuGridView.layer.addSublayer(shapeLayerY)
             
             
             let lineX = UIBezierPath()
@@ -64,7 +66,7 @@ class SudokuGrid: UIView {
             shapeLayerX.strokeColor = UIColor.black.cgColor
             shapeLayerX.lineWidth = borderWidth
             
-            self.layer.addSublayer(shapeLayerX)
+            self.sudokuGridView.layer.addSublayer(shapeLayerX)
         }
     }
 }
