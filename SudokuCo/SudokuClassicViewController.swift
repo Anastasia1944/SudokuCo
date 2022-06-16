@@ -12,6 +12,7 @@ class SudokuClassicViewController: UIViewController {
     let sudokuPanelStackView = UIStackView()
     var gridView = UIView()
     let numberPanelStackView = UIStackView()
+    let selectedCellView = UIView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,16 +29,35 @@ class SudokuClassicViewController: UIViewController {
     }
     
     func configureSudokuGrid() {
+
         let gap = CGFloat(10)
         let grid = SudokuGrid(gap: gap)
         gridView = grid.getView()
+        
+        let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
+        self.gridView.addGestureRecognizer(gesture)
+        
         self.view.addSubview(gridView)
         
         gridView.translatesAutoresizingMaskIntoConstraints = false
         gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
         gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
-        gridView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(UIScreen.main.bounds.width - 20) / 2).isActive = true
+//        gridView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(UIScreen.main.bounds.width - 20) / 2).isActive = true
+        gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
+    }
+    
+    @objc func checkAction(sender : UITapGestureRecognizer) {
+        let cellSize = gridView.bounds.width / 9
+        let touchX = sender.location(in: gridView).x
+        let touchY = sender.location(in: gridView).y
+
+        gridView.addSubview(selectedCellView)
+        
+        selectedCellView.frame = CGRect(x: floor(touchX/cellSize) * cellSize, y: floor(touchY/cellSize) * cellSize, width: cellSize, height: cellSize)
+        selectedCellView.backgroundColor = .lightGray
+        selectedCellView.layer.borderWidth = 1
+        selectedCellView.layer.borderColor = UIColor.black.cgColor
     }
     
     func configurePanel() {
