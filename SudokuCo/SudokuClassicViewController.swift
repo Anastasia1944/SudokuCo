@@ -13,12 +13,27 @@ class SudokuClassicViewController: UIViewController {
     var gridView = UIView()
     let numberPanelStackView = UIStackView()
     let selectedCellView = UIView()
+    var filledNumbersView: [[UILabel]] = [[]]
+    
+    var cellSize = CGFloat(0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
+        
+        for i in 0...8 {
+            filledNumbersView.append([])
+            for j in 0...8 {
+                let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: CGFloat(j) * cellSize, width: cellSize, height: cellSize))
+                label.textAlignment = .center
+                label.font = .systemFont(ofSize: 35)
+                filledNumbersView[i].append(label)
+            }
+        }
     }
+    
+    
     
     func configureView() {
         view.backgroundColor = .white
@@ -29,7 +44,7 @@ class SudokuClassicViewController: UIViewController {
     }
     
     func configureSudokuGrid() {
-
+        
         let gap = CGFloat(10)
         let grid = SudokuGrid(gap: gap)
         gridView = grid.getView()
@@ -37,27 +52,27 @@ class SudokuClassicViewController: UIViewController {
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.gridView.addGestureRecognizer(gesture)
         
+        cellSize = grid.getCellSize()
+        
         self.view.addSubview(gridView)
         
         gridView.translatesAutoresizingMaskIntoConstraints = false
         gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
         gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
-//        gridView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(UIScreen.main.bounds.width - 20) / 2).isActive = true
+        //        gridView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(UIScreen.main.bounds.width - 20) / 2).isActive = true
         gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
     }
     
     @objc func checkAction(sender : UITapGestureRecognizer) {
-        let cellSize = gridView.bounds.width / 9
         let touchX = sender.location(in: gridView).x
         let touchY = sender.location(in: gridView).y
-
+        
         gridView.addSubview(selectedCellView)
+        gridView.sendSubviewToBack(selectedCellView)
         
         selectedCellView.frame = CGRect(x: floor(touchX/cellSize) * cellSize, y: floor(touchY/cellSize) * cellSize, width: cellSize, height: cellSize)
         selectedCellView.backgroundColor = .lightGray
-        selectedCellView.layer.borderWidth = 1
-        selectedCellView.layer.borderColor = UIColor.black.cgColor
     }
     
     func configurePanel() {
@@ -76,6 +91,7 @@ class SudokuClassicViewController: UIViewController {
             let button = UIButton()
             button.tintColor = .black
             button.setImage(UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)), for: .normal)
+            button.addTarget(self, action: #selector(tapPanelButton), for: .touchUpInside)
             sudokuPanelStackView.addArrangedSubview(button)
         }
         
@@ -84,6 +100,11 @@ class SudokuClassicViewController: UIViewController {
         sudokuPanelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         sudokuPanelStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         sudokuPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
+    }
+    
+    @objc func tapPanelButton(sender: UIButton!){
+        
+        print(sender.titleLabel!)
     }
     
     func configureNumberPanel() {
@@ -98,6 +119,7 @@ class SudokuClassicViewController: UIViewController {
             button.setTitle(String(i), for: .normal)
             button.titleLabel?.font = .systemFont(ofSize: 35)
             button.setTitleColor(.black, for: .normal)
+            button.addTarget(self, action: #selector(tapNumberPanelButton), for: .touchUpInside)
             numberPanelStackView.addArrangedSubview(button)
         }
         
@@ -106,5 +128,18 @@ class SudokuClassicViewController: UIViewController {
         numberPanelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         numberPanelStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         numberPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
+    }
+    
+    @objc func tapNumberPanelButton(sender: UIButton!){
+        
+        if selectedCellView.frame.maxX == 0.0 {
+            return
+        }
+        
+        let cellX = Int(selectedCellView.frame.minX / cellSize)
+        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        
+        filledNumbersView[cellX][cellY].text = sender.titleLabel!.text!
+        gridView.addSubview(filledNumbersView[cellX][cellY])
     }
 }

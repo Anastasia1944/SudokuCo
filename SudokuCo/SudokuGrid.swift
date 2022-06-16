@@ -24,6 +24,10 @@ class SudokuGrid {
         drawLines()
     }
     
+    func getCellSize() -> CGFloat {
+        return oneSquareSide
+    }
+    
     func getView() -> UIView {
         return sudokuGridView
     }
