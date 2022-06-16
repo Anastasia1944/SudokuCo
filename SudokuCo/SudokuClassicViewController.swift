@@ -20,10 +20,17 @@ class SudokuClassicViewController: UIViewController {
     
     func configureView() {
         view.backgroundColor = .white
-        
-        let grid = SudokuGrid(deviationY: -100)
+
+        let gap = CGFloat(10)
+        let grid = SudokuGrid(gap: gap)
         gridView = grid.getView()
         self.view.addSubview(gridView)
+        
+        gridView.translatesAutoresizingMaskIntoConstraints = false
+        gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
+        gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
+        gridView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(UIScreen.main.bounds.width - 20) / 2).isActive = true
+        gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
         
         configurePanel()
     }
@@ -48,9 +55,9 @@ class SudokuClassicViewController: UIViewController {
         }
         
         sudokuPanelStackView.translatesAutoresizingMaskIntoConstraints = false
-        sudokuPanelStackView.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 600).isActive = true
+        sudokuPanelStackView.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 30).isActive = true
         sudokuPanelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         sudokuPanelStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        sudokuPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(100)).isActive = true
+        sudokuPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
     }
 }

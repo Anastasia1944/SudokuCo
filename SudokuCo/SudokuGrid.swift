@@ -12,18 +12,14 @@ class SudokuGrid {
     private var sudokuGridView = UIView()
     
     private let frameWidth = UIScreen.main.bounds.width
-    private var frameHeigh = UIScreen.main.bounds.height
-    
-    private let gap = CGFloat(10)
     
     private var oneSquareSide = CGFloat(0)
     private var gridWidth = CGFloat(0)
     
-    init(deviationY: CGFloat = CGFloat(0)) {
+    init(gap: CGFloat) {
         
         gridWidth = frameWidth - 2 * gap
         oneSquareSide = CGFloat(gridWidth / 9)
-        frameHeigh = frameHeigh + deviationY
         
         drawLines()
     }
@@ -33,8 +29,8 @@ class SudokuGrid {
     }
     
     private func drawLines() {
-        let xVar = gap
-        let yVar = CGFloat((frameHeigh - frameWidth + 2 * gap) / 2)
+        let xVar = CGFloat(0)
+        let yVar = CGFloat(0)
         
         var borderWidth = CGFloat(0)
         
