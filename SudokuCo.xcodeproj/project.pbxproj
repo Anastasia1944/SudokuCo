@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D3CAA16285BE91700D0884A /* ClassicSudokuGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3CAA15285BE91700D0884A /* ClassicSudokuGame.swift */; };
 		5DC743C12858FF3700F1C4F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743C02858FF3700F1C4F6 /* AppDelegate.swift */; };
 		5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743C22858FF3700F1C4F6 /* SceneDelegate.swift */; };
 		5DC743C52858FF3700F1C4F6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743C42858FF3700F1C4F6 /* MainViewController.swift */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D3CAA15285BE91700D0884A /* ClassicSudokuGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassicSudokuGame.swift; sourceTree = "<group>"; };
 		5DC743BD2858FF3700F1C4F6 /* SudokuCo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuCo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DC743C02858FF3700F1C4F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DC743C22858FF3700F1C4F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				5DC743CB2858FF3700F1C4F6 /* LaunchScreen.storyboard */,
 				5DC743CE2858FF3700F1C4F6 /* Info.plist */,
 				5DC743E328595A5700F1C4F6 /* SudokuGrid.swift */,
+				5D3CAA15285BE91700D0884A /* ClassicSudokuGame.swift */,
 			);
 			path = SudokuCo;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */,
 				5DC743D828591C5900F1C4F6 /* GameLibraryViewController.swift in Sources */,
 				5DC743DA28591C6E00F1C4F6 /* SettingsViewController.swift in Sources */,
+				5D3CAA16285BE91700D0884A /* ClassicSudokuGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
