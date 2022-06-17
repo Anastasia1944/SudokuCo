@@ -17,10 +17,15 @@ class SudokuClassicViewController: UIViewController {
     
     var cellSize = CGFloat(0)
     
+    let classicSudokuGame = ClassicSudokuGame()
+    var originallyOpenedNumbers: [[Int]] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
+        
+        originallyOpenedNumbers = classicSudokuGame.getSudokuOpenedNumbers()
         
         for i in 0...8 {
             filledNumbersView.append([])
@@ -28,12 +33,15 @@ class SudokuClassicViewController: UIViewController {
                 let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: CGFloat(j) * cellSize, width: cellSize, height: cellSize))
                 label.textAlignment = .center
                 label.font = .systemFont(ofSize: 35)
+                if originallyOpenedNumbers[i][j] != 0 {
+                    label.text = String(originallyOpenedNumbers[i][j])
+                    label.textColor = .darkGray
+                }
                 filledNumbersView[i].append(label)
+                gridView.addSubview(filledNumbersView[i][j])
             }
         }
     }
-    
-    
     
     func configureView() {
         view.backgroundColor = .white

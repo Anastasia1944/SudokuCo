@@ -10,10 +10,22 @@ import UIKit
 class ClassicSudokuGame {
     private var sudokuNumbers: [[Int]] = []
     
+    private var originallyOpenedNumbers: [[Int]] = []
+    private var openedNumbers: [[Int]] = []
+    
     private let n = 3
     
     init() {
+        for _ in 0...n*n {
+            originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
+            openedNumbers.append([Int](repeating: 0, count: n*n))
+        }
+        
         generateSudoku()
+    }
+    
+    func getSudokuOpenedNumbers() ->  [[Int]] {
+        return originallyOpenedNumbers
     }
     
     private func generateSudoku() {
@@ -25,6 +37,8 @@ class ClassicSudokuGame {
             let funcNum = Int.random(in: 0..<transformationFuncs.count)
             transformationFuncs[funcNum]()
         }
+        
+        generateOpenedNumbers()
     }
     
     private func generateBaseGrid() {
@@ -91,6 +105,20 @@ class ClassicSudokuGame {
         
         for i in 0..<n {
             swapTwoColumns(col1: n * delta[0] + i, col2: n * delta[1] + i)
+        }
+    }
+    
+    func generateOpenedNumbers() {
+        var index = 0
+        
+        while index != 30 {
+            let pointX = Int.random(in: 0..<n*n)
+            let pointY = Int.random(in: 0..<n*n)
+            
+            if originallyOpenedNumbers[pointX][pointY] == 0 {
+                originallyOpenedNumbers[pointX][pointY] = sudokuNumbers[pointX][pointY]
+                index += 1
+            }
         }
     }
 }
