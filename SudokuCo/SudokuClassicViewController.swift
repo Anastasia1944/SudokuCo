@@ -19,14 +19,13 @@ class SudokuClassicViewController: UIViewController {
     var cellSize = CGFloat(0)
     
     let classicSudokuGame = ClassicSudokuGame()
-    var originallyOpenedNumbers: [[Int]] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
         
-        originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
+        let originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         for i in 0...8 {
             filledNumbersView.append([])
@@ -112,7 +111,7 @@ class SudokuClassicViewController: UIViewController {
     
     @objc func tapPanelButton(sender: UIButton!){
         
-        print(sender.titleLabel!)
+        print(sender.imageView?.image)
     }
     
     func configureNumberPanel() {
@@ -146,9 +145,10 @@ class SudokuClassicViewController: UIViewController {
         
         let cellX = Int(selectedCellView.frame.minX / cellSize)
         let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let value = sender.titleLabel!.text!
         
-        if originallyOpenedNumbers[cellX][cellY] == 0 {
-            filledNumbersView[cellX][cellY].text = sender.titleLabel!.text!
+        if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
+            filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
     }

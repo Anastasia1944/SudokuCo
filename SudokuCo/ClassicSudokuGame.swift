@@ -11,6 +11,7 @@ class ClassicSudokuGame {
     private var sudokuNumbers: [[Int]] = []
     
     private var originallyOpenedNumbers: [[Int]] = []
+    private var openedNumbers: [[Int]] = []
     
     private let n = 3
     
@@ -20,6 +21,16 @@ class ClassicSudokuGame {
         }
         
         generateSudoku()
+        
+        openedNumbers = originallyOpenedNumbers
+    }
+    
+    func fillCell(x: Int, y: Int, value: Int) -> Bool {
+        if originallyOpenedNumbers[x][y] == 0 {
+            openedNumbers[x][y] = value
+            return true
+        }
+        return false
     }
     
     func getSudokuNumbers() ->  [[Int]] {
