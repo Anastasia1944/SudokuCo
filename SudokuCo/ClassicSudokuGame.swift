@@ -33,6 +33,14 @@ class ClassicSudokuGame {
         return false
     }
     
+    func deleteCellNumber(x: Int, y: Int) -> Bool {
+        if originallyOpenedNumbers[x][y] == 0 {
+            openedNumbers[x][y] = 0
+            return true
+        }
+        return false
+    }
+    
     func getSudokuNumbers() ->  [[Int]] {
         return sudokuNumbers
     }

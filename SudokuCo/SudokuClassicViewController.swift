@@ -8,7 +8,7 @@
 import UIKit
 
 class SudokuClassicViewController: UIViewController {
-
+    
     let gridView = SudokuGridView()
     let sudokuPanelStackView = UIStackView()
     let numberPanelStackView = UIStackView()
@@ -98,7 +98,14 @@ class SudokuClassicViewController: UIViewController {
             let button = UIButton()
             button.tintColor = .black
             button.setImage(UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)), for: .normal)
-            button.addTarget(self, action: #selector(tapPanelButton), for: .touchUpInside)
+            switch buttonIcons[i] {
+            case "arrow.counterclockwise": button.addTarget(self, action: #selector(tapPanelButtonCancel), for: .touchUpInside)
+            case "delete.left": button.addTarget(self, action: #selector(tapPanelButtonDelete), for: .touchUpInside)
+            case "lightbulb": button.addTarget(self, action: #selector(tapPanelButtonTip), for: .touchUpInside)
+            default:
+                return
+            }
+            
             sudokuPanelStackView.addArrangedSubview(button)
         }
         
@@ -109,9 +116,29 @@ class SudokuClassicViewController: UIViewController {
         sudokuPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
     }
     
-    @objc func tapPanelButton(sender: UIButton!){
+    @objc func tapPanelButtonCancel(sender: UIButton!){
         
-        print(sender.imageView?.image)
+        print("cancel")
+    }
+    
+    @objc func tapPanelButtonDelete(sender: UIButton!){
+        
+        if selectedCellView.frame.maxX == 0.0 {
+            return
+        }
+        
+        let cellX = Int(selectedCellView.frame.minX / cellSize)
+        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        
+        if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
+            filledNumbersView[cellX][cellY].text = ""
+            gridView.addSubview(filledNumbersView[cellX][cellY])
+        }
+    }
+    
+    @objc func tapPanelButtonTip(sender: UIButton!){
+        
+        print("tip")
     }
     
     func configureNumberPanel() {
