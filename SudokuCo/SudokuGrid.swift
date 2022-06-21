@@ -7,29 +7,26 @@
 
 import UIKit
 
-class SudokuGrid {
-    
-    private var sudokuGridView = UIView()
+class SudokuGridView: UIView {
     
     private let frameWidth = UIScreen.main.bounds.width
     
+    private var sudokuWidth = CGFloat(0)
+    private var gap = CGFloat(0)
     private var oneSquareSide = CGFloat(0)
-    private var gridWidth = CGFloat(0)
     
-    init(gap: CGFloat) {
-        
-        gridWidth = frameWidth - 2 * gap
-        oneSquareSide = CGFloat(gridWidth / 9)
-        
-        drawLines()
+    func formView() {
+        sudokuWidth = frameWidth - 2 * gap
+        oneSquareSide = CGFloat(sudokuWidth / 9)
+        self.drawLines()
     }
     
     func getCellSize() -> CGFloat {
         return oneSquareSide
     }
     
-    func getView() -> UIView {
-        return sudokuGridView
+    func setGap(_ gap: CGFloat) {
+        self.gap = gap
     }
     
     private func drawLines() {
@@ -47,26 +44,26 @@ class SudokuGrid {
             
             let lineY = UIBezierPath()
             lineY.move(to: .init(x: xVar, y: yVar + CGFloat(i) * oneSquareSide))
-            lineY.addLine(to: .init(x: xVar + gridWidth, y: yVar + CGFloat(i) * oneSquareSide))
+            lineY.addLine(to: .init(x: xVar + sudokuWidth, y: yVar + CGFloat(i) * oneSquareSide))
             
             let shapeLayerY = CAShapeLayer()
             shapeLayerY.path = lineY.cgPath
             shapeLayerY.strokeColor = UIColor.black.cgColor
             shapeLayerY.lineWidth = borderWidth
             
-            self.sudokuGridView.layer.addSublayer(shapeLayerY)
+            self.layer.addSublayer(shapeLayerY)
             
             
             let lineX = UIBezierPath()
             lineX.move(to: .init(x: xVar + CGFloat(i) * oneSquareSide, y: yVar))
-            lineX.addLine(to: .init(x: xVar + CGFloat(i) * oneSquareSide, y: yVar + gridWidth))
+            lineX.addLine(to: .init(x: xVar + CGFloat(i) * oneSquareSide, y: yVar + sudokuWidth))
             
             let shapeLayerX = CAShapeLayer()
             shapeLayerX.path = lineX.cgPath
             shapeLayerX.strokeColor = UIColor.black.cgColor
             shapeLayerX.lineWidth = borderWidth
             
-            self.sudokuGridView.layer.addSublayer(shapeLayerX)
+            self.layer.addSublayer(shapeLayerX)
         }
     }
 }

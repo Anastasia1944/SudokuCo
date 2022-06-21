@@ -10,7 +10,7 @@ import UIKit
 class SudokuClassicViewController: UIViewController {
     
     let sudokuPanelStackView = UIStackView()
-    var gridView = UIView()
+    let gridView = SudokuGridView()
     let numberPanelStackView = UIStackView()
     let selectedCellView = UIView()
     var filledNumbersView: [[UILabel]] = [[]]
@@ -54,20 +54,19 @@ class SudokuClassicViewController: UIViewController {
     func configureSudokuGrid() {
         
         let gap = CGFloat(10)
-        let grid = SudokuGrid(gap: gap)
-        gridView = grid.getView()
+        gridView.setGap(gap)
+        gridView.formView()
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.gridView.addGestureRecognizer(gesture)
         
-        cellSize = grid.getCellSize()
+        cellSize = gridView.getCellSize()
         
         self.view.addSubview(gridView)
         
         gridView.translatesAutoresizingMaskIntoConstraints = false
         gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
         gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
-        //        gridView.topAnchor.constraint(equalTo: view.centerYAnchor, constant: -(UIScreen.main.bounds.width - 20) / 2).isActive = true
         gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
         gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
     }
