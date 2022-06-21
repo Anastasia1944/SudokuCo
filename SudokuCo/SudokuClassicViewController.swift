@@ -8,10 +8,11 @@
 import UIKit
 
 class SudokuClassicViewController: UIViewController {
-    
-    let sudokuPanelStackView = UIStackView()
+
     let gridView = SudokuGridView()
+    let sudokuPanelStackView = UIStackView()
     let numberPanelStackView = UIStackView()
+    
     let selectedCellView = UIView()
     var filledNumbersView: [[UILabel]] = [[]]
     
@@ -25,7 +26,7 @@ class SudokuClassicViewController: UIViewController {
         
         configureView()
         
-        originallyOpenedNumbers = classicSudokuGame.getSudokuOpenedNumbers()
+        originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         for i in 0...8 {
             filledNumbersView.append([])
@@ -146,7 +147,9 @@ class SudokuClassicViewController: UIViewController {
         let cellX = Int(selectedCellView.frame.minX / cellSize)
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         
-        filledNumbersView[cellX][cellY].text = sender.titleLabel!.text!
-        gridView.addSubview(filledNumbersView[cellX][cellY])
+        if originallyOpenedNumbers[cellX][cellY] == 0 {
+            filledNumbersView[cellX][cellY].text = sender.titleLabel!.text!
+            gridView.addSubview(filledNumbersView[cellX][cellY])
+        }
     }
 }

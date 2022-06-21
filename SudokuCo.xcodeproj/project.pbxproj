@@ -18,7 +18,7 @@
 		5DC743DA28591C6E00F1C4F6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743D928591C6E00F1C4F6 /* SettingsViewController.swift */; };
 		5DC743E02859410100F1C4F6 /* MyGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */; };
 		5DC743E228594CA000F1C4F6 /* SudokuClassicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E128594CA000F1C4F6 /* SudokuClassicViewController.swift */; };
-		5DC743E428595A5700F1C4F6 /* SudokuGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E328595A5700F1C4F6 /* SudokuGrid.swift */; };
+		5DC743E428595A5700F1C4F6 /* SudokuGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,7 +35,7 @@
 		5DC743D928591C6E00F1C4F6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGameTableViewCell.swift; sourceTree = "<group>"; };
 		5DC743E128594CA000F1C4F6 /* SudokuClassicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuClassicViewController.swift; sourceTree = "<group>"; };
-		5DC743E328595A5700F1C4F6 /* SudokuGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuGrid.swift; sourceTree = "<group>"; };
+		5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuGridView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,7 +79,7 @@
 				5DC743C92858FF3700F1C4F6 /* Assets.xcassets */,
 				5DC743CB2858FF3700F1C4F6 /* LaunchScreen.storyboard */,
 				5DC743CE2858FF3700F1C4F6 /* Info.plist */,
-				5DC743E328595A5700F1C4F6 /* SudokuGrid.swift */,
+				5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */,
 				5D3CAA15285BE91700D0884A /* ClassicSudokuGame.swift */,
 			);
 			path = SudokuCo;
@@ -159,7 +159,7 @@
 				5DC743E02859410100F1C4F6 /* MyGameTableViewCell.swift in Sources */,
 				5DC743C52858FF3700F1C4F6 /* MainViewController.swift in Sources */,
 				5DC743C12858FF3700F1C4F6 /* AppDelegate.swift in Sources */,
-				5DC743E428595A5700F1C4F6 /* SudokuGrid.swift in Sources */,
+				5DC743E428595A5700F1C4F6 /* SudokuGridView.swift in Sources */,
 				5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */,
 				5DC743D828591C5900F1C4F6 /* GameLibraryViewController.swift in Sources */,
 				5DC743DA28591C6E00F1C4F6 /* SettingsViewController.swift in Sources */,

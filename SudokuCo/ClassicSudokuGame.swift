@@ -11,20 +11,22 @@ class ClassicSudokuGame {
     private var sudokuNumbers: [[Int]] = []
     
     private var originallyOpenedNumbers: [[Int]] = []
-    private var openedNumbers: [[Int]] = []
     
     private let n = 3
     
     init() {
         for _ in 0...n*n {
             originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
-            openedNumbers.append([Int](repeating: 0, count: n*n))
         }
         
         generateSudoku()
     }
     
-    func getSudokuOpenedNumbers() ->  [[Int]] {
+    func getSudokuNumbers() ->  [[Int]] {
+        return sudokuNumbers
+    }
+    
+    func getSudokuOriginallyOpenedNumbers() -> [[Int]] {
         return originallyOpenedNumbers
     }
     
