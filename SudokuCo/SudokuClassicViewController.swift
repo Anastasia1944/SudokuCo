@@ -138,7 +138,18 @@ class SudokuClassicViewController: UIViewController {
     
     @objc func tapPanelButtonTip(sender: UIButton!){
         
-        print("tip")
+        if selectedCellView.frame.maxX == 0.0 {
+            return
+        }
+        
+        let cellX = Int(selectedCellView.frame.minX / cellSize)
+        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        
+        if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
+            let number = classicSudokuGame.getNumberByCoordinates(x: cellX, y: cellY)
+            filledNumbersView[cellX][cellY].text = String(number)
+            gridView.addSubview(filledNumbersView[cellX][cellY])
+        }
     }
     
     func configureNumberPanel() {
