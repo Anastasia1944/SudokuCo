@@ -20,14 +20,17 @@ class SudokuClassicViewController: UIViewController {
     
     var classicSudokuGame = ClassicSudokuGame()
     
+    var gamesInfoCoding = GamesInfoCoding()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
         
         continueGame()
-        //   newGame()
+       // newGame()
         
+        let openedNumbers = classicSudokuGame.getSudokuOpenedNumbers()
         let originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         for i in 0...8 {
@@ -38,7 +41,11 @@ class SudokuClassicViewController: UIViewController {
                 label.font = .systemFont(ofSize: 35)
                 if originallyOpenedNumbers[i][j] != 0 {
                     label.text = String(originallyOpenedNumbers[i][j])
-                    label.textColor = .darkGray
+                    label.textColor = .gray
+                }
+                if openedNumbers[i][j] != 0 && originallyOpenedNumbers[i][j] == 0 {
+                    label.text = String(openedNumbers[i][j])
+                    label.textColor = .black
                 }
                 filledNumbersView[i].append(label)
                 gridView.addSubview(filledNumbersView[i][j])
@@ -49,13 +56,11 @@ class SudokuClassicViewController: UIViewController {
     func newGame() {
         classicSudokuGame.generateSudoku()
         
-        var gamesInfoCoding = GamesInfoCoding()
         gamesInfoCoding.classicSudoku = classicSudokuGame
         gamesInfoCoding.encode()
     }
     
     func continueGame() {
-        var gamesInfoCoding = GamesInfoCoding()
         gamesInfoCoding.decode()
         
         classicSudokuGame = gamesInfoCoding.classicSudoku
@@ -204,6 +209,7 @@ class SudokuClassicViewController: UIViewController {
         let value = sender.titleLabel!.text!
         
         if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
+            gamesInfoCoding.encode()
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
