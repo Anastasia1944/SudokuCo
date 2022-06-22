@@ -18,12 +18,15 @@ class SudokuClassicViewController: UIViewController {
     
     var cellSize = CGFloat(0)
     
-    let classicSudokuGame = ClassicSudokuGame()
+    var classicSudokuGame = ClassicSudokuGame()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
+        
+        continueGame()
+        //   newGame()
         
         let originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
         
@@ -41,6 +44,21 @@ class SudokuClassicViewController: UIViewController {
                 gridView.addSubview(filledNumbersView[i][j])
             }
         }
+    }
+    
+    func newGame() {
+        classicSudokuGame.generateSudoku()
+        
+        var gamesInfoCoding = GamesInfoCoding()
+        gamesInfoCoding.classicSudoku = classicSudokuGame
+        gamesInfoCoding.encode()
+    }
+    
+    func continueGame() {
+        var gamesInfoCoding = GamesInfoCoding()
+        gamesInfoCoding.decode()
+        
+        classicSudokuGame = gamesInfoCoding.classicSudoku
     }
     
     func configureView() {
