@@ -146,7 +146,17 @@ class SudokuClassicViewController: UIViewController {
     
     @objc func tapPanelButtonCancel(sender: UIButton!){
         
-        print("cancel")
+        selectedCellView.removeFromSuperview()
+        
+        if let lastAction = classicSudokuGame.cancelAction() {
+            gamesInfoCoding.encode()
+            if lastAction.lastNumber != 0 {
+                filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
+            } else {
+                filledNumbersView[lastAction.xCell][lastAction.yCell].text = ""
+            }
+            gridView.addSubview(filledNumbersView[lastAction.xCell][lastAction.yCell])
+        }
     }
     
     @objc func tapPanelButtonDelete(sender: UIButton!){
