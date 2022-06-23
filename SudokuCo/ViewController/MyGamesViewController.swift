@@ -38,9 +38,27 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.separatorStyle = .none
     }
     
-    func transitionToGameVC(game: String) {
+    func openMenuAlert(gameName: String) {
+        let alert = UIAlertController()
+        
+        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+            self.transitionToGameVC(gameName, gameMode: "Continue")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { _ in
+            self.transitionToGameVC(gameName, gameMode: "New Game")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: {})
+        
+    }
+    
+    func transitionToGameVC(_ gameName: String, gameMode: String) {
         let sudokuClassicVC = SudokuClassicViewController()
         sudokuClassicVC.modalPresentationStyle = .fullScreen
+        sudokuClassicVC.gameMode = gameMode
         
         navigationController?.pushViewController(sudokuClassicVC, animated: true)
     }
@@ -56,7 +74,7 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! MyGameTableViewCell
         gameCell.gameButton.setTitle(myGames[indexPath.row], for: .normal)
         gameCell.buttonTapCallback = {
-            self.transitionToGameVC(game: self.myGames[indexPath.row])
+            self.openMenuAlert(gameName: self.myGames[indexPath.row])
         }
         return gameCell
     }

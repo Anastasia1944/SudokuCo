@@ -9,6 +9,8 @@ import UIKit
 
 class SudokuClassicViewController: UIViewController {
     
+    var gameMode: String?
+    
     let gridView = SudokuGridView()
     let sudokuPanelStackView = UIStackView()
     let numberPanelStackView = UIStackView()
@@ -27,8 +29,11 @@ class SudokuClassicViewController: UIViewController {
         
         configureView()
         
-        continueGame()
-       // newGame()
+        if gameMode == "Continue" {
+            continueGame()
+        } else {
+            newGame()
+        }
         
         let openedNumbers = classicSudokuGame.getSudokuOpenedNumbers()
         let originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
@@ -154,6 +159,7 @@ class SudokuClassicViewController: UIViewController {
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         
         if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
+            gamesInfoCoding.encode()
             filledNumbersView[cellX][cellY].text = ""
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -169,7 +175,8 @@ class SudokuClassicViewController: UIViewController {
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         
         if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
-            let number = classicSudokuGame.getNumberByCoordinates(x: cellX, y: cellY)
+            let number = classicSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
+            gamesInfoCoding.encode()
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }

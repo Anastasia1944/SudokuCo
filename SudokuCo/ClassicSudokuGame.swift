@@ -29,6 +29,13 @@ class ClassicSudokuGame: Codable {
         return false
     }
     
+    func fillCellbyRightNumber(x: Int, y: Int) -> Int {
+        if openedNumbers[x][y] == 0 {
+            openedNumbers[x][y] = sudokuNumbers[x][y]
+        }
+        return sudokuNumbers[x][y]
+    }
+    
     func deleteCellNumber(x: Int, y: Int) -> Bool {
         if originallyOpenedNumbers[x][y] == 0 {
             openedNumbers[x][y] = 0
