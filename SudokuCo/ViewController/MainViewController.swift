@@ -22,11 +22,15 @@ class MainViewController: UITabBarController {
         myGamesNavVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 30)!]
         myGamesVC.title = "SudokuCo"
         
+        let gameLibraryNavVC = UINavigationController(rootViewController: gameLibraryVC)
+        gameLibraryNavVC.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 30)!]
+        gameLibraryVC.title = "SudokuCo"
+        
         myGamesNavVC.title = "My Games"
-        gameLibraryVC.title = "Game Library"
+        gameLibraryNavVC.title = "Game Library"
         settingsVC.title = "Settings"
         
-        self.setViewControllers([myGamesNavVC, gameLibraryVC, settingsVC], animated: false)
+        self.setViewControllers([myGamesNavVC, gameLibraryNavVC, settingsVC], animated: false)
         
         guard let items = self.tabBar.items else { return }
         
