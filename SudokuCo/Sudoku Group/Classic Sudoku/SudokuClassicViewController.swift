@@ -47,7 +47,7 @@ class SudokuClassicViewController: UIViewController {
             for j in 0...8 {
                 let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: CGFloat(j) * cellSize, width: cellSize, height: cellSize))
                 label.textAlignment = .center
-                label.font = .systemFont(ofSize: 35)
+                label.font = .systemFont(ofSize: 30)
                 if originallyOpenedNumbers[i][j] != 0 {
                     label.text = String(originallyOpenedNumbers[i][j])
                     label.textColor = .gray

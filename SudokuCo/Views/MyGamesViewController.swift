@@ -45,9 +45,11 @@ class MyGamesViewController: UIViewController {
     func openMenuAlert(gameName: String) {
         let alert = UIAlertController()
         
-        alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
-            self.transitionToGameVC(gameName, gameMode: "Continue")
-        }))
+        if allGames.loadMyGames() == true {
+            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+                self.transitionToGameVC(gameName, gameMode: "Continue")
+            }))
+        }
         
         alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { _ in
             self.transitionToGameVC(gameName, gameMode: "New Game")

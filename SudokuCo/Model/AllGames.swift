@@ -27,7 +27,7 @@ struct AllGames {
         loadMyGames()
     }
     
-    mutating func loadMyGames() {
+    mutating func loadMyGames() -> Bool {
         let decoder = JSONDecoder()
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -35,10 +35,13 @@ struct AllGames {
             do {
                 let data = try Data(contentsOf: fileURL)
                 myGames = try decoder.decode([String: Game].self, from: data)
+                return true
             } catch {
                 print("error")
+                return false
             }
         }
+        return false
     }
     
     func saveGames() {
