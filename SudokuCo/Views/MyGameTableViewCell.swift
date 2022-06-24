@@ -20,6 +20,7 @@ class MyGameTableViewCell: UITableViewCell {
         gameLabel.text = "Game Name"
         gameLabel.font = UIFont.systemFont(ofSize: 20)
         gameLabel.textAlignment = .center
+        gameLabel.tintColor = .blueSys
         return gameLabel
     }()
     
@@ -32,7 +33,7 @@ class MyGameTableViewCell: UITableViewCell {
         
         gameImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
         gameImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
-        gameImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        gameImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20).isActive = true
         gameImageView.widthAnchor.constraint(equalTo: gameImageView.heightAnchor, multiplier: 1.0/1.0).isActive = true
         
         

@@ -81,6 +81,12 @@ class MyGamesViewController: UIViewController {
         default: return
         }
     }
+    
+    func updateGamesList() {
+        gamesName = AllGames().myGames.map { $0.key }
+        allGames = AllGames()
+        myGamesTableView.reloadData()
+    }
 }
 
 extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
