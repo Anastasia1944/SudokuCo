@@ -13,6 +13,11 @@ struct GamesInfoCoding {
     
     var game: Any?
     
+    init(file: String, gameName: String) {
+        self.fileName = file
+        self.gameName = gameName
+    }
+    
     func encode(game: Any) {
         let encoder = JSONEncoder()
         
@@ -22,6 +27,9 @@ struct GamesInfoCoding {
                 switch gameName {
                 case "Classic Sudoku":
                     let jsonData = try encoder.encode(game as! ClassicSudokuGame)
+                    try jsonData.write(to: fileURL)
+                case "Odd-Even Sudoku":
+                    let jsonData = try encoder.encode(game as! OddEvenSudokuGame)
                     try jsonData.write(to: fileURL)
                 default: return
                 }
@@ -41,6 +49,8 @@ struct GamesInfoCoding {
                 switch gameName {
                 case "Classic Sudoku":
                     return try decoder.decode(ClassicSudokuGame.self, from: data)
+                case "Odd-Even Sudoku":
+                    return try decoder.decode(OddEvenSudokuGame.self, from: data)
                 default: return nil
                 }
             } catch {

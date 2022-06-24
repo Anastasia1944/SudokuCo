@@ -13,6 +13,8 @@ class MyGamesViewController: UIViewController {
     
     var allGames = AllGames()
     
+    var gamesName: [String] = AllGames().myGames.map { $0.key }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +67,11 @@ class MyGamesViewController: UIViewController {
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
-            
+        case "OddEvenSudokuViewController":
+            let sudokuGameVC = OddEvenSudokuViewController()
+            sudokuGameVC.gameMode = gameMode
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
         default: return
         }
     }
@@ -74,21 +80,19 @@ class MyGamesViewController: UIViewController {
 extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allGames.myGames.count
+        return gamesName.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! MyGameTableViewCell
         
-        var gameName = ""
-        for game in allGames.myGames.keys {
-            gameName = game
-            gameCell.gameButton.setTitle(gameName, for: .normal)
-        }
+        let gameName = gamesName[indexPath.row]
         
+        gameCell.gameButton.setTitle(gameName, for: .normal)
         gameCell.buttonTapCallback = {
             self.openMenuAlert(gameName: gameName)
         }
+        
         return gameCell
     }
 }

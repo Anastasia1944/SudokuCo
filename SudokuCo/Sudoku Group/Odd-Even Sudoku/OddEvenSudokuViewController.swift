@@ -1,13 +1,13 @@
 //
-//  SudokuClassicViewController.swift
+//  OddEvenSudokuViewController.swift
 //  SudokuCo
 //
-//  Created by Анастасия Горячевская on 15.06.2022.
+//  Created by Анастасия Горячевская on 24.06.2022.
 //
 
 import UIKit
 
-class SudokuClassicViewController: UIViewController {
+class OddEvenSudokuViewController: UIViewController {
     
     var gameMode: String?
     
@@ -20,9 +20,9 @@ class SudokuClassicViewController: UIViewController {
     
     var cellSize = CGFloat(0)
     
-    var classicSudokuGame = ClassicSudokuGame()
+    var oddEvenSudokuGame = OddEvenSudokuGame()
     
-    var gamesInfoCoding = GamesInfoCoding(file: AllGames().games["Classic Sudoku"]!.gameInfoFile, gameName: "Classic Sudoku")
+    var gamesInfoCoding = GamesInfoCoding(file: AllGames().games["Odd-Even Sudoku"]!.gameInfoFile, gameName: "Odd-Even Sudoku")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +38,36 @@ class SudokuClassicViewController: UIViewController {
         fillCells()
     }
     
+    func newGame() {
+        oddEvenSudokuGame.generateSudoku()
+        
+        gamesInfoCoding.encode(game: oddEvenSudokuGame)
+    }
+    
+    func continueGame() {
+        oddEvenSudokuGame = gamesInfoCoding.decode() as! OddEvenSudokuGame
+    }
+    
     func fillCells() {
-        let openedNumbers = classicSudokuGame.getSudokuOpenedNumbers()
-        let originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
+        let openedNumbers = oddEvenSudokuGame.getSudokuOpenedNumbers()
+        let originallyOpenedNumbers = oddEvenSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         for i in 0...8 {
             filledNumbersView.append([])
             for j in 0...8 {
+                
+                if oddEvenSudokuGame.getSudokuNumbers()[i][j] % 2 != 0 {
+                    let circle = UIBezierPath(arcCenter: CGPoint(x: CGFloat(i) * cellSize + cellSize / 2, y: CGFloat(j) * cellSize + cellSize / 2), radius: 0.9 * (cellSize / 2), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
+                    
+                    let shapeLayer = CAShapeLayer()
+                    shapeLayer.path = circle.cgPath
+                    shapeLayer.strokeColor = UIColor.darkGray.cgColor
+                    shapeLayer.fillColor = UIColor.clear.cgColor
+                    shapeLayer.lineWidth = 0.2
+                    
+                    gridView.layer.addSublayer(shapeLayer)
+                }
+                
                 let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: CGFloat(j) * cellSize, width: cellSize, height: cellSize))
                 label.textAlignment = .center
                 label.font = .systemFont(ofSize: 35)
@@ -60,16 +83,6 @@ class SudokuClassicViewController: UIViewController {
                 gridView.addSubview(filledNumbersView[i][j])
             }
         }
-    }
-    
-    func newGame() {
-        classicSudokuGame.generateSudoku()
-        
-        gamesInfoCoding.encode(game: classicSudokuGame)
-    }
-    
-    func continueGame() {
-        classicSudokuGame = gamesInfoCoding.decode() as! ClassicSudokuGame
     }
     
     func configureView() {
@@ -147,11 +160,11 @@ class SudokuClassicViewController: UIViewController {
     
     @objc func tapPanelButtonCancel(sender: UIButton!){
         
-        if let lastAction = classicSudokuGame.cancelAction() {
+        if let lastAction = oddEvenSudokuGame.cancelAction() {
             
             selectedCellView.frame = CGRect(x: CGFloat(lastAction.xCell) * cellSize, y: CGFloat(lastAction.yCell) * cellSize, width: cellSize, height: cellSize)
             
-            gamesInfoCoding.encode(game: classicSudokuGame)
+            gamesInfoCoding.encode(game: oddEvenSudokuGame)
             
             if lastAction.lastNumber != 0 {
                 filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
@@ -171,8 +184,8 @@ class SudokuClassicViewController: UIViewController {
         let cellX = Int(selectedCellView.frame.minX / cellSize)
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         
-        if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
-            gamesInfoCoding.encode(game: classicSudokuGame)
+        if oddEvenSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
+            gamesInfoCoding.encode(game: oddEvenSudokuGame)
             filledNumbersView[cellX][cellY].text = ""
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -187,9 +200,9 @@ class SudokuClassicViewController: UIViewController {
         let cellX = Int(selectedCellView.frame.minX / cellSize)
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         
-        if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
-            let number = classicSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
-            gamesInfoCoding.encode(game: classicSudokuGame)
+        if oddEvenSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
+            let number = oddEvenSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
+            gamesInfoCoding.encode(game: oddEvenSudokuGame)
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -228,8 +241,8 @@ class SudokuClassicViewController: UIViewController {
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         let value = sender.titleLabel!.text!
         
-        if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
-            gamesInfoCoding.encode(game: classicSudokuGame)
+        if oddEvenSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
+            gamesInfoCoding.encode(game: oddEvenSudokuGame)
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }

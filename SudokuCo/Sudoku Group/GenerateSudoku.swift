@@ -14,12 +14,12 @@ class GenerateSudoku {
     
     private let n = 3
     
-    init() {
+    init(openedNum: Int = 30) {
         for _ in 0...n*n {
             originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
         }
         
-        generateSudoku()
+        generateSudoku(openedNum: openedNum)
     }
     
     func getSudokuNumbers() -> [[Int]]{
@@ -30,7 +30,7 @@ class GenerateSudoku {
         return originallyOpenedNumbers
     }
     
-    private func generateSudoku() {
+    private func generateSudoku(openedNum: Int) {
         generateBaseGrid()
         
         let transformationFuncs = [transpositionGrid, swapRandomRows, swapRandomColumns, swapRandomRowAreas, swapRandomColumnAreas]
@@ -40,7 +40,7 @@ class GenerateSudoku {
             transformationFuncs[funcNum]()
         }
         
-        generateOpenedNumbers()
+        generateOpenedNumbers(openedNum: openedNum)
     }
     
     private func generateBaseGrid() {
@@ -110,10 +110,10 @@ class GenerateSudoku {
         }
     }
     
-    private func generateOpenedNumbers() {
+    private func generateOpenedNumbers(openedNum: Int) {
         var index = 0
         
-        while index != 30 {
+        while index != openedNum {
             let pointX = Int.random(in: 0..<n*n)
             let pointY = Int.random(in: 0..<n*n)
             

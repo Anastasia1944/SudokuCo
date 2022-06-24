@@ -11,7 +11,7 @@ class GameLibraryViewController: UIViewController {
     
     let gameLibraryTableView = UITableView()
     
-    var allGames = AllGames()
+    var gamesName: [String] = AllGames().games.map { $0.key }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,13 +39,15 @@ class GameLibraryViewController: UIViewController {
     }
     
     func openAddGameAlert(gameName: String) {
+        var allGames = AllGames()
+        
         let alert = UIAlertController(title: "Add \"\(gameName)\" to My Games?", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
-            self.allGames.myGames[gameName] = self.allGames.games[gameName]
-            self.allGames.saveGames()
+            allGames.myGames[gameName] = allGames.games[gameName]
+            allGames.saveGames()
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -54,19 +56,19 @@ class GameLibraryViewController: UIViewController {
 
 extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return allGames.games.count
+        return gamesName.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell") as! MyGameTableViewCell
-        var gameName = ""
-        for game in allGames.games.keys {
-            gameName = game
-            gameCell.gameButton.setTitle(gameName, for: .normal)
-        }
+        
+        let gameName = gamesName[indexPath.row]
+        
+        gameCell.gameButton.setTitle(gameName, for: .normal)
         gameCell.buttonTapCallback = {
             self.openAddGameAlert(gameName: gameName)
         }
+        
         return gameCell
     }
 }

@@ -1,13 +1,13 @@
 //
-//  ClassicSudokuGame.swift
+//  OddEvenSudokuGame.swift
 //  SudokuCo
 //
-//  Created by Анастасия Горячевская on 17.06.2022.
+//  Created by Анастасия Горячевская on 24.06.2022.
 //
 
-import UIKit
+import Foundation
 
-class ClassicSudokuGame: Codable {
+class OddEvenSudokuGame: Codable {
     private var sudokuNumbers: [[Int]] = []
     
     private var originallyOpenedNumbers: [[Int]] = []
@@ -16,7 +16,7 @@ class ClassicSudokuGame: Codable {
     private var sudokuActions: [SudokuAction] = []
     
     func generateSudoku() {
-        let generateSudoku = GenerateSudoku()
+        let generateSudoku = GenerateSudoku(openedNum: 20)
         sudokuNumbers = generateSudoku.getSudokuNumbers()
         originallyOpenedNumbers = generateSudoku.getOriginallyOpenedNumbers()
         
