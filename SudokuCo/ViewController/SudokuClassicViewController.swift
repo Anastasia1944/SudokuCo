@@ -27,6 +27,9 @@ class SudokuClassicViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        gamesInfoCoding.fileName = AllGames().games["Classic Sudoku"]!.gameInfoFile
+        gamesInfoCoding.gameName = "Classic Sudoku"
+        
         configureView()
         
         if gameMode == "Continue" {
@@ -61,14 +64,11 @@ class SudokuClassicViewController: UIViewController {
     func newGame() {
         classicSudokuGame.generateSudoku()
         
-        gamesInfoCoding.classicSudoku = classicSudokuGame
-        gamesInfoCoding.encode()
+        gamesInfoCoding.encode(game: classicSudokuGame)
     }
     
     func continueGame() {
-        gamesInfoCoding.decode()
-        
-        classicSudokuGame = gamesInfoCoding.classicSudoku
+        classicSudokuGame = gamesInfoCoding.decode() as! ClassicSudokuGame
     }
     
     func configureView() {
@@ -149,7 +149,7 @@ class SudokuClassicViewController: UIViewController {
         selectedCellView.removeFromSuperview()
         
         if let lastAction = classicSudokuGame.cancelAction() {
-            gamesInfoCoding.encode()
+            gamesInfoCoding.encode(game: classicSudokuGame)
             if lastAction.lastNumber != 0 {
                 filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
             } else {
@@ -169,7 +169,7 @@ class SudokuClassicViewController: UIViewController {
         let cellY = Int(selectedCellView.frame.minY / cellSize)
         
         if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
-            gamesInfoCoding.encode()
+            gamesInfoCoding.encode(game: classicSudokuGame)
             filledNumbersView[cellX][cellY].text = ""
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -186,7 +186,7 @@ class SudokuClassicViewController: UIViewController {
         
         if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = classicSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
-            gamesInfoCoding.encode()
+            gamesInfoCoding.encode(game: classicSudokuGame)
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -226,7 +226,7 @@ class SudokuClassicViewController: UIViewController {
         let value = sender.titleLabel!.text!
         
         if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
-            gamesInfoCoding.encode()
+            gamesInfoCoding.encode(game: classicSudokuGame)
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
