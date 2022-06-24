@@ -11,7 +11,7 @@ class MyGamesViewController: UIViewController {
     
     let myGamesTableView = UITableView()
     
-    let myGames = ["Sudoku", "Killer Sudoku"]
+    var allGames = AllGames()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +35,8 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         myGamesTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
+        myGamesTableView.allowsSelection = false
+        
         myGamesTableView.separatorStyle = .none
     }
     
@@ -56,25 +58,36 @@ class MyGamesViewController: UIViewController {
     }
     
     func transitionToGameVC(_ gameName: String, gameMode: String) {
-        let sudokuClassicVC = SudokuClassicViewController()
-        sudokuClassicVC.modalPresentationStyle = .fullScreen
-        sudokuClassicVC.gameMode = gameMode
         
-        navigationController?.pushViewController(sudokuClassicVC, animated: true)
+        switch allGames.myGames[gameName]?.nameViewController {
+        case "SudokuClassicViewController":
+            let sudokuGameVC = SudokuClassicViewController()
+            sudokuGameVC.gameMode = gameMode
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
+            
+        default: return
+        }
     }
 }
 
 extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myGames.count
+        return allGames.myGames.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! MyGameTableViewCell
-        gameCell.gameButton.setTitle(myGames[indexPath.row], for: .normal)
+        
+        var gameName = ""
+        for game in allGames.myGames.keys {
+            gameName = game
+            gameCell.gameButton.setTitle(gameName, for: .normal)
+        }
+        
         gameCell.buttonTapCallback = {
-            self.openMenuAlert(gameName: self.myGames[indexPath.row])
+            self.openMenuAlert(gameName: gameName)
         }
         return gameCell
     }

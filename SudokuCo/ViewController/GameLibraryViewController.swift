@@ -11,7 +11,7 @@ class GameLibraryViewController: UIViewController {
     
     let gameLibraryTableView = UITableView()
     
-    let allGames = AllGames()
+    var allGames = AllGames()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,7 @@ class GameLibraryViewController: UIViewController {
         view.addSubview(gameLibraryTableView)
         
         gameLibraryTableView.separatorStyle = .none
+        gameLibraryTableView.allowsSelection = false
         
         gameLibraryTableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -35,6 +36,19 @@ class GameLibraryViewController: UIViewController {
         gameLibraryTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         gameLibraryTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         gameLibraryTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+    }
+    
+    func openAddGameAlert(gameName: String) {
+        let alert = UIAlertController(title: "Add \"\(gameName)\" to My Games?", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
+            self.allGames.myGames[gameName] = self.allGames.games[gameName]
+            self.allGames.saveGames()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -45,9 +59,13 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell") as! MyGameTableViewCell
-        gameCell.gameButton.setTitle(allGames.games[indexPath.row].gameName, for: .normal)
+        var gameName = ""
+        for game in allGames.games.keys {
+            gameName = game
+            gameCell.gameButton.setTitle(gameName, for: .normal)
+        }
         gameCell.buttonTapCallback = {
-            print(self.allGames.games[indexPath.row].gameName)
+            self.openAddGameAlert(gameName: gameName)
         }
         return gameCell
     }

@@ -8,12 +8,47 @@
 import UIKit
 
 struct AllGames {
-    struct Game {
+    struct Game: Codable {
         let nameViewController: String
         let gameName: String
         let gameInfoCodable: String
         let gameInfoFile: String
     }
     
-    let games: [Game] = [Game(nameViewController: "SudokuClassicViewController", gameName: "Classic Sudoku", gameInfoCodable: "ClassicSudokuGame", gameInfoFile: "ClassicSudokuInfo.json")]
+    let games: [String: Game] = ["Classic Sudoku": Game(nameViewController: "SudokuClassicViewController", gameName: "Classic Sudoku", gameInfoCodable: "ClassicSudokuGame", gameInfoFile: "ClassicSudokuInfo.json")]
+    
+    var myGames: [String: Game] = [:]
+    let myGamesFile = "myGames.json"
+    
+    init() {
+        loadMyGames()
+    }
+    
+    mutating func loadMyGames() {
+        let decoder = JSONDecoder()
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(myGamesFile)
+            do {
+                let data = try Data(contentsOf: fileURL)
+                myGames = try decoder.decode([String: Game].self, from: data)
+            } catch {
+                print("error")
+            }
+        }
+    }
+    
+    func saveGames() {
+        let encoder = JSONEncoder()
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(myGamesFile)
+            do {
+                let jsonData = try encoder.encode(myGames)
+                try jsonData.write(to: fileURL)
+            } catch {
+                print("error")
+            }
+        }
+    }
 }
