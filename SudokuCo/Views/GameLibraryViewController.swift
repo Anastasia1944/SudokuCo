@@ -28,7 +28,7 @@ class GameLibraryViewController: UIViewController {
         view.addSubview(gameLibraryTableView)
         
         gameLibraryTableView.separatorStyle = .none
-        gameLibraryTableView.allowsSelection = false
+        gameLibraryTableView.rowHeight = 100.0
         
         gameLibraryTableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -64,11 +64,18 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         
         let gameName = gamesName[indexPath.row]
         
-        gameCell.gameButton.setTitle(gameName, for: .normal)
-        gameCell.buttonTapCallback = {
-            self.openAddGameAlert(gameName: gameName)
-        }
+        gameCell.gameLabel.text = gameName
+        gameCell.gameImageView.image = UIImage(named: AllGames().games[gameName]!.gameImageName)
         
         return gameCell
+//        gameCell.gameButton.setTitle(gameName, for: .normal)
+//        gameCell.buttonTapCallback = {
+//            self.openAddGameAlert(gameName: gameName)
+//        }
+    
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.openAddGameAlert(gameName: gamesName[indexPath.row])
     }
 }

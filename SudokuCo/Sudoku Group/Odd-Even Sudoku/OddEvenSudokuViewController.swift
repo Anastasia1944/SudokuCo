@@ -22,7 +22,7 @@ class OddEvenSudokuViewController: UIViewController {
     
     var oddEvenSudokuGame = OddEvenSudokuGame()
     
-    var gamesInfoCoding = GamesInfoCoding(file: AllGames().games["Odd-Even Sudoku"]!.gameInfoFile, gameName: "Odd-Even Sudoku")
+    var gamesInfoCoding = GamesInfoCoding(gameName: "Odd-Even Sudoku")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +109,7 @@ class OddEvenSudokuViewController: UIViewController {
         gridView.translatesAutoresizingMaskIntoConstraints = false
         gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
         gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
-        gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
     }
     

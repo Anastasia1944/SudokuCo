@@ -9,42 +9,41 @@ import UIKit
 
 class MyGameTableViewCell: UITableViewCell {
     
-    var buttonTapCallback: () -> ()  = { }
-    
-    var gameButton: UIButton = {
-        let gameButton = UIButton()
-        gameButton.backgroundColor = .gray
-        gameButton.layer.cornerRadius = 25
-        gameButton.setTitle("Game", for: .normal)
-        gameButton.setTitleColor(.white, for: .normal)
-        return gameButton
+    var gameImageView: UIImageView = {
+        let gameImageView = UIImageView()
+        gameImageView.image = UIImage(named: "GamePlug")
+        return gameImageView
     }()
     
-    let containerView:UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true
-        return view
+    var gameLabel: UILabel = {
+        let gameLabel = UILabel()
+        gameLabel.text = "Game Name"
+        gameLabel.font = UIFont.systemFont(ofSize: 20)
+        gameLabel.textAlignment = .center
+        return gameLabel
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(gameButton)
+        contentView.addSubview(gameImageView)
         
-        gameButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        gameImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        gameButton.translatesAutoresizingMaskIntoConstraints = false
-        gameButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
-        gameButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        gameButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        gameButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
-        gameButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        gameImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        gameImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        gameImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
+        gameImageView.widthAnchor.constraint(equalTo: gameImageView.heightAnchor, multiplier: 1.0/1.0).isActive = true
         
-    }
-    
-    @objc func didTapButton(){
-        buttonTapCallback()
+        
+        contentView.addSubview(gameLabel)
+        
+        gameLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        gameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20).isActive = true
+        gameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20).isActive = true
+        gameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20).isActive = true
+        gameLabel.trailingAnchor.constraint(equalTo: gameImageView.leadingAnchor, constant: -20).isActive = true
     }
     
     required init?(coder: NSCoder) {

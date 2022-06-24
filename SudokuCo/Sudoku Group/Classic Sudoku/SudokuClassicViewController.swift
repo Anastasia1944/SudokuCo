@@ -22,7 +22,7 @@ class SudokuClassicViewController: UIViewController {
     
     var classicSudokuGame = ClassicSudokuGame()
     
-    var gamesInfoCoding = GamesInfoCoding(file: AllGames().games["Classic Sudoku"]!.gameInfoFile, gameName: "Classic Sudoku")
+    var gamesInfoCoding = GamesInfoCoding(gameName: "Classic Sudoku")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,7 +96,7 @@ class SudokuClassicViewController: UIViewController {
         gridView.translatesAutoresizingMaskIntoConstraints = false
         gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
         gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
-        gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100).isActive = true
+        gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
     }
     

@@ -13,12 +13,13 @@ struct AllGames {
         let gameName: String
         let gameInfoCodable: String
         let gameInfoFile: String
+        let gameImageName: String
     }
     
     let games: [String: Game] = [
-        "Classic Sudoku": Game(nameViewController: "SudokuClassicViewController", gameName: "Classic Sudoku", gameInfoCodable: "ClassicSudokuGame", gameInfoFile: "ClassicSudokuInfo.json"),
+        "Classic Sudoku": Game(nameViewController: "SudokuClassicViewController", gameName: "Classic Sudoku", gameInfoCodable: "ClassicSudokuGame", gameInfoFile: "ClassicSudokuInfo.json", gameImageName: "Classic Sudoku"),
         
-        "Odd-Even Sudoku": Game(nameViewController: "OddEvenSudokuViewController", gameName: "Odd-Even Sudoku", gameInfoCodable: "OddEvenSudokuGame", gameInfoFile: "OddEvenInfo.json")]
+        "Odd-Even Sudoku": Game(nameViewController: "OddEvenSudokuViewController", gameName: "Odd-Even Sudoku", gameInfoCodable: "OddEvenSudokuGame", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku")]
     
     var myGames: [String: Game] = [:]
     let myGamesFile = "myGames.json"
@@ -27,7 +28,7 @@ struct AllGames {
         loadMyGames()
     }
     
-    mutating func loadMyGames() -> Bool {
+    mutating func loadMyGames() {
         let decoder = JSONDecoder()
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -35,13 +36,10 @@ struct AllGames {
             do {
                 let data = try Data(contentsOf: fileURL)
                 myGames = try decoder.decode([String: Game].self, from: data)
-                return true
             } catch {
                 print("error")
-                return false
             }
         }
-        return false
     }
     
     func saveGames() {

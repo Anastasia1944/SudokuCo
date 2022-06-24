@@ -13,9 +13,11 @@ struct GamesInfoCoding {
     
     var game: Any?
     
-    init(file: String, gameName: String) {
-        self.fileName = file
+    var isThereUnfinishedGame: Bool = false
+    
+    init(gameName: String) {
         self.gameName = gameName
+        self.fileName = AllGames().games[gameName]!.gameInfoFile
     }
     
     func encode(game: Any) {
@@ -48,8 +50,10 @@ struct GamesInfoCoding {
                 let data = try Data(contentsOf: fileURL)
                 switch gameName {
                 case "Classic Sudoku":
+                    isThereUnfinishedGame = true
                     return try decoder.decode(ClassicSudokuGame.self, from: data)
                 case "Odd-Even Sudoku":
+                    isThereUnfinishedGame = true
                     return try decoder.decode(OddEvenSudokuGame.self, from: data)
                 default: return nil
                 }

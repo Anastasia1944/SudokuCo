@@ -37,7 +37,7 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         myGamesTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-        myGamesTableView.allowsSelection = false
+        myGamesTableView.rowHeight = 100.0
         
         myGamesTableView.separatorStyle = .none
     }
@@ -45,7 +45,11 @@ class MyGamesViewController: UIViewController {
     func openMenuAlert(gameName: String) {
         let alert = UIAlertController()
         
-        if allGames.loadMyGames() == true {
+        
+        var gamesCoding = GamesInfoCoding(gameName: gameName)
+        _ = gamesCoding.decode()
+        
+        if gamesCoding.isThereUnfinishedGame {
             alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
                 self.transitionToGameVC(gameName, gameMode: "Continue")
             }))
@@ -90,11 +94,13 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let gameName = gamesName[indexPath.row]
         
-        gameCell.gameButton.setTitle(gameName, for: .normal)
-        gameCell.buttonTapCallback = {
-            self.openMenuAlert(gameName: gameName)
-        }
+        gameCell.gameLabel.text = gameName
+        gameCell.gameImageView.image = UIImage(named: allGames.games[gameName]!.gameImageName)
         
         return gameCell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.openMenuAlert(gameName: gamesName[indexPath.row])
     }
 }
