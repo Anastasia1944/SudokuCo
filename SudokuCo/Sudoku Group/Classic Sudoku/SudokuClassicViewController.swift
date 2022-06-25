@@ -14,6 +14,7 @@ class SudokuClassicViewController: UIViewController {
     let gridView = SudokuGridView()
     let sudokuPanelStackView = UIStackView()
     let numberPanelStackView = UIStackView()
+    let gameElementsStackView = UIStackView()
     
     let selectedCellView = UIView()
     var filledNumbersView: [[UILabel]] = [[]]
@@ -26,6 +27,8 @@ class SudokuClassicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.navigationBar.prefersLargeTitles = false
         
         configureView()
         
@@ -75,9 +78,23 @@ class SudokuClassicViewController: UIViewController {
     func configureView() {
         view.backgroundColor = .white
         
+        configureGameElementsStack()
         configureSudokuGrid()
         configurePanel()
         configureNumberPanel()
+    }
+    
+    func configureGameElementsStack() {
+        view.addSubview(gameElementsStackView)
+        
+        gameElementsStackView.axis = .vertical
+        gameElementsStackView.distribution = .equalSpacing
+        gameElementsStackView.spacing = 20
+        
+        gameElementsStackView.translatesAutoresizingMaskIntoConstraints = false
+        gameElementsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
+        gameElementsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
+        gameElementsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
     }
     
     func configureSudokuGrid() {
@@ -91,12 +108,9 @@ class SudokuClassicViewController: UIViewController {
         
         cellSize = gridView.getCellSize()
         
-        self.view.addSubview(gridView)
+        self.gameElementsStackView.addArrangedSubview(gridView)
         
         gridView.translatesAutoresizingMaskIntoConstraints = false
-        gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -gap).isActive = true
-        gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: gap).isActive = true
-        gridView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
     }
     
@@ -112,8 +126,7 @@ class SudokuClassicViewController: UIViewController {
     }
     
     func configurePanel() {
-        
-        view.addSubview(sudokuPanelStackView)
+        self.gameElementsStackView.addArrangedSubview(sudokuPanelStackView)
         
         sudokuPanelStackView.axis = .horizontal
         sudokuPanelStackView.distribution = .fillEqually
@@ -137,12 +150,6 @@ class SudokuClassicViewController: UIViewController {
             
             sudokuPanelStackView.addArrangedSubview(button)
         }
-        
-        sudokuPanelStackView.translatesAutoresizingMaskIntoConstraints = false
-        sudokuPanelStackView.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 30).isActive = true
-        sudokuPanelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        sudokuPanelStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        sudokuPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
     }
     
     @objc func tapPanelButtonCancel(sender: UIButton!){
@@ -196,7 +203,7 @@ class SudokuClassicViewController: UIViewController {
     }
     
     func configureNumberPanel() {
-        view.addSubview(numberPanelStackView)
+        self.gameElementsStackView.addArrangedSubview(numberPanelStackView)
         
         numberPanelStackView.axis = .horizontal
         numberPanelStackView.distribution = .fillEqually
@@ -210,12 +217,6 @@ class SudokuClassicViewController: UIViewController {
             button.addTarget(self, action: #selector(tapNumberPanelButton), for: .touchUpInside)
             numberPanelStackView.addArrangedSubview(button)
         }
-        
-        numberPanelStackView.translatesAutoresizingMaskIntoConstraints = false
-        numberPanelStackView.topAnchor.constraint(equalTo: sudokuPanelStackView.bottomAnchor, constant: 30).isActive = true
-        numberPanelStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        numberPanelStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
-        numberPanelStackView.heightAnchor.constraint(equalToConstant: CGFloat(30)).isActive = true
     }
     
     @objc func tapNumberPanelButton(sender: UIButton!){
