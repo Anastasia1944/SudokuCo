@@ -15,6 +15,7 @@
 		5D7BB4F62866179E00AA1461 /* OddEvenSudokuGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4F52866179E00AA1461 /* OddEvenSudokuGame.swift */; };
 		5D7BB4F8286617F500AA1461 /* SudokuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4F7286617F500AA1461 /* SudokuAction.swift */; };
 		5D7BB4FA2866670400AA1461 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4F92866670400AA1461 /* Extensions.swift */; };
+		5D7BB5042867AF1300AA1461 /* CompleteGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */; };
 		5DC743C12858FF3700F1C4F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743C02858FF3700F1C4F6 /* AppDelegate.swift */; };
 		5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743C22858FF3700F1C4F6 /* SceneDelegate.swift */; };
 		5DC743C52858FF3700F1C4F6 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743C42858FF3700F1C4F6 /* MainViewController.swift */; };
@@ -37,6 +38,7 @@
 		5D7BB4F52866179E00AA1461 /* OddEvenSudokuGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddEvenSudokuGame.swift; sourceTree = "<group>"; };
 		5D7BB4F7286617F500AA1461 /* SudokuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuAction.swift; sourceTree = "<group>"; };
 		5D7BB4F92866670400AA1461 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGameView.swift; sourceTree = "<group>"; };
 		5DC743BD2858FF3700F1C4F6 /* SudokuCo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SudokuCo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DC743C02858FF3700F1C4F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DC743C22858FF3700F1C4F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			children = (
 				5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */,
 				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
+				5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 				5DC743C52858FF3700F1C4F6 /* MainViewController.swift in Sources */,
 				5DC743C12858FF3700F1C4F6 /* AppDelegate.swift in Sources */,
 				5D7BB4F8286617F500AA1461 /* SudokuAction.swift in Sources */,
+				5D7BB5042867AF1300AA1461 /* CompleteGameView.swift in Sources */,
 				5D7BB4F62866179E00AA1461 /* OddEvenSudokuGame.swift in Sources */,
 				5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */,
 				5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */,

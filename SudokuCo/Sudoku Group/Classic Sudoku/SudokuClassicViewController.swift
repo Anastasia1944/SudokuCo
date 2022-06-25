@@ -25,6 +25,8 @@ class SudokuClassicViewController: UIViewController {
     
     var gamesInfoCoding = GamesInfoCoding(gameName: "Classic Sudoku")
     
+    let completeGameView = CompleteGameView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +41,37 @@ class SudokuClassicViewController: UIViewController {
         }
         
         fillCells()
+        
+        configureCompleteGameView()
+        
+        completeGameView.userAnswer = { buttonAnswer in
+            switch buttonAnswer {
+            case "Main Menu": self.quitToMainMenu()
+            case "Start Over": self.startOver()
+            case "Continue": self.continueGameAfterLose()
+            default: return
+            }
+        }
+    }
+    
+    func quitToMainMenu() {
+        print("Main Menu")
+    }
+    
+    func startOver() {
+        print("Start Over")
+    }
+    
+    func continueGameAfterLose() {
+        print("Continue")
+    }
+    
+    func configureCompleteGameView() {
+        completeGameView.translatesAutoresizingMaskIntoConstraints = false
+        completeGameView.backgroundColor = UIColor.graySys.withAlphaComponent(0.9)
+        
+        completeGameView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height).isActive = true
+        completeGameView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
     }
     
     func fillCells() {
@@ -200,6 +233,15 @@ class SudokuClassicViewController: UIViewController {
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
+        
+        if classicSudokuGame.checkIfAllCellsFilled() {
+            view.addSubview(completeGameView)
+            if classicSudokuGame.checkIfAllCellsRight() {
+                completeGameView.configureView(isWinning: true)
+            } else {
+                completeGameView.configureView(isWinning: false)
+            }
+        }
     }
     
     func configureNumberPanel() {
@@ -233,6 +275,15 @@ class SudokuClassicViewController: UIViewController {
             gamesInfoCoding.encode(game: classicSudokuGame)
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
+        }
+        
+        if classicSudokuGame.checkIfAllCellsFilled() {
+            view.addSubview(completeGameView)
+            if classicSudokuGame.checkIfAllCellsRight() {
+                completeGameView.configureView(isWinning: true)
+            } else {
+                completeGameView.configureView(isWinning: false)
+            }
         }
     }
 }

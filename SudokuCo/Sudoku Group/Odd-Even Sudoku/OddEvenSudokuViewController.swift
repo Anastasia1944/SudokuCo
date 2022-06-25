@@ -25,6 +25,8 @@ class OddEvenSudokuViewController: UIViewController {
     
     var gamesInfoCoding = GamesInfoCoding(gameName: "Odd-Even Sudoku")
     
+    let completeGameView = CompleteGameView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +41,37 @@ class OddEvenSudokuViewController: UIViewController {
         }
         
         fillCells()
+        
+        configureCompleteGameView()
+        
+        completeGameView.userAnswer = { buttonAnswer in
+            switch buttonAnswer {
+            case "Main Menu": self.quitToMainMenu()
+            case "Start Over": self.startOver()
+            case "Continue": self.continueGameAfterLose()
+            default: return
+            }
+        }
+    }
+    
+    func quitToMainMenu() {
+        print("Main Menu")
+    }
+    
+    func startOver() {
+        print("Start Over")
+    }
+    
+    func continueGameAfterLose() {
+        print("Continue")
+    }
+    
+    func configureCompleteGameView() {
+        completeGameView.translatesAutoresizingMaskIntoConstraints = false
+        completeGameView.backgroundColor = UIColor.graySys.withAlphaComponent(0.9)
+        
+        completeGameView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height).isActive = true
+        completeGameView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
     }
     
     func newGame() {
@@ -214,6 +247,15 @@ class OddEvenSudokuViewController: UIViewController {
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
+        
+        if oddEvenSudokuGame.checkIfAllCellsFilled() {
+            view.addSubview(completeGameView)
+            if oddEvenSudokuGame.checkIfAllCellsRight() {
+                completeGameView.configureView(isWinning: true)
+            } else {
+                completeGameView.configureView(isWinning: false)
+            }
+        }
     }
     
     func configureNumberPanel() {
@@ -247,6 +289,15 @@ class OddEvenSudokuViewController: UIViewController {
             gamesInfoCoding.encode(game: oddEvenSudokuGame)
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
+        }
+        
+        if oddEvenSudokuGame.checkIfAllCellsFilled() {
+            view.addSubview(completeGameView)
+            if oddEvenSudokuGame.checkIfAllCellsRight() {
+                completeGameView.configureView(isWinning: true)
+            } else {
+                completeGameView.configureView(isWinning: false)
+            }
         }
     }
 }

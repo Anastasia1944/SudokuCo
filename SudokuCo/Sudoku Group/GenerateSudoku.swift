@@ -15,7 +15,7 @@ class GenerateSudoku {
     private let n = 3
     
     init(openedNum: Int = 30) {
-        for _ in 0...n*n {
+        for _ in 0..<n*n {
             originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
         }
         

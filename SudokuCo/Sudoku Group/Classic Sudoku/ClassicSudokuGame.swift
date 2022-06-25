@@ -23,6 +23,24 @@ class ClassicSudokuGame: Codable {
         openedNumbers = originallyOpenedNumbers
     }
     
+    func checkIfAllCellsFilled() -> Bool {
+        var i = 0
+        while i <= 8 {
+            if openedNumbers[i].contains(0) {
+                return false
+            }
+            i += 1
+        }
+        return true
+    }
+    
+    func checkIfAllCellsRight() -> Bool {
+        if openedNumbers == sudokuNumbers {
+            return true
+        }
+        return false
+    }
+    
     func cancelAction() -> SudokuAction? {
         
         guard let lastAction = sudokuActions.popLast() else { return nil }
