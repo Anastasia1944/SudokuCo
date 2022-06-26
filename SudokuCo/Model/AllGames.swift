@@ -55,4 +55,9 @@ struct AllGames {
             }
         }
     }
+    
+    mutating func deleteMyGame(gameName: String) {
+        myGames[gameName] = nil
+        saveGames()
+    }
 }

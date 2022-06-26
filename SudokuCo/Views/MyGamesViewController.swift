@@ -24,6 +24,32 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
         
         setTableSettings()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        myGamesTableView.addGestureRecognizer(longPress)
+    }
+    
+    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: myGamesTableView)
+            if let indexPath = myGamesTableView.indexPathForRow(at: touchPoint) {
+                let gameName = gamesName[indexPath.row]
+                openDeleteAlert(gameName: gameName)
+            }
+        }
+    }
+    
+    func openDeleteAlert(gameName: String) {
+        let alert = UIAlertController(title: "Delete \"\(gameName)\" from My Games?", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            self.allGames.deleteMyGame(gameName: gameName)
+            self.updateGamesList()
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func setTableSettings() {

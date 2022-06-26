@@ -68,11 +68,6 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         gameCell.gameImageView.image = UIImage(named: AllGames().games[gameName]!.gameImageName)
         
         return gameCell
-//        gameCell.gameButton.setTitle(gameName, for: .normal)
-//        gameCell.buttonTapCallback = {
-//            self.openAddGameAlert(gameName: gameName)
-//        }
-    
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
