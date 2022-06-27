@@ -40,11 +40,11 @@ class MainViewController: UITabBarController {
         gameLibraryNavVC.title = "Game Library"
         settingsVC.title = "Settings"
         
-        self.setViewControllers([myGamesNavVC, gameLibraryNavVC, settingsVC], animated: false)
+        self.setViewControllers([myGamesNavVC, gameLibraryNavVC/*, settingsVC*/], animated: false)
         
         guard let items = self.tabBar.items else { return }
         
-        for i in 0...2 {
+        for i in 0..<2 {
             items[i].image = UIImage(systemName: itemsImages[i])
             items[i].badgeColor = .blueSys
         }
