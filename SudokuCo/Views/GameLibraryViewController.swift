@@ -22,6 +22,19 @@ class GameLibraryViewController: UIViewController {
         gameLibraryTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
         
         tableSettings()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        gameLibraryTableView.addGestureRecognizer(longPress)
+    }
+    
+    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: gameLibraryTableView)
+            if let indexPath = gameLibraryTableView.indexPathForRow(at: touchPoint) {
+                let gameName = gamesName[indexPath.row]
+                openAddGameAlert(gameName: gameName)
+            }
+        }
     }
     
     func tableSettings() {
@@ -52,6 +65,23 @@ class GameLibraryViewController: UIViewController {
         
         self.present(alert, animated: true, completion: nil)
     }
+    
+    func transitipnToGameVC(gameName: String) {
+        
+        switch AllGames().games[gameName]?.nameViewController {
+        case "SudokuClassicViewController":
+            let sudokuGameVC = SudokuClassicViewController()
+            sudokuGameVC.isSaving = false
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
+        case "OddEvenSudokuViewController":
+            let sudokuGameVC = OddEvenSudokuViewController()
+            sudokuGameVC.isSaving = false
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
+        default: return
+        }
+    }
 }
 
 extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource {
@@ -71,6 +101,6 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.openAddGameAlert(gameName: gamesName[indexPath.row])
+        self.transitipnToGameVC(gameName: gamesName[indexPath.row])
     }
 }

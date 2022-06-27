@@ -9,7 +9,8 @@ import UIKit
 
 class SudokuClassicViewController: UIViewController {
     
-    var gameMode: String?
+    var gameMode: String = "New Game"
+    var isSaving: Bool = true
     
     let gridView = SudokuGridView()
     let sudokuPanelStackView = UIStackView()
@@ -29,8 +30,6 @@ class SudokuClassicViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.prefersLargeTitles = false
         
         configureView()
         
@@ -75,7 +74,10 @@ class SudokuClassicViewController: UIViewController {
                 }
             }
         }
-        gamesInfoCoding.encode(game: classicSudokuGame)
+        
+        if isSaving {
+            gamesInfoCoding.encode(game: classicSudokuGame)
+        }
         
         completeGameView.removeFromSuperview()
     }
@@ -119,7 +121,9 @@ class SudokuClassicViewController: UIViewController {
     func newGame() {
         classicSudokuGame.generateSudoku()
         
-        gamesInfoCoding.encode(game: classicSudokuGame)
+        if isSaving {
+            gamesInfoCoding.encode(game: classicSudokuGame)
+        }
     }
     
     func continueGame() {
@@ -208,7 +212,9 @@ class SudokuClassicViewController: UIViewController {
             
             selectedCellView.frame = CGRect(x: CGFloat(lastAction.xCell) * cellSize, y: CGFloat(lastAction.yCell) * cellSize, width: cellSize, height: cellSize)
             
-            gamesInfoCoding.encode(game: classicSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: classicSudokuGame)
+            }
             
             if lastAction.lastNumber != 0 {
                 filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
@@ -228,7 +234,9 @@ class SudokuClassicViewController: UIViewController {
         let (cellX, cellY) = getCellsByCoordinates()
         
         if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
-            gamesInfoCoding.encode(game: classicSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: classicSudokuGame)
+            }
             filledNumbersView[cellX][cellY].text = ""
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -244,7 +252,9 @@ class SudokuClassicViewController: UIViewController {
         
         if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = classicSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
-            gamesInfoCoding.encode(game: classicSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: classicSudokuGame)
+            }
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -280,7 +290,9 @@ class SudokuClassicViewController: UIViewController {
         let value = sender.titleLabel!.text!
         
         if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
-            gamesInfoCoding.encode(game: classicSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: classicSudokuGame)
+            }
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }

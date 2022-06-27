@@ -9,7 +9,8 @@ import UIKit
 
 class OddEvenSudokuViewController: UIViewController {
     
-    var gameMode: String?
+    var gameMode: String = "New Game"
+    var isSaving: Bool = true
     
     let gridView = SudokuGridView()
     let sudokuPanelStackView = UIStackView()
@@ -29,8 +30,6 @@ class OddEvenSudokuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationController?.navigationBar.prefersLargeTitles = false
         
         configureView()
         
@@ -72,7 +71,10 @@ class OddEvenSudokuViewController: UIViewController {
                 }
             }
         }
-        gamesInfoCoding.encode(game: oddEvenSudokuGame)
+        
+        if isSaving {
+            gamesInfoCoding.encode(game: oddEvenSudokuGame)
+        }
         
         completeGameView.removeFromSuperview()
     }
@@ -92,7 +94,9 @@ class OddEvenSudokuViewController: UIViewController {
     func newGame() {
         oddEvenSudokuGame.generateSudoku()
         
-        gamesInfoCoding.encode(game: oddEvenSudokuGame)
+        if isSaving {
+            gamesInfoCoding.encode(game: oddEvenSudokuGame)
+        }
     }
     
     func continueGame() {
@@ -220,7 +224,9 @@ class OddEvenSudokuViewController: UIViewController {
             
             selectedCellView.frame = CGRect(x: CGFloat(lastAction.xCell) * cellSize, y: CGFloat(lastAction.yCell) * cellSize, width: cellSize, height: cellSize)
             
-            gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            }
             
             if lastAction.lastNumber != 0 {
                 filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
@@ -240,7 +246,9 @@ class OddEvenSudokuViewController: UIViewController {
         let (cellX, cellY) = getCellsByCoordinates()
         
         if oddEvenSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
-            gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            }
             filledNumbersView[cellX][cellY].text = ""
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -256,7 +264,9 @@ class OddEvenSudokuViewController: UIViewController {
         
         if oddEvenSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = oddEvenSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
-            gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            }
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
@@ -292,7 +302,9 @@ class OddEvenSudokuViewController: UIViewController {
         let value = sender.titleLabel!.text!
         
         if oddEvenSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
-            gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            if isSaving {
+                gamesInfoCoding.encode(game: oddEvenSudokuGame)
+            }
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
