@@ -52,18 +52,33 @@ class SudokuClassicViewController: UIViewController {
             default: return
             }
         }
+        
+        ifAllCellsFilledDisplayCompletionView()
     }
     
     func quitToMainMenu() {
-        print("Main Menu")
+        navigationController?.popViewController(animated: true)
     }
     
     func startOver() {
-        print("Start Over")
+        let originallyOpenedNumbers = classicSudokuGame.getSudokuOriginallyOpenedNumbers()
+        
+        for i in 0...8 {
+            for j in 0...8 {
+                if originallyOpenedNumbers[i][j] == 0 {
+                    _ = classicSudokuGame.fillCell(x: i, y: j, value: 0)
+                    filledNumbersView[i][j].text = ""
+                    gridView.addSubview(filledNumbersView[i][j])
+                }
+            }
+        }
+        gamesInfoCoding.encode(game: classicSudokuGame)
+        
+        completeGameView.removeFromSuperview()
     }
     
     func continueGameAfterLose() {
-        print("Continue")
+        completeGameView.removeFromSuperview()
     }
     
     func configureCompleteGameView() {

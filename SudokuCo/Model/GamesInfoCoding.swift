@@ -11,8 +11,6 @@ struct GamesInfoCoding {
     var fileName = ""
     var gameName = ""
     
-    var game: Any?
-    
     var isThereUnfinishedGame: Bool = false
     
     init(gameName: String) {

@@ -80,6 +80,7 @@ class CompleteGameView: UIView {
     }
     
     func configureWinView() {
+        continueButton.removeFromSuperview()
         textLabel.text = "You Win!"
         elementsStackView.addArrangedSubview(mainMenuButton)
         elementsStackView.addArrangedSubview(startOverButton)
