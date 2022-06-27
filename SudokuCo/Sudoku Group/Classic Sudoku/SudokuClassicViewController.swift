@@ -208,8 +208,8 @@ class SudokuClassicViewController: UIViewController {
             return
         }
         
-        let cellX = Int(selectedCellView.frame.minX / cellSize)
-        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
+        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
         
         if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
             gamesInfoCoding.encode(game: classicSudokuGame)
@@ -224,8 +224,8 @@ class SudokuClassicViewController: UIViewController {
             return
         }
         
-        let cellX = Int(selectedCellView.frame.minX / cellSize)
-        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
+        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
         
         if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = classicSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
@@ -267,8 +267,8 @@ class SudokuClassicViewController: UIViewController {
             return
         }
         
-        let cellX = Int(selectedCellView.frame.minX / cellSize)
-        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
+        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
         let value = sender.titleLabel!.text!
         
         if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {

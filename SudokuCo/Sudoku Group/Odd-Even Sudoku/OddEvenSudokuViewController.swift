@@ -222,8 +222,8 @@ class OddEvenSudokuViewController: UIViewController {
             return
         }
         
-        let cellX = Int(selectedCellView.frame.minX / cellSize)
-        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
+        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
         
         if oddEvenSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
             gamesInfoCoding.encode(game: oddEvenSudokuGame)
@@ -238,8 +238,8 @@ class OddEvenSudokuViewController: UIViewController {
             return
         }
         
-        let cellX = Int(selectedCellView.frame.minX / cellSize)
-        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
+        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
         
         if oddEvenSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = oddEvenSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
@@ -281,8 +281,8 @@ class OddEvenSudokuViewController: UIViewController {
             return
         }
         
-        let cellX = Int(selectedCellView.frame.minX / cellSize)
-        let cellY = Int(selectedCellView.frame.minY / cellSize)
+        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
+        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
         let value = sender.titleLabel!.text!
         
         if oddEvenSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
