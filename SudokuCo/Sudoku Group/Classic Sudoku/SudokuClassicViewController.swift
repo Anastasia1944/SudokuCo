@@ -180,7 +180,6 @@ class SudokuClassicViewController: UIViewController {
             default:
                 return
             }
-            
             sudokuPanelStackView.addArrangedSubview(button)
         }
     }
@@ -208,8 +207,7 @@ class SudokuClassicViewController: UIViewController {
             return
         }
         
-        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
-        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
+        let (cellX, cellY) = getCellsByCoordinates()
         
         if classicSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
             gamesInfoCoding.encode(game: classicSudokuGame)
@@ -224,8 +222,7 @@ class SudokuClassicViewController: UIViewController {
             return
         }
         
-        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
-        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
+        let (cellX, cellY) = getCellsByCoordinates()
         
         if classicSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = classicSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
@@ -234,14 +231,7 @@ class SudokuClassicViewController: UIViewController {
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
         
-        if classicSudokuGame.checkIfAllCellsFilled() {
-            view.addSubview(completeGameView)
-            if classicSudokuGame.checkIfAllCellsRight() {
-                completeGameView.configureView(isWinning: true)
-            } else {
-                completeGameView.configureView(isWinning: false)
-            }
-        }
+        ifAllCellsFilledDisplayCompletionView()
     }
     
     func configureNumberPanel() {
@@ -267,8 +257,8 @@ class SudokuClassicViewController: UIViewController {
             return
         }
         
-        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
-        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
+        let (cellX, cellY) = getCellsByCoordinates()
+        
         let value = sender.titleLabel!.text!
         
         if classicSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
@@ -277,6 +267,10 @@ class SudokuClassicViewController: UIViewController {
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
         
+        ifAllCellsFilledDisplayCompletionView()
+    }
+    
+    func ifAllCellsFilledDisplayCompletionView() {
         if classicSudokuGame.checkIfAllCellsFilled() {
             view.addSubview(completeGameView)
             if classicSudokuGame.checkIfAllCellsRight() {
@@ -285,5 +279,11 @@ class SudokuClassicViewController: UIViewController {
                 completeGameView.configureView(isWinning: false)
             }
         }
+    }
+    
+    func getCellsByCoordinates() -> (x: Int, y: Int) {
+        let x = Int(floor(selectedCellView.frame.midX / cellSize))
+        let y = Int(floor(selectedCellView.frame.midY / cellSize))
+        return (x, y)
     }
 }

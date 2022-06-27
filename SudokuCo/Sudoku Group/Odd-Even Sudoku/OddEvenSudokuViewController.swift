@@ -222,8 +222,7 @@ class OddEvenSudokuViewController: UIViewController {
             return
         }
         
-        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
-        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
+        let (cellX, cellY) = getCellsByCoordinates()
         
         if oddEvenSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
             gamesInfoCoding.encode(game: oddEvenSudokuGame)
@@ -238,8 +237,7 @@ class OddEvenSudokuViewController: UIViewController {
             return
         }
         
-        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
-        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
+        let (cellX, cellY) = getCellsByCoordinates()
         
         if oddEvenSudokuGame.isNumberOpened(x: cellX, y: cellY) == false {
             let number = oddEvenSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
@@ -248,14 +246,7 @@ class OddEvenSudokuViewController: UIViewController {
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
         
-        if oddEvenSudokuGame.checkIfAllCellsFilled() {
-            view.addSubview(completeGameView)
-            if oddEvenSudokuGame.checkIfAllCellsRight() {
-                completeGameView.configureView(isWinning: true)
-            } else {
-                completeGameView.configureView(isWinning: false)
-            }
-        }
+        ifAllCellsFilledDisplayCompletionView()
     }
     
     func configureNumberPanel() {
@@ -281,8 +272,8 @@ class OddEvenSudokuViewController: UIViewController {
             return
         }
         
-        let cellX = Int(floor(selectedCellView.frame.midX / cellSize))
-        let cellY = Int(floor(selectedCellView.frame.midY / cellSize))
+        let (cellX, cellY) = getCellsByCoordinates()
+        
         let value = sender.titleLabel!.text!
         
         if oddEvenSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
@@ -291,6 +282,10 @@ class OddEvenSudokuViewController: UIViewController {
             gridView.addSubview(filledNumbersView[cellX][cellY])
         }
         
+        ifAllCellsFilledDisplayCompletionView()
+    }
+    
+    func ifAllCellsFilledDisplayCompletionView() {
         if oddEvenSudokuGame.checkIfAllCellsFilled() {
             view.addSubview(completeGameView)
             if oddEvenSudokuGame.checkIfAllCellsRight() {
@@ -299,5 +294,11 @@ class OddEvenSudokuViewController: UIViewController {
                 completeGameView.configureView(isWinning: false)
             }
         }
+    }
+    
+    func getCellsByCoordinates() -> (x: Int, y: Int) {
+        let x = Int(floor(selectedCellView.frame.midX / cellSize))
+        let y = Int(floor(selectedCellView.frame.midY / cellSize))
+        return (x, y)
     }
 }
