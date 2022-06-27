@@ -61,4 +61,18 @@ struct GamesInfoCoding {
         }
         return nil
     }
+    
+    func deleteGameInfo() {
+        
+        let fileManager = FileManager.default
+        
+        if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = dir.appendingPathComponent(fileName)
+            do {
+                try fileManager.removeItem(at: fileURL)
+            } catch {
+                print("delete error")
+            }
+        }
+    }
 }

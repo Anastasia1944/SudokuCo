@@ -57,6 +57,9 @@ class SudokuClassicViewController: UIViewController {
     }
     
     func quitToMainMenu() {
+        
+        gamesInfoCoding.deleteGameInfo()
+        
         navigationController?.popViewController(animated: true)
     }
     

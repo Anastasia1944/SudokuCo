@@ -45,6 +45,10 @@ class MyGamesViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            
+            let gameInfoCoding = GamesInfoCoding(gameName: gameName)
+            gameInfoCoding.deleteGameInfo()
+            
             self.allGames.deleteMyGame(gameName: gameName)
             self.updateGamesList()
         }))
