@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FrameSudokuGame {
+class FrameSudokuGame: Codable {
     private var sudokuNumbers: [[Int]] = []
     
     private var openedNumbers: [[Int]] = []
