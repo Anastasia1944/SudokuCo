@@ -14,6 +14,12 @@ class GenerateSudoku {
     
     private let n = 3
     
+    func printNumbers() {
+        for i in 0...8 {
+            print(sudokuNumbers[i])
+        }
+    }
+    
     init(openedNum: Int = 30) {
         for _ in 0..<n*n {
             originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
@@ -33,11 +39,16 @@ class GenerateSudoku {
     private func generateSudoku(openedNum: Int) {
         generateBaseGrid()
         
-        let transformationFuncs = [transpositionGrid, swapRandomRows, swapRandomColumns, swapRandomRowAreas, swapRandomColumnAreas]
+        printNumbers()
+        
+        let transformationFuncs = [transpositionGrid, swapRandomRows, swapRandomColumns, swapRandomRowAreas, swapRandomColumnAreas, changeTwoRandomNumber]
         
         for _ in 0...50 {
             let funcNum = Int.random(in: 0..<transformationFuncs.count)
+            print("-----------------------------------")
+            print(funcNum)
             transformationFuncs[funcNum]()
+            printNumbers()
         }
         
         generateOpenedNumbers(openedNum: openedNum)
@@ -120,6 +131,27 @@ class GenerateSudoku {
             if originallyOpenedNumbers[pointX][pointY] == 0 {
                 originallyOpenedNumbers[pointX][pointY] = sudokuNumbers[pointX][pointY]
                 index += 1
+            }
+        }
+    }
+    
+    private func changeTwoRandomNumber() {
+        var firstNumber = 0
+        var secondNumber = 0
+        while firstNumber == secondNumber {
+            firstNumber = Int.random(in: 1...n*n)
+            secondNumber = Int.random(in: 1...n*n)
+        }
+        
+        print(firstNumber, secondNumber)
+        
+        for i in 0...8 {
+            for j in 0...8 {
+                if sudokuNumbers[i][j] == firstNumber {
+                    sudokuNumbers[i][j] = secondNumber
+                } else if sudokuNumbers[i][j] == secondNumber {
+                    sudokuNumbers[i][j] = firstNumber
+                }
             }
         }
     }

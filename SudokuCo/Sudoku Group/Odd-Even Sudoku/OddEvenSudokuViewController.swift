@@ -164,7 +164,7 @@ class OddEvenSudokuViewController: UIViewController {
     
     func configureSudokuGrid() {
         
-        cellSize = UIScreen.main.bounds.width - 20
+        cellSize = (UIScreen.main.bounds.width - 20) / 9
         let gridWidth = cellSize * 9
         gridView.formView(width: gridWidth)
         

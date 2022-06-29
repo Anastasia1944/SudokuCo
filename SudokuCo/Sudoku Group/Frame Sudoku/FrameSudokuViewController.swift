@@ -20,6 +20,8 @@ class FrameSudokuViewController: UIViewController {
     let selectedCellView = UIView()
     var filledNumbersView: [[UILabel]] = [[]]
     
+    var surroundingNumbersLabels: [[UILabel]] = []
+    
     var cellSize = CGFloat(0)
     
     var frameSudokuGame = FrameSudokuGame()
@@ -31,7 +33,25 @@ class FrameSudokuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if gameMode == "Continue" {
+            continueGame()
+        } else {
+            newGame()
+        }
+        
         configureView()
+    }
+    
+    func newGame() {
+        frameSudokuGame.generateSudoku()
+        
+        if isSaving {
+            gamesInfoCoding.encode(game: frameSudokuGame)
+        }
+    }
+    
+    func continueGame() {
+        frameSudokuGame = gamesInfoCoding.decode() as! FrameSudokuGame
     }
     
     func configureView() {
@@ -76,6 +96,8 @@ class FrameSudokuViewController: UIViewController {
         self.gridView.addGestureRecognizer(gesture)
         
         framingGridView.addSubview(gridView)
+        
+        configureSurroundingNumbersOfGrid()
     }
     
     @objc func checkAction(sender : UITapGestureRecognizer) {
@@ -87,6 +109,55 @@ class FrameSudokuViewController: UIViewController {
         
         selectedCellView.frame = CGRect(x: floor(touchX/cellSize) * cellSize, y: floor(touchY/cellSize) * cellSize, width: cellSize, height: cellSize)
         selectedCellView.backgroundColor = .lightGray
+    }
+    
+    func configureSurroundingNumbersOfGrid() {
+        let sudokuNumbers = frameSudokuGame.getSudokuNumbers()
+        surroundingNumbersLabels = [[], [], [], []]
+        
+        for i in 0...8 {
+            let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: -cellSize, width: cellSize, height: cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 24)
+            label.textColor = .blackSys
+            label.text = String(sudokuNumbers[0][i] + sudokuNumbers[1][i] + sudokuNumbers[2][i])
+            
+            surroundingNumbersLabels[0].append(label)
+            gridView.addSubview(label)
+        }
+        
+        for i in 0...8 {
+            let label = UILabel(frame: CGRect(x: cellSize * 9, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 24)
+            label.textColor = .blackSys
+            label.text = String(sudokuNumbers[i][6] + sudokuNumbers[i][7] + sudokuNumbers[i][8])
+            
+            surroundingNumbersLabels[1].append(label)
+            gridView.addSubview(label)
+        }
+        
+        for i in 0...8 {
+            let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: cellSize * 9, width: cellSize, height: cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 24)
+            label.textColor = .blackSys
+            label.text = String(sudokuNumbers[6][i] + sudokuNumbers[7][i] + sudokuNumbers[8][i])
+            
+            surroundingNumbersLabels[1].append(label)
+            gridView.addSubview(label)
+        }
+        
+        for i in 0...8 {
+            let label = UILabel(frame: CGRect(x: -cellSize, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 24)
+            label.textColor = .blackSys
+            label.text = String(sudokuNumbers[i][0] + sudokuNumbers[i][1] + sudokuNumbers[i][2])
+            
+            surroundingNumbersLabels[1].append(label)
+            gridView.addSubview(label)
+        }
     }
     
     func configurePanel() {
