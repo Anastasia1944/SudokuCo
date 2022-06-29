@@ -22,12 +22,12 @@ class FrameSudokuViewController: UIViewController {
     
     var cellSize = CGFloat(0)
     
-    var classicSudokuGame = FrameSudokuGame()
+    var frameSudokuGame = FrameSudokuGame()
     
     var gamesInfoCoding = GamesInfoCoding(gameName: "Frame Sudoku")
     
     let completeGameView = CompleteGameView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,8 +47,7 @@ class FrameSudokuViewController: UIViewController {
         view.addSubview(gameElementsStackView)
         
         gameElementsStackView.axis = .vertical
-        gameElementsStackView.distribution = .fillProportionally
-        gameElementsStackView.alignment = .center
+        gameElementsStackView.distribution = .equalSpacing
         gameElementsStackView.spacing = 20
         
         gameElementsStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,19 +58,24 @@ class FrameSudokuViewController: UIViewController {
     
     func configureSudokuGrid() {
         
-        let gap = CGFloat(40)
-        gridView.setGap(gap)
-        gridView.formView()
+        cellSize = (UIScreen.main.bounds.width - 20) / 11
+        let gridWidth = cellSize * 9
+        
+        let framingGridView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.width - 20))
+        self.gameElementsStackView.addArrangedSubview(framingGridView)
+        
+        framingGridView.translatesAutoresizingMaskIntoConstraints = false
+        framingGridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
+        
+        
+        gridView.formView(width: gridWidth)
+        gridView.frame.size = CGSize(width: gridWidth, height: gridWidth)
+        gridView.center = framingGridView.center
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.gridView.addGestureRecognizer(gesture)
         
-        cellSize = gridView.getCellSize()
-        
-        self.gameElementsStackView.addArrangedSubview(gridView)
-        
-        gridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 2 * gap).isActive = true
-        gridView.widthAnchor.constraint(equalToConstant:UIScreen.main.bounds.width - 2 * gap).isActive = true
+        framingGridView.addSubview(gridView)
     }
     
     @objc func checkAction(sender : UITapGestureRecognizer) {
@@ -109,8 +113,6 @@ class FrameSudokuViewController: UIViewController {
             }
             sudokuPanelStackView.addArrangedSubview(button)
         }
-        
-        sudokuPanelStackView.leadingAnchor.constraint(equalTo: gameElementsStackView.leadingAnchor).isActive = true
     }
     
     @objc func tapPanelButtonCancel(sender: UIButton!) {
@@ -140,8 +142,6 @@ class FrameSudokuViewController: UIViewController {
             button.addTarget(self, action: #selector(tapNumberPanelButton), for: .touchUpInside)
             numberPanelStackView.addArrangedSubview(button)
         }
-        
-        numberPanelStackView.leadingAnchor.constraint(equalTo: gameElementsStackView.leadingAnchor).isActive = true
     }
     
     @objc func tapNumberPanelButton(sender: UIButton!){

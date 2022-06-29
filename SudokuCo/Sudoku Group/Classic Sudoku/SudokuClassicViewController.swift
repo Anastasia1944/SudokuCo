@@ -154,9 +154,9 @@ class SudokuClassicViewController: UIViewController {
     
     func configureSudokuGrid() {
         
-        let gap = CGFloat(10)
-        gridView.setGap(gap)
-        gridView.formView()
+        cellSize = UIScreen.main.bounds.width - 20
+        let gridWidth = cellSize * 9
+        gridView.formView(width: gridWidth)
         
         let gesture = UITapGestureRecognizer(target: self, action:  #selector(self.checkAction))
         self.gridView.addGestureRecognizer(gesture)

@@ -12,21 +12,16 @@ class SudokuGridView: UIView {
     private let frameWidth = UIScreen.main.bounds.width
     
     private var sudokuWidth = CGFloat(0)
-    private var gap = CGFloat(0)
     private var oneSquareSide = CGFloat(0)
     
-    func formView() {
-        sudokuWidth = frameWidth - 2 * gap
+    func formView(width: CGFloat) {
+        sudokuWidth = width
         oneSquareSide = CGFloat(sudokuWidth / 9)
         self.drawLines()
     }
     
     func getCellSize() -> CGFloat {
         return oneSquareSide
-    }
-    
-    func setGap(_ gap: CGFloat) {
-        self.gap = gap
     }
     
     private func drawLines() {
