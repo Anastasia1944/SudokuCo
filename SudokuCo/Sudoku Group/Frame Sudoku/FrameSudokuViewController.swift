@@ -118,7 +118,7 @@ class FrameSudokuViewController: UIViewController {
         for i in 0...8 {
             let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: -cellSize, width: cellSize, height: cellSize))
             label.textAlignment = .center
-            label.font = .systemFont(ofSize: 24)
+            label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
             label.text = String(sudokuNumbers[0][i] + sudokuNumbers[1][i] + sudokuNumbers[2][i])
             
@@ -129,7 +129,7 @@ class FrameSudokuViewController: UIViewController {
         for i in 0...8 {
             let label = UILabel(frame: CGRect(x: cellSize * 9, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
             label.textAlignment = .center
-            label.font = .systemFont(ofSize: 24)
+            label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
             label.text = String(sudokuNumbers[i][6] + sudokuNumbers[i][7] + sudokuNumbers[i][8])
             
@@ -140,7 +140,7 @@ class FrameSudokuViewController: UIViewController {
         for i in 0...8 {
             let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: cellSize * 9, width: cellSize, height: cellSize))
             label.textAlignment = .center
-            label.font = .systemFont(ofSize: 24)
+            label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
             label.text = String(sudokuNumbers[6][i] + sudokuNumbers[7][i] + sudokuNumbers[8][i])
             
@@ -151,7 +151,7 @@ class FrameSudokuViewController: UIViewController {
         for i in 0...8 {
             let label = UILabel(frame: CGRect(x: -cellSize, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
             label.textAlignment = .center
-            label.font = .systemFont(ofSize: 24)
+            label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
             label.text = String(sudokuNumbers[i][0] + sudokuNumbers[i][1] + sudokuNumbers[i][2])
             

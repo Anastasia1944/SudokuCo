@@ -14,18 +14,116 @@ class GenerateSudoku {
     
     private let n = 3
     
-    func printNumbers() {
-        for i in 0...8 {
-            print(sudokuNumbers[i])
-        }
-    }
+    private var openedNumbersCount: Int = 0
     
     init(openedNum: Int = 30) {
         for _ in 0..<n*n {
             originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
+            sudokuNumbers.append([Int](repeating: 0, count: n*n))
         }
         
-        generateSudoku(openedNum: openedNum)
+        self.openedNumbersCount = openedNum
+        
+        generateSudoku()
+    }
+    
+    func generateSudoku() {
+        
+        generateBasic()
+        
+        _ = fillRemainingCells(x: 3, y: 0)
+        
+        generateOpenedNumbers()
+    }
+    
+    func generateBasic() {
+        
+        for k in 0...2 {
+            var nums = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+            for i in k * 3..<(k + 1) * 3 {
+                for j in k * 3..<(k + 1) * 3 {
+                    nums.shuffle()
+                    sudokuNumbers[i][j] = nums.removeLast()
+                }
+            }
+        }
+    }
+    
+    func fillRemainingCells(x: Int, y: Int) -> Bool {
+        
+        var i = x
+        var j = y
+        
+        for num in 1...9 {
+            if isCellSafeForNum(i: i, j: j, num: num) {
+                sudokuNumbers[i][j] = num
+                
+                i += 1
+                
+                if i >= n*n {
+                    i = 0
+                    j += 1
+                }
+                
+                if (0...2).contains(i) && (0...2).contains(j){
+                    i = n
+                }
+                
+                if (3...5).contains(i) && (3...5).contains(j){
+                    i = 2*n
+                }
+                
+                if (6...8).contains(i) && (6...8).contains(j){
+                    if j >= n*n - 1 {
+                        return true
+                    }
+                    i = 0
+                    j += 1
+                }
+                
+                if fillRemainingCells(x: i, y: j) {
+                    return true
+                }
+                
+                i = x
+                j = y
+                sudokuNumbers[i][j] = 0
+            }
+        }
+        
+        return false
+    }
+    
+    func isCellSafeForNum(i: Int, j: Int, num: Int) -> Bool {
+        return (isUnusedInRow(i: i, j: j, num: num) && isUnusedInColumn(i: i, j: j, num: num) && isUnusedInArea(i: i, j: j, num: num))
+    }
+    
+    func isUnusedInColumn(i: Int, j: Int, num: Int) -> Bool {
+        return !sudokuNumbers[i].contains(num)
+    }
+    
+    func isUnusedInRow(i: Int, j: Int, num: Int) -> Bool {
+        
+        for column in sudokuNumbers {
+            if column[j] == num {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func isUnusedInArea(i: Int, j: Int, num: Int) -> Bool {
+        let startX = 3 * Int(floor(Double(i) / 3.0))
+        let startY = 3 * Int(floor(Double(j) / 3.0))
+        
+        for x in startX...startX + 2 {
+            for y in startY...startY + 2{
+                if sudokuNumbers[x][y] == num {
+                    return false
+                }
+            }
+        }
+        return true
     }
     
     func getSudokuNumbers() -> [[Int]]{
@@ -36,122 +134,16 @@ class GenerateSudoku {
         return originallyOpenedNumbers
     }
     
-    private func generateSudoku(openedNum: Int) {
-        generateBaseGrid()
-        
-        printNumbers()
-        
-        let transformationFuncs = [transpositionGrid, swapRandomRows, swapRandomColumns, swapRandomRowAreas, swapRandomColumnAreas, changeTwoRandomNumber]
-        
-        for _ in 0...50 {
-            let funcNum = Int.random(in: 0..<transformationFuncs.count)
-            print("-----------------------------------")
-            print(funcNum)
-            transformationFuncs[funcNum]()
-            printNumbers()
-        }
-        
-        generateOpenedNumbers(openedNum: openedNum)
-    }
-    
-    private func generateBaseGrid() {
-        for i in 0..<n*n {
-            sudokuNumbers.append([])
-            for j in 0..<n*n {
-                sudokuNumbers[i].append(Int(((i * n + i / n + j) % (n*n) + 1)))
-            }
-        }
-    }
-    
-    private func transpositionGrid() {
-        var result: [[Int]] = []
-        for index in 0..<n*n {
-            result.append(sudokuNumbers.map{$0[index]})
-        }
-        sudokuNumbers = result
-    }
-    
-    private func swapRandomRows() {
-        let rowToSwap1 = Int.random(in: 0..<n*n)
-        var delta = [0, 1, 2]
-        delta.remove(at: rowToSwap1 % n)
-        let rowToSwap2 = (rowToSwap1 / n) * n + delta.randomElement()!
-        
-        swapTwoRows(rw1: rowToSwap1, rw2: rowToSwap2)
-    }
-    
-    private func swapTwoRows(rw1: Int, rw2: Int) {
-        let rowVariable = sudokuNumbers[rw2]
-        sudokuNumbers[rw2] = sudokuNumbers[rw1]
-        sudokuNumbers[rw1] = rowVariable
-    }
-    
-    private func swapRandomColumns() {
-        let columnToSwap1 = Int.random(in: 0..<n*n)
-        var delta = [0, 1, 2]
-        delta.remove(at: columnToSwap1 % n)
-        let columnToSwap2 = (columnToSwap1 / n) * n + delta.randomElement()!
-        
-        swapTwoColumns(col1: columnToSwap1, col2: columnToSwap2)
-    }
-    
-    private func swapTwoColumns(col1: Int, col2: Int) {
-        for index in 0..<n*n {
-            let columnVariable = sudokuNumbers[index][col2]
-            sudokuNumbers[index][col2] = sudokuNumbers[index][col1]
-            sudokuNumbers[index][col1] = columnVariable
-        }
-    }
-    
-    private func swapRandomRowAreas() {
-        var delta = [0, 1, 2]
-        delta.remove(at: Int.random(in: 0..<n))
-        
-        for i in 0..<n {
-            swapTwoRows(rw1: n * delta[0] + i, rw2: n * delta[1] + i)
-        }
-    }
-    
-    private func swapRandomColumnAreas() {
-        var delta = [0, 1, 2]
-        delta.remove(at: Int.random(in: 0..<n))
-        
-        for i in 0..<n {
-            swapTwoColumns(col1: n * delta[0] + i, col2: n * delta[1] + i)
-        }
-    }
-    
-    private func generateOpenedNumbers(openedNum: Int) {
+    private func generateOpenedNumbers() {
         var index = 0
         
-        while index != openedNum {
+        while index != openedNumbersCount {
             let pointX = Int.random(in: 0..<n*n)
             let pointY = Int.random(in: 0..<n*n)
             
             if originallyOpenedNumbers[pointX][pointY] == 0 {
                 originallyOpenedNumbers[pointX][pointY] = sudokuNumbers[pointX][pointY]
                 index += 1
-            }
-        }
-    }
-    
-    private func changeTwoRandomNumber() {
-        var firstNumber = 0
-        var secondNumber = 0
-        while firstNumber == secondNumber {
-            firstNumber = Int.random(in: 1...n*n)
-            secondNumber = Int.random(in: 1...n*n)
-        }
-        
-        print(firstNumber, secondNumber)
-        
-        for i in 0...8 {
-            for j in 0...8 {
-                if sudokuNumbers[i][j] == firstNumber {
-                    sudokuNumbers[i][j] = secondNumber
-                } else if sudokuNumbers[i][j] == secondNumber {
-                    sudokuNumbers[i][j] = firstNumber
-                }
             }
         }
     }
