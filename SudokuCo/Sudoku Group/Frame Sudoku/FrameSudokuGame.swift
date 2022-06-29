@@ -70,10 +70,6 @@ class FrameSudokuGame {
         return sudokuNumbers[x][y]
     }
     
-    func isNumberOpened(x: Int, y: Int) -> Bool {
-        return openedNumbers[x][y] != 0
-    }
-    
     func getSudokuNumbers() -> [[Int]] {
         return sudokuNumbers
     }
