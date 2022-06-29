@@ -18,8 +18,8 @@ struct AllGames {
     
     let games: [String: Game] = [
         "Classic Sudoku": Game(nameViewController: "SudokuClassicViewController", gameName: "Classic Sudoku", gameInfoCodable: "ClassicSudokuGame", gameInfoFile: "ClassicSudokuInfo.json", gameImageName: "Classic Sudoku"),
-        
-        "Odd-Even Sudoku": Game(nameViewController: "OddEvenSudokuViewController", gameName: "Odd-Even Sudoku", gameInfoCodable: "OddEvenSudokuGame", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku")]
+        "Odd-Even Sudoku": Game(nameViewController: "OddEvenSudokuViewController", gameName: "Odd-Even Sudoku", gameInfoCodable: "OddEvenSudokuGame", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku"),
+        "Frame Sudoku": Game(nameViewController: "FrameSudokuViewController", gameName: "Frame Sudoku", gameInfoCodable: "FrameSudokuGame", gameInfoFile: "FrameSudokuInfo.json", gameImageName: "Frame Sudoku")]
     
     var myGames: [String: Game] = [:]
     let myGamesFile = "myGames.json"
