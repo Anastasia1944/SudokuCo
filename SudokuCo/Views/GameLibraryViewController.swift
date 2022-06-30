@@ -68,19 +68,24 @@ class GameLibraryViewController: UIViewController {
     
     func transitipnToGameVC(gameName: String) {
         
-        switch AllGames().games[gameName]?.nameViewController {
-        case "SudokuClassicViewController":
+        switch gameName {
+        case "Classic Sudoku":
             let sudokuGameVC = SudokuClassicViewController()
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "OddEvenSudokuViewController":
+        case "Odd-Even Sudoku":
             let sudokuGameVC = OddEvenSudokuViewController()
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "FrameSudokuViewController":
+        case "Frame Sudoku":
             let sudokuGameVC = FrameSudokuViewController()
+            sudokuGameVC.isSaving = false
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
+        case "Dots Sudoku":
+            let sudokuGameVC = DotsSudokuViewController()
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)

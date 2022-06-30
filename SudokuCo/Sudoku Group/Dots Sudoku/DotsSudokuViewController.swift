@@ -1,13 +1,13 @@
 //
-//  FrameSudokuViewController.swift
+//  DotsSudokuViewController.swift
 //  SudokuCo
 //
-//  Created by Анастасия Горячевская on 29.06.2022.
+//  Created by Анастасия Горячевская on 30.06.2022.
 //
 
 import UIKit
 
-class FrameSudokuViewController: UIViewController {
+class DotsSudokuViewController: UIViewController {
     
     var gameMode: String = "New Game"
     var isSaving: Bool = true
@@ -20,16 +20,14 @@ class FrameSudokuViewController: UIViewController {
     let selectedCellView = UIView()
     var filledNumbersView: [[UILabel]] = []
     
-    var surroundingNumbersLabels: [[UILabel]] = []
-    
     var cellSize = CGFloat(0)
     
-    var frameSudokuGame = FrameSudokuGame()
+    var dotsSudokuGame = DotsSudokuGame()
     
-    var gamesInfoCoding = GamesInfoCoding(gameName: "Frame Sudoku")
+    var gamesInfoCoding = GamesInfoCoding(gameName: "Dots Sudoku")
     
     let completeGameView = CompleteGameView()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -57,6 +55,26 @@ class FrameSudokuViewController: UIViewController {
         ifAllCellsFilledDisplayCompletionView()
     }
     
+    func newGame() {
+        dotsSudokuGame.generateSudoku()
+        
+        if isSaving {
+            gamesInfoCoding.encode(game: dotsSudokuGame)
+        }
+    }
+    
+    func continueGame() {
+        dotsSudokuGame = gamesInfoCoding.decode() as! DotsSudokuGame
+    }
+    
+    func configureCompleteGameView() {
+        completeGameView.translatesAutoresizingMaskIntoConstraints = false
+        completeGameView.backgroundColor = UIColor.graySys.withAlphaComponent(0.9)
+        
+        completeGameView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height).isActive = true
+        completeGameView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
+    }
+    
     func quitToMainMenu() {
         
         if isSaving {
@@ -71,7 +89,7 @@ class FrameSudokuViewController: UIViewController {
         for i in 0...8 {
             for j in 0...8 {
 
-                frameSudokuGame.fillCell(x: i, y: j, value: 0)
+                dotsSudokuGame.fillCell(x: i, y: j, value: 0)
                     filledNumbersView[i][j].text = ""
                     gridView.addSubview(filledNumbersView[i][j])
 
@@ -79,7 +97,7 @@ class FrameSudokuViewController: UIViewController {
         }
         
         if isSaving {
-            gamesInfoCoding.encode(game: frameSudokuGame)
+            gamesInfoCoding.encode(game: dotsSudokuGame)
         }
         
         completeGameView.removeFromSuperview()
@@ -89,23 +107,15 @@ class FrameSudokuViewController: UIViewController {
         completeGameView.removeFromSuperview()
     }
     
-    func configureCompleteGameView() {
-        completeGameView.translatesAutoresizingMaskIntoConstraints = false
-        completeGameView.backgroundColor = UIColor.graySys.withAlphaComponent(0.9)
-        
-        completeGameView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height).isActive = true
-        completeGameView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-    }
-    
     func configureGridLabels() {
-        let openedNumbers = frameSudokuGame.getSudokuOpenedNumbers()
+        let openedNumbers = dotsSudokuGame.getSudokuOpenedNumbers()
         
         for i in 0...8 {
             filledNumbersView.append([])
             for j in 0...8 {
                 let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: CGFloat(j) * cellSize, width: cellSize, height: cellSize))
                 label.textAlignment = .center
-                label.font = .systemFont(ofSize: 24)
+                label.font = .systemFont(ofSize: 30)
                 
                 if openedNumbers[i][j] != 0 {
                     label.text = String(openedNumbers[i][j])
@@ -117,25 +127,10 @@ class FrameSudokuViewController: UIViewController {
         }
     }
     
-    func newGame() {
-        frameSudokuGame.generateSudoku()
-        
-        if isSaving {
-            gamesInfoCoding.encode(game: frameSudokuGame)
-        }
-    }
-    
-    func continueGame() {
-        frameSudokuGame = gamesInfoCoding.decode() as! FrameSudokuGame
-    }
-    
     func configureView() {
         view.backgroundColor = .white
         
         configureGameElementsStack()
-        configureSudokuGrid()
-        configurePanel()
-        configureNumberPanel()
     }
     
     func configureGameElementsStack() {
@@ -149,11 +144,15 @@ class FrameSudokuViewController: UIViewController {
         gameElementsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         gameElementsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
         gameElementsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
+        
+        configureSudokuGrid()
+        configurePanel()
+        configureNumberPanel()
     }
     
     func configureSudokuGrid() {
         
-        cellSize = (UIScreen.main.bounds.width - 20) / 11
+        cellSize = (UIScreen.main.bounds.width - 20) / 9
         let gridWidth = cellSize * 9
         
         let framingGridView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.width - 20))
@@ -171,8 +170,6 @@ class FrameSudokuViewController: UIViewController {
         self.gridView.addGestureRecognizer(gesture)
         
         framingGridView.addSubview(gridView)
-        
-        configureSurroundingNumbersOfGrid()
     }
     
     @objc func checkAction(sender : UITapGestureRecognizer) {
@@ -184,55 +181,6 @@ class FrameSudokuViewController: UIViewController {
         
         selectedCellView.frame = CGRect(x: floor(touchX/cellSize) * cellSize, y: floor(touchY/cellSize) * cellSize, width: cellSize, height: cellSize)
         selectedCellView.backgroundColor = .lightGray
-    }
-    
-    func configureSurroundingNumbersOfGrid() {
-        let sudokuNumbers = frameSudokuGame.getSudokuNumbers()
-        surroundingNumbersLabels = [[], [], [], []]
-        
-        for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: -cellSize, width: cellSize, height: cellSize))
-            label.textAlignment = .center
-            label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
-            label.text = String(sudokuNumbers[i][0] + sudokuNumbers[i][1] + sudokuNumbers[i][2])
-            
-            surroundingNumbersLabels[0].append(label)
-            gridView.addSubview(label)
-        }
-        
-        for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: cellSize * 9, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
-            label.textAlignment = .center
-            label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
-            label.text = String(sudokuNumbers[6][i] + sudokuNumbers[7][i] + sudokuNumbers[8][i])
-            
-            surroundingNumbersLabels[1].append(label)
-            gridView.addSubview(label)
-        }
-        
-        for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: cellSize * 9, width: cellSize, height: cellSize))
-            label.textAlignment = .center
-            label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
-            label.text = String(sudokuNumbers[i][6] + sudokuNumbers[i][7] + sudokuNumbers[i][8])
-            
-            surroundingNumbersLabels[1].append(label)
-            gridView.addSubview(label)
-        }
-        
-        for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: -cellSize, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
-            label.textAlignment = .center
-            label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
-            label.text = String(sudokuNumbers[0][i] + sudokuNumbers[1][i] + sudokuNumbers[2][i])
-            
-            surroundingNumbersLabels[1].append(label)
-            gridView.addSubview(label)
-        }
     }
     
     func configurePanel() {
@@ -262,12 +210,12 @@ class FrameSudokuViewController: UIViewController {
     }
     
     @objc func tapPanelButtonCancel(sender: UIButton!) {
-        if let lastAction = frameSudokuGame.cancelAction() {
+        if let lastAction = dotsSudokuGame.cancelAction() {
             
             selectedCellView.frame = CGRect(x: CGFloat(lastAction.xCell) * cellSize, y: CGFloat(lastAction.yCell) * cellSize, width: cellSize, height: cellSize)
             
             if isSaving {
-                gamesInfoCoding.encode(game: frameSudokuGame)
+                gamesInfoCoding.encode(game: dotsSudokuGame)
             }
             
             if lastAction.lastNumber != 0 {
@@ -287,10 +235,10 @@ class FrameSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-        frameSudokuGame.deleteCellNumber(x: cellX, y: cellY)
+        dotsSudokuGame.deleteCellNumber(x: cellX, y: cellY)
         
             if isSaving {
-                gamesInfoCoding.encode(game: frameSudokuGame)
+                gamesInfoCoding.encode(game: dotsSudokuGame)
             }
             filledNumbersView[cellX][cellY].text = ""
             gridView.addSubview(filledNumbersView[cellX][cellY])
@@ -303,9 +251,9 @@ class FrameSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-            let number = frameSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
+            let number = dotsSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
             if isSaving {
-                gamesInfoCoding.encode(game: frameSudokuGame)
+                gamesInfoCoding.encode(game: dotsSudokuGame)
             }
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
@@ -339,9 +287,9 @@ class FrameSudokuViewController: UIViewController {
         
         let value = sender.titleLabel!.text!
         
-        frameSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!)
+        dotsSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!)
             if isSaving {
-                gamesInfoCoding.encode(game: frameSudokuGame)
+                gamesInfoCoding.encode(game: dotsSudokuGame)
             }
             filledNumbersView[cellX][cellY].text = value
             gridView.addSubview(filledNumbersView[cellX][cellY])
@@ -351,9 +299,9 @@ class FrameSudokuViewController: UIViewController {
     }
     
     func ifAllCellsFilledDisplayCompletionView() {
-        if frameSudokuGame.checkIfAllCellsFilled() {
+        if dotsSudokuGame.checkIfAllCellsFilled() {
             view.addSubview(completeGameView)
-            if frameSudokuGame.checkIfAllCellsRight() {
+            if dotsSudokuGame.checkIfAllCellsRight() {
                 completeGameView.configureView(isWinning: true)
             } else {
                 completeGameView.configureView(isWinning: false)

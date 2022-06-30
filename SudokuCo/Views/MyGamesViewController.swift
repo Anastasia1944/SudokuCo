@@ -97,19 +97,24 @@ class MyGamesViewController: UIViewController {
     
     func transitionToGameVC(_ gameName: String, gameMode: String) {
         
-        switch allGames.myGames[gameName]?.nameViewController {
-        case "SudokuClassicViewController":
+        switch gameName {
+        case "Classic Sudoku":
             let sudokuGameVC = SudokuClassicViewController()
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "OddEvenSudokuViewController":
+        case "Odd-Even Sudoku":
             let sudokuGameVC = OddEvenSudokuViewController()
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "FrameSudokuViewController":
+        case "Frame Sudoku":
             let sudokuGameVC = FrameSudokuViewController()
+            sudokuGameVC.gameMode = gameMode
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
+        case "Dots Sudoku":
+            let sudokuGameVC = DotsSudokuViewController()
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
