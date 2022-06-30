@@ -27,7 +27,7 @@ class DotsSudokuViewController: UIViewController {
     var gamesInfoCoding = GamesInfoCoding(gameName: "Dots Sudoku")
     
     let completeGameView = CompleteGameView()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -88,11 +88,11 @@ class DotsSudokuViewController: UIViewController {
         
         for i in 0...8 {
             for j in 0...8 {
-
+                
                 dotsSudokuGame.fillCell(x: i, y: j, value: 0)
-                    filledNumbersView[i][j].text = ""
-                    gridView.addSubview(filledNumbersView[i][j])
-
+                filledNumbersView[i][j].text = ""
+                gridView.addSubview(filledNumbersView[i][j])
+                
             }
         }
         
@@ -170,6 +170,8 @@ class DotsSudokuViewController: UIViewController {
         self.gridView.addGestureRecognizer(gesture)
         
         framingGridView.addSubview(gridView)
+        
+        configureDots()
     }
     
     @objc func checkAction(sender : UITapGestureRecognizer) {
@@ -181,6 +183,63 @@ class DotsSudokuViewController: UIViewController {
         
         selectedCellView.frame = CGRect(x: floor(touchX/cellSize) * cellSize, y: floor(touchY/cellSize) * cellSize, width: cellSize, height: cellSize)
         selectedCellView.backgroundColor = .lightGray
+    }
+    
+    func configureDots() {
+        
+        let sudokuNumbers = dotsSudokuGame.getSudokuNumbers()
+        
+        for i in 0...8 {
+            for j in 0..<8 {
+                for k in 1...2 {
+                    
+                    var a = sudokuNumbers[i][j]
+                    var b = sudokuNumbers[i][j + 1]
+                    
+                    var pointCenter = CGPoint(x: CGFloat(i) * cellSize + cellSize / 2, y: (CGFloat(j) + 1) * cellSize)
+                    
+                    if k == 2 {
+                        a = sudokuNumbers[j][i]
+                        b = sudokuNumbers[j + 1][i]
+                        pointCenter = CGPoint(x: (CGFloat(j) + 1) * cellSize, y: CGFloat(i) * cellSize + cellSize / 2)
+                    }
+                    
+                    
+                    if ifTwoNumbersDiffersInOne(a: a, b: b) {
+                        
+                        let dotView = WhiteDot()
+                        dotView.configureDot(cellSize: cellSize)
+                        
+                        dotView.center = gridView.convert(pointCenter, from: gridView)
+                        gridView.addSubview(dotView)
+                    }
+                    
+                    if ifTwoNumbersDifferTwice(a: a, b: b) {
+                        
+                        let dotView = BlackDot()
+                        dotView.configureDot(cellSize: cellSize)
+                        
+                        dotView.center = gridView.convert(pointCenter, from: gridView)
+                        gridView.addSubview(dotView)
+                    }
+                }
+            }
+        }
+    }
+    
+    func ifTwoNumbersDiffersInOne(a: Int, b: Int) -> Bool {
+        if a == b + 1 || a == b - 1 {
+            return true
+        }
+        
+        return false
+    }
+    
+    func ifTwoNumbersDifferTwice(a: Int, b: Int) -> Bool {
+        if Double(a) == Double(b) / 2 || Double(a) == Double(b) * 2 {
+            return true
+        }
+        return false
     }
     
     func configurePanel() {
@@ -237,11 +296,11 @@ class DotsSudokuViewController: UIViewController {
         
         dotsSudokuGame.deleteCellNumber(x: cellX, y: cellY)
         
-            if isSaving {
-                gamesInfoCoding.encode(game: dotsSudokuGame)
-            }
-            filledNumbersView[cellX][cellY].text = ""
-            gridView.addSubview(filledNumbersView[cellX][cellY])
+        if isSaving {
+            gamesInfoCoding.encode(game: dotsSudokuGame)
+        }
+        filledNumbersView[cellX][cellY].text = ""
+        gridView.addSubview(filledNumbersView[cellX][cellY])
     }
     
     @objc func tapPanelButtonTip(sender: UIButton!) {
@@ -251,12 +310,12 @@ class DotsSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-            let number = dotsSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
-            if isSaving {
-                gamesInfoCoding.encode(game: dotsSudokuGame)
-            }
-            filledNumbersView[cellX][cellY].text = String(number)
-            gridView.addSubview(filledNumbersView[cellX][cellY])
+        let number = dotsSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
+        if isSaving {
+            gamesInfoCoding.encode(game: dotsSudokuGame)
+        }
+        filledNumbersView[cellX][cellY].text = String(number)
+        gridView.addSubview(filledNumbersView[cellX][cellY])
         
         ifAllCellsFilledDisplayCompletionView()
     }
@@ -288,11 +347,11 @@ class DotsSudokuViewController: UIViewController {
         let value = sender.titleLabel!.text!
         
         dotsSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!)
-            if isSaving {
-                gamesInfoCoding.encode(game: dotsSudokuGame)
-            }
-            filledNumbersView[cellX][cellY].text = value
-            gridView.addSubview(filledNumbersView[cellX][cellY])
+        if isSaving {
+            gamesInfoCoding.encode(game: dotsSudokuGame)
+        }
+        filledNumbersView[cellX][cellY].text = value
+        gridView.addSubview(filledNumbersView[cellX][cellY])
         
         
         ifAllCellsFilledDisplayCompletionView()

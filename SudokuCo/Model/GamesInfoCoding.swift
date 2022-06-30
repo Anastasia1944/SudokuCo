@@ -34,6 +34,9 @@ struct GamesInfoCoding {
                 case "Frame Sudoku":
                     let jsonData = try encoder.encode(game as! FrameSudokuGame)
                     try jsonData.write(to: fileURL)
+                case "Dots Sudoku":
+                    let jsonData = try encoder.encode(game as! DotsSudokuGame)
+                    try jsonData.write(to: fileURL)
                 default: return
                 }
             } catch {
@@ -59,6 +62,9 @@ struct GamesInfoCoding {
                 case "Frame Sudoku":
                     isThereUnfinishedGame = true
                     return try decoder.decode(FrameSudokuGame.self, from: data)
+                case "Dots Sudoku":
+                    isThereUnfinishedGame = true
+                    return try decoder.decode(DotsSudokuGame.self, from: data)
                 default: return nil
                 }
             } catch {
