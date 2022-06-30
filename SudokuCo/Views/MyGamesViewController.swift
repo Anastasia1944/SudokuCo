@@ -118,6 +118,11 @@ class MyGamesViewController: UIViewController {
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
+        case "Comparison Sudoku":
+            let sudokuGameVC = ComparisonSudokuViewController()
+            sudokuGameVC.gameMode = gameMode
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
         default: return
         }
     }

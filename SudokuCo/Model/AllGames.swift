@@ -10,16 +10,16 @@ import UIKit
 struct AllGames {
     struct Game: Codable {
         let gameName: String
-        let gameInfoCodable: String
         let gameInfoFile: String
         let gameImageName: String
     }
     
     let games: [String: Game] = [
-        "Classic Sudoku": Game(gameName: "Classic Sudoku", gameInfoCodable: "ClassicSudokuGame", gameInfoFile: "ClassicSudokuInfo.json", gameImageName: "Classic Sudoku"),
-        "Odd-Even Sudoku": Game(gameName: "Odd-Even Sudoku", gameInfoCodable: "OddEvenSudokuGame", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku"),
-        "Frame Sudoku": Game(gameName: "Frame Sudoku", gameInfoCodable: "FrameSudokuGame", gameInfoFile: "FrameSudokuInfo.json", gameImageName: "Frame Sudoku"),
-        "Dots Sudoku": Game(gameName: "Dots Sudoku", gameInfoCodable: "DotsSudokuGame", gameInfoFile: "DotsSudokuInfo.json", gameImageName: "Dots Sudoku")]
+        "Classic Sudoku": Game(gameName: "Classic Sudoku", gameInfoFile: "ClassicSudokuInfo.json", gameImageName: "Classic Sudoku"),
+        "Odd-Even Sudoku": Game(gameName: "Odd-Even Sudoku", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku"),
+        "Frame Sudoku": Game(gameName: "Frame Sudoku", gameInfoFile: "FrameSudokuInfo.json", gameImageName: "Frame Sudoku"),
+        "Dots Sudoku": Game(gameName: "Dots Sudoku", gameInfoFile: "DotsSudokuInfo.json", gameImageName: "Dots Sudoku"),
+        "Comparison Sudoku": Game(gameName: "Comparison Sudoku", gameInfoFile: "ComparisonSudokuInfo.json", gameImageName: "Comparison Sudoku")]
     
     var myGames: [String: Game] = [:]
     let myGamesFile = "myGames.json"

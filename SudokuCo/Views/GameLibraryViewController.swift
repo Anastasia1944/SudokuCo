@@ -89,6 +89,11 @@ class GameLibraryViewController: UIViewController {
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
+        case "Comparison Sudoku":
+            let sudokuGameVC = ComparisonSudokuViewController()
+            sudokuGameVC.isSaving = false
+            sudokuGameVC.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(sudokuGameVC, animated: true)
         default: return
         }
     }
