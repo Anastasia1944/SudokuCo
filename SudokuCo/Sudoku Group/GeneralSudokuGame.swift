@@ -1,13 +1,13 @@
 //
-//  OddEvenSudokuGame.swift
+//  GeneralSudokuGame.swift
 //  SudokuCo
 //
-//  Created by Анастасия Горячевская on 24.06.2022.
+//  Created by Анастасия Горячевская on 02.07.2022.
 //
 
 import Foundation
 
-class OddEvenSudokuGame: Codable {
+class GeneralSudokuGame: Codable {
     private var sudokuNumbers: [[Int]] = []
     
     private var originallyOpenedNumbers: [[Int]] = []
@@ -15,8 +15,8 @@ class OddEvenSudokuGame: Codable {
     
     private var sudokuActions: [SudokuAction] = []
     
-    func generateSudoku() {
-        let generateSudoku = GenerateSudoku(openedNum: 20)
+    func generateSudoku(openedNum: Int = 0) {
+        let generateSudoku = GenerateSudoku(openedNum: openedNum)
         sudokuNumbers = generateSudoku.getSudokuNumbers()
         originallyOpenedNumbers = generateSudoku.getOriginallyOpenedNumbers()
         
@@ -24,12 +24,10 @@ class OddEvenSudokuGame: Codable {
     }
     
     func checkIfAllCellsFilled() -> Bool {
-        var i = 0
-        while i <= 8 {
+        for i in 0...8 {
             if openedNumbers[i].contains(0) {
                 return false
             }
-            i += 1
         }
         return true
     }
@@ -42,7 +40,6 @@ class OddEvenSudokuGame: Codable {
     }
     
     func cancelAction() -> SudokuAction? {
-        
         guard let lastAction = sudokuActions.popLast() else { return nil }
         
         openedNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
@@ -59,7 +56,8 @@ class OddEvenSudokuGame: Codable {
     }
     
     func fillCellbyRightNumber(x: Int, y: Int) -> Int {
-        if openedNumbers[x][y] == 0 {
+        
+        if originallyOpenedNumbers[x][y] == 0 {
             sudokuActions.append(SudokuAction(xCell: x, yCell: y,lastNumber: openedNumbers[x][y]))
             openedNumbers[x][y] = sudokuNumbers[x][y]
         }
@@ -75,12 +73,15 @@ class OddEvenSudokuGame: Codable {
         return false
     }
     
-    func getNumberByCoordinates(x: Int, y: Int) -> Int {
-        return sudokuNumbers[x][y]
+    func isNumberOriginallyOpened(x: Int, y: Int) -> Bool {
+        if originallyOpenedNumbers[x][y] != 0 {
+            return true
+        }
+        return false
     }
     
-    func isNumberOpened(x: Int, y: Int) -> Bool {
-        return openedNumbers[x][y] != 0
+    func getNumberByCoordinates(x: Int, y: Int) -> Int {
+        return sudokuNumbers[x][y]
     }
     
     func getSudokuNumbers() -> [[Int]] {
@@ -95,3 +96,4 @@ class OddEvenSudokuGame: Codable {
         return openedNumbers
     }
 }
+

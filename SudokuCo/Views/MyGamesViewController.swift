@@ -76,7 +76,8 @@ class MyGamesViewController: UIViewController {
         let alert = UIAlertController()
         
         
-        var gamesCoding = GamesInfoCoding(gameName: gameName)
+        var gamesCoding = GamesInfoCoding()
+        gamesCoding.configureInfoForSaving(gameName: gameName)
         _ = gamesCoding.decode()
         
         if gamesCoding.isThereUnfinishedGame {

@@ -13,35 +13,20 @@ struct GamesInfoCoding {
     
     var isThereUnfinishedGame: Bool = false
     
-    init(gameName: String) {
+    mutating func configureInfoForSaving(gameName: String) {
         self.gameName = gameName
         self.fileName = AllGames().games[gameName]!.gameInfoFile
     }
     
-    func encode(game: Any) {
+    func encode(game: GeneralSudokuGame) {
+        
         let encoder = JSONEncoder()
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
-                switch gameName {
-                case "Classic Sudoku":
-                    let jsonData = try encoder.encode(game as! ClassicSudokuGame)
-                    try jsonData.write(to: fileURL)
-                case "Odd-Even Sudoku":
-                    let jsonData = try encoder.encode(game as! OddEvenSudokuGame)
-                    try jsonData.write(to: fileURL)
-                case "Frame Sudoku":
-                    let jsonData = try encoder.encode(game as! FrameSudokuGame)
-                    try jsonData.write(to: fileURL)
-                case "Dots Sudoku":
-                    let jsonData = try encoder.encode(game as! DotsSudokuGame)
-                    try jsonData.write(to: fileURL)
-                case "Comparison Sudoku":
-                    let jsonData = try encoder.encode(game as! ComparisonSudokuGame)
-                    try jsonData.write(to: fileURL)
-                default: return
-                }
+                let jsonData = try encoder.encode(game)
+                try jsonData.write(to: fileURL)
             } catch {
                 print("error")
             }
@@ -49,30 +34,15 @@ struct GamesInfoCoding {
     }
     
     mutating func decode() -> Any? {
+
         let decoder = JSONDecoder()
         
         if let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
                 let data = try Data(contentsOf: fileURL)
-                switch gameName {
-                case "Classic Sudoku":
-                    isThereUnfinishedGame = true
-                    return try decoder.decode(ClassicSudokuGame.self, from: data)
-                case "Odd-Even Sudoku":
-                    isThereUnfinishedGame = true
-                    return try decoder.decode(OddEvenSudokuGame.self, from: data)
-                case "Frame Sudoku":
-                    isThereUnfinishedGame = true
-                    return try decoder.decode(FrameSudokuGame.self, from: data)
-                case "Dots Sudoku":
-                    isThereUnfinishedGame = true
-                    return try decoder.decode(DotsSudokuGame.self, from: data)
-                case "Comparison Sudoku":
-                    isThereUnfinishedGame = true
-                    return try decoder.decode(ComparisonSudokuGame.self, from: data)
-                default: return nil
-                }
+                isThereUnfinishedGame = true
+                return try decoder.decode(GeneralSudokuGame.self, from: data)
             } catch {
                 print("error")
             }
