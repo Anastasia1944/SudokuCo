@@ -22,6 +22,8 @@ class GeneralSudokuViewController: UIViewController {
     let selectedCellView = UIView()
     var filledNumbersView: [[UILabel]] = []
     let completeGameView = CompleteGameView()
+    var numbersButtons: [UIButton] = []
+    var notesLabels: [[[UILabel]]] = []
     
     var generalSudokuGame = GeneralSudokuGame()
     var gamesInfoCoding = GamesInfoCoding()
@@ -41,6 +43,7 @@ class GeneralSudokuViewController: UIViewController {
         
         configureView()
         configureGridLabels()
+        configureNotesLabels()
         configureCompleteGameView()
         
         completeGameView.userAnswer = { buttonAnswer in
@@ -99,7 +102,6 @@ class GeneralSudokuViewController: UIViewController {
         framingGridView.translatesAutoresizingMaskIntoConstraints = false
         framingGridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
         
-        
         gridView.formView(width: gridWidth)
         gridView.frame.size = CGSize(width: gridWidth, height: gridWidth)
         gridView.center = framingGridView.center
@@ -128,17 +130,16 @@ class GeneralSudokuViewController: UIViewController {
         sudokuPanelStackView.distribution = .fillEqually
         sudokuPanelStackView.spacing = 2
         
-        let numberOfButtons = 3
+        let buttonIcons = ["arrow.counterclockwise", "delete.left", "square.and.pencil", "lightbulb"]
         
-        let buttonIcons = ["arrow.counterclockwise", "delete.left", "lightbulb"]
-        
-        for i in 0...numberOfButtons-1 {
+        for i in 0..<buttonIcons.count {
             let button = UIButton()
             button.tintColor = .black
             button.setImage(UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)), for: .normal)
             switch buttonIcons[i] {
             case "arrow.counterclockwise": button.addTarget(self, action: #selector(tapPanelButtonCancel), for: .touchUpInside)
             case "delete.left": button.addTarget(self, action: #selector(tapPanelButtonDelete), for: .touchUpInside)
+            case "square.and.pencil": button.addTarget(self, action: #selector(tapPanelButtonNote), for: .touchUpInside)
             case "lightbulb": button.addTarget(self, action: #selector(tapPanelButtonTip), for: .touchUpInside)
             default:
                 return
@@ -182,6 +183,18 @@ class GeneralSudokuViewController: UIViewController {
         }
     }
     
+    @objc func tapPanelButtonNote(sender: UIButton!) {
+        if !numbersButtons[0].isSelected {
+            for i in 0...8 {
+                numbersButtons[i].isSelected = true
+            }
+        } else {
+            for i in 0...8 {
+                numbersButtons[i].isSelected = false
+            }
+        }
+    }
+    
     @objc func tapPanelButtonTip(sender: UIButton!) {
         if selectedCellView.frame.maxX == 0.0 {
             return
@@ -215,7 +228,9 @@ class GeneralSudokuViewController: UIViewController {
             button.setTitle(String(i), for: .normal)
             button.titleLabel?.font = .systemFont(ofSize: 35)
             button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(.graySys, for: .selected)
             button.addTarget(self, action: #selector(tapNumberPanelButton), for: .touchUpInside)
+            numbersButtons.append(button)
             numberPanelStackView.addArrangedSubview(button)
         }
     }
@@ -229,13 +244,17 @@ class GeneralSudokuViewController: UIViewController {
         
         let value = sender.titleLabel!.text!
         
-        if generalSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
-            if isSaving {
-                gamesInfoCoding.encode(game: generalSudokuGame)
+        if numbersButtons[0].isSelected {
+            print("Notes!")
+        } else {
+            if generalSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
+                if isSaving {
+                    gamesInfoCoding.encode(game: generalSudokuGame)
+                }
+                
+                filledNumbersView[cellX][cellY].text = value
+                gridView.addSubview(filledNumbersView[cellX][cellY])
             }
-            
-            filledNumbersView[cellX][cellY].text = value
-            gridView.addSubview(filledNumbersView[cellX][cellY])
         }
         
         ifAllCellsFilledDisplayCompletionView()
@@ -264,6 +283,34 @@ class GeneralSudokuViewController: UIViewController {
                 
                 filledNumbersView[i].append(label)
                 gridView.addSubview(filledNumbersView[i][j])
+            }
+        }
+    }
+    
+    func configureNotesLabels() {
+        let notesNumbers = generalSudokuGame.getSudokuNotesNumbers()
+        
+        for i in 0...8 {
+            notesLabels.append([])
+            for j in 0...8 {
+                notesLabels[i].append([])
+                for k in 0...8 {
+                    
+                    let xSize = CGFloat(i) * cellSize + CGFloat(k % 3) * cellSize / 3
+                    let ySize = CGFloat(j) * cellSize + CGFloat(k / 3) * cellSize / 3
+                    
+                    let label = UILabel(frame: CGRect(x: xSize, y: ySize, width: cellSize / 3, height: cellSize / 3))
+                    label.textAlignment = .center
+                    label.font = .systemFont(ofSize: 10)
+                    
+                    if notesNumbers[i][j][k + 1]! {
+                        label.text = String(k + 1)
+                        label.textColor = .gray
+                    }
+                    
+                    notesLabels[i][j].append(label)
+                    gridView.addSubview(notesLabels[i][j][k])
+                }
             }
         }
     }

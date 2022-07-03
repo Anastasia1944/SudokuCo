@@ -13,14 +13,28 @@ class GeneralSudokuGame: Codable {
     private var originallyOpenedNumbers: [[Int]] = []
     private var openedNumbers: [[Int]] = []
     
+    private var notesNumbers: [[[Int: Bool]]] = []
+    
     private var sudokuActions: [SudokuAction] = []
     
     func generateSudoku(openedNum: Int = 0) {
+        fillNotesNumbersArray()
+        
         let generateSudoku = GenerateSudoku(openedNum: openedNum)
         sudokuNumbers = generateSudoku.getSudokuNumbers()
         originallyOpenedNumbers = generateSudoku.getOriginallyOpenedNumbers()
         
         openedNumbers = originallyOpenedNumbers
+    }
+    
+    func fillNotesNumbersArray() {
+        for i in 0...8 {
+            notesNumbers.append([])
+            for j in 0...8 {
+                notesNumbers[i].append([:])
+                notesNumbers[i][j] = [1: false, 2: false, 3: false,4: false, 5: false, 6: false, 7: false, 8: false, 9: false]
+            }
+        }
     }
     
     func checkIfAllCellsFilled() -> Bool {
@@ -94,6 +108,10 @@ class GeneralSudokuGame: Codable {
     
     func getSudokuOpenedNumbers() -> [[Int]] {
         return openedNumbers
+    }
+    
+    func getSudokuNotesNumbers() -> [[[Int: Bool]]] {
+        return notesNumbers
     }
 }
 
