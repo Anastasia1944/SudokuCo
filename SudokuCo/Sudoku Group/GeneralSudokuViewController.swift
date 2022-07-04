@@ -61,9 +61,7 @@ class GeneralSudokuViewController: UIViewController {
     func newGame() {
         generalSudokuGame.generateSudoku(openedNum: Int(openedNum))
         
-        if isSaving {
-            gamesInfoCoding.encode(game: generalSudokuGame)
-        }
+        saveInfo()
     }
     
     func continueGame() {
@@ -153,16 +151,22 @@ class GeneralSudokuViewController: UIViewController {
             
             selectedCellView.frame = CGRect(x: CGFloat(lastAction.xCell) * cellSize, y: CGFloat(lastAction.yCell) * cellSize, width: cellSize, height: cellSize)
             
-            if isSaving {
-                gamesInfoCoding.encode(game: generalSudokuGame)
-            }
+            saveInfo()
             
-            if lastAction.lastNumber != 0 {
-                filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
+            if lastAction.note {
+                if lastAction.isAddNote {
+                    notesLabels[lastAction.xCell][lastAction.yCell][lastAction.lastNumber - 1].text = String(lastAction.lastNumber)
+                } else {
+                    notesLabels[lastAction.xCell][lastAction.yCell][lastAction.lastNumber - 1].text = ""
+                }
+
             } else {
-                filledNumbersView[lastAction.xCell][lastAction.yCell].text = ""
+                if lastAction.lastNumber != 0 {
+                    filledNumbersView[lastAction.xCell][lastAction.yCell].text = String(lastAction.lastNumber)
+                } else {
+                    filledNumbersView[lastAction.xCell][lastAction.yCell].text = ""
+                }
             }
-            gridView.addSubview(filledNumbersView[lastAction.xCell][lastAction.yCell])
         }
     }
     
@@ -174,13 +178,8 @@ class GeneralSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-        if generalSudokuGame.deleteCellNumber(x: cellX, y: cellY) {
-            if isSaving {
-                gamesInfoCoding.encode(game: generalSudokuGame)
-            }
-            filledNumbersView[cellX][cellY].text = ""
-            gridView.addSubview(filledNumbersView[cellX][cellY])
-        }
+        clearCellNotes(x: cellX, y: cellY)
+        clearCellFromMainNumber(x: cellX, y: cellY)
     }
     
     @objc func tapPanelButtonNote(sender: UIButton!) {
@@ -205,9 +204,7 @@ class GeneralSudokuViewController: UIViewController {
         if !generalSudokuGame.isNumberOriginallyOpened(x: cellX, y: cellY) {
             let number = generalSudokuGame.fillCellbyRightNumber(x: cellX, y: cellY)
             
-            if isSaving {
-                gamesInfoCoding.encode(game: generalSudokuGame)
-            }
+            saveInfo()
             
             filledNumbersView[cellX][cellY].text = String(number)
             gridView.addSubview(filledNumbersView[cellX][cellY])
@@ -245,12 +242,25 @@ class GeneralSudokuViewController: UIViewController {
         let value = sender.titleLabel!.text!
         
         if numbersButtons[0].isSelected {
-            print("Notes!")
-        } else {
-            if generalSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
-                if isSaving {
-                    gamesInfoCoding.encode(game: generalSudokuGame)
+            
+            if filledNumbersView[cellX][cellY].text != nil {
+                clearCellFromMainNumber(x: cellX, y: cellY)
+            }
+            
+            if generalSudokuGame.fillCellByNote(x: cellX, y: cellY, value: Int(value)!) {
+                if notesLabels[cellX][cellY][Int(value)! - 1].text == String(value) {
+                    notesLabels[cellX][cellY][Int(value)! - 1].text = ""
+                } else {
+                    notesLabels[cellX][cellY][Int(value)! - 1].text = String(value)
                 }
+                gridView.addSubview(notesLabels[cellX][cellY][Int(value)! - 1])
+            }
+        } else {
+            
+            clearCellNotes(x: cellX, y: cellY)
+            
+            if generalSudokuGame.fillCell(x: cellX, y: cellY, value: Int(value)!) {
+                saveInfo()
                 
                 filledNumbersView[cellX][cellY].text = value
                 gridView.addSubview(filledNumbersView[cellX][cellY])
@@ -324,16 +334,12 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     func quitToMainMenu() {
-        
-        if isSaving {
-            gamesInfoCoding.deleteGameInfo()
-        }
+        saveInfo()
         
         navigationController?.popViewController(animated: true)
     }
     
     func startOver() {
-        
         let originallyOpenedNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         for i in 0...8 {
@@ -346,15 +352,34 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        if isSaving {
-            gamesInfoCoding.encode(game: generalSudokuGame)
-        }
+        saveInfo()
         
         completeGameView.removeFromSuperview()
     }
     
     func continueGameAfterLose() {
         completeGameView.removeFromSuperview()
+    }
+    
+    func saveInfo() {
+        if isSaving {
+            gamesInfoCoding.encode(game: generalSudokuGame)
+        }
+    }
+    
+    func clearCellNotes(x: Int, y: Int) {
+        for i in 0...8 {
+            notesLabels[x][y][i].text = ""
+        }
+        generalSudokuGame.clearCellNotes(x: x, y: y)
+    }
+    
+    func clearCellFromMainNumber(x: Int, y: Int) {
+        if generalSudokuGame.deleteCellNumber(x: x, y: y) {
+            saveInfo()
+            
+            filledNumbersView[x][y].text = ""
+        }
     }
     
     func ifAllCellsFilledDisplayCompletionView() {
