@@ -32,6 +32,7 @@
 		5DC743E02859410100F1C4F6 /* MyGameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */; };
 		5DC743E228594CA000F1C4F6 /* SudokuClassicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E128594CA000F1C4F6 /* SudokuClassicViewController.swift */; };
 		5DC743E428595A5700F1C4F6 /* SudokuGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */; };
+		5DCF1D9528738E270032DD04 /* GeneralSudokuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGameTableViewCell.swift; sourceTree = "<group>"; };
 		5DC743E128594CA000F1C4F6 /* SudokuClassicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuClassicViewController.swift; sourceTree = "<group>"; };
 		5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuGridView.swift; sourceTree = "<group>"; };
+		5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSudokuController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				5DA099A52870D9D700385380 /* GeneralSudokuViewController.swift */,
+				5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */,
 				5DA099A72870DBD900385380 /* GeneralSudokuGame.swift */,
 				5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */,
 				5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */,
@@ -262,6 +265,7 @@
 				5DC743E02859410100F1C4F6 /* MyGameTableViewCell.swift in Sources */,
 				5DA099A62870D9D700385380 /* GeneralSudokuViewController.swift in Sources */,
 				5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */,
+				5DCF1D9528738E270032DD04 /* GeneralSudokuController.swift in Sources */,
 				5DA099A82870DBD900385380 /* GeneralSudokuGame.swift in Sources */,
 				5DC743C52858FF3700F1C4F6 /* MainViewController.swift in Sources */,
 				5DC743C12858FF3700F1C4F6 /* AppDelegate.swift in Sources */,

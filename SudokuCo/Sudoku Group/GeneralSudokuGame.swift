@@ -15,7 +15,7 @@ class GeneralSudokuGame: Codable {
     
     private var notesNumbers: [[[Int: Bool]]] = []
     
-    private var sudokuActions: [SudokuAction] = []
+//    private var sudokuActions: [SudokuAction] = []
     
     func generateSudoku(openedNum: Int = 0) {
         fillNotesNumbersArray()
@@ -53,21 +53,21 @@ class GeneralSudokuGame: Codable {
         return false
     }
     
-    func cancelAction() -> SudokuAction? {
-        guard let lastAction = sudokuActions.popLast() else { return nil }
-        
-        if lastAction.note {
-                notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = !notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber]!
-        } else {
-            openedNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
-        }
-        
-        return lastAction
-    }
+//    func cancelAction() -> SudokuAction? {
+//        guard let lastAction = sudokuActions.popLast() else { return nil }
+//
+//        if lastAction.note {
+//                notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = !notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber]!
+//        } else {
+//            openedNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
+//        }
+//
+//        return lastAction
+//    }
     
     func fillCell(x: Int, y: Int, value: Int) -> Bool {
         if originallyOpenedNumbers[x][y] == 0 {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: openedNumbers[x][y]))
+//            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: openedNumbers[x][y]))
             openedNumbers[x][y] = value
             return true
         }
@@ -76,7 +76,7 @@ class GeneralSudokuGame: Codable {
     
     func fillCellByNote(x: Int, y: Int, value: Int) -> Bool {
         if originallyOpenedNumbers[x][y] == 0 {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: value, note: true, isAddNote: notesNumbers[x][y][value]!))
+//            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: value, note: true, isAddNote: notesNumbers[x][y][value]!))
             notesNumbers[x][y][value] = !notesNumbers[x][y][value]!
             return true
         }
@@ -89,7 +89,7 @@ class GeneralSudokuGame: Codable {
     
     func fillCellbyRightNumber(x: Int, y: Int) -> Int {
         if originallyOpenedNumbers[x][y] == 0 {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y,lastNumber: openedNumbers[x][y]))
+//            sudokuActions.append(SudokuAction(xCell: x, yCell: y,lastNumber: openedNumbers[x][y]))
             openedNumbers[x][y] = sudokuNumbers[x][y]
         }
         return sudokuNumbers[x][y]
@@ -97,7 +97,7 @@ class GeneralSudokuGame: Codable {
     
     func deleteCellNumber(x: Int, y: Int) -> Bool {
         if originallyOpenedNumbers[x][y] == 0 {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: openedNumbers[x][y]))
+//            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: openedNumbers[x][y]))
             openedNumbers[x][y] = 0
             return true
         }

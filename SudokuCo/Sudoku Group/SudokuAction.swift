@@ -13,4 +13,5 @@ struct SudokuAction: Codable {
     let lastNumber: Int
     var note: Bool = false
     var isAddNote: Bool = true
+    var noteStack: [Int: Bool]? 
 }

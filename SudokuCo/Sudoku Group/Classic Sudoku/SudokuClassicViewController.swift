@@ -12,7 +12,7 @@ class SudokuClassicViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         
         super.configureInit()
-        super.gamesInfoCoding.configureInfoForSaving(gameName: "Classic Sudoku")
+        super.testController.gamesInfoCoding.configureInfoForSaving(gameName: "Classic Sudoku")
         super.openedNum = CGFloat(30)
         
         super.viewDidLoad()
