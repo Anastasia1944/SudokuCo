@@ -17,6 +17,7 @@ class GeneralSudokuViewController: UIViewController {
     var filledNumbersLabels: [[UILabel]] = []
     var notesLabels: [[[UILabel]]] = []
     let selectedCellView = UIView()
+    var numbersButtons: [UIButton] = []
     
     var gridWidth = CGFloat(0)
     var cellSize = CGFloat(0)
@@ -66,6 +67,18 @@ class GeneralSudokuViewController: UIViewController {
                             self.notesLabels[i][j][k - 1].text = ""
                         }
                     }
+                }
+            }
+        }
+        
+        testController.noteChanged = { isNote in
+            if isNote {
+                for i in 0...8 {
+                    self.numbersButtons[i].isSelected = true
+                }
+            } else {
+                for i in 0...8 {
+                    self.numbersButtons[i].isSelected = false
                 }
             }
         }
@@ -224,6 +237,7 @@ class GeneralSudokuViewController: UIViewController {
             button.setTitleColor(.black, for: .normal)
             button.setTitleColor(.graySys, for: .selected)
             button.addTarget(self, action: #selector(tapNumberPanelButton), for: .touchUpInside)
+            numbersButtons.append(button)
             numberPanelStackView.addArrangedSubview(button)
         }
     }

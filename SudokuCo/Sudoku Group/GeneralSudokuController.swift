@@ -28,9 +28,15 @@ class GeneralSudokuController {
         }
     }
     
+    var noteChanged: ( (Bool) -> Void )?
+    
     private var openedNum = CGFloat(0)
     private var isSaving: Bool = true
-    private var isNote: Bool = false
+    private var isNote: Bool = false {
+        didSet {
+            self.noteChanged?(isNote)
+        }
+    }
     
     private var sudokuActions: [SudokuAction] = []
     
