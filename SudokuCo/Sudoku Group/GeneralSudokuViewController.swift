@@ -18,6 +18,7 @@ class GeneralSudokuViewController: UIViewController {
     var notesLabels: [[[UILabel]]] = []
     let selectedCellView = UIView()
     var numbersButtons: [UIButton] = []
+    var originallyOpenedNumbers: [[Int]] = []
     
     var gridWidth = CGFloat(0)
     var cellSize = CGFloat(0)
@@ -93,7 +94,9 @@ class GeneralSudokuViewController: UIViewController {
             default: return
             }
         }
+        originallyOpenedNumbers = testController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
+        fillOriginallyOpenedNumbers()
     }
     
     func quitToMainMenu() {
@@ -284,6 +287,16 @@ class GeneralSudokuViewController: UIViewController {
                     
                     notesLabels[i][j].append(label)
                     gridView.addSubview(notesLabels[i][j][k])
+                }
+            }
+        }
+    }
+    
+    func fillOriginallyOpenedNumbers() {
+        for i in 0...8 {
+            for j in 0...8 {
+                if originallyOpenedNumbers[i][j] != 0 {
+                    filledNumbersLabels[i][j].textColor = .gray
                 }
             }
         }
