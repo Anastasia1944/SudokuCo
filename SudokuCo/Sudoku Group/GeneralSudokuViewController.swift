@@ -52,11 +52,15 @@ class GeneralSudokuViewController: UIViewController {
             
             self.view.addSubview(self.completeGameView)
             
+            let testVC = CompleteViewController()
+            
             if isCompleteGame {
-                self.completeGameView.configureView(isWinning: true)
+                testVC.configureCompleteVC(isWin: true, time: "10:20")
             } else {
-                self.completeGameView.configureView(isWinning: false)
+                testVC.configureCompleteVC(isWin: false, time: "11:17")
             }
+            
+            self.navigationController?.pushViewController(testVC, animated: true)
         }
         
         testController.noteNumberChanged = { numbers in

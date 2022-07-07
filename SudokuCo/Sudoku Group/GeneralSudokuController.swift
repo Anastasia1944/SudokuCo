@@ -96,6 +96,7 @@ class GeneralSudokuController {
             sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y]))
             addMainNumber(x: x, y: y, value: value)
         }
+        saveInfoIfNedded()
     }
     
     func deleteButtonTapped(x: Int, y: Int) {
@@ -108,6 +109,7 @@ class GeneralSudokuController {
             sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: notesNumbers[x][y]))
             deleteNotesNumbers(x: x, y: y)
         }
+        saveInfoIfNedded()
     }
     
     func tipButtonTapped(x: Int, y: Int) {
@@ -119,6 +121,7 @@ class GeneralSudokuController {
         }
         
         filledNumbers[x][y] = generalSudokuGame.fillCellbyRightNumber(x: x, y: y)
+        saveInfoIfNedded()
     }
     
     func noteButtonTapped() {
@@ -137,6 +140,8 @@ class GeneralSudokuController {
         } else {
             filledNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
         }
+        
+        saveInfoIfNedded()
         
         return true
     }

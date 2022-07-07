@@ -39,7 +39,8 @@ class CompleteViewController: UIViewController {
         startOverButtonSettings()
     }
     
-    func configureCompleteVC(time: String) {
+    func configureCompleteVC(isWin: Bool, time: String) {
+        print(isWin)
         print(time)
     }
     
