@@ -108,12 +108,12 @@
 				5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */,
 				5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */,
 				5D7BB4F7286617F500AA1461 /* SudokuAction.swift */,
+				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 				5D7BB4EF2865DB1200AA1461 /* Classic Sudoku */,
 				5DA0999C286E09B700385380 /* Comparison Sudoku */,
 				5D7BB50F286DD8BC00AA1461 /* Dots Sudoku */,
 				5D7BB50A286C79D700AA1461 /* Frame Sudoku */,
 				5D7BB4F22866158700AA1461 /* Odd-Even Sudoku */,
-				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 			);
 			path = "Sudoku Group";
 			sourceTree = "<group>";

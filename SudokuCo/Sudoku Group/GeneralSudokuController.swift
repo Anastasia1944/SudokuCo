@@ -130,7 +130,7 @@ class GeneralSudokuController {
         
         if lastAction.note {
             if lastAction.isAddNote {
-                notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = false
+                notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = !notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber]!
             } else {
                 notesNumbers[lastAction.xCell][lastAction.yCell] = lastAction.noteStack!
             }
@@ -153,7 +153,7 @@ class GeneralSudokuController {
         if generalSudokuGame.fillCellByNote(x: x, y: y, value: value) {
             saveInfoIfNedded()
             
-            notesNumbers[x][y][value] = true
+            notesNumbers[x][y][value] = !notesNumbers[x][y][value]!
         }
     }
     
