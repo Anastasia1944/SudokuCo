@@ -26,6 +26,7 @@ class GeneralSudokuViewController: UIViewController {
     var gameMode: String = "New Game"
     var isSaving: Bool = true
     var openedNum = CGFloat(0)
+    var gameName: String = ""
     
     let testController = GeneralSudokuController()
     
@@ -97,6 +98,20 @@ class GeneralSudokuViewController: UIViewController {
         originallyOpenedNumbers = testController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         fillOriginallyOpenedNumbers()
+        
+        configureInfoGameButton()
+    }
+    
+    func configureInfoGameButton() {
+        let button = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(infoItemTapped))
+        self.navigationItem.rightBarButtonItem  = button
+    }
+    
+    @objc func infoItemTapped() {
+        let gameInfoVC = GameInfoViewController()
+        gameInfoVC.gameName = gameName
+        
+        navigationController?.pushViewController(gameInfoVC, animated: true)
     }
     
     func quitToMainMenu() {

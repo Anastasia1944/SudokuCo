@@ -33,6 +33,7 @@
 		5DC743E228594CA000F1C4F6 /* SudokuClassicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E128594CA000F1C4F6 /* SudokuClassicViewController.swift */; };
 		5DC743E428595A5700F1C4F6 /* SudokuGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */; };
 		5DCF1D9528738E270032DD04 /* GeneralSudokuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */; };
+		5DCF1D99287716AB0032DD04 /* GameInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +65,7 @@
 		5DC743E128594CA000F1C4F6 /* SudokuClassicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuClassicViewController.swift; sourceTree = "<group>"; };
 		5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuGridView.swift; sourceTree = "<group>"; };
 		5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSudokuController.swift; sourceTree = "<group>"; };
+		5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +113,7 @@
 				5D7BB50F286DD8BC00AA1461 /* Dots Sudoku */,
 				5D7BB50A286C79D700AA1461 /* Frame Sudoku */,
 				5D7BB4F22866158700AA1461 /* Odd-Even Sudoku */,
+				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 			);
 			path = "Sudoku Group";
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				5D7BB4F4286615B500AA1461 /* OddEvenSudokuViewController.swift in Sources */,
 				5D7BB4FA2866670400AA1461 /* Extensions.swift in Sources */,
 				5DC743DA28591C6E00F1C4F6 /* SettingsViewController.swift in Sources */,
+				5DCF1D99287716AB0032DD04 /* GameInfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@ class DotsSudokuViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         super.configureInit()
         super.testController.gamesInfoCoding.configureInfoForSaving(gameName: "Dots Sudoku")
-        
+        super.gameName = "Dots Sudoku"
         super.viewDidLoad()
         
         configureDots()

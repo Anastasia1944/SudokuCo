@@ -13,7 +13,7 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
         super.configureInit()
         
         super.testController.gamesInfoCoding.configureInfoForSaving(gameName: "Comparison Sudoku")
-        
+        super.gameName = "Comparison Sudoku"
         super.viewDidLoad()
         
         configureMoreLessSigns()
