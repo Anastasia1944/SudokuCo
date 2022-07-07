@@ -17,16 +17,16 @@ class MainViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         
         let myGamesNavVC = UINavigationController(rootViewController: myGamesVC)
-        
+//        myGamesNavVC.hidesBottomBarWhenPushed = true
         myGamesNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 30)]
-
         myGamesVC.title = "SudokuCo"
         
         let gameLibraryNavVC = UINavigationController(rootViewController: gameLibraryVC)
+//        gameLibraryNavVC.hidesBottomBarWhenPushed = true
         gameLibraryNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 30)]
-        
         gameLibraryVC.title = "SudokuCo"
         
         myGamesNavVC.title = "My Games"

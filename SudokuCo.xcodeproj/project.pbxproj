@@ -34,6 +34,7 @@
 		5DC743E428595A5700F1C4F6 /* SudokuGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */; };
 		5DCF1D9528738E270032DD04 /* GeneralSudokuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */; };
 		5DCF1D99287716AB0032DD04 /* GameInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */; };
+		5DCF1D9B28772C660032DD04 /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuGridView.swift; sourceTree = "<group>"; };
 		5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSudokuController.swift; sourceTree = "<group>"; };
 		5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInfoViewController.swift; sourceTree = "<group>"; };
+		5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */,
 				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
 				5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */,
+				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				5D7BB4FA2866670400AA1461 /* Extensions.swift in Sources */,
 				5DC743DA28591C6E00F1C4F6 /* SettingsViewController.swift in Sources */,
 				5DCF1D99287716AB0032DD04 /* GameInfoViewController.swift in Sources */,
+				5DCF1D9B28772C660032DD04 /* CompleteViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -101,26 +101,31 @@ class MyGamesViewController: UIViewController {
         switch gameName {
         case "Classic Sudoku":
             let sudokuGameVC = SudokuClassicViewController()
+            sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Odd-Even Sudoku":
             let sudokuGameVC = OddEvenSudokuViewController()
+            sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Frame Sudoku":
             let sudokuGameVC = FrameSudokuViewController()
+            sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Dots Sudoku":
             let sudokuGameVC = DotsSudokuViewController()
+            sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Comparison Sudoku":
             let sudokuGameVC = ComparisonSudokuViewController()
+            sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.gameMode = gameMode
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
