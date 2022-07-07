@@ -19,22 +19,15 @@ class MainViewController: UITabBarController {
         super.viewDidLoad()
         
         let myGamesNavVC = UINavigationController(rootViewController: myGamesVC)
-        myGamesNavVC.navigationBar.prefersLargeTitles = true
         
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = .graySys
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 32)]
-        
+        myGamesNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 30)]
+
         myGamesVC.title = "SudokuCo"
-        myGamesNavVC.navigationBar.tintColor = .blueSys
-        myGamesNavVC.navigationBar.scrollEdgeAppearance = appearance
         
         let gameLibraryNavVC = UINavigationController(rootViewController: gameLibraryVC)
-        gameLibraryNavVC.navigationBar.prefersLargeTitles = true
+        gameLibraryNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 30)]
         
         gameLibraryVC.title = "SudokuCo"
-        gameLibraryNavVC.navigationBar.tintColor = .blueSys
-        gameLibraryNavVC.navigationBar.scrollEdgeAppearance = appearance
         
         myGamesNavVC.title = "My Games"
         gameLibraryNavVC.title = "Game Library"
