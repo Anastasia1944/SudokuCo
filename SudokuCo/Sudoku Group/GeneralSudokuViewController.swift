@@ -28,14 +28,16 @@ class GeneralSudokuViewController: UIViewController {
     var openedNum = CGFloat(0)
     var gameName: String = ""
     
-    let testController = GeneralSudokuController()
+    let generalSudokuController = GeneralSudokuController()
+    
+    let completeVC = CompleteViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureView()
         
-        testController.numberChanged = { numbers in
+        generalSudokuController.numberChanged = { numbers in
             for i in 0...8 {
                 for j in 0...8 {
                     if numbers[i][j] != 0 {
@@ -46,20 +48,18 @@ class GeneralSudokuViewController: UIViewController {
                 }
             }
             
-            guard let isCompleteGame = self.testController.ifAllCellsFilledDisplayCompletionView() else { return }
-            
-            let testVC = CompleteViewController()
+            guard let isCompleteGame = self.generalSudokuController.ifAllCellsFilledDisplayCompletionView() else { return }
             
             if isCompleteGame {
-                testVC.configureCompleteVC(isWin: true, time: "10:20")
+                self.completeVC.configureCompleteVC(isWin: true, time: "10:20")
             } else {
-                testVC.configureCompleteVC(isWin: false, time: "11:17")
+                self.completeVC.configureCompleteVC(isWin: false, time: "11:17")
             }
             
-            self.navigationController?.pushViewController(testVC, animated: true)
+            self.navigationController?.pushViewController(self.completeVC, animated: true)
         }
         
-        testController.noteNumberChanged = { numbers in
+        generalSudokuController.noteNumberChanged = { numbers in
             for i in 0...8 {
                 for j in 0...8 {
                     for k in 1...9 {
@@ -73,7 +73,7 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        testController.noteChanged = { isNote in
+        generalSudokuController.noteChanged = { isNote in
             if isNote {
                 for i in 0...8 {
                     self.numbersButtons[i].isSelected = true
@@ -85,13 +85,17 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        testController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving)
+        generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving)
         
-        originallyOpenedNumbers = testController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
+        originallyOpenedNumbers = generalSudokuController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         fillOriginallyOpenedNumbers()
         
         configureInfoGameButton()
+        
+        completeVC.startOver = { start in
+            self.generalSudokuController.startGameOver()
+        }
     }
     
     func configureInfoGameButton() {
@@ -191,7 +195,7 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     @objc func tapPanelButtonCancel(sender: UIButton!) {
-        _ = testController.cancelButtonTapped()
+        _ = generalSudokuController.cancelButtonTapped()
     }
     
     @objc func tapPanelButtonDelete(sender: UIButton!) {
@@ -201,11 +205,11 @@ class GeneralSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-        testController.deleteButtonTapped(x: cellX, y: cellY)
+        generalSudokuController.deleteButtonTapped(x: cellX, y: cellY)
     }
     
     @objc func tapPanelButtonNote(sender: UIButton!) {
-        testController.noteButtonTapped()
+        generalSudokuController.noteButtonTapped()
     }
     
     @objc func tapPanelButtonTip(sender: UIButton!) {
@@ -215,7 +219,7 @@ class GeneralSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-        testController.tipButtonTapped(x: cellX, y: cellY)
+        generalSudokuController.tipButtonTapped(x: cellX, y: cellY)
     }
     
     func configureNumberPanel() {
@@ -246,7 +250,7 @@ class GeneralSudokuViewController: UIViewController {
         
         let value = sender.titleLabel!.text!
         
-        testController.numberButtonTapped(x: cellX, y: cellY, value: Int(value)!)
+        generalSudokuController.numberButtonTapped(x: cellX, y: cellY, value: Int(value)!)
     }
     
     func configureGridLabels() {

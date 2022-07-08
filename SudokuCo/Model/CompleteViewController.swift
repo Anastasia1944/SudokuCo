@@ -26,6 +26,8 @@ class CompleteViewController: UIViewController {
     
     private var time: String = ""
     private var isWin: Bool = false
+    
+    var startOver: ( (Bool) -> Void )?
 
     override func viewDidLoad() {
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -47,6 +49,11 @@ class CompleteViewController: UIViewController {
         if !isWin {
             continueButtonSettings()
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     func configureCompleteVC(isWin: Bool, time: String) {
@@ -237,10 +244,15 @@ class CompleteViewController: UIViewController {
         mainMenuButton.setTitle("Main Menu", for: .normal)
         mainMenuButton.setTitleColor(.whiteSys, for: .normal)
         mainMenuButton.titleLabel?.font = .systemFont(ofSize: 26)
+        mainMenuButton.addTarget(self, action: #selector(tapMainMenuButton), for: .touchUpInside)
         
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
         mainMenuButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         mainMenuButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    @objc func tapMainMenuButton() {
+        navigationController?.popToRootViewController(animated: true)
     }
     
     func startOverButtonSettings() {
@@ -251,10 +263,17 @@ class CompleteViewController: UIViewController {
         startOverButton.setTitle("Start Over", for: .normal)
         startOverButton.setTitleColor(.whiteSys, for: .normal)
         startOverButton.titleLabel?.font = .systemFont(ofSize: 26)
+        startOverButton.addTarget(self, action: #selector(tapStartOverButton), for: .touchUpInside)
         
         startOverButton.translatesAutoresizingMaskIntoConstraints = false
         startOverButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         startOverButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    @objc func tapStartOverButton() {
+        self.startOver!(true)
+        
+        navigationController?.popViewController(animated: true)
     }
     
     func continueButtonSettings() {
@@ -265,9 +284,14 @@ class CompleteViewController: UIViewController {
         continueButton.setTitle("Continue", for: .normal)
         continueButton.setTitleColor(.whiteSys, for: .normal)
         continueButton.titleLabel?.font = .systemFont(ofSize: 26)
+        continueButton.addTarget(self, action: #selector(tapContinueButton), for: .touchUpInside)
         
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         continueButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         continueButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    @objc func tapContinueButton() {
+        navigationController?.popViewController(animated: true)
     }
 }

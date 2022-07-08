@@ -12,7 +12,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         
         super.configureInit()
-        super.testController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
+        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
         super.gameName = "Odd-Even Sudoku"
         super.viewDidLoad()
 
@@ -20,7 +20,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
     }
     
     func makeCircles() {
-        let sudokuNumbers = testController.generalSudokuGame.getSudokuNumbers()
+        let sudokuNumbers = generalSudokuController.generalSudokuGame.getSudokuNumbers()
 
         for i in 0...8 {
             for j in 0...8 {

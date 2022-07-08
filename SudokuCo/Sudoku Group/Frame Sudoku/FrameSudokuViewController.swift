@@ -13,7 +13,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
     
     override func viewDidLoad() {
         super.configureInit(gridWidth: ((UIScreen.main.bounds.width - 20) / 11) * 9)
-        super.testController.gamesInfoCoding.configureInfoForSaving(gameName: "Frame Sudoku")
+        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Frame Sudoku")
         super.gameName = "Frame Sudoku"
         super.viewDidLoad()
         
@@ -21,7 +21,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
     }
     
     func configureSurroundingNumbersOfGrid() {
-        let sudokuNumbers = testController.generalSudokuGame.getSudokuNumbers()
+        let sudokuNumbers = generalSudokuController.generalSudokuGame.getSudokuNumbers()
         surroundingNumbersLabels = [[], [], [], []]
         
         for i in 0...8 {

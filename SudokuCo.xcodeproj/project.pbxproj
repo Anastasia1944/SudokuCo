@@ -13,7 +13,6 @@
 		5D7BB4F4286615B500AA1461 /* OddEvenSudokuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4F3286615B500AA1461 /* OddEvenSudokuViewController.swift */; };
 		5D7BB4F8286617F500AA1461 /* SudokuAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4F7286617F500AA1461 /* SudokuAction.swift */; };
 		5D7BB4FA2866670400AA1461 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4F92866670400AA1461 /* Extensions.swift */; };
-		5D7BB5042867AF1300AA1461 /* CompleteGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */; };
 		5D7BB50C286C79EF00AA1461 /* FrameSudokuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB50B286C79EF00AA1461 /* FrameSudokuViewController.swift */; };
 		5D7BB511286DD8ED00AA1461 /* DotsSudokuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB510286DD8ED00AA1461 /* DotsSudokuViewController.swift */; };
 		5D7BB515286DE0CD00AA1461 /* DotsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB514286DE0CD00AA1461 /* DotsViews.swift */; };
@@ -44,7 +43,6 @@
 		5D7BB4F3286615B500AA1461 /* OddEvenSudokuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddEvenSudokuViewController.swift; sourceTree = "<group>"; };
 		5D7BB4F7286617F500AA1461 /* SudokuAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuAction.swift; sourceTree = "<group>"; };
 		5D7BB4F92866670400AA1461 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGameView.swift; sourceTree = "<group>"; };
 		5D7BB50B286C79EF00AA1461 /* FrameSudokuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameSudokuViewController.swift; sourceTree = "<group>"; };
 		5D7BB510286DD8ED00AA1461 /* DotsSudokuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsSudokuViewController.swift; sourceTree = "<group>"; };
 		5D7BB514286DE0CD00AA1461 /* DotsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DotsViews.swift; sourceTree = "<group>"; };
@@ -110,7 +108,6 @@
 				5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */,
 				5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */,
 				5D7BB4F7286617F500AA1461 /* SudokuAction.swift */,
-				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 				5D7BB4EF2865DB1200AA1461 /* Classic Sudoku */,
 				5DA0999C286E09B700385380 /* Comparison Sudoku */,
 				5D7BB50F286DD8BC00AA1461 /* Dots Sudoku */,
@@ -125,8 +122,8 @@
 			children = (
 				5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */,
 				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
-				5D7BB5032867AF1300AA1461 /* CompleteGameView.swift */,
 				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
+				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -278,7 +275,6 @@
 				5D7BB50C286C79EF00AA1461 /* FrameSudokuViewController.swift in Sources */,
 				5D7BB4F8286617F500AA1461 /* SudokuAction.swift in Sources */,
 				5DA099A2286E0C1600385380 /* MoreLessSignView.swift in Sources */,
-				5D7BB5042867AF1300AA1461 /* CompleteGameView.swift in Sources */,
 				5DA0999E286E09D400385380 /* ComparisonSudokuViewController.swift in Sources */,
 				5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */,
 				5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */,
