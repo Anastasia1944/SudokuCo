@@ -22,8 +22,14 @@ class CompleteViewController: UIViewController {
     
     private let mainMenuButton = UIButton()
     private let startOverButton = UIButton()
+    private let continueButton = UIButton()
+    
+    private var time: String = ""
+    private var isWin: Bool = false
 
     override func viewDidLoad() {
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        
         super.viewDidLoad()
         
         view.backgroundColor = .white
@@ -37,11 +43,15 @@ class CompleteViewController: UIViewController {
         
         mainMenuButtonSettings()
         startOverButtonSettings()
+        
+        if !isWin {
+            continueButtonSettings()
+        }
     }
     
     func configureCompleteVC(isWin: Bool, time: String) {
-        print(isWin)
-        print(time)
+        self.time = time
+        self.isWin = isWin
     }
     
     func stackSettings() {
@@ -59,7 +69,12 @@ class CompleteViewController: UIViewController {
     func winLoseLabelSettings() {
         stackView.addArrangedSubview(winLoseLabel)
         
-        winLoseLabel.text = "You Win!"
+        if isWin {
+            winLoseLabel.text = "You Win!"
+        } else {
+            winLoseLabel.text = "You Lose"
+        }
+        
         winLoseLabel.textAlignment = .center
         winLoseLabel.font = .systemFont(ofSize: 32)
         winLoseLabel.textColor = .blueSys
@@ -128,7 +143,7 @@ class CompleteViewController: UIViewController {
         
         timeStackView.addArrangedSubview(timeLabel)
         
-        timeLabel.text = "9:20"
+        timeLabel.text = time
         timeLabel.font = .systemFont(ofSize: 24)
         timeLabel.textColor = .blueSys
     }
@@ -240,5 +255,19 @@ class CompleteViewController: UIViewController {
         startOverButton.translatesAutoresizingMaskIntoConstraints = false
         startOverButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         startOverButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+    }
+    
+    func continueButtonSettings() {
+        stackView.addArrangedSubview(continueButton)
+        
+        continueButton.backgroundColor = .blueSys
+        continueButton.layer.cornerRadius = 10
+        continueButton.setTitle("Continue", for: .normal)
+        continueButton.setTitleColor(.whiteSys, for: .normal)
+        continueButton.titleLabel?.font = .systemFont(ofSize: 26)
+        
+        continueButton.translatesAutoresizingMaskIntoConstraints = false
+        continueButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        continueButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 }

@@ -29,8 +29,6 @@ class GeneralSudokuViewController: UIViewController {
     var gameName: String = ""
     
     let testController = GeneralSudokuController()
-    
-    let completeGameView = CompleteGameView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +47,6 @@ class GeneralSudokuViewController: UIViewController {
             }
             
             guard let isCompleteGame = self.testController.ifAllCellsFilledDisplayCompletionView() else { return }
-            
-            self.view.addSubview(self.completeGameView)
             
             let testVC = CompleteViewController()
             
@@ -91,14 +87,6 @@ class GeneralSudokuViewController: UIViewController {
         
         testController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving)
         
-        completeGameView.userAnswer = { buttonAnswer in
-            switch buttonAnswer {
-            case "Main Menu": self.quitToMainMenu()
-            case "Start Over": self.startOver()
-            case "Continue": self.continueGameAfterLose()
-            default: return
-            }
-        }
         originallyOpenedNumbers = testController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         fillOriginallyOpenedNumbers()
@@ -116,21 +104,6 @@ class GeneralSudokuViewController: UIViewController {
         gameInfoVC.gameName = gameName
         
         navigationController?.pushViewController(gameInfoVC, animated: true)
-    }
-    
-    func quitToMainMenu() {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func startOver() {
-        
-        testController.startGameOver()
-        
-        completeGameView.removeFromSuperview()
-    }
-    
-    func continueGameAfterLose() {
-        completeGameView.removeFromSuperview()
     }
     
     func configureInit(gridWidth: CGFloat = UIScreen.main.bounds.width - 20) {
@@ -319,14 +292,6 @@ class GeneralSudokuViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func configureCompleteGameView() {
-        completeGameView.translatesAutoresizingMaskIntoConstraints = false
-        completeGameView.backgroundColor = UIColor.graySys.withAlphaComponent(0.9)
-        
-        completeGameView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height).isActive = true
-        completeGameView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
     }
     
     func getCellsByCoordinates() -> (x: Int, y: Int) {
