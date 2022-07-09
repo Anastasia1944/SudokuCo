@@ -102,7 +102,7 @@ class CompleteViewController: UIViewController {
         statisticStackView.alignment = .center
         statisticStackView.spacing = 20
         statisticStackView.isLayoutMarginsRelativeArrangement = true
-        statisticStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 30, trailing: 20)
+        statisticStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 0, bottom: 30, trailing: 0)
         
         statisticStackView.backgroundColor = .graySys
         statisticStackView.layer.cornerRadius = 30
@@ -140,8 +140,8 @@ class CompleteViewController: UIViewController {
         timeStackView.distribution = .equalCentering
         
         timeStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -10).isActive = true
-        timeStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 10).isActive = true
+        timeStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -20).isActive = true
+        timeStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 20).isActive = true
         
         let timeNameLabel = UILabel()
         
