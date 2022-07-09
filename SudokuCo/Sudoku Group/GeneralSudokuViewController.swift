@@ -29,8 +29,6 @@ class GeneralSudokuViewController: UIViewController {
     var gameName: String = ""
     
     let generalSudokuController = GeneralSudokuController()
-    
-    let completeVC = CompleteViewController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,13 +48,19 @@ class GeneralSudokuViewController: UIViewController {
             
             guard let isCompleteGame = self.generalSudokuController.ifAllCellsFilledDisplayCompletionView() else { return }
             
+            let completeVC = CompleteViewController()
+            
             if isCompleteGame {
-                self.completeVC.configureCompleteVC(isWin: true, time: "10:20")
+                completeVC.configureCompleteVC(isWin: true, time: 167, gameName: self.gameName)
             } else {
-                self.completeVC.configureCompleteVC(isWin: false, time: "11:17")
+                completeVC.configureCompleteVC(isWin: false, time: 677, gameName: self.gameName)
             }
             
-            self.navigationController?.pushViewController(self.completeVC, animated: true)
+            self.navigationController?.pushViewController(completeVC, animated: true)
+            
+            completeVC.startOver = { start in
+                self.generalSudokuController.startGameOver()
+            }
         }
         
         generalSudokuController.noteNumberChanged = { numbers in
@@ -92,10 +96,6 @@ class GeneralSudokuViewController: UIViewController {
         fillOriginallyOpenedNumbers()
         
         configureInfoGameButton()
-        
-        completeVC.startOver = { start in
-            self.generalSudokuController.startGameOver()
-        }
     }
     
     func configureInfoGameButton() {

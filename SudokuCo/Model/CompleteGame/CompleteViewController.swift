@@ -24,8 +24,7 @@ class CompleteViewController: UIViewController {
     private let startOverButton = UIButton()
     private let continueButton = UIButton()
     
-    private var time: String = ""
-    private var isWin: Bool = false
+    private var completeController = CompleteGameController()
     
     var startOver: ( (Bool) -> Void )?
 
@@ -33,14 +32,28 @@ class CompleteViewController: UIViewController {
         navigationController?.setNavigationBarHidden(true, animated: false)
         
         super.viewDidLoad()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    func configureCompleteVC(isWin: Bool, time: Int, gameName: String) {
+        completeController.configureStats(gameName: gameName)
+        completeController.addNewElementStatistic(time: time, isWin: isWin)
         
+        configureView(isWin: isWin)
+    }
+    
+    func configureView(isWin: Bool) {
         view.backgroundColor = .white
         
         view.addSubview(stackView)
         
         stackSettings()
         
-        winLoseLabelSettings()
+        winLoseLabelSettings(isWin: isWin)
         statisticViewSettings()
         
         mainMenuButtonSettings()
@@ -49,16 +62,6 @@ class CompleteViewController: UIViewController {
         if !isWin {
             continueButtonSettings()
         }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-    }
-    
-    func configureCompleteVC(isWin: Bool, time: String) {
-        self.time = time
-        self.isWin = isWin
     }
     
     func stackSettings() {
@@ -73,7 +76,7 @@ class CompleteViewController: UIViewController {
         stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
     }
     
-    func winLoseLabelSettings() {
+    func winLoseLabelSettings(isWin: Bool) {
         stackView.addArrangedSubview(winLoseLabel)
         
         if isWin {
@@ -150,7 +153,7 @@ class CompleteViewController: UIViewController {
         
         timeStackView.addArrangedSubview(timeLabel)
         
-        timeLabel.text = time
+        timeLabel.text = completeController.getCurrentTimeString()
         timeLabel.font = .systemFont(ofSize: 24)
         timeLabel.textColor = .blueSys
     }
@@ -177,7 +180,7 @@ class CompleteViewController: UIViewController {
         
         gamesWonStackView.addArrangedSubview(gamesWonLabel)
         
-        gamesWonLabel.text = "3"
+        gamesWonLabel.text = String(completeController.getWinGamesCount())
         gamesWonLabel.font = .systemFont(ofSize: 24)
         gamesWonLabel.textColor = .blueSys
     }
@@ -204,7 +207,7 @@ class CompleteViewController: UIViewController {
         
         winRateStackView.addArrangedSubview(winRateLabel)
         
-        winRateLabel.text = "37.8%"
+        winRateLabel.text = completeController.getWinRatePercentage()
         winRateLabel.font = .systemFont(ofSize: 24)
         winRateLabel.textColor = .blueSys
     }
@@ -231,7 +234,7 @@ class CompleteViewController: UIViewController {
         
         averageTimeStackView.addArrangedSubview(averageTimeLabel)
         
-        averageTimeLabel.text = "15:10"
+        averageTimeLabel.text = completeController.getAverageTimeString()
         averageTimeLabel.font = .systemFont(ofSize: 24)
         averageTimeLabel.textColor = .blueSys
     }

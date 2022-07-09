@@ -12,14 +12,15 @@ struct AllGames {
         let gameName: String
         let gameInfoFile: String
         let gameImageName: String
+        let statsFileName: String
     }
     
     let games: [String: Game] = [
-        "Classic Sudoku": Game(gameName: "Classic Sudoku", gameInfoFile: "ClassicSudokuInfo.json", gameImageName: "Classic Sudoku"),
-        "Odd-Even Sudoku": Game(gameName: "Odd-Even Sudoku", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku"),
-        "Frame Sudoku": Game(gameName: "Frame Sudoku", gameInfoFile: "FrameSudokuInfo.json", gameImageName: "Frame Sudoku"),
-        "Dots Sudoku": Game(gameName: "Dots Sudoku", gameInfoFile: "DotsSudokuInfo.json", gameImageName: "Dots Sudoku"),
-        "Comparison Sudoku": Game(gameName: "Comparison Sudoku", gameInfoFile: "ComparisonSudokuInfo.json", gameImageName: "Comparison Sudoku")]
+        "Classic Sudoku": Game(gameName: "Classic Sudoku", gameInfoFile: "ClassicSudokuInfo.json", gameImageName: "Classic Sudoku", statsFileName: "ClassicSudokuStats.json"),
+        "Odd-Even Sudoku": Game(gameName: "Odd-Even Sudoku", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku", statsFileName: "OddEvenSudokuStats.json"),
+        "Frame Sudoku": Game(gameName: "Frame Sudoku", gameInfoFile: "FrameSudokuInfo.json", gameImageName: "Frame Sudoku", statsFileName: "FrameSudokuStats.json"),
+        "Dots Sudoku": Game(gameName: "Dots Sudoku", gameInfoFile: "DotsSudokuInfo.json", gameImageName: "Dots Sudoku", statsFileName: "DotsSudokuStats.json"),
+        "Comparison Sudoku": Game(gameName: "Comparison Sudoku", gameInfoFile: "ComparisonSudokuInfo.json", gameImageName: "Comparison Sudoku", statsFileName: "ComparisonSudokuStats.json")]
     
     var myGames: [String: Game] = [:]
     let myGamesFile = "myGames.json"

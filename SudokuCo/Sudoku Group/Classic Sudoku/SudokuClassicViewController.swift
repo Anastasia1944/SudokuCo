@@ -10,7 +10,6 @@ import UIKit
 class SudokuClassicViewController: GeneralSudokuViewController {
     
     override func viewDidLoad() {
-        
         super.configureInit()
         super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Classic Sudoku")
         super.gameName = "Classic Sudoku"
