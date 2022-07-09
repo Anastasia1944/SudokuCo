@@ -23,17 +23,19 @@ class CompleteGameController {
         statistics = stats
     }
     
-    func addNewElementStatistic(time: Int, isWin: Bool) {
+    func addNewElementStatistic(time: Int, isWin: Bool, isSaving: Bool) {
         
         currentTime = time
         
-        statistics.times.append(time)
-        statistics.allgamesCount += 1
-        if isWin {
-            statistics.winGamesCount += 1
+        if isSaving {
+            statistics.times.append(time)
+            statistics.allgamesCount += 1
+            if isWin {
+                statistics.winGamesCount += 1
+            }
+            
+            statisticsCoding.encode(gameStats: statistics)
         }
-        
-        statisticsCoding.encode(gameStats: statistics)
     }
     
     func getCurrentTimeString() -> String {

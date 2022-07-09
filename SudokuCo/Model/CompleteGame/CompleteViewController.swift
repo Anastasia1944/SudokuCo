@@ -27,7 +27,7 @@ class CompleteViewController: UIViewController {
     private var completeController = CompleteGameController()
     
     var startOver: ( (Bool) -> Void )?
-
+    
     override func viewDidLoad() {
         navigationController?.setNavigationBarHidden(true, animated: false)
         
@@ -39,14 +39,14 @@ class CompleteViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func configureCompleteVC(isWin: Bool, time: Int, gameName: String) {
+    func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool) {
         completeController.configureStats(gameName: gameName)
-        completeController.addNewElementStatistic(time: time, isWin: isWin)
+        completeController.addNewElementStatistic(time: time, isWin: isWin, isSaving: isSaving)
         
-        configureView(isWin: isWin)
+        configureView(isWin: isWin, isSaving: isSaving)
     }
     
-    func configureView(isWin: Bool) {
+    func configureView(isWin: Bool, isSaving: Bool) {
         view.backgroundColor = .white
         
         view.addSubview(stackView)
@@ -54,7 +54,7 @@ class CompleteViewController: UIViewController {
         stackSettings()
         
         winLoseLabelSettings(isWin: isWin)
-        statisticViewSettings()
+        statisticViewSettings(isSaving: isSaving)
         
         mainMenuButtonSettings()
         startOverButtonSettings()
@@ -94,7 +94,7 @@ class CompleteViewController: UIViewController {
         winLoseLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
     }
     
-    func statisticViewSettings() {
+    func statisticViewSettings(isSaving: Bool) {
         stackView.addArrangedSubview(statisticStackView)
         
         statisticStackView.axis = .vertical
@@ -113,9 +113,11 @@ class CompleteViewController: UIViewController {
         
         statisticLabelSettings()
         timeStackViewSettings()
-        gamesWonStackViewSettings()
-        winRateStackViewSettings()
-        averageTimeStackViewSettings()
+        if isSaving {
+            gamesWonStackViewSettings()
+            winRateStackViewSettings()
+            averageTimeStackViewSettings()
+        }
     }
     
     func statisticLabelSettings() {
