@@ -140,8 +140,8 @@ class CompleteViewController: UIViewController {
         timeStackView.distribution = .equalCentering
         
         timeStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -20).isActive = true
-        timeStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 20).isActive = true
+        timeStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -10).isActive = true
+        timeStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 10).isActive = true
         
         let timeNameLabel = UILabel()
         

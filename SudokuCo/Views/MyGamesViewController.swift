@@ -49,6 +49,10 @@ class MyGamesViewController: UIViewController {
             let gameInfoCoding = GamesInfoCoding(gameName: gameName)
             gameInfoCoding.deleteGameInfo()
             
+            var statsGameCoding = StatisticGameCoding()
+            statsGameCoding.configureInfoForSaving(gameName: gameName)
+            statsGameCoding.deleteGameInfo()
+            
             self.allGames.deleteMyGame(gameName: gameName)
             self.updateGamesList()
         }))
