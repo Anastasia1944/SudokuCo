@@ -40,6 +40,9 @@ class GeneralSudokuController {
     
     private var sudokuActions: [SudokuAction] = []
     
+    private var timer: Timer?
+    private var runCount = 0
+    
     init() {
         for _ in 0...8 {
             filledNumbers.append([Int](repeating: 0, count: 9))
@@ -47,6 +50,7 @@ class GeneralSudokuController {
     }
     
     func configureController(gameMode: String, openedNum: CGFloat, isSaving: Bool = true) {
+        runTimer()
         
         self.openedNum = openedNum
         self.isSaving = isSaving
@@ -56,6 +60,24 @@ class GeneralSudokuController {
         } else {
             newGame()
         }
+    }
+    
+    func runTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func fireTimer() {
+        runCount += 1
+    }
+    
+    func stopTimer() -> Int {
+        timer?.invalidate()
+        
+        let newTime = generalSudokuGame.updateTime(plus: runCount)
+        runCount = 0
+        
+        saveInfoIfNedded()
+        return newTime
     }
     
     func newGame() {
@@ -195,6 +217,10 @@ class GeneralSudokuController {
     }
     
     func startGameOver() {
+        
+        runTimer()
+        generalSudokuGame.resetTimer()
+        
         let originallyOpenedNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
         for i in 0...8 {

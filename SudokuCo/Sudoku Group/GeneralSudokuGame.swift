@@ -15,6 +15,8 @@ class GeneralSudokuGame: Codable {
     
     private var notesNumbers: [[[Int: Bool]]] = []
     
+    private var time: Int = 0
+    
     func generateSudoku(openedNum: Int = 0) {
         fillNotesNumbersArray()
         
@@ -111,6 +113,19 @@ class GeneralSudokuGame: Codable {
     
     func getSudokuNotesNumbers() -> [[[Int: Bool]]] {
         return notesNumbers
+    }
+    
+    func getTime() -> Int {
+        return time
+    }
+    
+    func updateTime(plus: Int) -> Int {
+        time += plus
+        return time
+    }
+    
+    func resetTimer() {
+        time = 0
     }
 }
 

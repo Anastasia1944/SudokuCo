@@ -27,9 +27,10 @@ class GeneralSudokuViewController: UIViewController {
     var isSaving: Bool = true
     var openedNum = CGFloat(0)
     var gameName: String = ""
+    var gameTime: Int = 0
     
     let generalSudokuController = GeneralSudokuController()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,12 +49,14 @@ class GeneralSudokuViewController: UIViewController {
             
             guard let isCompleteGame = self.generalSudokuController.ifAllCellsFilledDisplayCompletionView() else { return }
             
+            self.gameTime = self.generalSudokuController.stopTimer()
+            
             let completeVC = CompleteViewController()
             
             if isCompleteGame {
-                completeVC.configureCompleteVC(isWin: true, time: 167, gameName: self.gameName, isSaving: self.isSaving)
+                completeVC.configureCompleteVC(isWin: true, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving)
             } else {
-                completeVC.configureCompleteVC(isWin: false, time: 677, gameName: self.gameName, isSaving: self.isSaving)
+                completeVC.configureCompleteVC(isWin: false, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving)
             }
             
             self.navigationController?.pushViewController(completeVC, animated: true)
@@ -96,6 +99,10 @@ class GeneralSudokuViewController: UIViewController {
         fillOriginallyOpenedNumbers()
         
         configureInfoGameButton()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        gameTime = generalSudokuController.stopTimer()
     }
     
     func configureInfoGameButton() {
@@ -254,7 +261,7 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     func configureGridLabels() {
-
+        
         for i in 0...8 {
             filledNumbersLabels.append([])
             for j in 0...8 {
