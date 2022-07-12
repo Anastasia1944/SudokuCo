@@ -28,10 +28,10 @@ class CompleteViewController: UIViewController {
     
     var startOver: ( (Bool) -> Void )?
     
-    override func viewDidLoad() {
-        navigationController?.setNavigationBarHidden(true, animated: false)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
