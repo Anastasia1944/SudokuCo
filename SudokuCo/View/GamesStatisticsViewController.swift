@@ -29,7 +29,14 @@ class GamesStatisticsViewController: UIViewController {
         loadStatistics()
     }
     
-    func loadStatistics() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        loadStatistics()
+        statisticsTableView.reloadData()
+    }
+    
+    private func loadStatistics() {
         let myGamesNames = AllGames().getGamesNames()
         
         for i in 0..<myGamesNames.count {

@@ -43,9 +43,5 @@ class MainViewController: UITabBarController {
         self.tabBar.tintColor = .blueSys
         self.tabBar.backgroundColor = .graySys
     }
-    
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        myGamesVC.updateGamesList()
-    }
 }
 

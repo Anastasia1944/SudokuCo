@@ -28,6 +28,8 @@ class CompleteViewController: UIViewController {
     
     var startOver: ( (Bool) -> Void )?
     
+    var gameName: String = ""
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -39,6 +41,8 @@ class CompleteViewController: UIViewController {
     }
     
     func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool) {
+        self.gameName = gameName
+        
         completeController.configureStats(gameName: gameName)
         completeController.addNewElementStatistic(time: time, isWin: isWin, isSaving: isSaving)
         
@@ -256,6 +260,10 @@ class CompleteViewController: UIViewController {
     }
     
     @objc func tapMainMenuButton() {
+        var gameInfoCoding = GamesInfoCoding()
+        gameInfoCoding.configureInfoForSaving(gameName: gameName)
+        gameInfoCoding.deleteGameInfo()
+        
         navigationController?.popToRootViewController(animated: true)
     }
     

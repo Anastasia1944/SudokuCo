@@ -29,6 +29,12 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.addGestureRecognizer(longPress)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        updateGamesList()
+    }
+    
     @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             let touchPoint = sender.location(in: myGamesTableView)
