@@ -11,9 +11,9 @@ class MainViewController: UITabBarController {
     
     let myGamesVC = MyGamesViewController()
     let gameLibraryVC = GameLibraryViewController()
-    let settingsVC = SettingsViewController()
+    let statisticsVC = GamesStatisticsViewController()
     
-    let itemsImages = ["gamecontroller", "folder", "gear"]
+    let itemsImages = ["gamecontroller", "folder", "chart.bar.doc.horizontal"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,13 @@ class MainViewController: UITabBarController {
         
         myGamesNavVC.title = "My Games"
         gameLibraryNavVC.title = "Game Library"
-        settingsVC.title = "Settings"
+        statisticsVC.title = "Statistics"
         
-        self.setViewControllers([myGamesNavVC, gameLibraryNavVC/*, settingsVC*/], animated: false)
+        self.setViewControllers([myGamesNavVC, gameLibraryNavVC, statisticsVC], animated: false)
         
         guard let items = self.tabBar.items else { return }
         
-        for i in 0..<2 {
+        for i in 0...2 {
             items[i].image = UIImage(systemName: itemsImages[i])
             items[i].badgeColor = .blueSys
         }

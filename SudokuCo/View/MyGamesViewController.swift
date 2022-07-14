@@ -61,7 +61,6 @@ class MyGamesViewController: UIViewController {
     }
     
     func setTableSettings() {
-        
         view.addSubview(myGamesTableView)
         
         myGamesTableView.translatesAutoresizingMaskIntoConstraints = false
