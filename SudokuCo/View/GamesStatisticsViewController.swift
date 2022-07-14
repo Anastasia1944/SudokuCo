@@ -45,7 +45,7 @@ extension GamesStatisticsViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let statisticsCell = tableView.dequeueReusableCell(withIdentifier: "statisticsCell", for: indexPath) as! GameStatisticsTableViewCell
         
-        statisticsCell.configureCell()
+        statisticsCell.configureCell(gameName: "Classic Sudoku", gamesWon: 2, winRate: "22.7%", averageTime: "12:20")
         
         return statisticsCell
     }

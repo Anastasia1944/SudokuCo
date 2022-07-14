@@ -27,12 +27,12 @@ class GameStatisticsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configureCell() {
+    func configureCell(gameName: String, gamesWon: Int, winRate: String, averageTime: String) {
         
-        configureView()
+        configureView(gameName: gameName, gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
     }
     
-    private func configureView() {
+    private func configureView(gameName: String, gamesWon: Int, winRate: String, averageTime: String) {
         viewCell.backgroundColor = .graySys
         viewCell.layer.cornerRadius = 30
         
@@ -44,13 +44,13 @@ class GameStatisticsTableViewCell: UITableViewCell {
         viewCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30).isActive = true
         viewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30).isActive = true
         
-        configureGameNameLabel()
-        configureImageView()
-        configureGamesStatsStackView()
+        configureGameNameLabel(gameName: gameName)
+        configureImageView(gameName: gameName)
+        configureGamesStatsStackView(gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
     }
     
-    private func configureGameNameLabel() {
-        gameNameLabel.text = "Game Name"
+    private func configureGameNameLabel(gameName: String) {
+        gameNameLabel.text = gameName
         gameNameLabel.font = .systemFont(ofSize: 20)
         gameNameLabel.textAlignment = .center
         
@@ -61,8 +61,8 @@ class GameStatisticsTableViewCell: UITableViewCell {
         gameNameLabel.centerXAnchor.constraint(equalTo: viewCell.centerXAnchor).isActive = true
     }
     
-    private func configureImageView() {
-        gameImageView.image = UIImage(named: "Classic Sudoku")
+    private func configureImageView(gameName: String) {
+        gameImageView.image = UIImage(named: gameName)
         
         viewCell.addSubview(gameImageView)
         
@@ -74,7 +74,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         gameImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
-    private func configureGamesStatsStackView() {
+    private func configureGamesStatsStackView(gamesWon: Int, winRate: String, averageTime: String) {
         
         gamesStatsStackView.axis = .vertical
         gamesStatsStackView.distribution = .equalSpacing
@@ -91,12 +91,12 @@ class GameStatisticsTableViewCell: UITableViewCell {
         gamesStatsStackView.trailingAnchor.constraint(equalTo: gameImageView.leadingAnchor, constant: -10).isActive = true
         gamesStatsStackView.bottomAnchor.constraint(equalTo: viewCell.bottomAnchor, constant: -10).isActive = true
         
-        gamesWonStackViewSettings()
-        winRateStackViewSettings()
-        averageTimeStackViewSettings()
+        gamesWonStackViewSettings(gamesWon: gamesWon)
+        winRateStackViewSettings(winRate: winRate)
+        averageTimeStackViewSettings(averageTime: averageTime)
     }
     
-    private func gamesWonStackViewSettings() {
+    private func gamesWonStackViewSettings(gamesWon: Int) {
         gamesStatsStackView.addArrangedSubview(gamesWonStackView)
         
         gamesWonStackView.axis = .horizontal
@@ -118,12 +118,12 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         gamesWonStackView.addArrangedSubview(gamesWonLabel)
         
-        gamesWonLabel.text = "3"
+        gamesWonLabel.text = String(gamesWon)
         gamesWonLabel.font = .systemFont(ofSize: 16)
         gamesWonLabel.textColor = .blueSys
     }
     
-    func winRateStackViewSettings() {
+    func winRateStackViewSettings(winRate: String) {
         gamesStatsStackView.addArrangedSubview(winRateStackView)
         
         winRateStackView.axis = .horizontal
@@ -145,12 +145,12 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         winRateStackView.addArrangedSubview(winRateLabel)
         
-        winRateLabel.text = "32%"
+        winRateLabel.text = winRate
         winRateLabel.font = .systemFont(ofSize: 16)
         winRateLabel.textColor = .blueSys
     }
     
-    func averageTimeStackViewSettings() {
+    func averageTimeStackViewSettings(averageTime: String) {
         gamesStatsStackView.addArrangedSubview(averageTimeStackView)
         
         averageTimeStackView.axis = .horizontal
@@ -164,7 +164,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         averageTimeStackView.addArrangedSubview(averageTimeNameLabel)
         
-        averageTimeNameLabel.text = "Average Time"
+        averageTimeNameLabel.text = averageTime
         averageTimeNameLabel.font = .systemFont(ofSize: 16)
         averageTimeNameLabel.textColor = .blueSys
         
