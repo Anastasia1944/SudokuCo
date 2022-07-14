@@ -46,7 +46,8 @@ class MyGamesViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             
-            let gameInfoCoding = GamesInfoCoding(gameName: gameName)
+            var gameInfoCoding = GamesInfoCoding()
+            gameInfoCoding.configureInfoForSaving(gameName: gameName)
             gameInfoCoding.deleteGameInfo()
             
             var statsGameCoding = StatisticGameCoding()
@@ -55,6 +56,7 @@ class MyGamesViewController: UIViewController {
             
             self.allGames.deleteMyGame(gameName: gameName)
             self.updateGamesList()
+
         }))
         
         self.present(alert, animated: true, completion: nil)
