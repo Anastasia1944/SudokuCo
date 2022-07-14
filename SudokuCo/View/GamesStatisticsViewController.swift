@@ -10,6 +10,9 @@ import UIKit
 class GamesStatisticsViewController: UIViewController {
     
     let statisticsTableView = UITableView()
+    
+    var myAvaillableGamesNames: [String] = []
+    var stats: [GameStatistics] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +25,22 @@ class GamesStatisticsViewController: UIViewController {
         view.backgroundColor = .white
         
         setTableSettings()
+        
+        loadStatistics()
+    }
+    
+    func loadStatistics() {
+        let myGamesNames = AllGames().getGamesNames()
+        
+        for i in 0..<myGamesNames.count {
+            var statisticsGameCoding = StatisticGameCoding()
+            statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i])
+            
+            if let s = statisticsGameCoding.decode() {
+                myAvaillableGamesNames.append(myGamesNames[i])
+                stats.append(s)
+            }
+        }
     }
     
     func setTableSettings() {
@@ -35,17 +54,38 @@ class GamesStatisticsViewController: UIViewController {
         statisticsTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         statisticsTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
+    
+    private func intTimeToString(time: Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        return formatter.string(from: TimeInterval(time))!
+    }
 }
 
 extension GamesStatisticsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return stats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let statisticsCell = tableView.dequeueReusableCell(withIdentifier: "statisticsCell", for: indexPath) as! GameStatisticsTableViewCell
         
-        statisticsCell.configureCell(gameName: "Classic Sudoku", gamesWon: 2, winRate: "22.7%", averageTime: "12:20")
+        let gameName = myAvaillableGamesNames[indexPath.row]
+        let gamesWon = stats[indexPath.row].winGamesCount
+        
+        let winRatePercentage = Double(stats[indexPath.row].winGamesCount) / Double(stats[indexPath.row].allgamesCount) * 100
+        let winRate = String(round(winRatePercentage * 10) / 10) + "%"
+        
+        var time = 0
+        
+        for i in 0..<stats[indexPath.row].times.count {
+            time += stats[indexPath.row].times[i]
+        }
+        
+        let averageTime = intTimeToString(time: time / stats[indexPath.row].allgamesCount)
+        
+        statisticsCell.configureCell(gameName: gameName, gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
         
         return statisticsCell
     }

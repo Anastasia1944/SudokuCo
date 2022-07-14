@@ -164,7 +164,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         averageTimeStackView.addArrangedSubview(averageTimeNameLabel)
         
-        averageTimeNameLabel.text = averageTime
+        averageTimeNameLabel.text = "Average Time"
         averageTimeNameLabel.font = .systemFont(ofSize: 16)
         averageTimeNameLabel.textColor = .blueSys
         
@@ -172,7 +172,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         averageTimeStackView.addArrangedSubview(averageTimeLabel)
         
-        averageTimeLabel.text = "10:20"
+        averageTimeLabel.text = averageTime
         averageTimeLabel.font = .systemFont(ofSize: 16)
         averageTimeLabel.textColor = .blueSys
     }

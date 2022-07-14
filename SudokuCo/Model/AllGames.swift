@@ -29,6 +29,15 @@ struct AllGames {
         loadMyGames()
     }
     
+    func getGamesNames() -> [String] {
+        var games: [String] = []
+        
+        for i in myGames.keys {
+            games.append(i)
+        }
+        return games
+    }
+    
     mutating func loadMyGames() {
         let decoder = JSONDecoder()
         
