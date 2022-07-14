@@ -9,15 +9,15 @@ import UIKit
 
 class GameStatisticsTableViewCell: UITableViewCell {
     
-    private let viewCell = UIView()
+    private var viewCell = UIView()
     
-    private let gameNameLabel = UILabel()
-    private let gameImageView = UIImageView()
+    private var gameNameLabel = UILabel()
+    private var gameImageView = UIImageView()
     
-    private let gamesStatsStackView = UIStackView()
-    private let gamesWonStackView = UIStackView()
-    private let winRateStackView = UIStackView()
-    private let averageTimeStackView = UIStackView()
+    private var gamesStatsStackView = UIStackView()
+    private var gamesWonStackView = UIStackView()
+    private var winRateStackView = UIStackView()
+    private var averageTimeStackView = UIStackView()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,6 +28,15 @@ class GameStatisticsTableViewCell: UITableViewCell {
     }
     
     func configureCell(gameName: String, gamesWon: Int, winRate: String, averageTime: String) {
+        viewCell = UIView()
+        
+        gameNameLabel = UILabel()
+        gameImageView = UIImageView()
+        
+        gamesStatsStackView = UIStackView()
+        gamesWonStackView = UIStackView()
+        winRateStackView = UIStackView()
+        averageTimeStackView = UIStackView()
         
         configureView(gameName: gameName, gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
     }
