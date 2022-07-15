@@ -193,11 +193,11 @@
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4F02865DB2A00AA1461 /* Sudoku Group */,
 				5D7BB4E828639E3E00AA1461 /* View */,
-				5DC743C92858FF3700F1C4F6 /* Assets.xcassets */,
 				5DC743C02858FF3700F1C4F6 /* AppDelegate.swift */,
 				5DC743C22858FF3700F1C4F6 /* SceneDelegate.swift */,
 				5D7BB4F92866670400AA1461 /* Extensions.swift */,
 				5DC743CB2858FF3700F1C4F6 /* LaunchScreen.storyboard */,
+				5DC743C92858FF3700F1C4F6 /* Assets.xcassets */,
 				5DC743CE2858FF3700F1C4F6 /* Info.plist */,
 			);
 			path = SudokuCo;

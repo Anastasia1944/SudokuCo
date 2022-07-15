@@ -13,6 +13,7 @@ class DotsSudokuViewController: GeneralSudokuViewController {
         super.configureInit()
         super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Dots Sudoku")
         super.gameName = "Dots Sudoku"
+        super.openedNum = CGFloat(10)
         super.viewDidLoad()
         
         configureDots()

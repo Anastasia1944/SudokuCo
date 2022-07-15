@@ -14,6 +14,7 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
         
         super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Comparison Sudoku")
         super.gameName = "Comparison Sudoku"
+        super.openedNum = CGFloat(15)
         super.viewDidLoad()
         
         configureMoreLessSigns()
