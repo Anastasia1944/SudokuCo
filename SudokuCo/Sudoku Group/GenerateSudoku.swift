@@ -27,8 +27,7 @@ class GenerateSudoku {
         generateSudoku()
     }
     
-    func generateSudoku() {
-        
+    private func generateSudoku() {
         generateBasic()
         
         _ = fillRemainingCells(x: 3, y: 0)
@@ -36,8 +35,7 @@ class GenerateSudoku {
         generateOpenedNumbers()
     }
     
-    func generateBasic() {
-        
+    private func generateBasic() {
         for k in 0...2 {
             var nums = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
             for i in k * 3..<(k + 1) * 3 {
@@ -49,8 +47,7 @@ class GenerateSudoku {
         }
     }
     
-    func fillRemainingCells(x: Int, y: Int) -> Bool {
-        
+    private func fillRemainingCells(x: Int, y: Int) -> Bool {
         var i = x
         var j = y
         
@@ -94,15 +91,15 @@ class GenerateSudoku {
         return false
     }
     
-    func isCellSafeForNum(i: Int, j: Int, num: Int) -> Bool {
+    private func isCellSafeForNum(i: Int, j: Int, num: Int) -> Bool {
         return (isUnusedInRow(i: i, j: j, num: num) && isUnusedInColumn(i: i, j: j, num: num) && isUnusedInArea(i: i, j: j, num: num))
     }
     
-    func isUnusedInColumn(i: Int, j: Int, num: Int) -> Bool {
+    private func isUnusedInColumn(i: Int, j: Int, num: Int) -> Bool {
         return !sudokuNumbers[i].contains(num)
     }
     
-    func isUnusedInRow(i: Int, j: Int, num: Int) -> Bool {
+    private func isUnusedInRow(i: Int, j: Int, num: Int) -> Bool {
         
         for column in sudokuNumbers {
             if column[j] == num {
@@ -112,7 +109,7 @@ class GenerateSudoku {
         return true
     }
     
-    func isUnusedInArea(i: Int, j: Int, num: Int) -> Bool {
+    private func isUnusedInArea(i: Int, j: Int, num: Int) -> Bool {
         let startX = 3 * Int(floor(Double(i) / 3.0))
         let startY = 3 * Int(floor(Double(j) / 3.0))
         
