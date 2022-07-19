@@ -38,7 +38,7 @@
 		5DCF1DA42879D4F60032DD04 /* CompleteGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */; };
 		5DCF1DA6287DB48B0032DD04 /* GamesStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */; };
 		5DCF1DA8288052C20032DD04 /* GameStatisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */; };
-		5DE4D20028861D18008A4AF5 /* SudokuCoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4D1FF28861D18008A4AF5 /* SudokuCoTests.swift */; };
+		5DE4D20028861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +86,7 @@
 		5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesStatisticsViewController.swift; sourceTree = "<group>"; };
 		5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatisticsTableViewCell.swift; sourceTree = "<group>"; };
 		5DE4D1FD28861D18008A4AF5 /* SudokuCoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuCoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5DE4D1FF28861D18008A4AF5 /* SudokuCoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuCoTests.swift; sourceTree = "<group>"; };
+		5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuCoGenerateSudokuTests.swift; sourceTree = "<group>"; };
 		5DE4D20128861D18008A4AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,7 +240,7 @@
 		5DE4D1FE28861D18008A4AF5 /* SudokuCoTests */ = {
 			isa = PBXGroup;
 			children = (
-				5DE4D1FF28861D18008A4AF5 /* SudokuCoTests.swift */,
+				5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */,
 				5DE4D20128861D18008A4AF5 /* Info.plist */,
 			);
 			path = SudokuCoTests;
@@ -381,7 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5DE4D20028861D18008A4AF5 /* SudokuCoTests.swift in Sources */,
+				5DE4D20028861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
