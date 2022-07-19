@@ -38,7 +38,18 @@
 		5DCF1DA42879D4F60032DD04 /* CompleteGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */; };
 		5DCF1DA6287DB48B0032DD04 /* GamesStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */; };
 		5DCF1DA8288052C20032DD04 /* GameStatisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */; };
+		5DE4D20028861D18008A4AF5 /* SudokuCoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4D1FF28861D18008A4AF5 /* SudokuCoTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		5DE4D20228861D18008A4AF5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5DC743B52858FF3700F1C4F6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5DC743BC2858FF3700F1C4F6;
+			remoteInfo = SudokuCo;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesInfoCoding.swift; sourceTree = "<group>"; };
@@ -74,10 +85,20 @@
 		5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGameController.swift; sourceTree = "<group>"; };
 		5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesStatisticsViewController.swift; sourceTree = "<group>"; };
 		5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatisticsTableViewCell.swift; sourceTree = "<group>"; };
+		5DE4D1FD28861D18008A4AF5 /* SudokuCoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuCoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5DE4D1FF28861D18008A4AF5 /* SudokuCoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuCoTests.swift; sourceTree = "<group>"; };
+		5DE4D20128861D18008A4AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		5DC743BA2858FF3700F1C4F6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DE4D1FA28861D18008A4AF5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -175,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				5DC743BF2858FF3700F1C4F6 /* SudokuCo */,
+				5DE4D1FE28861D18008A4AF5 /* SudokuCoTests */,
 				5DC743BE2858FF3700F1C4F6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -183,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				5DC743BD2858FF3700F1C4F6 /* SudokuCo.app */,
+				5DE4D1FD28861D18008A4AF5 /* SudokuCoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -214,6 +237,15 @@
 			path = CompleteGame;
 			sourceTree = "<group>";
 		};
+		5DE4D1FE28861D18008A4AF5 /* SudokuCoTests */ = {
+			isa = PBXGroup;
+			children = (
+				5DE4D1FF28861D18008A4AF5 /* SudokuCoTests.swift */,
+				5DE4D20128861D18008A4AF5 /* Info.plist */,
+			);
+			path = SudokuCoTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -234,6 +266,24 @@
 			productReference = 5DC743BD2858FF3700F1C4F6 /* SudokuCo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		5DE4D1FC28861D18008A4AF5 /* SudokuCoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DE4D20628861D18008A4AF5 /* Build configuration list for PBXNativeTarget "SudokuCoTests" */;
+			buildPhases = (
+				5DE4D1F928861D18008A4AF5 /* Sources */,
+				5DE4D1FA28861D18008A4AF5 /* Frameworks */,
+				5DE4D1FB28861D18008A4AF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5DE4D20328861D18008A4AF5 /* PBXTargetDependency */,
+			);
+			name = SudokuCoTests;
+			productName = SudokuCoTests;
+			productReference = 5DE4D1FD28861D18008A4AF5 /* SudokuCoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -245,6 +295,10 @@
 				TargetAttributes = {
 					5DC743BC2858FF3700F1C4F6 = {
 						CreatedOnToolsVersion = 12.5.1;
+					};
+					5DE4D1FC28861D18008A4AF5 = {
+						CreatedOnToolsVersion = 12.5.1;
+						TestTargetID = 5DC743BC2858FF3700F1C4F6;
 					};
 				};
 			};
@@ -262,6 +316,7 @@
 			projectRoot = "";
 			targets = (
 				5DC743BC2858FF3700F1C4F6 /* SudokuCo */,
+				5DE4D1FC28861D18008A4AF5 /* SudokuCoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -273,6 +328,13 @@
 			files = (
 				5DC743CD2858FF3700F1C4F6 /* LaunchScreen.storyboard in Resources */,
 				5DC743CA2858FF3700F1C4F6 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5DE4D1FB28861D18008A4AF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,7 +377,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5DE4D1F928861D18008A4AF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5DE4D20028861D18008A4AF5 /* SudokuCoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5DE4D20328861D18008A4AF5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5DC743BC2858FF3700F1C4F6 /* SudokuCo */;
+			targetProxy = 5DE4D20228861D18008A4AF5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5DC743CB2858FF3700F1C4F6 /* LaunchScreen.storyboard */ = {
@@ -483,6 +561,46 @@
 			};
 			name = Release;
 		};
+		5DE4D20428861D18008A4AF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8QQ2UAQU6U;
+				INFOPLIST_FILE = SudokuCoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goryachevskayaao.SudokuCoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudokuCo.app/SudokuCo";
+			};
+			name = Debug;
+		};
+		5DE4D20528861D18008A4AF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8QQ2UAQU6U;
+				INFOPLIST_FILE = SudokuCoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.goryachevskayaao.SudokuCoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SudokuCo.app/SudokuCo";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -500,6 +618,15 @@
 			buildConfigurations = (
 				5DC743D22858FF3700F1C4F6 /* Debug */,
 				5DC743D32858FF3700F1C4F6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5DE4D20628861D18008A4AF5 /* Build configuration list for PBXNativeTarget "SudokuCoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5DE4D20428861D18008A4AF5 /* Debug */,
+				5DE4D20528861D18008A4AF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
