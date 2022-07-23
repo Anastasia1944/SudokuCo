@@ -76,6 +76,11 @@ class GamesStatisticsViewController: UIViewController {
 
 extension GamesStatisticsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if stats.count == 0 {
+            tableView.setEmptyView(mainText: "There are no statistics now", addText: "Play some games at My Games")
+        } else {
+            tableView.restore()
+        }
         return stats.count
     }
     
