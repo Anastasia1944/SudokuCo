@@ -276,15 +276,17 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     func configureNotesLabels() {
+        let gap = CGFloat(3)
+        
         for i in 0...8 {
             notesLabels.append([])
             for j in 0...8 {
                 notesLabels[i].append([])
                 for k in 0...8 {
-                    let xSize = CGFloat(i) * cellSize + CGFloat(k % 3) * cellSize / 3
-                    let ySize = CGFloat(j) * cellSize + CGFloat(k / 3) * cellSize / 3
+                    let xSize = CGFloat(i) * cellSize + CGFloat(k % 3) * (cellSize - 2 * gap) / 3 //CGFloat(i) * cellSize + CGFloat(k % 3) * cellSize / 3
+                    let ySize = CGFloat(j) * cellSize + CGFloat(k / 3) * (cellSize - 2 * gap) / 3 //CGFloat(j) * cellSize + CGFloat(k / 3) * cellSize / 3
                     
-                    let label = UILabel(frame: CGRect(x: xSize, y: ySize, width: cellSize / 3, height: cellSize / 3))
+                    let label = UILabel(frame: CGRect(x: xSize + gap, y: ySize + gap, width: (cellSize - 2 * gap) / 3, height: (cellSize - 2 * gap) / 3))
                     label.textAlignment = .center
                     label.font = .systemFont(ofSize: 10)
                     
