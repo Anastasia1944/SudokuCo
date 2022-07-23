@@ -25,7 +25,7 @@ struct StatisticGameCoding {
                 let jsonData = try encoder.encode(gameStats)
                 try jsonData.write(to: fileURL)
             } catch {
-                print("error")
+                print("Error. Games Statistics Not Saved: \(gameName)")
             }
         }
     }
@@ -40,7 +40,7 @@ struct StatisticGameCoding {
                 let data = try Data(contentsOf: fileURL)
                 return try decoder.decode(GameStatistics.self, from: data)
             } catch {
-                print("error")
+                print("Error. No Saved Game Statistics: \(gameName)")
             }
         }
         return nil
@@ -55,7 +55,7 @@ struct StatisticGameCoding {
             do {
                 try fileManager.removeItem(at: fileURL)
             } catch {
-                print("delete error")
+                print("Error. No Game Statistics Info to Delete: \(gameName)")
             }
         }
     }

@@ -28,7 +28,7 @@ struct GamesInfoCoding {
                 let jsonData = try encoder.encode(game)
                 try jsonData.write(to: fileURL)
             } catch {
-                print("error")
+                print("Error. Game Info Not Saved: \(gameName)")
             }
         }
     }
@@ -44,7 +44,7 @@ struct GamesInfoCoding {
                 isThereUnfinishedGame = true
                 return try decoder.decode(GeneralSudokuGame.self, from: data)
             } catch {
-                print("error")
+                print("Error. No Saved Game Info: \(gameName)")
             }
         }
         return nil
@@ -59,7 +59,7 @@ struct GamesInfoCoding {
             do {
                 try fileManager.removeItem(at: fileURL)
             } catch {
-                print("delete error")
+                print("Error. No Game Info to Delete: \(gameName)")
             }
         }
     }

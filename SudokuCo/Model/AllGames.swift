@@ -47,7 +47,7 @@ struct AllGames {
                 let data = try Data(contentsOf: fileURL)
                 myGames = try decoder.decode([String: Game].self, from: data)
             } catch {
-                print("error")
+                print("Error. No Saved Games in My Games")
             }
         }
     }
@@ -61,7 +61,7 @@ struct AllGames {
                 let jsonData = try encoder.encode(myGames)
                 try jsonData.write(to: fileURL)
             } catch {
-                print("error")
+                print("Error. My Games Info Not Saved")
             }
         }
     }
