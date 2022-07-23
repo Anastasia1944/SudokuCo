@@ -57,6 +57,7 @@ class GamesStatisticsViewController: UIViewController {
         view.addSubview(statisticsTableView)
         
         statisticsTableView.separatorStyle = .none
+        statisticsTableView.allowsSelection = false
         
         statisticsTableView.translatesAutoresizingMaskIntoConstraints = false
         statisticsTableView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
