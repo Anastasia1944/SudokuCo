@@ -148,7 +148,6 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     func configureSudokuGrid() {
-        
         let framingGridView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.width - 20))
         self.gameElementsStackView.addArrangedSubview(framingGridView)
         
@@ -186,9 +185,14 @@ class GeneralSudokuViewController: UIViewController {
         let buttonIcons = ["arrow.counterclockwise", "delete.left", "square.and.pencil", "lightbulb"]
         
         for i in 0..<buttonIcons.count {
-            let button = UIButton()
-            button.tintColor = .black
-            button.setImage(UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25)), for: .normal)
+            let button = UIButton(type: .custom)
+            
+            let image = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.blackSys, renderingMode: .alwaysOriginal)
+            let highlightedImage = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.graySys, renderingMode: .alwaysOriginal)
+            
+            button.setImage(image, for: .normal)
+            button.setImage(highlightedImage, for: .highlighted)
+            
             switch buttonIcons[i] {
             case "arrow.counterclockwise": button.addTarget(self, action: #selector(tapPanelButtonCancel), for: .touchUpInside)
             case "delete.left": button.addTarget(self, action: #selector(tapPanelButtonDelete), for: .touchUpInside)
@@ -261,7 +265,6 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     func configureGridLabels() {
-        
         for i in 0...8 {
             filledNumbersLabels.append([])
             for j in 0...8 {
