@@ -103,19 +103,26 @@ class GeneralSudokuController {
     }
     
     func numberButtonTapped(x: Int, y: Int, value: Int) {
+        
+        var isUndoPrevious: Bool = false
+        
         if isNote {
             if filledNumbers[x][y] != 0 {
                 sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y]))
                 deleteMainNumber(x: x, y: y)
+                
+                isUndoPrevious = true
             }
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: value, note: true))
+            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: value, note: true, isUndoPreviousAction: isUndoPrevious))
             addNoteNumber(x: x, y: y, value: value)
         } else {
             if !isNotesEmpty(x: x, y: y) {
                 sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: notesNumbers[x][y]))
                 deleteNotesNumbers(x: x, y: y)
+                
+                isUndoPrevious = true
             }
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y]))
+            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y], isUndoPreviousAction: isUndoPrevious))
             addMainNumber(x: x, y: y, value: value)
         }
         saveInfoIfNedded()
@@ -150,22 +157,24 @@ class GeneralSudokuController {
         isNote = !isNote
     }
     
-    func cancelButtonTapped() -> Bool? {
-        guard let lastAction = sudokuActions.popLast() else { return nil }
-        
-        if lastAction.note {
-            if lastAction.isAddNote {
-                notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = !notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber]!
+    func cancelButtonTapped() {
+        if let lastAction = sudokuActions.popLast() {
+            if lastAction.note {
+                if lastAction.isAddNote {
+                    notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = !notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber]!
+                } else {
+                    notesNumbers[lastAction.xCell][lastAction.yCell] = lastAction.noteStack!
+                }
             } else {
-                notesNumbers[lastAction.xCell][lastAction.yCell] = lastAction.noteStack!
+                filledNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
             }
-        } else {
-            filledNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
+            
+            saveInfoIfNedded()
+            
+            if lastAction.isUndoPreviousAction {
+                cancelButtonTapped()
+            }
         }
-        
-        saveInfoIfNedded()
-        
-        return true
     }
     
     func addMainNumber(x: Int, y: Int, value: Int) {
