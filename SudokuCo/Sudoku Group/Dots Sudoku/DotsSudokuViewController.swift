@@ -40,7 +40,6 @@ class DotsSudokuViewController: GeneralSudokuViewController {
 
 
                     if ifTwoNumbersDiffersInOne(a: a, b: b) {
-
                         let dotView = WhiteDot()
                         dotView.configureDot(cellSize: cellSize)
 
@@ -49,12 +48,21 @@ class DotsSudokuViewController: GeneralSudokuViewController {
                     }
 
                     if ifTwoNumbersDifferTwice(a: a, b: b) {
-
                         let dotView = BlackDot()
                         dotView.configureDot(cellSize: cellSize)
 
                         dotView.center = gridView.convert(pointCenter, from: gridView)
                         gridView.addSubview(dotView)
+                    }
+                    
+                    if ifTwoNumbersDifferTwice(a: a, b: b) && ifTwoNumbersDiffersInOne(a: a, b: b) {
+                        if Bool.random() {
+                            let dotView = WhiteDot()
+                            dotView.configureDot(cellSize: cellSize)
+
+                            dotView.center = gridView.convert(pointCenter, from: gridView)
+                            gridView.addSubview(dotView)
+                        }
                     }
                 }
             }
@@ -65,7 +73,6 @@ class DotsSudokuViewController: GeneralSudokuViewController {
         if a == b + 1 || a == b - 1 {
             return true
         }
-
         return false
     }
 
