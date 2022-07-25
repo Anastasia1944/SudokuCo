@@ -244,4 +244,10 @@ class GeneralSudokuController {
         
         saveInfoIfNedded()
     }
+    
+    func continueCurrentGame() {
+        runTimer()
+        
+        saveInfoIfNedded()
+    }
 }

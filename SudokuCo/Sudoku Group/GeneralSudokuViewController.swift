@@ -64,6 +64,10 @@ class GeneralSudokuViewController: UIViewController {
             completeVC.startOver = { start in
                 self.generalSudokuController.startGameOver()
             }
+            
+            completeVC.continueGame = { continueGame in
+                self.generalSudokuController.continueCurrentGame()
+            }
         }
         
         generalSudokuController.noteNumberChanged = { numbers in

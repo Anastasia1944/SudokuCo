@@ -27,6 +27,7 @@ class CompleteViewController: UIViewController {
     private var completeController = CompleteGameController()
     
     var startOver: ( (Bool) -> Void )?
+    var continueGame: ( (Bool) -> Void )?
     
     var gameName: String = ""
     
@@ -304,6 +305,8 @@ class CompleteViewController: UIViewController {
     }
     
     @objc func tapContinueButton() {
+        self.continueGame!(true)
+        
         navigationController?.popViewController(animated: true)
     }
 }
