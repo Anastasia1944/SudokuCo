@@ -46,12 +46,14 @@ class GamesStatisticsViewController: UIViewController {
             var statisticsGameCoding = StatisticGameCoding()
             statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i])
             
-            if let s = statisticsGameCoding.decode() {
+            if var s = statisticsGameCoding.decode() {
                 myAvaillableGamesNames.append(myGamesNames[i])
+                s.gameName = myGamesNames[i]
                 stats.append(s)
             }
         }
         myAvaillableGamesNames = myAvaillableGamesNames.sorted()
+        stats = stats.sorted(by: { $0.gameName < $1.gameName })
     }
     
     func setTableSettings() {
