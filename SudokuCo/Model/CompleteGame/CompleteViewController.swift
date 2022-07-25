@@ -272,7 +272,7 @@ class CompleteViewController: UIViewController {
         
         startOverButton.backgroundColor = .blueSys
         startOverButton.layer.cornerRadius = 10
-        startOverButton.setTitle("Start Over", for: .normal)
+        startOverButton.setTitle("Restart Game", for: .normal)
         startOverButton.setTitleColor(.whiteSys, for: .normal)
         startOverButton.titleLabel?.font = .systemFont(ofSize: 26)
         startOverButton.addTarget(self, action: #selector(tapStartOverButton), for: .touchUpInside)
