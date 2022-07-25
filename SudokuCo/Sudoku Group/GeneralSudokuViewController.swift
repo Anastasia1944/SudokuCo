@@ -31,7 +31,7 @@ class GeneralSudokuViewController: UIViewController {
     
     let generalSudokuController = GeneralSudokuController()
     
-    var isOpenLibraryAlert: Bool = false
+    var isOpenLibraryAlert: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,7 +125,7 @@ class GeneralSudokuViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Don't show again", style: .default, handler: { _ in
             let defaults = UserDefaults.standard
             
-            defaults.set(false, forKey: "Show Library Alert")
+            defaults.set(true, forKey: "Do not Show Library Alert")
         }))
         
         self.present(alert, animated: true, completion: nil)

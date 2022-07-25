@@ -73,8 +73,8 @@ class GameLibraryViewController: UIViewController {
         switch gameName {
         case "Classic Sudoku":
             let sudokuGameVC = SudokuClassicViewController()
-            if defaults.bool(forKey: "Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = true
+            if defaults.bool(forKey: "Do not Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = false
             }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
@@ -82,8 +82,8 @@ class GameLibraryViewController: UIViewController {
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Odd-Even Sudoku":
             let sudokuGameVC = OddEvenSudokuViewController()
-            if defaults.bool(forKey: "Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = true
+            if defaults.bool(forKey: "Do not Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = false
             }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
@@ -91,8 +91,8 @@ class GameLibraryViewController: UIViewController {
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Frame Sudoku":
             let sudokuGameVC = FrameSudokuViewController()
-            if defaults.bool(forKey: "Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = true
+            if defaults.bool(forKey: "Do not Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = false
             }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
@@ -100,8 +100,8 @@ class GameLibraryViewController: UIViewController {
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Dots Sudoku":
             let sudokuGameVC = DotsSudokuViewController()
-            if defaults.bool(forKey: "Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = true
+            if defaults.bool(forKey: "Do not Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = false
             }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
@@ -109,8 +109,8 @@ class GameLibraryViewController: UIViewController {
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Comparison Sudoku":
             let sudokuGameVC = ComparisonSudokuViewController()
-            if defaults.bool(forKey: "Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = true
+            if defaults.bool(forKey: "Do not Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = false
             }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
