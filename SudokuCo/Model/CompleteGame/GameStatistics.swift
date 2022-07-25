@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameStatistics: Codable {
-    
+    var gameName: String = ""
     var times: [Int] = []
     var allgamesCount: Int = 0
     var winGamesCount: Int = 0

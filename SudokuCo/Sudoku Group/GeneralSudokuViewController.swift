@@ -34,6 +34,8 @@ class GeneralSudokuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        openedNum = CGFloat(78)
+        
         configureView()
         
         generalSudokuController.numberChanged = { numbers in
