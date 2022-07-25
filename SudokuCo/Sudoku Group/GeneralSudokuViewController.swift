@@ -31,6 +31,8 @@ class GeneralSudokuViewController: UIViewController {
     
     let generalSudokuController = GeneralSudokuController()
     
+    var isOpenLibraryAlert: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,10 +107,28 @@ class GeneralSudokuViewController: UIViewController {
         fillOriginallyOpenedNumbers()
         
         configureInfoGameButton()
+        
+        if isOpenLibraryAlert {
+            openLibraryAlert()
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         gameTime = generalSudokuController.stopTimer()
+    }
+    
+    func openLibraryAlert() {
+        let alert = UIAlertController(title: "This Game will not be saved in statistics. Play from the \"My Games\" to save it.", message: nil, preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "Don't show again", style: .default, handler: { _ in
+            let defaults = UserDefaults.standard
+            
+            defaults.set(false, forKey: "Show Library Alert")
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func configureInfoGameButton() {

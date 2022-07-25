@@ -68,33 +68,50 @@ class GameLibraryViewController: UIViewController {
     
     func transitipnToGameVC(gameName: String) {
         
+        let defaults = UserDefaults.standard
+        
         switch gameName {
         case "Classic Sudoku":
             let sudokuGameVC = SudokuClassicViewController()
+            if defaults.bool(forKey: "Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = true
+            }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Odd-Even Sudoku":
             let sudokuGameVC = OddEvenSudokuViewController()
+            if defaults.bool(forKey: "Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = true
+            }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Frame Sudoku":
             let sudokuGameVC = FrameSudokuViewController()
+            if defaults.bool(forKey: "Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = true
+            }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Dots Sudoku":
             let sudokuGameVC = DotsSudokuViewController()
+            if defaults.bool(forKey: "Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = true
+            }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
             navigationController?.pushViewController(sudokuGameVC, animated: true)
         case "Comparison Sudoku":
             let sudokuGameVC = ComparisonSudokuViewController()
+            if defaults.bool(forKey: "Show Library Alert") {
+                sudokuGameVC.isOpenLibraryAlert = true
+            }
             sudokuGameVC.hidesBottomBarWhenPushed = true
             sudokuGameVC.isSaving = false
             sudokuGameVC.modalPresentationStyle = .fullScreen
