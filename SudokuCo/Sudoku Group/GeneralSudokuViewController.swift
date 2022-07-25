@@ -185,7 +185,18 @@ class GeneralSudokuViewController: UIViewController {
         let buttonIcons = ["arrow.counterclockwise", "delete.left", "square.and.pencil", "lightbulb"]
         
         for i in 0..<buttonIcons.count {
-            let button = UIButton(type: .custom)
+            
+            let buttonStackView = UIStackView()
+            buttonStackView.axis = .vertical
+            buttonStackView.distribution = .equalSpacing
+            buttonStackView.spacing = 4
+            buttonStackView.alignment = .center
+            
+            let button = UIButton(type: .system)
+            let label = UILabel()
+            
+            buttonStackView.addArrangedSubview(button)
+            buttonStackView.addArrangedSubview(label)
             
             let image = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.blackSys, renderingMode: .alwaysOriginal)
             let highlightedImage = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.graySys, renderingMode: .alwaysOriginal)
@@ -195,13 +206,17 @@ class GeneralSudokuViewController: UIViewController {
             
             switch buttonIcons[i] {
             case "arrow.counterclockwise": button.addTarget(self, action: #selector(tapPanelButtonCancel), for: .touchUpInside)
+                label.text = "Cancel"
             case "delete.left": button.addTarget(self, action: #selector(tapPanelButtonDelete), for: .touchUpInside)
+                label.text = "Delete"
             case "square.and.pencil": button.addTarget(self, action: #selector(tapPanelButtonNote), for: .touchUpInside)
+                label.text = "Notes"
             case "lightbulb": button.addTarget(self, action: #selector(tapPanelButtonTip), for: .touchUpInside)
+                label.text = "Tip"
             default:
                 return
             }
-            sudokuPanelStackView.addArrangedSubview(button)
+            sudokuPanelStackView.addArrangedSubview(buttonStackView)
         }
     }
     
