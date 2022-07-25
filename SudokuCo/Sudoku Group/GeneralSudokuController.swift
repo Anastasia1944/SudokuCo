@@ -103,7 +103,6 @@ class GeneralSudokuController {
     }
     
     func numberButtonTapped(x: Int, y: Int, value: Int) {
-        
         var isUndoPrevious: Bool = false
         
         if isNote {
@@ -142,12 +141,14 @@ class GeneralSudokuController {
     }
     
     func tipButtonTapped(x: Int, y: Int) {
+        var isUndoPrevious: Bool = false
+        
         if !isNotesEmpty(x: x, y: y) {
             sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: notesNumbers[x][y]))
             deleteNotesNumbers(x: x, y: y)
-        } else {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y]))
+            isUndoPrevious = true
         }
+        sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y], isUndoPreviousAction: isUndoPrevious))
         
         filledNumbers[x][y] = generalSudokuGame.fillCellbyRightNumber(x: x, y: y)
         saveInfoIfNedded()
