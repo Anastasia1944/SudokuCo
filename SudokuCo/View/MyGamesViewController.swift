@@ -27,12 +27,39 @@ class MyGamesViewController: UIViewController {
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         myGamesTableView.addGestureRecognizer(longPress)
+        
+        configureInfoAppButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         updateGamesList()
+    }
+    
+    func configureInfoAppButton() {
+        let button = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(infoItemTapped))
+        self.navigationItem.rightBarButtonItem  = button
+    }
+    
+    @objc func infoItemTapped() {
+        
+        let alert = UIAlertController(title: "App Info", message: "If you have any suggestions or questions, please write them to this email: sudokuCoGame@outlook.com", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Write", style: .default, handler: { _ in
+            let email = "sudokuCoGame@outlook.com"
+            if let url = URL(string: "mailto:\(email)") {
+              if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url)
+              } else {
+                UIApplication.shared.openURL(url)
+              }
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
