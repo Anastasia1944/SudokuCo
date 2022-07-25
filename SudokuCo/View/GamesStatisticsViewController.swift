@@ -51,6 +51,7 @@ class GamesStatisticsViewController: UIViewController {
                 stats.append(s)
             }
         }
+        myAvaillableGamesNames = myAvaillableGamesNames.sorted()
     }
     
     func setTableSettings() {

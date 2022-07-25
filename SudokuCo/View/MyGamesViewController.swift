@@ -13,7 +13,7 @@ class MyGamesViewController: UIViewController {
     
     var allGames = AllGames()
     
-    var gamesName: [String] = AllGames().myGames.map { $0.key }
+    var gamesName: [String] = AllGames().myGames.map { $0.key }.sorted()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -145,7 +145,7 @@ class MyGamesViewController: UIViewController {
     }
     
     func updateGamesList() {
-        gamesName = AllGames().myGames.map { $0.key }
+        gamesName = AllGames().myGames.map { $0.key }.sorted()
         allGames = AllGames()
         myGamesTableView.reloadData()
     }

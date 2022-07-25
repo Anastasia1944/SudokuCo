@@ -11,7 +11,7 @@ class GameLibraryViewController: UIViewController {
     
     let gameLibraryTableView = UITableView()
     
-    var gamesName: [String] = AllGames().games.map { $0.key }
+    var gamesName: [String] = AllGames().games.map { $0.key }.sorted()
     
     override func viewDidLoad() {
         super.viewDidLoad()
