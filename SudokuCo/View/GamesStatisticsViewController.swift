@@ -17,16 +17,16 @@ class GamesStatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         statisticsTableView.delegate = self
         statisticsTableView.dataSource = self
         
         statisticsTableView.register(GameStatisticsTableViewCell.self, forCellReuseIdentifier: "statisticsCell")
         
-        view.backgroundColor = .white
-        
         setTableSettings()
         
-        loadStatistics()
+ //       loadStatistics()
     }
     
     override func viewWillAppear(_ animated: Bool) {

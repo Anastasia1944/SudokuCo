@@ -17,7 +17,6 @@ class MainViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         let myGamesNavVC = UINavigationController(rootViewController: myGamesVC)
         myGamesNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 24)]

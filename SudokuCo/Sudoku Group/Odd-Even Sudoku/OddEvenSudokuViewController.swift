@@ -14,7 +14,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
         super.configureInit()
         super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
         super.gameName = "Odd-Even Sudoku"
-        super.openedNum = CGFloat(10)
+        super.openedNum = CGFloat(15)
         super.viewDidLoad()
 
         makeCircles()
