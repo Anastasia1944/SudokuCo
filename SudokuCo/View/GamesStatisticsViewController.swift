@@ -9,6 +9,8 @@ import UIKit
 
 class GamesStatisticsViewController: UIViewController {
     
+    let statisticsLevelsSegmentedController = UISegmentedControl (items: ["Easy", "Medium", "Hard", "Expert"])
+    
     let statisticsTableView = UITableView()
     
     var myAvaillableGamesNames: [String] = []
@@ -24,9 +26,8 @@ class GamesStatisticsViewController: UIViewController {
         
         statisticsTableView.register(GameStatisticsTableViewCell.self, forCellReuseIdentifier: "statisticsCell")
         
+        setSegmenteControlSettings()
         setTableSettings()
-        
- //       loadStatistics()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,6 +35,26 @@ class GamesStatisticsViewController: UIViewController {
         
         loadStatistics()
         statisticsTableView.reloadData()
+    }
+    
+    private func setSegmenteControlSettings() {
+        
+        view.addSubview(statisticsLevelsSegmentedController)
+        
+        statisticsLevelsSegmentedController.selectedSegmentIndex = 0
+        
+        statisticsLevelsSegmentedController.addTarget(self, action: #selector(self.segmentedValueChanged(_:)), for: .valueChanged)
+        
+        statisticsLevelsSegmentedController.translatesAutoresizingMaskIntoConstraints = false
+        statisticsLevelsSegmentedController.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        statisticsLevelsSegmentedController.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        statisticsLevelsSegmentedController.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        statisticsLevelsSegmentedController.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    @objc func segmentedValueChanged(_ sender:UISegmentedControl!)
+    {
+        print("Selected Segment Index is : \(sender.selectedSegmentIndex)")
     }
     
     private func loadStatistics() {
@@ -63,10 +84,10 @@ class GamesStatisticsViewController: UIViewController {
         statisticsTableView.allowsSelection = false
         
         statisticsTableView.translatesAutoresizingMaskIntoConstraints = false
-        statisticsTableView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
-        statisticsTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        statisticsTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        statisticsTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        statisticsTableView.topAnchor.constraint(equalTo: statisticsLevelsSegmentedController.bottomAnchor).isActive = true
+        statisticsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        statisticsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        statisticsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func intTimeToString(time: Int) -> String {
