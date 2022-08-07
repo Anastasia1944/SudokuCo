@@ -9,12 +9,14 @@ import UIKit
 
 class ComparisonSudokuViewController: GeneralSudokuViewController {
     
+    private let openedNumsLevels: [String: CGFloat] = ["Easy": 12, "Medium": 7, "Hard": 3, "Expert": 0]
+    
     override func viewDidLoad() {
         super.configureInit()
         
         super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Comparison Sudoku")
         super.gameName = "Comparison Sudoku"
-        super.openedNum = CGFloat(15)
+        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()
         
         configureMoreLessSigns()

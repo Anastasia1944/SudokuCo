@@ -9,12 +9,14 @@ import UIKit
 
 class OddEvenSudokuViewController: GeneralSudokuViewController {
     
+    private let openedNumsLevels: [String: CGFloat] = ["Easy": 30, "Medium": 25, "Hard": 20, "Expert": 15]
+    
     override func viewDidLoad() {
         
         super.configureInit()
         super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
         super.gameName = "Odd-Even Sudoku"
-        super.openedNum = CGFloat(15)
+        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()
 
         makeCircles()

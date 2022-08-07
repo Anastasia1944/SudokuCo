@@ -120,15 +120,27 @@ class MyGamesViewController: UIViewController {
         gamesCoding.configureInfoForSaving(gameName: gameName)
         _ = gamesCoding.decode()
         
+        alert.addAction(UIAlertAction(title: "Easy", style: .default, handler: { _ in
+            self.transitionToGameVC(gameName, gameMode: "Easy")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Medium", style: .default, handler: { _ in
+            self.transitionToGameVC(gameName, gameMode: "Medium")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Hard", style: .default, handler: { _ in
+            self.transitionToGameVC(gameName, gameMode: "Hard")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Expert", style: .default, handler: { _ in
+            self.transitionToGameVC(gameName, gameMode: "Expert")
+        }))
+        
         if gamesCoding.isThereUnfinishedGame {
             alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
                 self.transitionToGameVC(gameName, gameMode: "Continue")
             }))
         }
-        
-        alert.addAction(UIAlertAction(title: "New Game", style: .default, handler: { _ in
-            self.transitionToGameVC(gameName, gameMode: "New Game")
-        }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         

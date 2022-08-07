@@ -23,7 +23,7 @@ class GeneralSudokuViewController: UIViewController {
     var gridWidth = CGFloat(0)
     var cellSize = CGFloat(0)
     
-    var gameMode: String = "New Game"
+    var gameMode: String = "Easy"
     var isSaving: Bool = true
     var openedNum = CGFloat(0)
     var gameName: String = ""
