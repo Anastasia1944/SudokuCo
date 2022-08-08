@@ -9,7 +9,9 @@ import UIKit
 
 class GamesStatisticsViewController: UIViewController {
     
-    let statisticsLevelsSegmentedController = UISegmentedControl (items: ["Easy", "Medium", "Hard", "Expert"])
+    static private let levelsStringArray: [String] =  ["Easy", "Medium", "Hard", "Expert"]
+    
+    let statisticsLevelsSegmentedController = UISegmentedControl (items: levelsStringArray)
     
     let statisticsTableView = UITableView()
     
@@ -33,7 +35,7 @@ class GamesStatisticsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadStatistics()
+        loadStatistics(level: "Easy")
         statisticsTableView.reloadData()
     }
     
@@ -52,12 +54,13 @@ class GamesStatisticsViewController: UIViewController {
         statisticsLevelsSegmentedController.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    @objc func segmentedValueChanged(_ sender:UISegmentedControl!)
+    @objc func segmentedValueChanged(_ sender: UISegmentedControl!)
     {
-        print("Selected Segment Index is : \(sender.selectedSegmentIndex)")
+        loadStatistics(level: GamesStatisticsViewController.levelsStringArray[sender.selectedSegmentIndex])
+        statisticsTableView.reloadData()
     }
     
-    private func loadStatistics() {
+    private func loadStatistics(level: String) {
         myAvaillableGamesNames = []
         stats = []
         
@@ -65,7 +68,7 @@ class GamesStatisticsViewController: UIViewController {
         
         for i in 0..<myGamesNames.count {
             var statisticsGameCoding = StatisticGameCoding()
-            statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i])
+            statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i], level: level)
             
             if var s = statisticsGameCoding.decode() {
                 myAvaillableGamesNames.append(myGamesNames[i])

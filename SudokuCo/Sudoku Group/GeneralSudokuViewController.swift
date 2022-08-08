@@ -56,9 +56,9 @@ class GeneralSudokuViewController: UIViewController {
             let completeVC = CompleteViewController()
             
             if isCompleteGame {
-                completeVC.configureCompleteVC(isWin: true, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving)
+                completeVC.configureCompleteVC(isWin: true, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameMode)
             } else {
-                completeVC.configureCompleteVC(isWin: false, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving)
+                completeVC.configureCompleteVC(isWin: false, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameMode)
             }
             
             self.navigationController?.pushViewController(completeVC, animated: true)

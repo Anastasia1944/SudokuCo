@@ -12,6 +12,7 @@ class CompleteViewController: UIViewController {
     private let stackView = UIStackView()
     
     private let winLoseLabel = UILabel()
+    private let gameLevelLabel = UILabel()
     private let statisticStackView = UIStackView()
     
     private let statisticsLabel = UILabel()
@@ -41,16 +42,16 @@ class CompleteViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool) {
+    func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool, level: String) {
         self.gameName = gameName
         
-        completeController.configureStats(gameName: gameName)
+        completeController.configureStats(gameName: gameName, level: level)
         completeController.addNewElementStatistic(time: time, isWin: isWin, isSaving: isSaving)
         
-        configureView(isWin: isWin, isSaving: isSaving)
+        configureView(isWin: isWin, isSaving: isSaving, gameLevel: level)
     }
     
-    func configureView(isWin: Bool, isSaving: Bool) {
+    func configureView(isWin: Bool, isSaving: Bool, gameLevel: String) {
         view.backgroundColor = .white
         
         view.addSubview(stackView)
@@ -58,6 +59,7 @@ class CompleteViewController: UIViewController {
         stackSettings()
         
         winLoseLabelSettings(isWin: isWin)
+        gameLevelLabelSettings(gameLevel: gameLevel)
         statisticViewSettings(isSaving: isSaving)
         
         mainMenuButtonSettings()
@@ -72,7 +74,7 @@ class CompleteViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
-        stackView.spacing = 30
+        stackView.spacing = 20
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
@@ -96,6 +98,20 @@ class CompleteViewController: UIViewController {
         winLoseLabel.translatesAutoresizingMaskIntoConstraints = false
         winLoseLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
         winLoseLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
+    }
+    
+    func gameLevelLabelSettings(gameLevel: String) {
+        stackView.addArrangedSubview(gameLevelLabel)
+        
+        gameLevelLabel.text = "Level: \(gameLevel)"
+        
+        gameLevelLabel.textAlignment = .center
+        gameLevelLabel.font = .systemFont(ofSize: 20)
+        gameLevelLabel.textColor = .blueSys
+        
+        gameLevelLabel.translatesAutoresizingMaskIntoConstraints = false
+        gameLevelLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
+        gameLevelLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
     }
     
     func statisticViewSettings(isSaving: Bool) {

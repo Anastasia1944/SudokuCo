@@ -15,8 +15,8 @@ class CompleteGameController {
     
     private var currentTime: Int = 0
     
-    func configureStats(gameName: String) {
-        statisticsCoding.configureInfoForSaving(gameName: gameName)
+    func configureStats(gameName: String, level: String) {
+        statisticsCoding.configureInfoForSaving(gameName: gameName, level: level)
         
         guard let stats = statisticsCoding.decode() else { return }
         
