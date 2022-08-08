@@ -98,7 +98,7 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving)
+        generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
         
         originallyOpenedNumbers = generalSudokuController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         

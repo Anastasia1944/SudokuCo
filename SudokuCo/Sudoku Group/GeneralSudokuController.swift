@@ -42,6 +42,8 @@ class GeneralSudokuController {
     
     private var timer: Timer?
     private var runCount = 0
+    private var gameMode: String = ""
+    private var gameName: String = ""
     
     init() {
         for _ in 0...8 {
@@ -49,11 +51,13 @@ class GeneralSudokuController {
         }
     }
     
-    func configureController(gameMode: String, openedNum: CGFloat, isSaving: Bool = true) {
+    func configureController(gameMode: String, openedNum: CGFloat, isSaving: Bool = true, gameName: String) {
         runTimer()
         
         self.openedNum = openedNum
         self.isSaving = isSaving
+        self.gameMode = gameMode
+        self.gameName = gameName
         
         if gameMode == "Continue" {
             continueGame()
@@ -81,12 +85,31 @@ class GeneralSudokuController {
     }
     
     func newGame() {
-        generalSudokuGame.generateSudoku(openedNum: Int(openedNum))
+        
+        _ = autoLosingPreviousGame()
+        
+        generalSudokuGame.generateSudoku(openedNum: Int(openedNum), level: gameMode)
         
         filledNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         notesNumbers = generalSudokuGame.getSudokuNotesNumbers()
         
         saveInfoIfNedded()
+    }
+    
+    func autoLosingPreviousGame() -> Bool {
+        
+        var gamesCoding = GamesInfoCoding()
+        gamesCoding.configureInfoForSaving(gameName: gameName)
+        
+        guard let generalSudokuGame = gamesCoding.decode() as? GeneralSudokuGame else { return false }
+        let level = generalSudokuGame.getLevel()
+        let time = generalSudokuGame.getTime()
+        
+        let completeGameController = CompleteGameController()
+        completeGameController.configureStats(gameName: gameName, level: level)
+        completeGameController.addNewElementStatistic(time: time, isWin: false, isSaving: true)
+        
+        return true
     }
     
     func continueGame() {
