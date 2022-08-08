@@ -19,6 +19,8 @@ class GeneralSudokuGame: Codable {
     
     private var gameLevel: String = ""
     
+    private var tips: Int = 3
+    
     func generateSudoku(openedNum: Int = 0, level: String) {
         
         self.gameLevel = level
@@ -93,6 +95,10 @@ class GeneralSudokuGame: Codable {
         return false
     }
     
+    func decreaseTipsNumbers() {
+        tips -= 1
+    }
+    
     func isNumberOriginallyOpened(x: Int, y: Int) -> Bool {
         if originallyOpenedNumbers[x][y] != 0 {
             return true
@@ -126,6 +132,10 @@ class GeneralSudokuGame: Codable {
     
     func getLevel() -> String {
         return gameLevel
+    }
+    
+    func getTipsNumber() -> Int {
+        return tips
     }
     
     func updateTime(plus: Int) -> Int {

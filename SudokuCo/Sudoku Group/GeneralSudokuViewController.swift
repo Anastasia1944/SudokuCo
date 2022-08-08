@@ -33,6 +33,8 @@ class GeneralSudokuViewController: UIViewController {
     
     var isOpenLibraryAlert: Bool = true
     
+    var tipLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -219,6 +221,10 @@ class GeneralSudokuViewController: UIViewController {
             let button = UIButton(type: .system)
             let label = UILabel()
             
+            if i == 3 {
+                tipLabel = label
+            }
+            
             buttonStackView.addArrangedSubview(button)
             buttonStackView.addArrangedSubview(label)
             
@@ -236,7 +242,8 @@ class GeneralSudokuViewController: UIViewController {
             case "square.and.pencil": button.addTarget(self, action: #selector(tapPanelButtonNote), for: .touchUpInside)
                 label.text = "Notes"
             case "lightbulb": button.addTarget(self, action: #selector(tapPanelButtonTip), for: .touchUpInside)
-                label.text = "Tip"
+                let tipsCount = generalSudokuController.getTipsCount()
+                label.text = "Tip (\(tipsCount))"
             default:
                 return
             }
@@ -269,7 +276,9 @@ class GeneralSudokuViewController: UIViewController {
         
         let (cellX, cellY) = getCellsByCoordinates()
         
-        generalSudokuController.tipButtonTapped(x: cellX, y: cellY)
+        let tipsCount = generalSudokuController.tipButtonTapped(x: cellX, y: cellY)
+        
+        tipLabel.text = "Tip (\(tipsCount))"
     }
     
     func configureNumberPanel() {
