@@ -35,7 +35,7 @@ class GamesStatisticsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadStatistics(level: "Easy")
+        loadStatistics(level: GamesStatisticsViewController.levelsStringArray[statisticsLevelsSegmentedController.selectedSegmentIndex])
         statisticsTableView.reloadData()
     }
     
