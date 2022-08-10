@@ -35,6 +35,11 @@ struct AllGames {
         saveGames()
     }
     
+    mutating func deleteMyGame(gameName: String) {
+        myGamesNames.remove(gameName)
+        saveGames()
+    }
+    
     mutating func getMyGamesNames() -> [String] {
         loadMyGames()
         return Array(myGamesNames)
@@ -87,10 +92,5 @@ struct AllGames {
                 print("Error. My Games Info Not Saved")
             }
         }
-    }
-    
-    mutating func deleteMyGame(gameName: String) {
-        myGamesNames.remove(gameName)
-        saveGames()
     }
 }
