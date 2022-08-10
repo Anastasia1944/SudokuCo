@@ -100,7 +100,11 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
+        
         generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
+        
+        let tipsCount = generalSudokuController.getTipsCount()
+        tipLabel.text = "Tip (\(tipsCount))"
         
         originallyOpenedNumbers = generalSudokuController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         
@@ -242,8 +246,7 @@ class GeneralSudokuViewController: UIViewController {
             case "square.and.pencil": button.addTarget(self, action: #selector(tapPanelButtonNote), for: .touchUpInside)
                 label.text = "Notes"
             case "lightbulb": button.addTarget(self, action: #selector(tapPanelButtonTip), for: .touchUpInside)
-                let tipsCount = generalSudokuController.getTipsCount()
-                label.text = "Tip (\(tipsCount))"
+                label.text = "Tip (3)"
             default:
                 return
             }
