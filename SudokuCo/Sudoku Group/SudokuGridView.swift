@@ -8,33 +8,40 @@
 import UIKit
 
 class SudokuGridView: UIView {
-    
-    private let frameWidth = UIScreen.main.bounds.width
-    
+
     private var sudokuWidth = CGFloat(0)
     private var oneSquareSide = CGFloat(0)
     
-    func formView(width: CGFloat) {
-        sudokuWidth = width
-        oneSquareSide = CGFloat(sudokuWidth / 9)
-        self.drawLines()
-    }
+    private var withOuterBoldBorder: Bool = true
+    private var withBoldAreas: Bool = true
+    private var cellsInTheArea: Int = 3
     
-    func getCellSize() -> CGFloat {
-        return oneSquareSide
+    private var cellsNumber = 9
+    
+    func formView(width: CGFloat, cellsNumber: Int = 9, withOuterBoldBorder: Bool = true, withBoldAreas: Bool = true, cellsInTheArea: Int = 3) {
+        self.withOuterBoldBorder = withOuterBoldBorder
+        self.withBoldAreas = withBoldAreas
+        self.cellsNumber = cellsNumber
+        
+        sudokuWidth = width
+        oneSquareSide = CGFloat(sudokuWidth / CGFloat(cellsNumber))
+        
+        self.drawLines()
     }
     
     private func drawLines() {
         let xVar = CGFloat(0)
         let yVar = CGFloat(0)
         
-        var borderWidth = CGFloat(0)
-        
-        for i in 0...9 {
-            if i % 3 == 0 {
+        for i in 0...cellsNumber {
+            var borderWidth = CGFloat(0.2)
+            
+            if withOuterBoldBorder && [0, cellsNumber + 1].contains(i) {
                 borderWidth = 1.0
-            } else {
-                borderWidth = 0.2
+            }
+            
+            if withBoldAreas && i % cellsInTheArea == 0 {
+                borderWidth = 1.0
             }
             
             let lineY = UIBezierPath()
@@ -60,6 +67,10 @@ class SudokuGridView: UIView {
             
             self.layer.addSublayer(shapeLayerX)
         }
+    }
+    
+    func getCellSize() -> CGFloat {
+        return oneSquareSide
     }
 }
 
