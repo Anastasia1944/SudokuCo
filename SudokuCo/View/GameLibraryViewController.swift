@@ -11,10 +11,15 @@ class GameLibraryViewController: UIViewController {
     
     let gameLibraryTableView = UITableView()
     
-    var gamesName: [String] = AllGames().games.map { $0.key }.sorted()
+    var allGames = AllGames()
+    
+//    var gamesName: [String] = AllGames().games.map { $0.key }.sorted()
+    var gamesName: [String] = []//AllGames().getAllGamesNames()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        gamesName = allGames.getAllGamesNames().sorted()
         
         self.view.backgroundColor = .graySys
         
@@ -54,15 +59,13 @@ class GameLibraryViewController: UIViewController {
     }
     
     func openAddGameAlert(gameName: String) {
-        var allGames = AllGames()
-        
         let alert = UIAlertController(title: "Add \"\(gameName)\" to My Games?", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
-            allGames.myGames[gameName] = allGames.games[gameName]
-            allGames.saveGames()
+//            allGames.myGames[gameName] = allGames.games[gameName]
+            self.allGames.addGameToMyGames(gameName: gameName)
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -134,7 +137,8 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         let gameName = gamesName[indexPath.row]
         
         gameCell.gameLabel.text = gameName
-        gameCell.gameImageView.image = UIImage(named: AllGames().games[gameName]!.gameImageName)
+        gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
+//        gameCell.gameImageView.image = UIImage(named: AllGames().games[gameName]!.gameImageName)
         
         return gameCell
     }

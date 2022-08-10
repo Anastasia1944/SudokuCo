@@ -64,7 +64,9 @@ class GamesStatisticsViewController: UIViewController {
         myAvaillableGamesNames = []
         stats = []
         
-        let myGamesNames = AllGames().getGamesNames()
+//        let myGamesNames = AllGames().getGamesNames()
+        var allGames = AllGames()
+        let myGamesNames = allGames.getMyGamesNames()
         
         for i in 0..<myGamesNames.count {
             var statisticsGameCoding = StatisticGameCoding()

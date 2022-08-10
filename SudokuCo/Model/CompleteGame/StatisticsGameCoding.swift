@@ -16,7 +16,8 @@ struct StatisticGameCoding {
     
     mutating func configureInfoForSaving(gameName: String, level: String) {
         self.gameName = gameName
-        self.statsFileName = AllGames().games[gameName]!.statsFileName
+//        self.statsFileName = AllGames().games[gameName]!.statsFileName
+        self.statsFileName = AllGames().getGamestatsFileNameByName(gameName: gameName) ?? ""
         self.gameLevel = level
     }
     

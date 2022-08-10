@@ -15,7 +15,8 @@ struct GamesInfoCoding {
     
     mutating func configureInfoForSaving(gameName: String) {
         self.gameName = gameName
-        self.fileName = AllGames().games[gameName]!.gameInfoFile
+//        self.fileName = AllGames().games[gameName]!.gameInfoFile
+        self.fileName = AllGames().getGameInfoFileByName(gameName: gameName) ?? ""
     }
     
     func encode(game: GeneralSudokuGame) {

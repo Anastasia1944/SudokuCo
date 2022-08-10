@@ -13,10 +13,13 @@ class MyGamesViewController: UIViewController {
     
     var allGames = AllGames()
     
-    var gamesName: [String] = AllGames().myGames.map { $0.key }.sorted()
+//    var gamesName: [String] = AllGames().myGames.map { $0.key }.sorted()
+    var gamesName: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        gamesName = allGames.getMyGamesNames().sorted()
         
         self.view.backgroundColor = .graySys
         
@@ -91,7 +94,6 @@ class MyGamesViewController: UIViewController {
             
             self.allGames.deleteMyGame(gameName: gameName)
             self.updateGamesList()
-
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -191,8 +193,10 @@ class MyGamesViewController: UIViewController {
     }
     
     func updateGamesList() {
-        gamesName = AllGames().myGames.map { $0.key }.sorted()
-        allGames = AllGames()
+//        gamesName = AllGames().myGames.map { $0.key }.sorted()
+//        allGames = AllGames()
+//        allGames.loadMyGames()
+        gamesName = allGames.getMyGamesNames().sorted()
         myGamesTableView.reloadData()
     }
 }
@@ -214,7 +218,8 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
         let gameName = gamesName[indexPath.row]
         
         gameCell.gameLabel.text = gameName
-        gameCell.gameImageView.image = UIImage(named: allGames.games[gameName]!.gameImageName)
+//        gameCell.gameImageView.image = UIImage(named: allGames.games[gameName]!.gameImageName)
+        gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
         
         return gameCell
     }
