@@ -44,6 +44,7 @@ class GeneralSudokuController {
     private var runCount = 0
     private var gameMode: String = ""
     private var gameName: String = ""
+    private var gameLevel: String = ""
     
     init() {
         for _ in 0...8 {
@@ -84,11 +85,17 @@ class GeneralSudokuController {
         return newTime
     }
     
+    func getLevel() -> String {
+        return gameLevel
+    }
+    
     func newGame() {
+        
+        gameLevel = gameMode
         
         _ = autoLosingPreviousGame()
         
-        generalSudokuGame.generateSudoku(openedNum: Int(openedNum), level: gameMode)
+        generalSudokuGame.generateSudoku(openedNum: Int(openedNum), level: gameLevel)
         
         filledNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         notesNumbers = generalSudokuGame.getSudokuNotesNumbers()
@@ -114,6 +121,8 @@ class GeneralSudokuController {
     
     func continueGame() {
         generalSudokuGame = gamesInfoCoding.decode() as! GeneralSudokuGame
+        
+        gameLevel = generalSudokuGame.getLevel()
         
         filledNumbers = generalSudokuGame.getSudokuOpenedNumbers()
         notesNumbers = generalSudokuGame.getSudokuNotesNumbers()

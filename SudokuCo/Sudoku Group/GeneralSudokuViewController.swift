@@ -24,6 +24,7 @@ class GeneralSudokuViewController: UIViewController {
     var cellSize = CGFloat(0)
     
     var gameMode: String = "Easy"
+    var gameLevel: String = "Easy"
     var isSaving: Bool = true
     var openedNum = CGFloat(0)
     var gameName: String = ""
@@ -58,9 +59,9 @@ class GeneralSudokuViewController: UIViewController {
             let completeVC = CompleteViewController()
             
             if isCompleteGame {
-                completeVC.configureCompleteVC(isWin: true, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameMode)
+                completeVC.configureCompleteVC(isWin: true, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameLevel)
             } else {
-                completeVC.configureCompleteVC(isWin: false, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameMode)
+                completeVC.configureCompleteVC(isWin: false, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameLevel)
             }
             
             self.navigationController?.pushViewController(completeVC, animated: true)
@@ -102,6 +103,8 @@ class GeneralSudokuViewController: UIViewController {
         
         
         generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
+        
+        gameLevel = generalSudokuController.getLevel()
         
         let tipsCount = generalSudokuController.getTipsCount()
         tipLabel.text = "Tip (\(tipsCount))"
