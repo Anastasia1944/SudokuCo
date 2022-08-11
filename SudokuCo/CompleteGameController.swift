@@ -17,7 +17,13 @@ class CompleteGameController {
     func addNewElementStatistic(gameName: String, gameLevel: DifficultyLevels, time: Int, isWin: Bool, isSaving: Bool) {
         currentTime = time
         
-        statistics = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin, isSaving: isSaving)!
+        if isSaving {
+            statistics = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin)!
+        }
+//        } else {
+//            statistics = statisticsGameController.getStatistics(gameName: gameName, gameLevel: gameLevel)!
+//        }
+
     }
     
     func getCurrentTimeString() -> String {

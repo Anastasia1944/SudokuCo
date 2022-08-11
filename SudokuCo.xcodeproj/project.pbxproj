@@ -225,6 +225,7 @@
 				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
 				5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */,
 				5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */,
+				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4F02865DB2A00AA1461 /* Sudoku Group */,
 				5D7BB4E828639E3E00AA1461 /* View */,
@@ -241,7 +242,6 @@
 		5DCF1DA22879D4B90032DD04 /* CompleteGame */ = {
 			isa = PBXGroup;
 			children = (
-				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
 			);
 			path = CompleteGame;
 			sourceTree = "<group>";

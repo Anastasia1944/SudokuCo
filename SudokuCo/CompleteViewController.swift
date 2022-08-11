@@ -27,8 +27,8 @@ class CompleteViewController: UIViewController {
     
     private var completeController = CompleteGameController()
     
-    var startOver: ( (Bool) -> Void )?
-    var continueGame: ( (Bool) -> Void )?
+    var startOver: ((Bool) -> Void)?
+    var continueGame: ((Bool) -> Void)?
     
     var gameName: String = ""
     
@@ -45,11 +45,9 @@ class CompleteViewController: UIViewController {
     func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool, level: DifficultyLevels) {
         self.gameName = gameName
         
-//        completeController.configureStats(gameName: gameName, level: level)
         completeController.addNewElementStatistic(gameName: gameName, gameLevel: level ,time: time, isWin: isWin, isSaving: isSaving)
         
         let gameLevelString = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: level)
-        
         configureView(isWin: isWin, isSaving: isSaving, gameLevel: gameLevelString)
     }
     
@@ -135,6 +133,7 @@ class CompleteViewController: UIViewController {
         
         statisticLabelSettings()
         timeStackViewSettings()
+        
         if isSaving {
             gamesWonStackViewSettings()
             winRateStackViewSettings()
@@ -280,7 +279,6 @@ class CompleteViewController: UIViewController {
     
     @objc func tapMainMenuButton() {
         let gameInfoCoding = GamesInfoCoding()
-//        gameInfoCoding.configureInfoForSaving(gameName: gameName)
         gameInfoCoding.deleteGameInfo(gameName: gameName)
         
         navigationController?.popToRootViewController(animated: true)
