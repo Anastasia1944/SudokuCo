@@ -13,7 +13,6 @@ class DotsSudokuViewController: GeneralSudokuViewController {
     
     override func viewDidLoad() {
         super.configureInit()
-//        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Dots Sudoku")
         super.gameName = "Dots Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()
@@ -23,7 +22,7 @@ class DotsSudokuViewController: GeneralSudokuViewController {
     
     func configureDots() {
 
-        let sudokuNumbers = generalSudokuController.generalSudokuGame.getSudokuNumbers()
+        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
 
         for i in 0...8 {
             for j in 0..<8 {

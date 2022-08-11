@@ -14,7 +14,6 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         
         super.configureInit()
-//        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
         super.gameName = "Odd-Even Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()
@@ -23,7 +22,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
     }
     
     func makeCircles() {
-        let sudokuNumbers = generalSudokuController.generalSudokuGame.getSudokuNumbers()
+        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
 
         for i in 0...8 {
             for j in 0...8 {

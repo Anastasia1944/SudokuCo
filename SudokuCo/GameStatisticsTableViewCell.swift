@@ -80,7 +80,6 @@ class GameStatisticsTableViewCell: UITableViewCell {
     }
     
     private func configureGamesStatsStackView(gamesWon: Int, winRate: String, averageTime: String) {
-        
         gamesStatsStackView.axis = .vertical
         gamesStatsStackView.distribution = .equalSpacing
         gamesStatsStackView.alignment = .center

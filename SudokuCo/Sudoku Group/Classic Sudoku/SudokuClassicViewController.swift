@@ -14,7 +14,6 @@ class SudokuClassicViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         
         super.configureInit()
-//        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Classic Sudoku")
         super.gameName = "Classic Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
 

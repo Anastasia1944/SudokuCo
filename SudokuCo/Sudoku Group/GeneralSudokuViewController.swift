@@ -109,7 +109,7 @@ class GeneralSudokuViewController: UIViewController {
         let tipsCount = generalSudokuController.getTipsCount()
         tipLabel.text = "Tip (\(tipsCount))"
         
-        originallyOpenedNumbers = generalSudokuController.generalSudokuGame.getSudokuOriginallyOpenedNumbers()
+        originallyOpenedNumbers = generalSudokuController.getOriginallyOpenedNumbers()
         
         fillOriginallyOpenedNumbers()
         

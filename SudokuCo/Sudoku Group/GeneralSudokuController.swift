@@ -9,8 +9,8 @@ import UIKit
 
 class GeneralSudokuController {
     
-    var generalSudokuGame = GeneralSudokuGame()
-    var gamesInfoCoding = GamesInfoCoding()
+    private var generalSudokuGame = GeneralSudokuGame()
+    private var gamesInfoCoding = GamesInfoCoding()
     
     var numberChanged: ( ([[Int]]) -> Void )?
     
@@ -91,7 +91,6 @@ class GeneralSudokuController {
     }
     
     func newGame() {
-        
         gameLevel = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameMode)//gameMode
         
         _ = autoLosingPreviousGame()
@@ -105,24 +104,17 @@ class GeneralSudokuController {
     }
     
     func autoLosingPreviousGame() -> Bool {
-        
-//        var gamesCoding = GamesInfoCoding()
-//        gamesCoding.configureInfoForSaving(gameName: gameName)
-        
-//        guard let generalSudokuGame = gamesCoding.decode() as? GeneralSudokuGame else { return false }
         guard let generalSudokuGame = gamesInfoCoding.getGameInfo(gameName: gameName) as? GeneralSudokuGame else { return false }
         let level = generalSudokuGame.getLevel()
         let time = generalSudokuGame.getTime()
         
         let completeGameController = CompleteGameController()
-//        completeGameController.configureStats(gameName: gameName, level: level)
         completeGameController.addNewElementStatistic(gameName: gameName, gameLevel: level, time: time, isWin: false, isSaving: true)
         
         return true
     }
     
     func continueGame() {
-//        generalSudokuGame = gamesInfoCoding.decode() as! GeneralSudokuGame
         generalSudokuGame = gamesInfoCoding.getGameInfo(gameName: gameName) as! GeneralSudokuGame
         
         gameLevel = generalSudokuGame.getLevel()
@@ -133,7 +125,6 @@ class GeneralSudokuController {
     
     func saveInfoIfNedded() {
         if isSaving {
-//            gamesInfoCoding.encode(game: generalSudokuGame)
             gamesInfoCoding.saveGameInfo(game: generalSudokuGame)
         }
     }
@@ -197,10 +188,6 @@ class GeneralSudokuController {
         }
         
         return 0
-    }
-    
-    func getTipsCount() -> Int {
-        return generalSudokuGame.getTipsNumber()
     }
     
     func noteButtonTapped() {
@@ -298,5 +285,17 @@ class GeneralSudokuController {
         runTimer()
         
         saveInfoIfNedded()
+    }
+    
+    func getTipsCount() -> Int {
+        return generalSudokuGame.getTipsNumber()
+    }
+    
+    func getSudokuNumbers() -> [[Int]] {
+        return generalSudokuGame.getSudokuNumbers()
+    }
+    
+    func getOriginallyOpenedNumbers() -> [[Int]] {
+        return generalSudokuGame.getSudokuOpenedNumbers()
     }
 }

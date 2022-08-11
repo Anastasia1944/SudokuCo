@@ -18,7 +18,6 @@ class CompleteGameController {
         currentTime = time
         
         if isSaving {
-            
             if let stats = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin) {
                 statistics = stats
             }

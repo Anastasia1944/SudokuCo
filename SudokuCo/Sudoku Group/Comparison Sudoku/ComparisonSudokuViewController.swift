@@ -14,7 +14,6 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         super.configureInit()
         
-//        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Comparison Sudoku")
         super.gameName = "Comparison Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()
@@ -24,7 +23,7 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
     
     func configureMoreLessSigns() {
 
-        let sudokuNumbers = generalSudokuController.generalSudokuGame.getSudokuNumbers()
+        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
 
         for i in 0...8 {
             for j in 0..<8 {
