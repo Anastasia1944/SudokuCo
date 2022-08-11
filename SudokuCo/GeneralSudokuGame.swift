@@ -8,26 +8,23 @@
 import Foundation
 
 class GeneralSudokuGame: Codable {
-    private var sudokuNumbers: [[Int]] = []
     
+    private var sudokuNumbers: [[Int]] = []
     private var originallyOpenedNumbers: [[Int]] = []
     private var openedNumbers: [[Int]] = []
-    
     private var notesNumbers: [[[Int: Bool]]] = []
-    
-    private var time: Int = 0
     
     private var gameLevel: DifficultyLevels = .easy
     
     private var tips: Int = 3
+    private var time: Int = 0
     
-    func generateSudoku(openedNum: Int = 0, level: DifficultyLevels) {
-        
+    func generateSudoku(sudokuType: SudokuTypes = .sudoku3D, openedNum: Int = 0, level: DifficultyLevels) {
         self.gameLevel = level
         
         fillNotesNumbersArray()
         
-        let generateSudoku = GenerateSudoku(openedNum: openedNum)
+        let generateSudoku = GenerateSudoku(sudokuType: sudokuType, openedNum: openedNum)
         sudokuNumbers = generateSudoku.getSudokuNumbers()
         originallyOpenedNumbers = generateSudoku.getOriginallyOpenedNumbers()
         
