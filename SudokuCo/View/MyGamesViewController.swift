@@ -88,9 +88,10 @@ class MyGamesViewController: UIViewController {
             gameInfoCoding.configureInfoForSaving(gameName: gameName)
             gameInfoCoding.deleteGameInfo()
             
-            var statsGameCoding = StatisticGameCoding()
-            statsGameCoding.configureInfoForSaving(gameName: gameName, level: "")
-            statsGameCoding.deleteGameInfo()
+            let statsGameCoding = StatisticGameCoding()
+            statsGameCoding.deleteGameStatistics(gameName: gameName)
+//            statsGameCoding.configureInfoForSaving(gameName: gameName, level: "")
+//            statsGameCoding.deleteGameInfo()
             
             self.allGames.deleteMyGame(gameName: gameName)
             self.updateGamesList()

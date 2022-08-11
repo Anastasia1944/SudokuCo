@@ -35,7 +35,10 @@ class GamesStatisticsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadStatistics(level: GamesStatisticsViewController.levelsStringArray[statisticsLevelsSegmentedController.selectedSegmentIndex])
+        let gameLevelString = GamesStatisticsViewController.levelsStringArray[statisticsLevelsSegmentedController.selectedSegmentIndex]
+        let gameLevelEnum = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameLevelString)
+        
+        loadStatistics(level: gameLevelEnum)
         statisticsTableView.reloadData()
     }
     
@@ -56,11 +59,15 @@ class GamesStatisticsViewController: UIViewController {
     
     @objc func segmentedValueChanged(_ sender: UISegmentedControl!)
     {
-        loadStatistics(level: GamesStatisticsViewController.levelsStringArray[sender.selectedSegmentIndex])
+        
+        let gameLevelString = GamesStatisticsViewController.levelsStringArray[sender.selectedSegmentIndex]
+        let gameLevelEnum = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameLevelString)
+        
+        loadStatistics(level: gameLevelEnum)
         statisticsTableView.reloadData()
     }
     
-    private func loadStatistics(level: String) {
+    private func loadStatistics(level: DifficultyLevels) {
         myAvaillableGamesNames = []
         stats = []
         
@@ -68,11 +75,13 @@ class GamesStatisticsViewController: UIViewController {
         var allGames = AllGames()
         let myGamesNames = allGames.getMyGamesNames()
         
+        let statisticsGameCoding = StatisticGameCoding()
+        
         for i in 0..<myGamesNames.count {
-            var statisticsGameCoding = StatisticGameCoding()
-            statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i], level: level)
+//            statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i], level: level)
             
-            if var s = statisticsGameCoding.decode() {
+//            if var s = statisticsGameCoding.decode() {
+            if var s = statisticsGameCoding.getStatistics(gameName: myGamesNames[i], gameLevel: level) {
                 myAvaillableGamesNames.append(myGamesNames[i])
                 s.gameName = myGamesNames[i]
                 stats.append(s)

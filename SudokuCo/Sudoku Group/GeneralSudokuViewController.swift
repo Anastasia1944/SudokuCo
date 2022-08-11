@@ -24,7 +24,7 @@ class GeneralSudokuViewController: UIViewController {
     var cellSize = CGFloat(0)
     
     var gameMode: String = "Easy"
-    var gameLevel: String = "Easy"
+    var gameLevel: DifficultyLevels = .easy
     var isSaving: Bool = true
     var openedNum = CGFloat(0)
     var gameName: String = ""

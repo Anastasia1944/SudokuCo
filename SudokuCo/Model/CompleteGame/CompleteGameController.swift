@@ -15,17 +15,19 @@ class CompleteGameController {
     
     private var currentTime: Int = 0
     
-    func configureStats(gameName: String, level: String) {
-        statisticsCoding.configureInfoForSaving(gameName: gameName, level: level)
-        
-        guard let stats = statisticsCoding.decode() else { return }
+    func configureStats(gameName: String, level: DifficultyLevels) {
+//        statisticsCoding.configureInfoForSaving(gameName: gameName, level: level)
+//        guard let stats = statisticsCoding.decode() else { return }
+        guard let stats = statisticsCoding.getStatistics(gameName: gameName, gameLevel: level) else { return }
         
         statistics = stats
     }
     
-    func addNewElementStatistic(time: Int, isWin: Bool, isSaving: Bool) {
+    func addNewElementStatistic(gameName: String, gameLevel: DifficultyLevels, time: Int, isWin: Bool, isSaving: Bool) {
         
         currentTime = time
+        statistics.gameName = gameName
+        statistics.gameLevel = gameLevel
         
         if isSaving {
             statistics.times.append(time)
@@ -34,7 +36,8 @@ class CompleteGameController {
                 statistics.winGamesCount += 1
             }
             
-            statisticsCoding.encode(gameStats: statistics)
+//            statisticsCoding.encode(gameStats: statistics)
+            statisticsCoding.saveGameStatistics(gameStats: statistics)
         }
     }
     

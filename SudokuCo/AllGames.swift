@@ -62,7 +62,7 @@ struct AllGames {
         return allGames[gameName]?.gameImageName ?? nil
     }
     
-    func getGamestatsFileNameByName(gameName: String) -> String? {
+    func getGameStatsFileNameByName(gameName: String) -> String? {
         return allGames[gameName]?.statsFileName ?? nil
     }
     

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5D1183C628A465D600F3B32D /* SudokuTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183C528A465D600F3B32D /* SudokuTypes.swift */; };
+		5D1183C828A47D9F00F3B32D /* Difficulty levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */; };
 		5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */; };
 		5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */; };
 		5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		5D1183C528A465D600F3B32D /* SudokuTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuTypes.swift; sourceTree = "<group>"; };
+		5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Difficulty levels.swift"; sourceTree = "<group>"; };
 		5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesInfoCoding.swift; sourceTree = "<group>"; };
 		5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSudoku.swift; sourceTree = "<group>"; };
 		5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGames.swift; sourceTree = "<group>"; };
@@ -134,12 +136,9 @@
 		5D7BB4F02865DB2A00AA1461 /* Sudoku Group */ = {
 			isa = PBXGroup;
 			children = (
-				5D1183C528A465D600F3B32D /* SudokuTypes.swift */,
 				5DA099A52870D9D700385380 /* GeneralSudokuViewController.swift */,
 				5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */,
 				5DA099A72870DBD900385380 /* GeneralSudokuGame.swift */,
-				5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */,
-				5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */,
 				5D7BB4F7286617F500AA1461 /* SudokuAction.swift */,
 				5D7BB4EF2865DB1200AA1461 /* Classic Sudoku */,
 				5DA0999C286E09B700385380 /* Comparison Sudoku */,
@@ -154,7 +153,6 @@
 			isa = PBXGroup;
 			children = (
 				5DCF1DA22879D4B90032DD04 /* CompleteGame */,
-				5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */,
 				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
 				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 			);
@@ -216,6 +214,13 @@
 		5DC743BF2858FF3700F1C4F6 /* SudokuCo */ = {
 			isa = PBXGroup;
 			children = (
+				5D1183C528A465D600F3B32D /* SudokuTypes.swift */,
+				5DC743E328595A5700F1C4F6 /* SudokuGridView.swift */,
+				5DCF1DA02878942D0032DD04 /* GameStatistics.swift */,
+				5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */,
+				5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */,
+				5DCF1D9E2878929C0032DD04 /* StatisticsGameCoding.swift */,
+				5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4F02865DB2A00AA1461 /* Sudoku Group */,
 				5D7BB4E828639E3E00AA1461 /* View */,
@@ -234,8 +239,6 @@
 			children = (
 				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
 				5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */,
-				5DCF1D9E2878929C0032DD04 /* StatisticsGameCoding.swift */,
-				5DCF1DA02878942D0032DD04 /* GameStatistics.swift */,
 			);
 			path = CompleteGame;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				5D7BB511286DD8ED00AA1461 /* DotsSudokuViewController.swift in Sources */,
 				5DCF1DA6287DB48B0032DD04 /* GamesStatisticsViewController.swift in Sources */,
 				5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */,
+				5D1183C828A47D9F00F3B32D /* Difficulty levels.swift in Sources */,
 				5DC743D828591C5900F1C4F6 /* GameLibraryViewController.swift in Sources */,
 				5D1183C628A465D600F3B32D /* SudokuTypes.swift in Sources */,
 				5D7BB4F4286615B500AA1461 /* OddEvenSudokuViewController.swift in Sources */,

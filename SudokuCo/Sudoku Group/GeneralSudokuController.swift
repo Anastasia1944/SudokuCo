@@ -44,7 +44,7 @@ class GeneralSudokuController {
     private var runCount = 0
     private var gameMode: String = ""
     private var gameName: String = ""
-    private var gameLevel: String = ""
+    private var gameLevel: DifficultyLevels = .easy
     
     init() {
         for _ in 0...8 {
@@ -85,13 +85,13 @@ class GeneralSudokuController {
         return newTime
     }
     
-    func getLevel() -> String {
+    func getLevel() -> DifficultyLevels {
         return gameLevel
     }
     
     func newGame() {
         
-        gameLevel = gameMode
+        gameLevel = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameMode)//gameMode
         
         _ = autoLosingPreviousGame()
         
@@ -114,7 +114,7 @@ class GeneralSudokuController {
         
         let completeGameController = CompleteGameController()
         completeGameController.configureStats(gameName: gameName, level: level)
-        completeGameController.addNewElementStatistic(time: time, isWin: false, isSaving: true)
+        completeGameController.addNewElementStatistic(gameName: gameName, gameLevel: level, time: time, isWin: false, isSaving: true)
         
         return true
     }

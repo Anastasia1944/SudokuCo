@@ -17,11 +17,11 @@ class GeneralSudokuGame: Codable {
     
     private var time: Int = 0
     
-    private var gameLevel: String = ""
+    private var gameLevel: DifficultyLevels = .easy
     
     private var tips: Int = 3
     
-    func generateSudoku(openedNum: Int = 0, level: String) {
+    func generateSudoku(openedNum: Int = 0, level: DifficultyLevels) {
         
         self.gameLevel = level
         
@@ -130,7 +130,7 @@ class GeneralSudokuGame: Codable {
         return time
     }
     
-    func getLevel() -> String {
+    func getLevel() -> DifficultyLevels {
         return gameLevel
     }
     

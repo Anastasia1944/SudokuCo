@@ -42,13 +42,15 @@ class CompleteViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool, level: String) {
+    func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool, level: DifficultyLevels) {
         self.gameName = gameName
         
         completeController.configureStats(gameName: gameName, level: level)
-        completeController.addNewElementStatistic(time: time, isWin: isWin, isSaving: isSaving)
+        completeController.addNewElementStatistic(gameName: gameName, gameLevel: level ,time: time, isWin: isWin, isSaving: isSaving)
         
-        configureView(isWin: isWin, isSaving: isSaving, gameLevel: level)
+        let gameLevelString = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: level)
+        
+        configureView(isWin: isWin, isSaving: isSaving, gameLevel: gameLevelString)
     }
     
     func configureView(isWin: Bool, isSaving: Bool, gameLevel: String) {
