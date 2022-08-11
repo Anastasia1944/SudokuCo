@@ -18,7 +18,11 @@ class CompleteGameController {
         currentTime = time
         
         if isSaving {
-            statistics = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin)!
+            
+            if let stats = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin) {
+                statistics = stats
+            }
+//            statistics = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin)!
         }
 //        } else {
 //            statistics = statisticsGameController.getStatistics(gameName: gameName, gameLevel: gameLevel)!

@@ -10,18 +10,16 @@ import UIKit
 class MyGamesViewController: UIViewController {
     
     let gamesInfoCoding = GamesInfoCoding()
+    let statsGameCoding = StatisticGameCoding()
     
     let myGamesTableView = UITableView()
     
     var allGames = AllGames()
     
-//    var gamesName: [String] = AllGames().myGames.map { $0.key }.sorted()
     var gamesName: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        gamesName = allGames.getMyGamesNames().sorted()
         
         self.view.backgroundColor = .graySys
         
@@ -30,10 +28,12 @@ class MyGamesViewController: UIViewController {
         
         myGamesTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
         
-        setTableSettings()
-        
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         myGamesTableView.addGestureRecognizer(longPress)
+        
+        gamesName = allGames.getMyGamesNames().sorted()
+        
+        setTableSettings()
         
         configureInfoAppButton()
     }
@@ -50,7 +50,6 @@ class MyGamesViewController: UIViewController {
     }
     
     @objc func infoItemTapped() {
-        
         let alert = UIAlertController(title: "App Info", message: "If you have any suggestions or questions, please write them to this email: sudokuCoGame@outlook.com", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Write", style: .default, handler: { _ in
@@ -85,17 +84,10 @@ class MyGamesViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
-            
-//            let gameInfoCoding = GamesInfoCoding()
-//            gameInfoCoding.configureInfoForSaving(gameName: gameName)
             self.gamesInfoCoding.deleteGameInfo(gameName: gameName)
-            
-            let statsGameCoding = StatisticGameCoding()
-            statsGameCoding.deleteGameStatistics(gameName: gameName)
-//            statsGameCoding.configureInfoForSaving(gameName: gameName, level: "")
-//            statsGameCoding.deleteGameInfo()
-            
+            self.statsGameCoding.deleteGameStatistics(gameName: gameName)
             self.allGames.deleteMyGame(gameName: gameName)
+            
             self.updateGamesList()
         }))
         
@@ -120,25 +112,13 @@ class MyGamesViewController: UIViewController {
     func openMenuAlert(gameName: String) {
         let alert = UIAlertController()
         
-//        let gamesCoding = GamesInfoCoding()
-//        gamesInfoCoding.configureInfoForSaving(gameName: gameName)
-//        _ = gamesCoding.decode()
+        let levels = DifficultyLevelsStringToEnum().getDifficultyLevelsNames()
         
-        alert.addAction(UIAlertAction(title: "Easy", style: .default, handler: { _ in
-            self.transitionToGameVC(gameName, gameMode: "Easy")
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Medium", style: .default, handler: { _ in
-            self.transitionToGameVC(gameName, gameMode: "Medium")
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Hard", style: .default, handler: { _ in
-            self.transitionToGameVC(gameName, gameMode: "Hard")
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Expert", style: .default, handler: { _ in
-            self.transitionToGameVC(gameName, gameMode: "Expert")
-        }))
+        for level in levels {
+            alert.addAction(UIAlertAction(title: level, style: .default, handler: { _ in
+                self.transitionToGameVC(gameName, gameMode: level)
+            }))
+        }
         
         if gamesInfoCoding.isThereUnfinishedGame(gameName: gameName) {
             alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
@@ -149,55 +129,22 @@ class MyGamesViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: {})
-        
     }
     
     func transitionToGameVC(_ gameName: String, gameMode: String) {
+        let stringVC = AllGames().getVCNameByGameName(gameName: gameName)
+        let sudokuGameVC = stringVC!.getViewController()! as! GeneralSudokuViewController
         
-        switch gameName {
-        case "Classic Sudoku":
-            let sudokuGameVC = SudokuClassicViewController()
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isOpenLibraryAlert = false
-            sudokuGameVC.gameMode = gameMode
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Odd-Even Sudoku":
-            let sudokuGameVC = OddEvenSudokuViewController()
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isOpenLibraryAlert = false
-            sudokuGameVC.gameMode = gameMode
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Frame Sudoku":
-            let sudokuGameVC = FrameSudokuViewController()
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isOpenLibraryAlert = false
-            sudokuGameVC.gameMode = gameMode
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Dots Sudoku":
-            let sudokuGameVC = DotsSudokuViewController()
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isOpenLibraryAlert = false
-            sudokuGameVC.gameMode = gameMode
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Comparison Sudoku":
-            let sudokuGameVC = ComparisonSudokuViewController()
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isOpenLibraryAlert = false
-            sudokuGameVC.gameMode = gameMode
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        default: return
-        }
+        sudokuGameVC.hidesBottomBarWhenPushed = true
+        sudokuGameVC.modalPresentationStyle = .fullScreen
+        
+        sudokuGameVC.isOpenLibraryAlert = false
+        sudokuGameVC.gameMode = gameMode
+        
+        navigationController?.pushViewController(sudokuGameVC, animated: true)
     }
     
     func updateGamesList() {
-//        gamesName = AllGames().myGames.map { $0.key }.sorted()
-//        allGames = AllGames()
-//        allGames.loadMyGames()
         gamesName = allGames.getMyGamesNames().sorted()
         myGamesTableView.reloadData()
     }
@@ -220,7 +167,6 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
         let gameName = gamesName[indexPath.row]
         
         gameCell.gameLabel.text = gameName
-//        gameCell.gameImageView.image = UIImage(named: allGames.games[gameName]!.gameImageName)
         gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
         
         return gameCell

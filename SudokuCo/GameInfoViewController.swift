@@ -28,7 +28,6 @@ class GameInfoViewController: UIViewController {
     }
     
     func configureTextFieldConstraints() {
-        
         view.addSubview(gameInfoTextLabel)
         
         gameInfoTextLabel.text = gameInfos[gameName]

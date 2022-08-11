@@ -15,11 +15,13 @@ enum DifficultyLevels: Codable {
 }
 
 struct DifficultyLevelsStringToEnum {
+    
+    private let levels: [String] = ["Easy", "Medium", "Hard", "Expert"]
     private let levelsString: [String: DifficultyLevels] = ["Easy": .easy, "Medium": .medium, "Hard": .hard, "Expert": .expert]
     private let levelsEnum: [DifficultyLevels: String] = [.easy: "Easy", .medium: "Medium", .hard: "Hard", .expert: "Expert"]
     
     func getDifficultyLevelsNames() -> [String] {
-        return Array(levelsString.keys)
+        return levels
     }
     
     func getDifficultyLevelStringByEnum(level: DifficultyLevels) -> String {

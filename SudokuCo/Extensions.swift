@@ -55,3 +55,16 @@ extension UITableView {
         self.backgroundView = nil
     }
 }
+
+extension String {
+
+    func getViewController() -> UIViewController? {
+        if let appName = Bundle.main.infoDictionary?["CFBundleName"] as? String {
+            if let viewControllerType = NSClassFromString("\(appName).\(self)") as? UIViewController.Type {
+                return viewControllerType.init()
+            }
+        }
+        return nil
+    }
+
+}
