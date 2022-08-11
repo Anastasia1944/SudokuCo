@@ -39,14 +39,16 @@ class GeneralSudokuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        configureView()
+        
         generalSudokuController.numberChanged = { numbers in
             self.fillNumbers(sudokuNumbers: numbers)
             
             if self.generalSudokuController.ifAllCellsFilled() {
+                self.gameTime = self.generalSudokuController.stopTimer()
+                
                 self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
             }
-            
-            self.gameTime = self.generalSudokuController.stopTimer()
         }
         
         generalSudokuController.noteNumberChanged = { numbers in
@@ -59,9 +61,7 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        configureView()
         generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
-        configureInfoGameButton()
         
         gameLevel = generalSudokuController.getLevel()
         
@@ -69,7 +69,12 @@ class GeneralSudokuViewController: UIViewController {
         tipLabel.text = "Tip (\(tipsCount))"
         
         originallyOpenedNumbers = generalSudokuController.getOriginallyOpenedNumbers()
+        
+        print(originallyOpenedNumbers)
+        
         fillOriginallyOpenedNumbers()
+        
+        configureInfoGameButton()
     
         if isOpenLibraryAlert {
             openLibraryAlert()

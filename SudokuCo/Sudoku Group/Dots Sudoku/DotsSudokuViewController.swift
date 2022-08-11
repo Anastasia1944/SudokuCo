@@ -9,7 +9,7 @@ import UIKit
 
 class DotsSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 75, "Medium": 7, "Hard": 3, "Expert": 0]
+    private let openedNumsLevels: [String: CGFloat] = ["Easy": 75, "Medium": 73, "Hard": 72, "Expert": 70]
     
     override func viewDidLoad() {
         super.configureInit()
