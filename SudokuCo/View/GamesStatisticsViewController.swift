@@ -9,14 +9,13 @@ import UIKit
 
 class GamesStatisticsViewController: UIViewController {
     
-    static private let levelsStringArray: [String] =  ["Easy", "Medium", "Hard", "Expert"]
+    private var difficultyLevelsStringToEnum = DifficultyLevelsStringToEnum()
     
-    let statisticsLevelsSegmentedController = UISegmentedControl (items: levelsStringArray)
+    private var statisticsLevelsSegmentedController = UISegmentedControl()
+    private let statisticsTableView = UITableView()
     
-    let statisticsTableView = UITableView()
-    
-    var myAvaillableGamesNames: [String] = []
-    var stats: [GameStatistics] = []
+    private var myAvaillableGamesNames: [String] = []
+    private var stats: [GameStatistics] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,22 +27,18 @@ class GamesStatisticsViewController: UIViewController {
         
         statisticsTableView.register(GameStatisticsTableViewCell.self, forCellReuseIdentifier: "statisticsCell")
         
+        statisticsLevelsSegmentedController = UISegmentedControl(items: difficultyLevelsStringToEnum.getDifficultyLevelsNames())
+        
         setSegmenteControlSettings()
         setTableSettings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let gameLevelString = GamesStatisticsViewController.levelsStringArray[statisticsLevelsSegmentedController.selectedSegmentIndex]
-        let gameLevelEnum = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameLevelString)
-        
-        loadStatistics(level: gameLevelEnum)
-        statisticsTableView.reloadData()
+        reloadInfo()
     }
     
     private func setSegmenteControlSettings() {
-        
         view.addSubview(statisticsLevelsSegmentedController)
         
         statisticsLevelsSegmentedController.selectedSegmentIndex = 0
@@ -59,28 +54,19 @@ class GamesStatisticsViewController: UIViewController {
     
     @objc func segmentedValueChanged(_ sender: UISegmentedControl!)
     {
-        
-        let gameLevelString = GamesStatisticsViewController.levelsStringArray[sender.selectedSegmentIndex]
-        let gameLevelEnum = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameLevelString)
-        
-        loadStatistics(level: gameLevelEnum)
-        statisticsTableView.reloadData()
+        reloadInfo()
     }
     
     private func loadStatistics(level: DifficultyLevels) {
         myAvaillableGamesNames = []
         stats = []
-        
-//        let myGamesNames = AllGames().getGamesNames()
+    
         var allGames = AllGames()
         let myGamesNames = allGames.getMyGamesNames()
         
         let statisticsGameCoding = StatisticGameCoding()
         
         for i in 0..<myGamesNames.count {
-//            statisticsGameCoding.configureInfoForSaving(gameName: myGamesNames[i], level: level)
-            
-//            if var s = statisticsGameCoding.decode() {
             if var s = statisticsGameCoding.getStatistics(gameName: myGamesNames[i], gameLevel: level) {
                 myAvaillableGamesNames.append(myGamesNames[i])
                 s.gameName = myGamesNames[i]
@@ -91,7 +77,7 @@ class GamesStatisticsViewController: UIViewController {
         stats = stats.sorted(by: { $0.gameName < $1.gameName })
     }
     
-    func setTableSettings() {
+    private func setTableSettings() {
         view.addSubview(statisticsTableView)
         
         statisticsTableView.separatorStyle = .none
@@ -109,6 +95,14 @@ class GamesStatisticsViewController: UIViewController {
         formatter.allowedUnits = [.hour, .minute, .second]
         formatter.unitsStyle = .positional
         return formatter.string(from: TimeInterval(time))!
+    }
+    
+    private func reloadInfo() {
+        let gameLevelString = difficultyLevelsStringToEnum.getDifficultyLevelsNames()[statisticsLevelsSegmentedController.selectedSegmentIndex]
+        let gameLevelEnum = difficultyLevelsStringToEnum.getDifficultyLevelEnumByString(level: gameLevelString)
+        
+        loadStatistics(level: gameLevelEnum)
+        statisticsTableView.reloadData()
     }
 }
 
