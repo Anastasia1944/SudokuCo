@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SudokuGridView: UIView {
+class GridView: UIView {
 
     private var sudokuWidth = CGFloat(0)
     private var oneSquareSide = CGFloat(0)

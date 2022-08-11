@@ -9,7 +9,7 @@ import UIKit
 
 class GeneralSudokuViewController: UIViewController {
     
-    let gridView = SudokuGridView()
+    let gridView = GridView()
     let sudokuPanelStackView = UIStackView()
     let numberPanelStackView = UIStackView()
     let gameElementsStackView = UIStackView()

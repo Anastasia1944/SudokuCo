@@ -8,7 +8,7 @@
 import Foundation
 
 struct GenerateSudoku {
-    
+
     private var sudokuNumbers: [[Int]] = []
     private var originallyOpenedNumbers: [[Int]] = []
     
