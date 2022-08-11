@@ -59,6 +59,7 @@ class GeneralSudokuController {
         self.isSaving = isSaving
         self.gameMode = gameMode
         self.gameName = gameName
+        generalSudokuGame.setGameName(gameName)
         
         if gameMode == "Continue" {
             continueGame()
@@ -105,10 +106,11 @@ class GeneralSudokuController {
     
     func autoLosingPreviousGame() -> Bool {
         
-        var gamesCoding = GamesInfoCoding()
-        gamesCoding.configureInfoForSaving(gameName: gameName)
+//        var gamesCoding = GamesInfoCoding()
+//        gamesCoding.configureInfoForSaving(gameName: gameName)
         
-        guard let generalSudokuGame = gamesCoding.decode() as? GeneralSudokuGame else { return false }
+//        guard let generalSudokuGame = gamesCoding.decode() as? GeneralSudokuGame else { return false }
+        guard let generalSudokuGame = gamesInfoCoding.getGameInfo(gameName: gameName) as? GeneralSudokuGame else { return false }
         let level = generalSudokuGame.getLevel()
         let time = generalSudokuGame.getTime()
         
@@ -120,7 +122,8 @@ class GeneralSudokuController {
     }
     
     func continueGame() {
-        generalSudokuGame = gamesInfoCoding.decode() as! GeneralSudokuGame
+//        generalSudokuGame = gamesInfoCoding.decode() as! GeneralSudokuGame
+        generalSudokuGame = gamesInfoCoding.getGameInfo(gameName: gameName) as! GeneralSudokuGame
         
         gameLevel = generalSudokuGame.getLevel()
         
@@ -130,7 +133,8 @@ class GeneralSudokuController {
     
     func saveInfoIfNedded() {
         if isSaving {
-            gamesInfoCoding.encode(game: generalSudokuGame)
+//            gamesInfoCoding.encode(game: generalSudokuGame)
+            gamesInfoCoding.saveGameInfo(game: generalSudokuGame)
         }
     }
     

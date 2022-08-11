@@ -14,7 +14,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         
         super.configureInit()
-        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
+//        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Odd-Even Sudoku")
         super.gameName = "Odd-Even Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()

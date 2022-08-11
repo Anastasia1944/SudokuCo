@@ -279,9 +279,9 @@ class CompleteViewController: UIViewController {
     }
     
     @objc func tapMainMenuButton() {
-        var gameInfoCoding = GamesInfoCoding()
-        gameInfoCoding.configureInfoForSaving(gameName: gameName)
-        gameInfoCoding.deleteGameInfo()
+        let gameInfoCoding = GamesInfoCoding()
+//        gameInfoCoding.configureInfoForSaving(gameName: gameName)
+        gameInfoCoding.deleteGameInfo(gameName: gameName)
         
         navigationController?.popToRootViewController(animated: true)
     }

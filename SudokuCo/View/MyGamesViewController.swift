@@ -9,6 +9,8 @@ import UIKit
 
 class MyGamesViewController: UIViewController {
     
+    let gamesInfoCoding = GamesInfoCoding()
+    
     let myGamesTableView = UITableView()
     
     var allGames = AllGames()
@@ -84,9 +86,9 @@ class MyGamesViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
             
-            var gameInfoCoding = GamesInfoCoding()
-            gameInfoCoding.configureInfoForSaving(gameName: gameName)
-            gameInfoCoding.deleteGameInfo()
+//            let gameInfoCoding = GamesInfoCoding()
+//            gameInfoCoding.configureInfoForSaving(gameName: gameName)
+            self.gamesInfoCoding.deleteGameInfo(gameName: gameName)
             
             let statsGameCoding = StatisticGameCoding()
             statsGameCoding.deleteGameStatistics(gameName: gameName)
@@ -118,10 +120,9 @@ class MyGamesViewController: UIViewController {
     func openMenuAlert(gameName: String) {
         let alert = UIAlertController()
         
-        
-        var gamesCoding = GamesInfoCoding()
-        gamesCoding.configureInfoForSaving(gameName: gameName)
-        _ = gamesCoding.decode()
+//        let gamesCoding = GamesInfoCoding()
+//        gamesInfoCoding.configureInfoForSaving(gameName: gameName)
+//        _ = gamesCoding.decode()
         
         alert.addAction(UIAlertAction(title: "Easy", style: .default, handler: { _ in
             self.transitionToGameVC(gameName, gameMode: "Easy")
@@ -139,7 +140,7 @@ class MyGamesViewController: UIViewController {
             self.transitionToGameVC(gameName, gameMode: "Expert")
         }))
         
-        if gamesCoding.isThereUnfinishedGame {
+        if gamesInfoCoding.isThereUnfinishedGame(gameName: gameName) {
             alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
                 self.transitionToGameVC(gameName, gameMode: "Continue")
             }))

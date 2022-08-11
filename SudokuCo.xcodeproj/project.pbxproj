@@ -151,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				5DCF1DA22879D4B90032DD04 /* CompleteGame */,
-				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
 				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 			);
 			path = Model;
@@ -221,6 +220,7 @@
 				5DCF1D9E2878929C0032DD04 /* StatisticsGameCoding.swift */,
 				5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */,
 				5D7BB4F7286617F500AA1461 /* SudokuAction.swift */,
+				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4F02865DB2A00AA1461 /* Sudoku Group */,
 				5D7BB4E828639E3E00AA1461 /* View */,

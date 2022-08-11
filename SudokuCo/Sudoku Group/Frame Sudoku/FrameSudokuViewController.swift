@@ -15,7 +15,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
     
     override func viewDidLoad() {
         super.configureInit(gridWidth: ((UIScreen.main.bounds.width - 20) / 11) * 9)
-        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Frame Sudoku")
+ //       super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Frame Sudoku")
         super.gameName = "Frame Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()

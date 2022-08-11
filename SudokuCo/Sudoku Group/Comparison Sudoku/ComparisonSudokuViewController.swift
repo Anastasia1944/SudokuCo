@@ -14,7 +14,7 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
     override func viewDidLoad() {
         super.configureInit()
         
-        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Comparison Sudoku")
+//        super.generalSudokuController.gamesInfoCoding.configureInfoForSaving(gameName: "Comparison Sudoku")
         super.gameName = "Comparison Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
         super.viewDidLoad()

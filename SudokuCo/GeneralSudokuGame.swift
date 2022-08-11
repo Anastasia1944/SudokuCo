@@ -9,6 +9,8 @@ import Foundation
 
 class GeneralSudokuGame: Codable {
     
+    private var gameName: String = ""
+    
     private var sudokuNumbers: [[Int]] = []
     private var originallyOpenedNumbers: [[Int]] = []
     private var openedNumbers: [[Int]] = []
@@ -142,6 +144,14 @@ class GeneralSudokuGame: Codable {
     
     func resetTimer() {
         time = 0
+    }
+    
+    func setGameName(_ gameName: String) {
+        self.gameName = gameName
+    }
+    
+    func getGameName() -> String {
+        return gameName
     }
 }
 
