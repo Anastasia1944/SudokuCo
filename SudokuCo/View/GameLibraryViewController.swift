@@ -13,39 +13,28 @@ class GameLibraryViewController: UIViewController {
     
     var allGames = AllGames()
     
-//    var gamesName: [String] = AllGames().games.map { $0.key }.sorted()
-    var gamesName: [String] = []//AllGames().getAllGamesNames()
+    var gamesName: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        gamesName = allGames.getAllGamesNames().sorted()
         
         self.view.backgroundColor = .graySys
         
         gameLibraryTableView.dataSource = self
         gameLibraryTableView.delegate = self
         
-        gameLibraryTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
+        gamesName = allGames.getAllGamesNames().sorted()
         
         tableSettings()
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
-        gameLibraryTableView.addGestureRecognizer(longPress)
-    }
-    
-    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
-        if sender.state == .began {
-            let touchPoint = sender.location(in: gameLibraryTableView)
-            if let indexPath = gameLibraryTableView.indexPathForRow(at: touchPoint) {
-                let gameName = gamesName[indexPath.row]
-                openAddGameAlert(gameName: gameName)
-            }
-        }
     }
     
     func tableSettings() {
         view.addSubview(gameLibraryTableView)
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        gameLibraryTableView.addGestureRecognizer(longPress)
+        
+        gameLibraryTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
         
         gameLibraryTableView.separatorStyle = .none
         gameLibraryTableView.rowHeight = 100.0
@@ -58,13 +47,22 @@ class GameLibraryViewController: UIViewController {
         gameLibraryTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
+    @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: gameLibraryTableView)
+            if let indexPath = gameLibraryTableView.indexPathForRow(at: touchPoint) {
+                let gameName = gamesName[indexPath.row]
+                openAddGameAlert(gameName: gameName)
+            }
+        }
+    }
+    
     func openAddGameAlert(gameName: String) {
         let alert = UIAlertController(title: "Add \"\(gameName)\" to My Games?", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
-//            allGames.myGames[gameName] = allGames.games[gameName]
             self.allGames.addGameToMyGames(gameName: gameName)
         }))
         
@@ -72,57 +70,19 @@ class GameLibraryViewController: UIViewController {
     }
     
     func transitipnToGameVC(gameName: String) {
+        let stringVC = allGames.getVCNameByGameName(gameName: gameName)
+        let sudokuGameVC = stringVC!.getViewController()! as! GeneralSudokuViewController
+        
+        sudokuGameVC.hidesBottomBarWhenPushed = true
+        sudokuGameVC.modalPresentationStyle = .fullScreen
         
         let defaults = UserDefaults.standard
-        
-        switch gameName {
-        case "Classic Sudoku":
-            let sudokuGameVC = SudokuClassicViewController()
-            if defaults.bool(forKey: "Do not Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = false
-            }
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isSaving = false
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Odd-Even Sudoku":
-            let sudokuGameVC = OddEvenSudokuViewController()
-            if defaults.bool(forKey: "Do not Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = false
-            }
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isSaving = false
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Frame Sudoku":
-            let sudokuGameVC = FrameSudokuViewController()
-            if defaults.bool(forKey: "Do not Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = false
-            }
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isSaving = false
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Dots Sudoku":
-            let sudokuGameVC = DotsSudokuViewController()
-            if defaults.bool(forKey: "Do not Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = false
-            }
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isSaving = false
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        case "Comparison Sudoku":
-            let sudokuGameVC = ComparisonSudokuViewController()
-            if defaults.bool(forKey: "Do not Show Library Alert") {
-                sudokuGameVC.isOpenLibraryAlert = false
-            }
-            sudokuGameVC.hidesBottomBarWhenPushed = true
-            sudokuGameVC.isSaving = false
-            sudokuGameVC.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(sudokuGameVC, animated: true)
-        default: return
+        if defaults.bool(forKey: "Do not Show Library Alert") {
+            sudokuGameVC.isOpenLibraryAlert = false
         }
+        sudokuGameVC.isSaving = false
+        
+        navigationController?.pushViewController(sudokuGameVC, animated: true)
     }
 }
 
@@ -138,7 +98,6 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         
         gameCell.gameLabel.text = gameName
         gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
-//        gameCell.gameImageView.image = UIImage(named: AllGames().games[gameName]!.gameImageName)
         
         return gameCell
     }

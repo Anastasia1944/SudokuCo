@@ -117,8 +117,6 @@
 		5D7BB4E828639E3E00AA1461 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				5DC743D428591C1500F1C4F6 /* MyGamesViewController.swift */,
-				5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */,
 				5DC743D728591C5900F1C4F6 /* GameLibraryViewController.swift */,
 				5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */,
 				5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */,
@@ -226,6 +224,8 @@
 				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
 				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 				5DC743C42858FF3700F1C4F6 /* MainViewController.swift */,
+				5DC743D428591C1500F1C4F6 /* MyGamesViewController.swift */,
+				5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4F02865DB2A00AA1461 /* Sudoku Group */,
 				5D7BB4E828639E3E00AA1461 /* View */,

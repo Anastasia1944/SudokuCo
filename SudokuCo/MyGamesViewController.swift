@@ -26,11 +26,6 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.dataSource = self
         myGamesTableView.delegate = self
         
-        myGamesTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
-        myGamesTableView.addGestureRecognizer(longPress)
-        
         gamesName = allGames.getMyGamesNames().sorted()
         
         setTableSettings()
@@ -55,11 +50,11 @@ class MyGamesViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Write", style: .default, handler: { _ in
             let email = "sudokuCoGame@outlook.com"
             if let url = URL(string: "mailto:\(email)") {
-              if #available(iOS 10.0, *) {
-                UIApplication.shared.open(url)
-              } else {
-                UIApplication.shared.openURL(url)
-              }
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url)
+                } else {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }))
         
@@ -97,6 +92,11 @@ class MyGamesViewController: UIViewController {
     func setTableSettings() {
         view.addSubview(myGamesTableView)
         
+        myGamesTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        myGamesTableView.addGestureRecognizer(longPress)
+        
         myGamesTableView.translatesAutoresizingMaskIntoConstraints = false
         
         myGamesTableView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -132,7 +132,7 @@ class MyGamesViewController: UIViewController {
     }
     
     func transitionToGameVC(_ gameName: String, gameMode: String) {
-        let stringVC = AllGames().getVCNameByGameName(gameName: gameName)
+        let stringVC = allGames.getVCNameByGameName(gameName: gameName)
         let sudokuGameVC = stringVC!.getViewController()! as! GeneralSudokuViewController
         
         sudokuGameVC.hidesBottomBarWhenPushed = true
