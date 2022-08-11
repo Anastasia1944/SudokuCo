@@ -69,13 +69,10 @@ class GeneralSudokuViewController: UIViewController {
         tipLabel.text = "Tip (\(tipsCount))"
         
         originallyOpenedNumbers = generalSudokuController.getOriginallyOpenedNumbers()
-        
-        print(originallyOpenedNumbers)
-        
         fillOriginallyOpenedNumbers()
         
         configureInfoGameButton()
-    
+        
         if isOpenLibraryAlert {
             openLibraryAlert()
         }
