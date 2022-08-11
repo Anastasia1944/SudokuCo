@@ -45,7 +45,7 @@ class CompleteViewController: UIViewController {
     func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool, level: DifficultyLevels) {
         self.gameName = gameName
         
-        completeController.configureStats(gameName: gameName, level: level)
+//        completeController.configureStats(gameName: gameName, level: level)
         completeController.addNewElementStatistic(gameName: gameName, gameLevel: level ,time: time, isWin: isWin, isSaving: isSaving)
         
         let gameLevelString = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: level)

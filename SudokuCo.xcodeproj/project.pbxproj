@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5D1183C628A465D600F3B32D /* SudokuTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183C528A465D600F3B32D /* SudokuTypes.swift */; };
 		5D1183C828A47D9F00F3B32D /* Difficulty levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */; };
+		5D1183CE28A5537D00F3B32D /* StatisticsGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */; };
 		5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */; };
 		5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */; };
 		5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		5D1183C528A465D600F3B32D /* SudokuTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuTypes.swift; sourceTree = "<group>"; };
 		5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Difficulty levels.swift"; sourceTree = "<group>"; };
+		5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGameController.swift; sourceTree = "<group>"; };
 		5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesInfoCoding.swift; sourceTree = "<group>"; };
 		5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSudoku.swift; sourceTree = "<group>"; };
 		5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGames.swift; sourceTree = "<group>"; };
@@ -221,6 +223,8 @@
 				5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */,
 				5D7BB4F7286617F500AA1461 /* SudokuAction.swift */,
 				5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */,
+				5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */,
+				5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4F02865DB2A00AA1461 /* Sudoku Group */,
 				5D7BB4E828639E3E00AA1461 /* View */,
@@ -238,7 +242,6 @@
 			isa = PBXGroup;
 			children = (
 				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
-				5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */,
 			);
 			path = CompleteGame;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			files = (
 				5DCF1D9F2878929C0032DD04 /* StatisticsGameCoding.swift in Sources */,
 				5DC743E228594CA000F1C4F6 /* SudokuClassicViewController.swift in Sources */,
+				5D1183CE28A5537D00F3B32D /* StatisticsGameController.swift in Sources */,
 				5DCF1DA8288052C20032DD04 /* GameStatisticsTableViewCell.swift in Sources */,
 				5DC743D528591C1500F1C4F6 /* MyGamesViewController.swift in Sources */,
 				5DC743E02859410100F1C4F6 /* MyGameTableViewCell.swift in Sources */,

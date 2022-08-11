@@ -9,36 +9,15 @@ import Foundation
 
 class CompleteGameController {
     
-    private var statisticsCoding = StatisticGameCoding()
-    
+    private var statisticsGameController = StatiscticsGameController()
     private var statistics = GameStatistics()
     
     private var currentTime: Int = 0
     
-    func configureStats(gameName: String, level: DifficultyLevels) {
-//        statisticsCoding.configureInfoForSaving(gameName: gameName, level: level)
-//        guard let stats = statisticsCoding.decode() else { return }
-        guard let stats = statisticsCoding.getStatistics(gameName: gameName, gameLevel: level) else { return }
-        
-        statistics = stats
-    }
-    
     func addNewElementStatistic(gameName: String, gameLevel: DifficultyLevels, time: Int, isWin: Bool, isSaving: Bool) {
-        
         currentTime = time
-        statistics.gameName = gameName
-        statistics.gameLevel = gameLevel
         
-        if isSaving {
-            statistics.times.append(time)
-            statistics.allgamesCount += 1
-            if isWin {
-                statistics.winGamesCount += 1
-            }
-            
-//            statisticsCoding.encode(gameStats: statistics)
-            statisticsCoding.saveGameStatistics(gameStats: statistics)
-        }
+        statistics = statisticsGameController.addNewStatisticsElement(gameName: gameName, gameLevel: gameLevel, time: time, isWin: isWin, isSaving: isSaving)!
     }
     
     func getCurrentTimeString() -> String {
@@ -54,7 +33,6 @@ class CompleteGameController {
     }
  
     func getAverageTimeString() -> String {
-        
         var time = 0
         
         for i in 0..<statistics.times.count {
@@ -65,7 +43,6 @@ class CompleteGameController {
     }
     
     func getWinRatePercentage() -> String {
-        
         let doubleVar = Double(statistics.winGamesCount) / Double(statistics.allgamesCount) * 100
         
         return String(round(doubleVar * 10) / 10) + "%"

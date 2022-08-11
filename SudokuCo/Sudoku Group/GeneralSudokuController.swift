@@ -115,7 +115,7 @@ class GeneralSudokuController {
         let time = generalSudokuGame.getTime()
         
         let completeGameController = CompleteGameController()
-        completeGameController.configureStats(gameName: gameName, level: level)
+//        completeGameController.configureStats(gameName: gameName, level: level)
         completeGameController.addNewElementStatistic(gameName: gameName, gameLevel: level, time: time, isWin: false, isSaving: true)
         
         return true
