@@ -39,70 +39,29 @@ class GeneralSudokuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureView()
-        
         generalSudokuController.numberChanged = { numbers in
-            for i in 0...8 {
-                for j in 0...8 {
-                    if numbers[i][j] != 0 {
-                        self.filledNumbersLabels[i][j].text = String(numbers[i][j])
-                    } else {
-                        self.filledNumbersLabels[i][j].text = ""
-                    }
-                }
-            }
+            self.fillNumbers(sudokuNumbers: numbers)
             
-            guard let isCompleteGame = self.generalSudokuController.ifAllCellsFilledDisplayCompletionView() else { return }
+            if self.generalSudokuController.ifAllCellsFilled() {
+                self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
+            }
             
             self.gameTime = self.generalSudokuController.stopTimer()
-            
-            let completeVC = CompleteViewController()
-            
-            if isCompleteGame {
-                completeVC.configureCompleteVC(isWin: true, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameLevel)
-            } else {
-                completeVC.configureCompleteVC(isWin: false, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameLevel)
-            }
-            
-            self.navigationController?.pushViewController(completeVC, animated: true)
-            
-            completeVC.startOver = { start in
-                self.generalSudokuController.startGameOver()
-            }
-            
-            completeVC.continueGame = { continueGame in
-                self.generalSudokuController.continueCurrentGame()
-            }
         }
         
         generalSudokuController.noteNumberChanged = { numbers in
-            for i in 0...8 {
-                for j in 0...8 {
-                    for k in 1...9 {
-                        if numbers[i][j][k] == true {
-                            self.notesLabels[i][j][k - 1].text = String(k)
-                        } else {
-                            self.notesLabels[i][j][k - 1].text = ""
-                        }
-                    }
-                }
-            }
+            self.fillNotes(sudokuNotes: numbers)
         }
         
         generalSudokuController.noteChanged = { isNote in
-            if isNote {
-                for i in 0...8 {
-                    self.numbersButtons[i].isSelected = true
-                }
-            } else {
-                for i in 0...8 {
-                    self.numbersButtons[i].isSelected = false
-                }
+            for i in 0...8 {
+                self.numbersButtons[i].isSelected = isNote
             }
         }
         
-        
+        configureView()
         generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
+        configureInfoGameButton()
         
         gameLevel = generalSudokuController.getLevel()
         
@@ -110,11 +69,8 @@ class GeneralSudokuViewController: UIViewController {
         tipLabel.text = "Tip (\(tipsCount))"
         
         originallyOpenedNumbers = generalSudokuController.getOriginallyOpenedNumbers()
-        
         fillOriginallyOpenedNumbers()
-        
-        configureInfoGameButton()
-        
+    
         if isOpenLibraryAlert {
             openLibraryAlert()
         }
@@ -124,7 +80,49 @@ class GeneralSudokuViewController: UIViewController {
         gameTime = generalSudokuController.stopTimer()
     }
     
-    func openLibraryAlert() {
+    private func fillNumbers(sudokuNumbers: [[Int]]) {
+        for i in 0...8 {
+            for j in 0...8 {
+                if sudokuNumbers[i][j] != 0 {
+                    self.filledNumbersLabels[i][j].text = String(sudokuNumbers[i][j])
+                } else {
+                    self.filledNumbersLabels[i][j].text = ""
+                }
+            }
+        }
+    }
+    
+    private func fillNotes(sudokuNotes: [[[Int: Bool]]]) {
+        for i in 0...8 {
+            for j in 0...8 {
+                for k in 1...9 {
+                    if sudokuNotes[i][j][k] == true {
+                        self.notesLabels[i][j][k - 1].text = String(k)
+                    } else {
+                        self.notesLabels[i][j][k - 1].text = ""
+                    }
+                }
+            }
+        }
+    }
+    
+    private func transitionToCompleteVC(isWin: Bool) {
+        let completeVC = CompleteViewController()
+        
+        completeVC.configureCompleteVC(isWin: isWin, time: self.gameTime, gameName: self.gameName, isSaving: self.isSaving, level: self.gameLevel)
+        
+        self.navigationController?.pushViewController(completeVC, animated: true)
+        
+        completeVC.startOver = { start in
+            self.generalSudokuController.startGameOver()
+        }
+        
+        completeVC.continueGame = { continueGame in
+            self.generalSudokuController.continueCurrentGame()
+        }
+    }
+    
+    private func openLibraryAlert() {
         let alert = UIAlertController(title: "This Game will not be saved in statistics. Play from the \"My Games\" to save it.", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
@@ -138,7 +136,7 @@ class GeneralSudokuViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func configureInfoGameButton() {
+    private func configureInfoGameButton() {
         let button = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(infoItemTapped))
         self.navigationItem.rightBarButtonItem  = button
     }
@@ -155,7 +153,7 @@ class GeneralSudokuViewController: UIViewController {
         self.cellSize = gridWidth / 9
     }
     
-    func configureView() {
+    private func configureView() {
         view.backgroundColor = .white
         
         configureGameElementsStack()
@@ -163,7 +161,7 @@ class GeneralSudokuViewController: UIViewController {
         configureNotesLabels()
     }
     
-    func configureGameElementsStack() {
+    private func configureGameElementsStack() {
         view.addSubview(gameElementsStackView)
         
         gameElementsStackView.axis = .vertical
@@ -180,7 +178,7 @@ class GeneralSudokuViewController: UIViewController {
         configureNumberPanel()
     }
     
-    func configureSudokuGrid() {
+    private func configureSudokuGrid() {
         let framingGridView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 20, height: UIScreen.main.bounds.width - 20))
         self.gameElementsStackView.addArrangedSubview(framingGridView)
         
@@ -208,7 +206,7 @@ class GeneralSudokuViewController: UIViewController {
         selectedCellView.backgroundColor = .graySys
     }
     
-    func configurePanel() {
+    private func configurePanel() {
         self.gameElementsStackView.addArrangedSubview(sudokuPanelStackView)
         
         sudokuPanelStackView.axis = .horizontal
@@ -287,7 +285,7 @@ class GeneralSudokuViewController: UIViewController {
         tipLabel.text = "Tip (\(tipsCount))"
     }
     
-    func configureNumberPanel() {
+    private func configureNumberPanel() {
         self.gameElementsStackView.addArrangedSubview(numberPanelStackView)
         
         numberPanelStackView.axis = .horizontal
@@ -318,7 +316,7 @@ class GeneralSudokuViewController: UIViewController {
         generalSudokuController.numberButtonTapped(x: cellX, y: cellY, value: Int(value)!)
     }
     
-    func configureGridLabels() {
+    private func configureGridLabels() {
         for i in 0...8 {
             filledNumbersLabels.append([])
             for j in 0...8 {
@@ -332,7 +330,7 @@ class GeneralSudokuViewController: UIViewController {
         }
     }
     
-    func configureNotesLabels() {
+    private func configureNotesLabels() {
         let gap = CGFloat(3)
         
         for i in 0...8 {
@@ -354,7 +352,7 @@ class GeneralSudokuViewController: UIViewController {
         }
     }
     
-    func fillOriginallyOpenedNumbers() {
+    private func fillOriginallyOpenedNumbers() {
         for i in 0...8 {
             for j in 0...8 {
                 if originallyOpenedNumbers[i][j] != 0 {
@@ -364,7 +362,7 @@ class GeneralSudokuViewController: UIViewController {
         }
     }
     
-    func getCellsByCoordinates() -> (x: Int, y: Int) {
+    private func getCellsByCoordinates() -> (x: Int, y: Int) {
         let x = Int(floor(selectedCellView.frame.midX / cellSize))
         let y = Int(floor(selectedCellView.frame.midY / cellSize))
         return (x, y)

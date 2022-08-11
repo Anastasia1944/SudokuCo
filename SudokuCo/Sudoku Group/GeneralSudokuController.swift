@@ -251,15 +251,12 @@ class GeneralSudokuController {
         return false
     }
     
-    func ifAllCellsFilledDisplayCompletionView() -> Bool? {
-        if generalSudokuGame.checkIfAllCellsFilled() {
-            if generalSudokuGame.checkIfAllCellsRight() {
-                return true
-            } else {
-                return false
-            }
-        }
-        return nil
+    func ifAllCellsFilled() -> Bool {
+        return generalSudokuGame.checkIfAllCellsFilled()
+    }
+    
+    func ifAllCellsFilledRight() -> Bool {
+        return generalSudokuGame.checkIfAllCellsRight()
     }
     
     func startGameOver() {
