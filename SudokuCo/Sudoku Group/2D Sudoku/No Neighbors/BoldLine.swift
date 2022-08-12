@@ -8,8 +8,8 @@
 import UIKit
 
 class BoldLine: UIView {
+    
     func configureBoldLine(cellSize: CGFloat) {
-        
         self.frame = CGRect(x: 0, y: 0, width: cellSize / 2, height: cellSize / 8)
         
         let path = UIBezierPath(roundedRect: self.bounds, cornerRadius: CGFloat(3))
@@ -19,6 +19,5 @@ class BoldLine: UIView {
         shapeLayer.path = path.cgPath
         
         self.layer.addSublayer(shapeLayer)
-//        self.layer.mask = shape
     }
 }
