@@ -12,7 +12,6 @@ class SudokuClassicViewController: GeneralSudokuViewController {
     private let openedNumsLevels: [String: CGFloat] = ["Easy": 35, "Medium": 30, "Hard": 25, "Expert": 21]
     
     override func viewDidLoad() {
-        
         super.configureInit()
         super.gameName = "Classic Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!

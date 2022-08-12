@@ -29,6 +29,9 @@ class GeneralSudokuViewController: UIViewController {
     var openedNum = CGFloat(0)
     var gameName: String = ""
     var gameTime: Int = 0
+    var sudokuType: SudokuTypes = .sudoku3D
+    var withOuterBoldBorder: Bool = true
+    var withBoldAreas: Bool = true 
     
     let generalSudokuController = GeneralSudokuController()
     
@@ -47,7 +50,13 @@ class GeneralSudokuViewController: UIViewController {
             if self.generalSudokuController.ifAllCellsFilled() {
                 self.gameTime = self.generalSudokuController.stopTimer()
                 
-                self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
+                
+                if self.generalSudokuController.ifAllCellsFilledRight() {
+                    self.transitionToCompleteVC(isWin: true)
+                } else {
+                    self.displayWrongCells()
+                }
+//                self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
             }
         }
         
@@ -61,7 +70,7 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        generalSudokuController.configureController(gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
+        generalSudokuController.configureController(sudokuType: sudokuType, gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
         
         gameLevel = generalSudokuController.getLevel()
         
@@ -77,6 +86,22 @@ class GeneralSudokuViewController: UIViewController {
             openLibraryAlert()
         }
     }
+    
+    
+    
+    func displayWrongCells() {
+        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
+        
+        for i in 0...8 {
+            for j in 0...8 {
+                if filledNumbersLabels[i][j].text != String(sudokuNumbers[i][j]) {
+                    filledNumbersLabels[i][j].backgroundColor = .red
+                }
+            }
+        }
+    }
+    
+    
     
     override func viewWillDisappear(_ animated: Bool) {
         gameTime = generalSudokuController.stopTimer()
@@ -187,7 +212,7 @@ class GeneralSudokuViewController: UIViewController {
         framingGridView.translatesAutoresizingMaskIntoConstraints = false
         framingGridView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.width - 20).isActive = true
         
-        gridView.formView(width: gridWidth)
+        gridView.formView(width: gridWidth, withOuterBoldBorder: withOuterBoldBorder, withBoldAreas: withBoldAreas)
         gridView.frame.size = CGSize(width: gridWidth, height: gridWidth)
         gridView.center = framingGridView.center
         

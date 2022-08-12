@@ -45,6 +45,7 @@ class GeneralSudokuController {
     private var gameMode: String = ""
     private var gameName: String = ""
     private var gameLevel: DifficultyLevels = .easy
+    private var sudokuType: SudokuTypes = .sudoku3D
     
     init() {
         for _ in 0...8 {
@@ -52,13 +53,15 @@ class GeneralSudokuController {
         }
     }
     
-    func configureController(gameMode: String, openedNum: CGFloat, isSaving: Bool = true, gameName: String) {
+    func configureController(sudokuType: SudokuTypes = .sudoku3D, gameMode: String, openedNum: CGFloat, isSaving: Bool = true, gameName: String) {
         runTimer()
         
         self.openedNum = openedNum
         self.isSaving = isSaving
         self.gameMode = gameMode
         self.gameName = gameName
+        self.sudokuType = sudokuType
+
         generalSudokuGame.setGameName(gameName)
         
         if gameMode == "Continue" {
@@ -95,7 +98,7 @@ class GeneralSudokuController {
         
         _ = autoLosingPreviousGame()
         
-        generalSudokuGame.generateSudoku(openedNum: Int(openedNum), level: gameLevel)
+        generalSudokuGame.generateSudoku(sudokuType: sudokuType,openedNum: Int(openedNum), level: gameLevel)
         
         filledNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
         notesNumbers = generalSudokuGame.getSudokuNotesNumbers()

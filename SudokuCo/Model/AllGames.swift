@@ -21,7 +21,8 @@ struct AllGames {
         "Odd-Even Sudoku": Game(gameName: "Odd-Even Sudoku", gameInfoFile: "OddEvenInfo.json", gameImageName: "Odd-Even Sudoku", statsFileName: "OddEvenSudokuStats.json", viewControllerName: "OddEvenSudokuViewController"),
         "Frame Sudoku": Game(gameName: "Frame Sudoku", gameInfoFile: "FrameSudokuInfo.json", gameImageName: "Frame Sudoku", statsFileName: "FrameSudokuStats.json", viewControllerName: "FrameSudokuViewController"),
         "Dots Sudoku": Game(gameName: "Dots Sudoku", gameInfoFile: "DotsSudokuInfo.json", gameImageName: "Dots Sudoku", statsFileName: "DotsSudokuStats.json", viewControllerName: "DotsSudokuViewController"),
-        "Comparison Sudoku": Game(gameName: "Comparison Sudoku", gameInfoFile: "ComparisonSudokuInfo.json", gameImageName: "Comparison Sudoku", statsFileName: "ComparisonSudokuStats.json", viewControllerName: "ComparisonSudokuViewController")]
+        "Comparison Sudoku": Game(gameName: "Comparison Sudoku", gameInfoFile: "ComparisonSudokuInfo.json", gameImageName: "Comparison Sudoku", statsFileName: "ComparisonSudokuStats.json", viewControllerName: "ComparisonSudokuViewController"),
+        "2D Sudoku": Game(gameName: "2D Sudoku", gameInfoFile: "Sudoku2DInfo.json", gameImageName: "2D Sudoku", statsFileName: "Sudoku2DStats.json", viewControllerName: "Sudoku2DViewController")]
     
     private var myGamesNames: Set<String> = []
     private let myGamesFile = "myGames.json"
