@@ -36,7 +36,7 @@ class GridView: UIView {
         for i in 0...cellsNumber {
             var borderWidth = CGFloat(0.2)
             
-            if withOuterBoldBorder && [0, cellsNumber + 1].contains(i) {
+            if withOuterBoldBorder && [0, cellsNumber].contains(i) {
                 borderWidth = 1.0
             }
             

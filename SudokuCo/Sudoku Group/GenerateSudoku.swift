@@ -35,11 +35,11 @@ struct GenerateSudoku {
         
         _ = fillRemainingCells(x: 3, y: 0)
         
-        generateOpenedNumbers()
-        
         if sudokuType == .sudoku2D {
             shuffleColumnsAndRows()
         }
+        
+        generateOpenedNumbers()
     }
     
     private mutating func generateBasic() {
