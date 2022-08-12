@@ -293,6 +293,6 @@ class GeneralSudokuController {
     }
     
     func getOriginallyOpenedNumbers() -> [[Int]] {
-        return generalSudokuGame.getSudokuOpenedNumbers()
+        return generalSudokuGame.getSudokuOriginallyOpenedNumbers()
     }
 }
