@@ -13,6 +13,9 @@
 		5D05EBBE28A6B42E001A28FE /* BoldLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D05EBBD28A6B42E001A28FE /* BoldLine.swift */; };
 		5D05EBC328A6EDBE001A28FE /* MathraxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D05EBC228A6EDBE001A28FE /* MathraxViewController.swift */; };
 		5D05EBC528A6F315001A28FE /* CircleWithSurCellsInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D05EBC428A6F315001A28FE /* CircleWithSurCellsInfo.swift */; };
+		5D05EBC828A7D140001A28FE /* KillerSudokuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D05EBC728A7D140001A28FE /* KillerSudokuViewController.swift */; };
+		5D05EBCA28A7D21E001A28FE /* KillerSudokuCellsViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D05EBC928A7D21E001A28FE /* KillerSudokuCellsViews.swift */; };
+		5D05EBCC28A7EB39001A28FE /* KillerSudokuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D05EBCB28A7EB39001A28FE /* KillerSudokuController.swift */; };
 		5D1183C628A465D600F3B32D /* SudokuTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183C528A465D600F3B32D /* SudokuTypes.swift */; };
 		5D1183C828A47D9F00F3B32D /* Difficulty levels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */; };
 		5D1183CE28A5537D00F3B32D /* StatisticsGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */; };
@@ -67,6 +70,9 @@
 		5D05EBBD28A6B42E001A28FE /* BoldLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldLine.swift; sourceTree = "<group>"; };
 		5D05EBC228A6EDBE001A28FE /* MathraxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathraxViewController.swift; sourceTree = "<group>"; };
 		5D05EBC428A6F315001A28FE /* CircleWithSurCellsInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleWithSurCellsInfo.swift; sourceTree = "<group>"; };
+		5D05EBC728A7D140001A28FE /* KillerSudokuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillerSudokuViewController.swift; sourceTree = "<group>"; };
+		5D05EBC928A7D21E001A28FE /* KillerSudokuCellsViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillerSudokuCellsViews.swift; sourceTree = "<group>"; };
+		5D05EBCB28A7EB39001A28FE /* KillerSudokuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KillerSudokuController.swift; sourceTree = "<group>"; };
 		5D1183C528A465D600F3B32D /* SudokuTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuTypes.swift; sourceTree = "<group>"; };
 		5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Difficulty levels.swift"; sourceTree = "<group>"; };
 		5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGameController.swift; sourceTree = "<group>"; };
@@ -146,6 +152,7 @@
 		5D05EBBF28A6B92B001A28FE /* 3D Sudoku */ = {
 			isa = PBXGroup;
 			children = (
+				5D05EBC628A7D109001A28FE /* Killer Sudoku */,
 				5D7BB4EF2865DB1200AA1461 /* Classic Sudoku */,
 				5DA0999C286E09B700385380 /* Comparison Sudoku */,
 				5D7BB50F286DD8BC00AA1461 /* Dots Sudoku */,
@@ -172,6 +179,16 @@
 				5D05EBC428A6F315001A28FE /* CircleWithSurCellsInfo.swift */,
 			);
 			path = Mathrax;
+			sourceTree = "<group>";
+		};
+		5D05EBC628A7D109001A28FE /* Killer Sudoku */ = {
+			isa = PBXGroup;
+			children = (
+				5D05EBC728A7D140001A28FE /* KillerSudokuViewController.swift */,
+				5D05EBC928A7D21E001A28FE /* KillerSudokuCellsViews.swift */,
+				5D05EBCB28A7EB39001A28FE /* KillerSudokuController.swift */,
+			);
+			path = "Killer Sudoku";
 			sourceTree = "<group>";
 		};
 		5D1183D128A5BCDA00F3B32D /* Controller */ = {
@@ -434,6 +451,7 @@
 				5D1183CE28A5537D00F3B32D /* StatisticsGameController.swift in Sources */,
 				5DCF1DA8288052C20032DD04 /* GameStatisticsTableViewCell.swift in Sources */,
 				5DC743D528591C1500F1C4F6 /* MyGamesViewController.swift in Sources */,
+				5D05EBCA28A7D21E001A28FE /* KillerSudokuCellsViews.swift in Sources */,
 				5DC743E02859410100F1C4F6 /* MyGameTableViewCell.swift in Sources */,
 				5DA099A62870D9D700385380 /* GeneralSudokuViewController.swift in Sources */,
 				5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */,
@@ -459,6 +477,8 @@
 				5D05EBBE28A6B42E001A28FE /* BoldLine.swift in Sources */,
 				5D1183C828A47D9F00F3B32D /* Difficulty levels.swift in Sources */,
 				5DC743D828591C5900F1C4F6 /* GameLibraryViewController.swift in Sources */,
+				5D05EBC828A7D140001A28FE /* KillerSudokuViewController.swift in Sources */,
+				5D05EBCC28A7EB39001A28FE /* KillerSudokuController.swift in Sources */,
 				5D1183C628A465D600F3B32D /* SudokuTypes.swift in Sources */,
 				5D7BB4F4286615B500AA1461 /* OddEvenSudokuViewController.swift in Sources */,
 				5D7BB4FA2866670400AA1461 /* Extensions.swift in Sources */,

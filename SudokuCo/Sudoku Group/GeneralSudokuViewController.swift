@@ -31,7 +31,8 @@ class GeneralSudokuViewController: UIViewController {
     var gameTime: Int = 0
     var sudokuType: SudokuTypes = .sudoku3D
     var withOuterBoldBorder: Bool = true
-    var withBoldAreas: Bool = true 
+    var withBoldAreas: Bool = true
+    var gapNotesShift: CGFloat = CGFloat(0)
     
     let generalSudokuController = GeneralSudokuController()
     
@@ -365,12 +366,13 @@ class GeneralSudokuViewController: UIViewController {
             for j in 0...8 {
                 notesLabels[i].append([])
                 for k in 0...8 {
-                    let xSize = CGFloat(i) * cellSize + CGFloat(k % 3) * (cellSize - 2 * gap) / 3
-                    let ySize = CGFloat(j) * cellSize + CGFloat(k / 3) * (cellSize - 2 * gap) / 3
+                    let xSize = CGFloat(i) * cellSize + CGFloat(k % 3) * (cellSize - 2 * gap - gapNotesShift) / 3
+                    let ySize = CGFloat(j) * cellSize + CGFloat(k / 3) * (cellSize - 2 * gap - gapNotesShift) / 3
                     
-                    let label = UILabel(frame: CGRect(x: xSize + gap, y: ySize + gap, width: (cellSize - 2 * gap) / 3, height: (cellSize - 2 * gap) / 3))
+                    let label = UILabel(frame: CGRect(x: xSize + gap + gapNotesShift, y: ySize + gap + gapNotesShift, width: (cellSize - 2 * gap - gapNotesShift) / 3, height: (cellSize - 2 * gap - gapNotesShift) / 3))
                     label.textAlignment = .center
-                    label.font = .systemFont(ofSize: 10)
+                    label.textColor = .darkGray
+                    label.font = .systemFont(ofSize: 9)
                     
                     notesLabels[i][j].append(label)
                     gridView.addSubview(notesLabels[i][j][k])

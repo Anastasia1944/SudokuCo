@@ -10,7 +10,6 @@ import UIKit
 class MoreLessSignView: UIView {
     
     func configureSign(cellSize: CGFloat) {
-        
         self.frame = CGRect(x: 0, y: 0, width: cellSize / 2, height: cellSize / 4)
         
         let path = UIBezierPath()
