@@ -61,7 +61,7 @@ class MathraxViewController: GeneralSudokuViewController {
         }
         
         
-        if getProduct(a: Double(a1), b: Double(b1)) == getProduct(a: Double(a2), b: Double(b2)) {
+        if getProduct(a: Double(a1), b: Double(b1)) == getProduct(a: Double(a2), b: Double(b2)) && (a1.isMultiple(of: b1) || b1.isMultiple(of: a1)) {
             let divString = String(Int(getProduct(a: Double(a1), b: Double(b1))))
             return (.division, divString)
         }
