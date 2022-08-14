@@ -37,7 +37,7 @@ class MathraxViewController: GeneralSudokuViewController {
                 let pointCenter = CGPoint(x: (CGFloat(i) + 1) * cellSize, y: (CGFloat(j) + 1) * cellSize)
                 
                 if let (circleType, value) = defineCircleType(a1: a1, b1: b1, a2: a2, b2: b2) {
-                    if Int.random(in: 1...2) == 1 {
+                    if Int.random(in: 1...3) > 1 {
                         let circle = CircleWithSurCellsInfo()
                         circle.configureCircle(cellSize: cellSize, circleType: circleType, value: value)
                         
@@ -50,36 +50,37 @@ class MathraxViewController: GeneralSudokuViewController {
     }
     
     private func defineCircleType(a1: Int, b1: Int, a2: Int, b2: Int) -> (CircleType, String)? {
+        var variants: [(CircleType, String)] = []
+        
         if getDifference(a: a1, b: b1) == getDifference(a: a2, b: b2) {
             let differenceString = String(getDifference(a: a1, b: b1))
-            return (.difference, differenceString)
+            variants.append((.difference, differenceString))
         }
         
         if getSum(a: a1, b: b1) == getSum(a: a2, b: b2) {
             let sumString = String(getSum(a: a1, b: b1))
-            return (.sum, sumString)
+            variants.append((.sum, sumString))
         }
-        
         
         if getProduct(a: Double(a1), b: Double(b1)) == getProduct(a: Double(a2), b: Double(b2)) && (a1.isMultiple(of: b1) || b1.isMultiple(of: a1)) {
             let divString = String(Int(getProduct(a: Double(a1), b: Double(b1))))
-            return (.division, divString)
+            variants.append((.division, divString))
         }
         
         if getQuotient(a: a1, b: b1) == getQuotient(a: a2, b: b2) {
             let multString = String(getQuotient(a: a1, b: b1))
-            return (.multiply, multString)
+            variants.append((.multiply, multString))
         }
         
         if ifEvenNumbers(a: a1) && ifEvenNumbers(a: b1) && ifEvenNumbers(a: a2) && ifEvenNumbers(a: b2) {
-            return (.even, "")
+            variants.append((.even, ""))
         }
         
         if !ifEvenNumbers(a: a1) && !ifEvenNumbers(a: b1) && !ifEvenNumbers(a: a2) && !ifEvenNumbers(a: b2) {
-            return (.odd, "")
+            variants.append((.odd, ""))
         }
         
-        return nil
+        return variants.isEmpty ? nil : variants.randomElement()//nil
     }
     
     private func getDifference(a: Int, b: Int) -> Int {
