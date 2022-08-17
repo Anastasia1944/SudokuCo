@@ -9,22 +9,24 @@ import Foundation
 
 class SudokuClassicController: GeneralSudokuController {
     
-    private var removeNumbersCount = 0
-    
     private var sudokuNumbersRight: [[Int]] = []
     
     private var solution: [[Int]] = []
     
     private var isOneSolution: Bool? = nil
+    private var passNumber = 200
+    private var removeNumbersCount = 0
     
     func generateNewOpenedNum(openedNum: Int) {
         sudokuNumbersRight = super.getSudokuNumbers()
         solution = sudokuNumbersRight
         removeNumbersCount = 81 - openedNum
         
-        while removeNumbersCount != 0 {
+        while removeNumbersCount != 0 && passNumber > 0 {
             let x = Int.random(in: 0...8)
             let y = Int.random(in: 0...8)
+            
+            passNumber -= 1
             
             if removeItem(x, y) {
                 removeNumbersCount -= 1
@@ -35,6 +37,10 @@ class SudokuClassicController: GeneralSudokuController {
     }
     
     private func removeItem(_ x: Int,_ y: Int) -> Bool {
+        if solution[x][y] == 0 {
+            return false
+        }
+        
         solution[x][y] = 0
         
         _ = solveSudoku(intermidiateNumbers: solution, x: 0, y: 0)
