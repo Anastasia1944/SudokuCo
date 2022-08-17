@@ -98,6 +98,10 @@ class GeneralSudokuGame: Codable {
         tips -= 1
     }
     
+    func setNewOpenedNum(_ openedNums: [[Int]]) {
+        originallyOpenedNumbers = openedNums
+    }
+    
     func isNumberOriginallyOpened(x: Int, y: Int) -> Bool {
         if originallyOpenedNumbers[x][y] != 0 {
             return true

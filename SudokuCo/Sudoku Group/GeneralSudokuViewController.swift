@@ -34,7 +34,7 @@ class GeneralSudokuViewController: UIViewController {
     var withBoldAreas: Bool = true
     var gapNotesShift: CGFloat = CGFloat(0)
     
-    let generalSudokuController = GeneralSudokuController()
+    var generalSudokuController = GeneralSudokuController()
     
     var isOpenLibraryAlert: Bool = true
     
@@ -381,11 +381,15 @@ class GeneralSudokuViewController: UIViewController {
         }
     }
     
-    private func fillOriginallyOpenedNumbers() {
+    func fillOriginallyOpenedNumbers() {
+        originallyOpenedNumbers = generalSudokuController.getOriginallyOpenedNumbers()
         for i in 0...8 {
             for j in 0...8 {
                 if originallyOpenedNumbers[i][j] != 0 {
                     filledNumbersLabels[i][j].textColor = .gray
+                    filledNumbersLabels[i][j].text = String(originallyOpenedNumbers[i][j])
+                } else {
+                    filledNumbersLabels[i][j].text = ""
                 }
             }
         }

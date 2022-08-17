@@ -281,6 +281,10 @@ class GeneralSudokuController {
         saveInfoIfNedded()
     }
     
+    func setOpenedNums(_ openedNums: [[Int]]) {
+        generalSudokuGame.setNewOpenedNum(openedNums)
+    }
+    
     func continueCurrentGame() {
         runTimer()
         
