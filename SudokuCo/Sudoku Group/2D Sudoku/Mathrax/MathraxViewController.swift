@@ -8,8 +8,8 @@
 import UIKit
 
 class MathraxViewController: GeneralSudokuViewController {
-
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 30, "Medium": 25, "Hard": 20, "Expert": 15]
+    
+    private let openedNumsLevels: [String: CGFloat] = ["Easy": 28, "Medium": 23, "Hard": 15, "Expert": 10]
     
     override func viewDidLoad() {
         super.configureInit()
@@ -17,7 +17,7 @@ class MathraxViewController: GeneralSudokuViewController {
         super.sudokuType = .sudoku2D
         super.withBoldAreas = false
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
-
+        
         super.viewDidLoad()
         
         fillCircles()
@@ -37,13 +37,12 @@ class MathraxViewController: GeneralSudokuViewController {
                 let pointCenter = CGPoint(x: (CGFloat(i) + 1) * cellSize, y: (CGFloat(j) + 1) * cellSize)
                 
                 if let (circleType, value) = defineCircleType(a1: a1, b1: b1, a2: a2, b2: b2) {
-                    if Int.random(in: 1...3) > 1 {
-                        let circle = CircleWithSurCellsInfo()
-                        circle.configureCircle(cellSize: cellSize, circleType: circleType, value: value)
-                        
-                        circle.center = gridView.convert(pointCenter, from: gridView)
-                        gridView.addSubview(circle)
-                    }
+                    let circle = CircleWithSurCellsInfo()
+                    circle.configureCircle(cellSize: cellSize, circleType: circleType, value: value)
+                    
+                    circle.center = gridView.convert(pointCenter, from: gridView)
+                    gridView.addSubview(circle)
+                    
                 }
             }
         }
