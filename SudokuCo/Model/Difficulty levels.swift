@@ -25,10 +25,10 @@ struct DifficultyLevelsStringToEnum {
     }
     
     func getDifficultyLevelStringByEnum(level: DifficultyLevels) -> String {
-        return levelsEnum[level]!
+        return levelsEnum[level] ?? ""
     }
     
     func getDifficultyLevelEnumByString(level: String) -> DifficultyLevels {
-        return levelsString[level]!
+        return levelsString[level] ?? .easy
     }
 }

@@ -10,10 +10,13 @@ import UIKit
 class GeneralSudokuViewController: UIViewController {
     
     let gridView = GridView()
+    let timeModeStackView = UIStackView()
     let sudokuPanelStackView = UIStackView()
     let numberPanelStackView = UIStackView()
     let gameElementsStackView = UIStackView()
     
+    let modeLabel = UILabel()
+    let currentTimeLabel = UILabel()
     var filledNumbersLabels: [[UILabel]] = []
     var notesLabels: [[[UILabel]]] = []
     let selectedCellView = UIView()
@@ -51,13 +54,12 @@ class GeneralSudokuViewController: UIViewController {
             if self.generalSudokuController.ifAllCellsFilled() {
                 self.gameTime = self.generalSudokuController.stopTimer()
                 
-                
-                if self.generalSudokuController.ifAllCellsFilledRight() {
-                    self.transitionToCompleteVC(isWin: true)
-                } else {
-                    self.displayWrongCells()
-                }
-//                self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
+//                if self.generalSudokuController.ifAllCellsFilledRight() {
+//                    self.transitionToCompleteVC(isWin: true)
+//                } else {
+//                    self.displayWrongCells()
+//                }
+                self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
             }
         }
         
@@ -74,6 +76,7 @@ class GeneralSudokuViewController: UIViewController {
         generalSudokuController.configureController(sudokuType: sudokuType, gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
         
         gameLevel = generalSudokuController.getLevel()
+        modeLabel.text = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: gameLevel)
         
         let tipsCount = generalSudokuController.getTipsCount()
         tipLabel.text = "Tip (\(tipsCount))"
@@ -184,9 +187,38 @@ class GeneralSudokuViewController: UIViewController {
     private func configureView() {
         view.backgroundColor = .white
         
+        configureTimeModeStackView()
         configureGameElementsStack()
         configureGridLabels()
         configureNotesLabels()
+    }
+    
+    private func configureTimeModeStackView() {
+        view.addSubview(timeModeStackView)
+        
+        timeModeStackView.axis = .horizontal
+        timeModeStackView.distribution = .equalSpacing
+        timeModeStackView.spacing = 20
+
+        timeModeStackView.translatesAutoresizingMaskIntoConstraints = false
+        timeModeStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
+        timeModeStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+        timeModeStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
+        timeModeStackView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        addModeToStack()
+    }
+    
+    private func addModeToStack() {
+        modeLabel.text = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: gameLevel)
+        modeLabel.textColor = .gray
+        
+        currentTimeLabel.text = ""
+        currentTimeLabel.textColor = .gray
+        generalSudokuController.currentTimeLabel = currentTimeLabel
+        
+        timeModeStackView.addArrangedSubview(modeLabel)
+        timeModeStackView.addArrangedSubview(currentTimeLabel)
     }
     
     private func configureGameElementsStack() {
@@ -197,9 +229,9 @@ class GeneralSudokuViewController: UIViewController {
         gameElementsStackView.spacing = 20
         
         gameElementsStackView.translatesAutoresizingMaskIntoConstraints = false
+        gameElementsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 10).isActive = true
         gameElementsStackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10).isActive = true
         gameElementsStackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10).isActive = true
-        gameElementsStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0).isActive = true
         
         configureSudokuGrid()
         configurePanel()

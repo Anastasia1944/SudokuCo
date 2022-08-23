@@ -46,6 +46,8 @@ class GeneralSudokuController {
     private var gameName: String = ""
     private var gameLevel: DifficultyLevels = .easy
     private var sudokuType: SudokuTypes = .sudoku3D
+    var baseTime = 0
+    var currentTimeLabel: UILabel = UILabel()
     
     init() {
         for _ in 0...8 {
@@ -69,6 +71,7 @@ class GeneralSudokuController {
         } else {
             newGame()
         }
+        baseTime = generalSudokuGame.getTime()
     }
     
     func runTimer() {
@@ -77,6 +80,12 @@ class GeneralSudokuController {
     
     @objc func fireTimer() {
         runCount += 1
+        currentTimeLabel.text = timeIntToString()
+    }
+    
+    private func timeIntToString() -> String {
+        let formatter = DateComponentsFormatter()
+        return formatter.string(from: Double(baseTime + runCount))!
     }
     
     func stopTimer() -> Int {
