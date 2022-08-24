@@ -76,7 +76,9 @@ class GeneralSudokuController {
     }
     
     func runTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        let timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+        
+        RunLoop.main.add(timer, forMode: .common)
     }
     
     @objc func fireTimer() {
