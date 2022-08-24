@@ -42,7 +42,7 @@ class GeneralSudokuController {
     
     private var timer: Timer?
     private var runCount = 0
-    private var gameMode: String = ""
+    private var isNewGame: Bool = true
     private var gameName: String = ""
     private var gameLevel: DifficultyLevels = .easy
     private var sudokuType: SudokuTypes = .sudoku3D
@@ -55,21 +55,22 @@ class GeneralSudokuController {
         }
     }
     
-    func configureController(sudokuType: SudokuTypes = .sudoku3D, gameMode: String, openedNum: CGFloat, isSaving: Bool = true, gameName: String) {
+    func configureController(sudokuType: SudokuTypes = .sudoku3D, isNewGame: Bool, gameLevel: DifficultyLevels,openedNum: CGFloat, isSaving: Bool = true, gameName: String) {
         runTimer()
         
         self.openedNum = openedNum
         self.isSaving = isSaving
-        self.gameMode = gameMode
+        self.isNewGame = isNewGame
         self.gameName = gameName
         self.sudokuType = sudokuType
+        self.gameLevel = gameLevel
 
         generalSudokuGame.setGameName(gameName)
         
-        if gameMode == "Continue" {
-            continueGame()
-        } else {
+        if isNewGame {
             newGame()
+        } else {
+            continueGame()
         }
         baseTime = generalSudokuGame.getTime()
     }
@@ -103,8 +104,6 @@ class GeneralSudokuController {
     }
     
     func newGame() {
-        gameLevel = DifficultyLevels.allCases.filter{ val in val.rawValue == gameMode }[0]
-        
         _ = autoLosingPreviousGame()
         
         generalSudokuGame.generateSudoku(sudokuType: sudokuType,openedNum: Int(openedNum), level: gameLevel)

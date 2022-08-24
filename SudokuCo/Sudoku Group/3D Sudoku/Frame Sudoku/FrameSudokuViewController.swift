@@ -9,14 +9,14 @@ import UIKit
 
 class FrameSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 12, "Medium": 7, "Hard": 3, "Expert": 0]
+    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
     
     var surroundingNumbersLabels: [[UILabel]] = []
     
     override func viewDidLoad() {
         super.configureInit(gridWidth: ((UIScreen.main.bounds.width - 20) / 11) * 9)
         super.gameName = "Frame Sudoku"
-        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
+        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 12
         super.viewDidLoad()
         
         configureSurroundingNumbersOfGrid()

@@ -9,12 +9,12 @@ import UIKit
 
 class DotsSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 12, "Medium": 7, "Hard": 3, "Expert": 0]
+    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
     
     override func viewDidLoad() {
         super.configureInit()
         super.gameName = "Dots Sudoku"
-        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
+        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 12
         super.viewDidLoad()
         
         configureDots()

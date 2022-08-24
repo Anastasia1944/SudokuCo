@@ -9,14 +9,14 @@ import UIKit
 
 class NoNeighborsViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 30, "Medium": 25, "Hard": 20, "Expert": 15]
+    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 30, .medium: 25, .hard: 20, .expert: 15]
     
     override func viewDidLoad() {
         super.configureInit()
         super.gameName = "No Neighbors"
         super.sudokuType = .sudoku2D
         super.withBoldAreas = false
-        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
+        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 30
         
         super.viewDidLoad()
         

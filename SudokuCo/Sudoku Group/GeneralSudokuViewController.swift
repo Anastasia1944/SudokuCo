@@ -26,7 +26,7 @@ class GeneralSudokuViewController: UIViewController {
     var gridWidth = CGFloat(0)
     var cellSize = CGFloat(0)
     
-    var gameMode: String = "Easy"
+    var isNewGame: Bool = true
     var gameLevel: DifficultyLevels = .easy
     var isSaving: Bool = true
     var openedNum = CGFloat(0)
@@ -53,12 +53,6 @@ class GeneralSudokuViewController: UIViewController {
             
             if self.generalSudokuController.ifAllCellsFilled() {
                 self.gameTime = self.generalSudokuController.stopTimer()
-                
-//                if self.generalSudokuController.ifAllCellsFilledRight() {
-//                    self.transitionToCompleteVC(isWin: true)
-//                } else {
-//                    self.displayWrongCells()
-//                }
                 self.transitionToCompleteVC(isWin: self.generalSudokuController.ifAllCellsFilledRight())
             }
         }
@@ -73,7 +67,7 @@ class GeneralSudokuViewController: UIViewController {
             }
         }
         
-        generalSudokuController.configureController(sudokuType: sudokuType, gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
+        generalSudokuController.configureController(sudokuType: sudokuType, isNewGame: isNewGame, gameLevel: gameLevel, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
         
         gameLevel = generalSudokuController.getLevel()
         modeLabel.text = gameLevel.rawValue
@@ -90,22 +84,6 @@ class GeneralSudokuViewController: UIViewController {
             openLibraryAlert()
         }
     }
-    
-    
-    
-    func displayWrongCells() {
-        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
-        
-        for i in 0...8 {
-            for j in 0...8 {
-                if filledNumbersLabels[i][j].text != String(sudokuNumbers[i][j]) {
-                    filledNumbersLabels[i][j].backgroundColor = .red
-                }
-            }
-        }
-    }
-    
-    
     
     override func viewWillDisappear(_ animated: Bool) {
         gameTime = generalSudokuController.stopTimer()

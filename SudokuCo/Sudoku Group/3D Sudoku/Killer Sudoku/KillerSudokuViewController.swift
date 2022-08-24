@@ -9,7 +9,7 @@ import UIKit
 
 class KillerSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 15, "Medium": 10, "Hard": 5, "Expert": 0]
+    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 15, .medium: 10, .hard: 5, .expert: 0]
     
     private var killerSudokuController = KillerSudokuController()
     
@@ -20,7 +20,7 @@ class KillerSudokuViewController: GeneralSudokuViewController {
         super.configureInit()
         super.gameName = "Killer Sudoku"
         super.gapNotesShift = 5
-        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
+        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 15
 
         super.viewDidLoad()
         

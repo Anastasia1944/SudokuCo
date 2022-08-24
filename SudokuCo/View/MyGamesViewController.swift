@@ -112,17 +112,17 @@ class MyGamesViewController: UIViewController {
     func openMenuAlert(gameName: String) {
         let alert = UIAlertController()
         
-        let levels = DifficultyLevels.allCases.map{ $0.rawValue }
+        let levels = DifficultyLevels.allCases.map{ $0 }
         
         for level in levels {
-            alert.addAction(UIAlertAction(title: level, style: .default, handler: { _ in
-                self.transitionToGameVC(gameName, gameMode: level)
+            alert.addAction(UIAlertAction(title: level.rawValue, style: .default, handler: { _ in
+                self.transitionToGameVC(gameName, gameLevel: level)
             }))
         }
         
         if gamesInfoCoding.isThereUnfinishedGame(gameName: gameName) {
             alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
-                self.transitionToGameVC(gameName, gameMode: "Continue")
+                self.transitionToGameVC(gameName, isNewGame: false)
             }))
         }
         
@@ -131,7 +131,7 @@ class MyGamesViewController: UIViewController {
         self.present(alert, animated: true, completion: {})
     }
     
-    func transitionToGameVC(_ gameName: String, gameMode: String) {
+    func transitionToGameVC(_ gameName: String, isNewGame: Bool = true, gameLevel: DifficultyLevels = .easy) {
         let stringVC = allGames.getVCNameByGameName(gameName: gameName)
         let sudokuGameVC = stringVC!.getViewController()! as! GeneralSudokuViewController
         
@@ -139,7 +139,8 @@ class MyGamesViewController: UIViewController {
         sudokuGameVC.modalPresentationStyle = .fullScreen
         
         sudokuGameVC.isOpenLibraryAlert = false
-        sudokuGameVC.gameMode = gameMode
+        sudokuGameVC.gameLevel = gameLevel
+        sudokuGameVC.isNewGame = isNewGame
         
         navigationController?.pushViewController(sudokuGameVC, animated: true)
     }

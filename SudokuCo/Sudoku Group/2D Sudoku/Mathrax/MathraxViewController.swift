@@ -9,14 +9,14 @@ import UIKit
 
 class MathraxViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 28, "Medium": 23, "Hard": 15, "Expert": 10]
+    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 28, .medium: 23, .hard: 15, .expert: 10]
     
     override func viewDidLoad() {
         super.configureInit()
         super.gameName = "Mathrax"
         super.sudokuType = .sudoku2D
         super.withBoldAreas = false
-        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
+        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 28
         
         super.viewDidLoad()
         

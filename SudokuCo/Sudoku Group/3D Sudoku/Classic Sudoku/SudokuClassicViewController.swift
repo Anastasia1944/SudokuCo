@@ -9,12 +9,12 @@ import UIKit
 
 class SudokuClassicViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [String: CGFloat] = ["Easy": 40, "Medium": 35, "Hard": 27, "Expert": 21]
+    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 40, .medium: 35, .hard: 27, .expert: 21]
     
     override func viewDidLoad() {
         super.configureInit()
         super.gameName = "Classic Sudoku"
-        super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
+        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 40
 
         super.viewDidLoad()
     }
