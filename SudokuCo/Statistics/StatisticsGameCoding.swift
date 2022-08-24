@@ -11,7 +11,7 @@ struct StatisticGameCoding {
     
     func saveGameStatistics(gameStats: GameStatistics) {
         let gameName = gameStats.gameName
-        let gameLevel = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: gameStats.gameLevel)
+        let gameLevel = gameStats.gameLevel.rawValue
         let statsFileName = getStatsFileName(gameName: gameName)
         
         encode(gameStats: gameStats, gameName: gameName,statsFileName: statsFileName, gameLevel: gameLevel)
@@ -19,13 +19,13 @@ struct StatisticGameCoding {
     
     func getStatistics(gameName: String, gameLevel: DifficultyLevels) -> GameStatistics? {
         let statsFileName = getStatsFileName(gameName: gameName)
-        let difficultyLevelString = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: gameLevel)
+        let difficultyLevelString = gameLevel.rawValue
         
         return decode(gameName: gameName, statsFileName: statsFileName, gameLevel: difficultyLevelString)
     }
     
     func deleteGameStatistics(gameName: String) {
-        let levels = DifficultyLevelsStringToEnum().getDifficultyLevelsNames()
+        let levels = DifficultyLevels.allCases.map{ $0.rawValue }
         
         let statsFileName = getStatsFileName(gameName: gameName)
         

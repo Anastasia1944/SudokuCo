@@ -76,7 +76,7 @@ class GeneralSudokuViewController: UIViewController {
         generalSudokuController.configureController(sudokuType: sudokuType, gameMode: gameMode, openedNum: openedNum, isSaving: isSaving, gameName: gameName)
         
         gameLevel = generalSudokuController.getLevel()
-        modeLabel.text = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: gameLevel)
+        modeLabel.text = gameLevel.rawValue
         
         let tipsCount = generalSudokuController.getTipsCount()
         tipLabel.text = "Tip (\(tipsCount))"
@@ -210,7 +210,8 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     private func addModeToStack() {
-        modeLabel.text = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: gameLevel)
+        modeLabel.text = gameLevel.rawValue
+        
         modeLabel.textColor = .gray
         
         currentTimeLabel.text = ""

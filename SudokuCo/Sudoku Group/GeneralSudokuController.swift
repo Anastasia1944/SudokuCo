@@ -103,7 +103,7 @@ class GeneralSudokuController {
     }
     
     func newGame() {
-        gameLevel = DifficultyLevelsStringToEnum().getDifficultyLevelEnumByString(level: gameMode)//gameMode
+        gameLevel = DifficultyLevels.allCases.filter{ val in val.rawValue == gameMode }[0]
         
         _ = autoLosingPreviousGame()
         

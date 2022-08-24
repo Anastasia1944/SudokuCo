@@ -9,7 +9,7 @@ import UIKit
 
 class GamesStatisticsViewController: UIViewController {
     
-    private var difficultyLevelsStringToEnum = DifficultyLevelsStringToEnum()
+//    private var difficultyLevelsStringToEnum = DifficultyLevelsStringToEnum()
     
     private var statisticsLevelsSegmentedController = UISegmentedControl()
     private let statisticsTableView = UITableView()
@@ -27,8 +27,9 @@ class GamesStatisticsViewController: UIViewController {
         
         statisticsTableView.register(GameStatisticsTableViewCell.self, forCellReuseIdentifier: "statisticsCell")
         
-        statisticsLevelsSegmentedController = UISegmentedControl(items: difficultyLevelsStringToEnum.getDifficultyLevelsNames())
-        
+        let levels = DifficultyLevels.allCases.map{ $0.rawValue }
+        statisticsLevelsSegmentedController = UISegmentedControl(items: levels)
+
         setSegmenteControlSettings()
         setTableSettings()
     }
@@ -98,8 +99,7 @@ class GamesStatisticsViewController: UIViewController {
     }
     
     private func reloadInfo() {
-        let gameLevelString = difficultyLevelsStringToEnum.getDifficultyLevelsNames()[statisticsLevelsSegmentedController.selectedSegmentIndex]
-        let gameLevelEnum = difficultyLevelsStringToEnum.getDifficultyLevelEnumByString(level: gameLevelString)
+        let gameLevelEnum = DifficultyLevels.allCases[statisticsLevelsSegmentedController.selectedSegmentIndex]
         
         loadStatistics(level: gameLevelEnum)
         statisticsTableView.reloadData()

@@ -15,15 +15,7 @@ class SudokuClassicViewController: GeneralSudokuViewController {
         super.configureInit()
         super.gameName = "Classic Sudoku"
         super.openedNum = openedNumsLevels[gameMode] ?? openedNumsLevels["Easy"]!
-        
-        let sudokuClassicController = SudokuClassicController()
-        super.generalSudokuController = sudokuClassicController
 
         super.viewDidLoad()
-        
-        if super.gameMode != "Continue" {
-            sudokuClassicController.generateNewOpenedNum(openedNum: Int(super.openedNum))
-            super.fillOriginallyOpenedNumbers()
-        }
     }
 }

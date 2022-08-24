@@ -47,7 +47,8 @@ class CompleteViewController: UIViewController {
         
         completeController.addNewElementStatistic(gameName: gameName, gameLevel: level ,time: time, isWin: isWin, isSaving: isSaving)
         
-        let gameLevelString = DifficultyLevelsStringToEnum().getDifficultyLevelStringByEnum(level: level)
+        let gameLevelString = level.rawValue
+        
         configureView(isWin: isWin, isSaving: isSaving, gameLevel: gameLevelString)
     }
     

@@ -112,7 +112,7 @@ class MyGamesViewController: UIViewController {
     func openMenuAlert(gameName: String) {
         let alert = UIAlertController()
         
-        let levels = DifficultyLevelsStringToEnum().getDifficultyLevelsNames()
+        let levels = DifficultyLevels.allCases.map{ $0.rawValue }
         
         for level in levels {
             alert.addAction(UIAlertAction(title: level, style: .default, handler: { _ in
