@@ -42,6 +42,7 @@ class GeneralSudokuController {
         
         displayAllNumbers()
         addTipsCount()
+        addGameMode()
     }
     
     func newGame() {
@@ -137,6 +138,11 @@ class GeneralSudokuController {
         let tipsStackView = sudokuPanelStackView.arrangedSubviews[3] as? UIStackView
         let tipLabel = tipsStackView?.arrangedSubviews[1] as? UILabel
         tipLabel?.text = "Tip (\(gameProcessor.gameState.tips))"
+    }
+    
+    func addGameMode() {
+        let modeLabel = timeModeStackView.arrangedSubviews[0] as? UILabel
+        modeLabel?.text = gameProcessor.gameState.gameLevel.rawValue
     }
     
     // MARK: - Users Taps on UI Elements
