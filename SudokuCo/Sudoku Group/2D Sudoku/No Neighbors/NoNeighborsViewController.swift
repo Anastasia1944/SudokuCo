@@ -9,14 +9,13 @@ import UIKit
 
 class NoNeighborsViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 30, .medium: 25, .hard: 20, .expert: 15]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 30, .medium: 25, .hard: 20, .expert: 15]
     
     override func viewDidLoad() {
-        super.configureInit()
-        super.gameName = "No Neighbors"
-        super.sudokuType = .sudoku2D
-        super.withBoldAreas = false
-        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 30
+        super.gameSettings.gameName = "No Neighbors"
+        super.gameSettings.sudokuType = .sudoku2D
+        super.gameSettings.withBoldAreas = false
+        super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 30
         
         super.viewDidLoad()
         
@@ -24,7 +23,7 @@ class NoNeighborsViewController: GeneralSudokuViewController {
     }
     
     private func addBoldLines() {
-        let sudokuNumbers = super.generalSudokuController.getSudokuNumbers()
+        let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         
         for i in 0...8 {
             for j in 0..<8 {
@@ -32,19 +31,20 @@ class NoNeighborsViewController: GeneralSudokuViewController {
                     var a = sudokuNumbers[i][j]
                     var b = sudokuNumbers[i][j + 1]
                     
-                    var pointCenter = CGPoint(x: CGFloat(i) * cellSize + cellSize / 2, y: (CGFloat(j) + 1) * cellSize)
+                    var pointCenter = CGPoint(x: Double(i) * super.gameSettings.cellSize + super.gameSettings.cellSize / 2, y: (Double(j) + 1) * super.gameSettings.cellSize)
                     
                     let boldLine = BoldLine()
-                    boldLine.configureBoldLine(cellSize: cellSize)
+                    boldLine.configureBoldLine(cellSize: super.gameSettings.cellSize)
                     
                     if k == 2 {
                         a = sudokuNumbers[j][i]
                         b = sudokuNumbers[j + 1][i]
-                        pointCenter = CGPoint(x: (CGFloat(j) + 1) * cellSize, y: CGFloat(i) * cellSize + cellSize / 2)
+                        pointCenter = CGPoint(x: (Double(j) + 1) * super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize + super.gameSettings.cellSize / 2)
                         boldLine.transform = boldLine.transform.rotated(by: .pi * 1.5)
                     }
                     
                     if ifTwoNumbersDiffersInOne(a: a, b: b) {
+                        let gridView = super.gameController.gridView
                         boldLine.center = gridView.convert(pointCenter, from: gridView)
                         gridView.addSubview(boldLine)
                     }

@@ -9,25 +9,28 @@ import UIKit
 
 class FrameSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
     
     var surroundingNumbersLabels: [[UILabel]] = []
     
     override func viewDidLoad() {
-        super.configureInit(gridWidth: ((UIScreen.main.bounds.width - 20) / 11) * 9)
-        super.gameName = "Frame Sudoku"
-        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 12
+        super.gameSettings.gameName = "Frame Sudoku"
+        super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 12
+        super.gameSettings.gridWidth = Double(((UIScreen.main.bounds.width - 20) / 11) * 9)
+        super.gameSettings.cellSize = super.gameSettings.gridWidth / 9
+        
         super.viewDidLoad()
         
         configureSurroundingNumbersOfGrid()
     }
     
     func configureSurroundingNumbersOfGrid() {
-        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
+        let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         surroundingNumbersLabels = [[], [], [], []]
+        let gridView = super.gameController.gridView
         
         for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: -cellSize, width: cellSize, height: cellSize))
+            let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: -super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
@@ -38,7 +41,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
         }
         
         for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: cellSize * 9, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
+            let label = UILabel(frame: CGRect(x: super.gameSettings.cellSize * 9, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
@@ -49,7 +52,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
         }
         
         for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize, y: cellSize * 9, width: cellSize, height: cellSize))
+            let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: super.gameSettings.cellSize * 9, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys
@@ -60,7 +63,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
         }
         
         for i in 0...8 {
-            let label = UILabel(frame: CGRect(x: -cellSize, y: CGFloat(i) * cellSize, width: cellSize, height: cellSize))
+            let label = UILabel(frame: CGRect(x: -super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
             label.textColor = .blackSys

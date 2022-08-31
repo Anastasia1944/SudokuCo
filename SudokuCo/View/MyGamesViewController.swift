@@ -138,9 +138,9 @@ class MyGamesViewController: UIViewController {
         sudokuGameVC.hidesBottomBarWhenPushed = true
         sudokuGameVC.modalPresentationStyle = .fullScreen
         
-        sudokuGameVC.isOpenLibraryAlert = false
-        sudokuGameVC.gameLevel = gameLevel
-        sudokuGameVC.isNewGame = isNewGame
+        sudokuGameVC.gameSettings.isOpenLibraryAlert = false
+        sudokuGameVC.gameSettings.gameLevel = gameLevel
+        sudokuGameVC.gameSettings.isNewGame = isNewGame
         
         navigationController?.pushViewController(sudokuGameVC, animated: true)
     }

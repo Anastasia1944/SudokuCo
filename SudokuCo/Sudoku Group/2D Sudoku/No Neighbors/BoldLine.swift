@@ -9,7 +9,7 @@ import UIKit
 
 class BoldLine: UIView {
     
-    func configureBoldLine(cellSize: CGFloat) {
+    func configureBoldLine(cellSize: Double) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize / 2, height: cellSize / 8)
         
         let path = UIBezierPath(roundedRect: self.bounds, cornerRadius: CGFloat(3))

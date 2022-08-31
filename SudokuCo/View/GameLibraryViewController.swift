@@ -78,9 +78,9 @@ class GameLibraryViewController: UIViewController {
         
         let defaults = UserDefaults.standard
         if defaults.bool(forKey: "Do not Show Library Alert") {
-            sudokuGameVC.isOpenLibraryAlert = false
+            sudokuGameVC.gameSettings.isOpenLibraryAlert = false
         }
-        sudokuGameVC.isSaving = false
+        sudokuGameVC.gameSettings.isSaving = false
         
         navigationController?.pushViewController(sudokuGameVC, animated: true)
     }

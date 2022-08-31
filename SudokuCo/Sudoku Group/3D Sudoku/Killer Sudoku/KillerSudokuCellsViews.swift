@@ -8,7 +8,7 @@
 import UIKit
 
 class SquareCellView: UIView {
-    func configureCell(cellSize: CGFloat) {
+    func configureCell(cellSize: Double) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10
@@ -32,7 +32,7 @@ class SquareCellView: UIView {
 }
 
 class RecessCellView: UIView {
-    func configureCell(cellSize: CGFloat, isEmptyArea: Bool, isLeft: Bool) {
+    func configureCell(cellSize: Double, isEmptyArea: Bool, isLeft: Bool) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10
@@ -73,7 +73,7 @@ class RecessCellView: UIView {
 }
 
 class AngleCellView: UIView {
-    func configureCell(cellSize: CGFloat, isEmptyArea: Bool) {
+    func configureCell(cellSize: Double, isEmptyArea: Bool) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10
@@ -107,7 +107,7 @@ class AngleCellView: UIView {
 }
 
 class InsideAngleCellView: UIView {
-    func configureCell(cellSize: CGFloat) {
+    func configureCell(cellSize: Double) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10
@@ -129,7 +129,7 @@ class InsideAngleCellView: UIView {
 }
 
 class StraightCellView: UIView {
-    func configureCell(cellSize: CGFloat) {
+    func configureCell(cellSize: Double) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10
@@ -152,7 +152,7 @@ class StraightCellView: UIView {
 }
 
 class TShapeCellView: UIView {
-    func configureCell(cellSize: CGFloat) {
+    func configureCell(cellSize: Double) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10
@@ -179,7 +179,7 @@ class TShapeCellView: UIView {
 }
 
 class CrossCellView: UIView {
-    func configureCell(cellSize: CGFloat) {
+    func configureCell(cellSize: Double) {
         self.frame = CGRect(x: 0, y: 0, width: cellSize, height: cellSize)
         
         let gap = cellSize / 10

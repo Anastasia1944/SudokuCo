@@ -9,72 +9,63 @@ import UIKit
 
 class GeneralSudokuController {
     
-    private var generalSudokuGame = GeneralSudokuGame()
-    private var gamesInfoCoding = GamesInfoCoding()
+    var gameProcessor = GeneralSudokuProcessor()
+    var gameSettings = GameSettings()
+    var gamesInfoCoding = GamesInfoCoding()
     
-    var numberChanged: ( ([[Int]]) -> Void )?
+    var gridView = GridView()
     
-    private var filledNumbers: [[Int]] = [] {
-        didSet {
-            self.numberChanged?(filledNumbers)
-        }
-    }
+    let timeModeStackView = UIStackView()
+    let gameElementsStackView = UIStackView()
+    let sudokuPanelStackView = UIStackView()
+    let numberPanelStackView = UIStackView()
     
-    var noteNumberChanged: ( ([[[Int: Bool]]]) -> Void )?
+    let selectedCellView = UIView()
     
-    private var notesNumbers: [[[Int: Bool]]] = [] {
-        didSet {
-            self.noteNumberChanged?(notesNumbers)
-        }
-    }
-    
-    var noteChanged: ( (Bool) -> Void )?
-    
-    private var openedNum = CGFloat(0)
-    private var isSaving: Bool = true
-    private var isNote: Bool = false {
-        didSet {
-            self.noteChanged?(isNote)
-        }
-    }
-    
-    private var sudokuActions: [SudokuAction] = []
+    var filledNumbersLabels: [[UILabel]] = []
+    var notesLabels: [[[UILabel]]] = []
     
     private var timer: Timer?
     private var runCount = 0
-    private var isNewGame: Bool = true
-    private var gameName: String = ""
-    private var gameLevel: DifficultyLevels = .easy
-    private var sudokuType: SudokuTypes = .sudoku3D
-    var baseTime = 0
-    var currentTimeLabel: UILabel = UILabel()
     
-    init() {
-        for _ in 0...8 {
-            filledNumbers.append([Int](repeating: 0, count: 9))
-        }
-    }
+    var isTransitionToCompleteVC: ((UIViewController) -> Void)?
     
-    func configureController(sudokuType: SudokuTypes = .sudoku3D, isNewGame: Bool, gameLevel: DifficultyLevels,openedNum: CGFloat, isSaving: Bool = true, gameName: String) {
+    // MARK: - Start Game
+    func startGame() {
         runTimer()
         
-        self.openedNum = openedNum
-        self.isSaving = isSaving
-        self.isNewGame = isNewGame
-        self.gameName = gameName
-        self.sudokuType = sudokuType
-        self.gameLevel = gameLevel
-
-        generalSudokuGame.setGameName(gameName)
-        
-        if isNewGame {
+        if gameSettings.isNewGame {
             newGame()
         } else {
             continueGame()
         }
-        baseTime = generalSudokuGame.getTime()
+        
+        displayAllNumbers()
+        addTipsCount()
     }
     
+    func newGame() {
+        _ = autoLosingPreviousGame()
+        
+        gameProcessor.generateSudoku(gameName: gameSettings.gameName, sudokuType: gameSettings.sudokuType, openedNum: gameSettings.openedNum, gameLevel: gameSettings.gameLevel)
+        
+        saveInfoIfNedded()
+    }
+    
+    func autoLosingPreviousGame() -> Bool {
+        guard let previousGameState = gamesInfoCoding.getGameInfo(gameName: gameSettings.gameName) as? SudokuState else { return false }
+        
+        let completeGameController = CompleteGameController()
+        completeGameController.addNewElementStatistic(gameName: previousGameState.gameName, gameLevel: previousGameState.gameLevel,
+                                                      time: previousGameState.time, isWin: false, isSaving: true)
+        return true
+    }
+    
+    func continueGame() {
+        gameProcessor.gameState = gamesInfoCoding.getGameInfo(gameName: gameSettings.gameName) as! SudokuState
+    }
+    
+    // MARK: - Timer
     func runTimer() {
         let timer = Timer(timeInterval: 1, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
         
@@ -83,233 +74,274 @@ class GeneralSudokuController {
     
     @objc func fireTimer() {
         runCount += 1
-        currentTimeLabel.text = timeIntToString()
+        let currentTimeLabel = timeModeStackView.arrangedSubviews[1] as? UILabel
+        currentTimeLabel?.text = timeIntToString(gameProcessor.gameState.time + runCount)
     }
     
-    private func timeIntToString() -> String {
+    private func timeIntToString(_ timeInt: Int) -> String {
         let formatter = DateComponentsFormatter()
-        return formatter.string(from: Double(baseTime + runCount))!
+        return formatter.string(from: Double(timeInt))!
     }
     
-    func stopTimer() -> Int {
+    func stopTimer(){
         timer?.invalidate()
         
-        let newTime = generalSudokuGame.updateTime(plus: runCount)
+        gameProcessor.updateTime(plus: runCount)
         runCount = 0
         
         saveInfoIfNedded()
-        return newTime
     }
     
-    func getLevel() -> DifficultyLevels {
-        return gameLevel
+    // MARK: - Update UI
+    func displayAllNumbers() {
+        displayOpenedNumbers()
+        displayNotes()
     }
     
-    func newGame() {
-        _ = autoLosingPreviousGame()
-        
-        generalSudokuGame.generateSudoku(sudokuType: sudokuType,openedNum: Int(openedNum), level: gameLevel)
-        
-        filledNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
-        notesNumbers = generalSudokuGame.getSudokuNotesNumbers()
-        
-        saveInfoIfNedded()
-    }
-    
-    func autoLosingPreviousGame() -> Bool {
-        guard let generalSudokuGame = gamesInfoCoding.getGameInfo(gameName: gameName) as? GeneralSudokuGame else { return false }
-        let level = generalSudokuGame.getLevel()
-        let time = generalSudokuGame.getTime()
-        
-        let completeGameController = CompleteGameController()
-        completeGameController.addNewElementStatistic(gameName: gameName, gameLevel: level, time: time, isWin: false, isSaving: true)
-        
-        return true
-    }
-    
-    func continueGame() {
-        generalSudokuGame = gamesInfoCoding.getGameInfo(gameName: gameName) as! GeneralSudokuGame
-        
-        gameLevel = generalSudokuGame.getLevel()
-        
-        filledNumbers = generalSudokuGame.getSudokuOpenedNumbers()
-        notesNumbers = generalSudokuGame.getSudokuNotesNumbers()
-    }
-    
-    func saveInfoIfNedded() {
-        if isSaving {
-            gamesInfoCoding.saveGameInfo(game: generalSudokuGame)
-        }
-    }
-    
-    func numberButtonTapped(x: Int, y: Int, value: Int) {
-        var isUndoPrevious: Bool = false
-        
-        if isNote {
-            if filledNumbers[x][y] != 0 {
-                sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y]))
-                deleteMainNumber(x: x, y: y)
-                
-                isUndoPrevious = true
-            }
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: value, note: true, isUndoPreviousAction: isUndoPrevious))
-            addNoteNumber(x: x, y: y, value: value)
-        } else {
-            if !isNotesEmpty(x: x, y: y) {
-                sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: notesNumbers[x][y]))
-                deleteNotesNumbers(x: x, y: y)
-                
-                isUndoPrevious = true
-            }
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y], isUndoPreviousAction: isUndoPrevious))
-            addMainNumber(x: x, y: y, value: value)
-        }
-        saveInfoIfNedded()
-    }
-    
-    func deleteButtonTapped(x: Int, y: Int) {
-        if filledNumbers[x][y] != 0 {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y]))
-            deleteMainNumber(x: x, y: y)
-        }
-        
-        if !isNotesEmpty(x: x, y: y) {
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: notesNumbers[x][y]))
-            deleteNotesNumbers(x: x, y: y)
-        }
-        saveInfoIfNedded()
-    }
-    
-    func tipButtonTapped(x: Int, y: Int) -> Int {
-        if generalSudokuGame.getTipsNumber() > 0 {
-            
-            generalSudokuGame.decreaseTipsNumbers()
-            
-            var isUndoPrevious: Bool = false
-            
-            if !isNotesEmpty(x: x, y: y) {
-                sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: notesNumbers[x][y]))
-                deleteNotesNumbers(x: x, y: y)
-                isUndoPrevious = true
-            }
-            sudokuActions.append(SudokuAction(xCell: x, yCell: y, lastNumber: filledNumbers[x][y], isUndoPreviousAction: isUndoPrevious))
-            
-            filledNumbers[x][y] = generalSudokuGame.fillCellbyRightNumber(x: x, y: y)
-            saveInfoIfNedded()
-            
-            return generalSudokuGame.getTipsNumber()
-        }
-        
-        return 0
-    }
-    
-    func noteButtonTapped() {
-        isNote = !isNote
-    }
-    
-    func cancelButtonTapped() {
-        if let lastAction = sudokuActions.popLast() {
-            if lastAction.note {
-                if lastAction.isAddNote {
-                    notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber] = !notesNumbers[lastAction.xCell][lastAction.yCell][lastAction.lastNumber]!
-                } else {
-                    notesNumbers[lastAction.xCell][lastAction.yCell] = lastAction.noteStack!
-                }
-            } else {
-                filledNumbers[lastAction.xCell][lastAction.yCell] = lastAction.lastNumber
-            }
-            
-            saveInfoIfNedded()
-            
-            if lastAction.isUndoPreviousAction {
-                cancelButtonTapped()
-            }
-        }
-    }
-    
-    func addMainNumber(x: Int, y: Int, value: Int) {
-        if generalSudokuGame.fillCell(x: x, y: y, value: value) {
-            saveInfoIfNedded()
-            
-            filledNumbers[x][y] = value
-        }
-    }
-    
-    func addNoteNumber(x: Int, y: Int, value: Int) {
-        if generalSudokuGame.fillCellByNote(x: x, y: y, value: value) {
-            saveInfoIfNedded()
-            
-            notesNumbers[x][y][value] = !notesNumbers[x][y][value]!
-        }
-    }
-    
-    func deleteMainNumber(x: Int, y: Int) {
-        if generalSudokuGame.deleteCellNumber(x: x, y: y) {
-            saveInfoIfNedded()
-            
-            filledNumbers[x][y] = 0
-        }
-    }
-    
-    func deleteNotesNumbers(x: Int, y: Int) {
-        generalSudokuGame.clearCellNotes(x: x, y: y)
-        saveInfoIfNedded()
-        notesNumbers[x][y] = [1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false]
-    }
-    
-    func isNotesEmpty(x: Int, y: Int) -> Bool {
-        if notesNumbers[x][y] == [1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false] {
-            return true
-        }
-        return false
-    }
-    
-    func ifAllCellsFilled() -> Bool {
-        return generalSudokuGame.checkIfAllCellsFilled()
-    }
-    
-    func ifAllCellsFilledRight() -> Bool {
-        return generalSudokuGame.checkIfAllCellsRight()
-    }
-    
-    func startGameOver() {
-        
-        runTimer()
-        generalSudokuGame.resetTimer()
-        
-        let originallyOpenedNumbers = generalSudokuGame.getSudokuOriginallyOpenedNumbers()
+    private func displayOpenedNumbers() {
+        let openedNumbers = gameProcessor.gameState.openedNumbers
+        let originallyOpenedNumbers = gameProcessor.gameState.originallyOpenedNumbers
         
         for i in 0...8 {
             for j in 0...8 {
-                if originallyOpenedNumbers[i][j] == 0 {
-                    _ = generalSudokuGame.fillCell(x: i, y: j, value: 0)
-                    filledNumbers[i][j] = 0
+                if openedNumbers[i][j] != 0 {
+                    self.filledNumbersLabels[i][j].text = String(openedNumbers[i][j])
+                    
+                    if originallyOpenedNumbers[i][j] != 0 {
+                        self.filledNumbersLabels[i][j].textColor = .gray
+                    }
+                } else {
+                    self.filledNumbersLabels[i][j].text = ""
                 }
             }
         }
-        
-        saveInfoIfNedded()
     }
     
-    func setOpenedNums(_ openedNums: [[Int]]) {
-        generalSudokuGame.setNewOpenedNum(openedNums)
+    func displayNotes() {
+        let notesNumbers = gameProcessor.gameState.notesNumbers
+        
+        for i in 0...8 {
+            for j in 0...8 {
+                for k in 1...9 {
+                    if notesNumbers[i][j][k] == true {
+                        self.notesLabels[i][j][k - 1].text = String(k)
+                    } else {
+                        self.notesLabels[i][j][k - 1].text = ""
+                    }
+                }
+            }
+        }
+    }
+    
+    func addTipsCount() {
+        let tipsStackView = sudokuPanelStackView.arrangedSubviews[3] as? UIStackView
+        let tipLabel = tipsStackView?.arrangedSubviews[1] as? UILabel
+        tipLabel?.text = "Tip (\(gameProcessor.gameState.tips))"
+    }
+    
+    // MARK: - Users Taps on UI Elements
+    @objc func tapOnGrid(_ sender: UITapGestureRecognizer) {
+        let touchX = Double(sender.location(in: gridView).x)
+        let touchY = Double(sender.location(in: gridView).y)
+        
+        gridView.addSubview(selectedCellView)
+        gridView.sendSubviewToBack(selectedCellView)
+        
+        selectedCellView.frame = CGRect(x: floor(touchX / gameSettings.cellSize) * gameSettings.cellSize, y: floor(touchY / gameSettings.cellSize) * gameSettings.cellSize, width: gameSettings.cellSize, height: gameSettings.cellSize)
+        selectedCellView.backgroundColor = .graySys
+    }
+    
+    @objc func tapPanelButtonCancel(sender: UIButton!) {
+        if let lastAction = gameProcessor.sudokuActions.popLast() {
+            let x = lastAction.xCell
+            let y = lastAction.yCell
+            let num = lastAction.lastNumber
+            
+            if lastAction.note {
+                if lastAction.isAddNote {
+                    gameProcessor.gameState.notesNumbers[x][y][num] = !gameProcessor.gameState.notesNumbers[x][y][num]!
+                } else {
+                    gameProcessor.gameState.notesNumbers[x][y] = lastAction.noteStack!
+                }
+            } else {
+                gameProcessor.gameState.openedNumbers[x][y] = lastAction.lastNumber
+            }
+            
+            saveInfoIfNedded()
+            displayAllNumbers()
+            
+            if lastAction.isUndoPreviousAction {
+                tapPanelButtonCancel(sender: sender)
+            }
+        }
+    }
+    
+    @objc func tapPanelButtonDelete(sender: UIButton!) {
+        if selectedCellView.frame.maxX == 0.0 {
+            return
+        }
+        
+        let (x, y) = getCellsByCoordinates()
+        
+        if gameProcessor.gameState.openedNumbers[x][y] != 0 {
+            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y]))
+            _ = gameProcessor.deleteCellNumber(x: x, y: y)
+        }
+        
+        if !gameProcessor.isNotesEmpty(x: x, y: y) {
+            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false, noteStack: gameProcessor.gameState.notesNumbers[x][y]))
+            gameProcessor.clearCellNotes(x: x, y: y)
+        }
+        
+        saveInfoIfNedded()
+        displayAllNumbers()
+    }
+    
+    
+    @objc func tapPanelButtonNote(sender: UIButton!) {
+        gameProcessor.isNote = !gameProcessor.isNote
+        
+        for i in 0...8 {
+            let button = numberPanelStackView.arrangedSubviews[i] as? UIButton
+            button?.isSelected = gameProcessor.isNote
+        }
+    }
+    
+    @objc func tapPanelButtonTip(sender: UIButton!) {
+        if selectedCellView.frame.maxX == 0.0 {
+            return
+        }
+        
+        let (x, y) = getCellsByCoordinates()
+        
+        if gameProcessor.gameState.tips > 0 {
+            gameProcessor.decreaseTipsNumbers()
+            
+            var isUndoPrevious: Bool = false
+            if !gameProcessor.isNotesEmpty(x: x, y: y) {
+                gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false,
+                                                     noteStack: gameProcessor.gameState.notesNumbers[x][y]))
+                gameProcessor.clearCellNotes(x: x, y: y)
+                isUndoPrevious = true
+            }
+            
+            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y], isUndoPreviousAction: isUndoPrevious))
+            
+            gameProcessor.gameState.openedNumbers[x][y] = gameProcessor.fillCellbyRightNumber(x: x, y: y)
+        }
+        
+        addTipsCount()
+        
+        saveInfoIfNedded()
+        displayAllNumbers()
+        transitionIfAllCellsFilled()
+    }
+    
+    
+    // MARK: - Users Taps on Numbers Panel
+    @objc func tapNumberPanelButton(sender: UIButton!){
+        if selectedCellView.frame.maxX == 0.0 {
+            return
+        }
+        
+        let (x, y) = getCellsByCoordinates()
+        let value = sender.titleLabel!.text!
+        
+        if gameProcessor.isNote {
+            fillCellByNote(x: x, y: y, value: Int(value)!)
+        } else {
+            fillCellByNumber(x: x, y: y, value: Int(value)!)
+        }
+        
+        saveInfoIfNedded()
+        displayAllNumbers()
+        transitionIfAllCellsFilled()
+    }
+    
+    func fillCellByNote(x: Int, y: Int, value: Int) {
+        var isUndoPrevious: Bool = false
+        if gameProcessor.gameState.openedNumbers[x][y] != 0 {
+            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y]))
+            
+            _ = gameProcessor.deleteCellNumber(x: x, y: y)
+            
+            isUndoPrevious = true
+        }
+        
+        gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: value, note: true, isUndoPreviousAction: isUndoPrevious))
+        _ = gameProcessor.fillCellByNote(x: x, y: y, value: value)
+    }
+    
+    func fillCellByNumber(x: Int, y: Int, value: Int) {
+        var isUndoPrevious: Bool = false
+        if !gameProcessor.isNotesEmpty(x: x, y: y) {
+            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false,
+                                                 noteStack: gameProcessor.gameState.notesNumbers[x][y]))
+            
+            gameProcessor.clearCellNotes(x: x, y: y)
+            isUndoPrevious = true
+        }
+        
+        gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y],
+                                             isUndoPreviousAction: isUndoPrevious))
+        _ = gameProcessor.fillCell(x: x, y: y, value: value)
+    }
+    
+    // MARK: - End Game
+    private func transitionIfAllCellsFilled() {
+        if gameProcessor.checkIfAllCellsFilled() {
+            stopTimer()
+            transitionToCompleteVC(isWin: gameProcessor.checkIfAllCellsRight())
+        }
+    }
+    
+    private func transitionToCompleteVC(isWin: Bool) {
+        let completeVC = CompleteViewController()
+        
+        completeVC.configureCompleteVC(isWin: isWin, time: gameProcessor.gameState.time, gameName: gameProcessor.gameState.gameName,
+                                       isSaving: gameSettings.isSaving, level: gameProcessor.gameState.gameLevel)
+        
+        self.isTransitionToCompleteVC!(completeVC)
+        
+        completeVC.startOver = { start in
+            self.startGameOver()
+        }
+        
+        completeVC.continueGame = { continueGame in
+            self.continueCurrentGame()
+        }
+    }
+    
+    func startGameOver() {
+        runTimer()
+        gameProcessor.resetTimer()
+        
+        for i in 0...8 {
+            for j in 0...8 {
+                if gameProcessor.gameState.originallyOpenedNumbers[i][j] == 0 {
+                    _ = gameProcessor.fillCell(x: i, y: j, value: 0)
+                    gameProcessor.gameState.openedNumbers[i][j] = 0
+                }
+            }
+        }
+        saveInfoIfNedded()
     }
     
     func continueCurrentGame() {
         runTimer()
-        
         saveInfoIfNedded()
     }
     
-    func getTipsCount() -> Int {
-        return generalSudokuGame.getTipsNumber()
+    // MARK: - Calculations
+    private func getCellsByCoordinates() -> (x: Int, y: Int) {
+        let x = Int(floor(selectedCellView.frame.midX / gameSettings.cellSize))
+        let y = Int(floor(selectedCellView.frame.midY / gameSettings.cellSize))
+        return (x, y)
     }
     
-    func getSudokuNumbers() -> [[Int]] {
-        return generalSudokuGame.getSudokuNumbers()
-    }
-    
-    func getOriginallyOpenedNumbers() -> [[Int]] {
-        return generalSudokuGame.getSudokuOriginallyOpenedNumbers()
+    func saveInfoIfNedded() {
+        if gameSettings.isSaving {
+            gamesInfoCoding.saveGameInfo(game: gameProcessor.gameState)
+        }
     }
 }

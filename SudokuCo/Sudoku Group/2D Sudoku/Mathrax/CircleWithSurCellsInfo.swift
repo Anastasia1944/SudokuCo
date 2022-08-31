@@ -20,7 +20,7 @@ class CircleWithSurCellsInfo: UIView {
     
     let types: [CircleType: String] = [.multiply: "*", .difference: "-", .division: "/", .sum: "+", .even: "E", .odd: "O"]
     
-    func configureCircle(cellSize: CGFloat, circleType: CircleType, value: String) {
+    func configureCircle(cellSize: Double, circleType: CircleType, value: String) {
         let circlePath = UIBezierPath(arcCenter: CGPoint(x: 0, y: 0), radius: CGFloat(cellSize / 4), startAngle: CGFloat(0), endAngle: CGFloat(Double.pi * 2), clockwise: true)
         
         let shapeLayer = CAShapeLayer()

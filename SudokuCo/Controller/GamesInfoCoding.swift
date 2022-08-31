@@ -11,8 +11,8 @@ struct GamesInfoCoding {
     
     let fileManager = FileManager.default
     
-    func saveGameInfo(game: GeneralSudokuGame) {
-        let gameName = game.getGameName()
+    func saveGameInfo(game: SudokuState) {
+        let gameName = game.gameName
         let gameFileName = getGameFileName(gameName: gameName)
         
         encode(game: game, gameName: gameName, fileName: gameFileName)
@@ -43,7 +43,7 @@ struct GamesInfoCoding {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
                 let data = try Data(contentsOf: fileURL)
-                _ = try decoder.decode(GeneralSudokuGame.self, from: data)
+                _ = try decoder.decode(SudokuState.self, from: data)
             } catch {
                 print("Error. No Saved Game Info: \(gameName)")
                 return false
@@ -52,7 +52,7 @@ struct GamesInfoCoding {
         return true
     }
     
-    private func encode(game: GeneralSudokuGame, gameName: String, fileName: String) {
+    private func encode(game: SudokuState, gameName: String, fileName: String) {
         let encoder = JSONEncoder()
         
         if let dir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -75,7 +75,7 @@ struct GamesInfoCoding {
             let fileURL = dir.appendingPathComponent(fileName)
             do {
                 let data = try Data(contentsOf: fileURL)
-                return try decoder.decode(GeneralSudokuGame.self, from: data)
+                return try decoder.decode(SudokuState.self, from: data)
             } catch {
                 print("Error. No Saved Game Info: \(gameName)")
             }

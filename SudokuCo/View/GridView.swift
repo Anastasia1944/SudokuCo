@@ -9,8 +9,8 @@ import UIKit
 
 class GridView: UIView {
 
-    private var sudokuWidth = CGFloat(0)
-    private var oneSquareSide = CGFloat(0)
+    private var sudokuWidth: Double = 0
+    private var oneSquareSide: Double = 0
     
     private var withOuterBoldBorder: Bool = true
     private var withBoldAreas: Bool = true
@@ -18,7 +18,7 @@ class GridView: UIView {
     
     private var cellsNumber = 9
     
-    func formView(width: CGFloat, cellsNumber: Int = 9, withOuterBoldBorder: Bool = true, withBoldAreas: Bool = true, cellsInTheArea: Int = 3) {
+    func formView(width: Double, cellsNumber: Int = 9, withOuterBoldBorder: Bool = true, withBoldAreas: Bool = true, cellsInTheArea: Int = 3) {
         self.withOuterBoldBorder = withOuterBoldBorder
         self.withBoldAreas = withBoldAreas
         self.cellsNumber = cellsNumber

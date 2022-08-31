@@ -9,21 +9,19 @@ import UIKit
 
 class ComparisonSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
     
     override func viewDidLoad() {
-        super.configureInit()
+        super.gameSettings.gameName = "Comparison Sudoku"
+        super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 12
         
-        super.gameName = "Comparison Sudoku"
-        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 12
         super.viewDidLoad()
         
         configureMoreLessSigns()
     }
     
     func configureMoreLessSigns() {
-
-        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
+        let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
 
         for i in 0...8 {
             for j in 0..<8 {
@@ -32,15 +30,15 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
                         var a = sudokuNumbers[i][j]
                         var b = sudokuNumbers[i][j + 1]
 
-                        var signCenter = CGPoint(x: CGFloat(i) * cellSize + cellSize / 2, y: (CGFloat(j) + 1) * cellSize)
+                        var signCenter = CGPoint(x: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 2, y: (Double(j) + 1) * gameSettings.cellSize)
 
                         let signView = MoreLessSignView()
-                        signView.configureSign(cellSize: cellSize)
+                        signView.configureSign(cellSize: gameSettings.cellSize)
 
                         if k == 2 {
                             a = sudokuNumbers[j][i]
                             b = sudokuNumbers[j + 1][i]
-                            signCenter = CGPoint(x: (CGFloat(j) + 1) * cellSize, y: CGFloat(i) * cellSize + cellSize / 2)
+                            signCenter = CGPoint(x: (Double(j) + 1) * gameSettings.cellSize, y: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 2)
                             signView.transform = signView.transform.rotated(by: .pi * 1.5)
                         }
 
@@ -48,6 +46,7 @@ class ComparisonSudokuViewController: GeneralSudokuViewController {
                             signView.transform = signView.transform.rotated(by: .pi)
                         }
 
+                        let gridView = super.gameController.gridView
                         signView.center = gridView.convert(signCenter, to: gridView)
                         gridView.addSubview(signView)
                     }

@@ -9,7 +9,7 @@ import UIKit
 
 class KillerSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 15, .medium: 10, .hard: 5, .expert: 0]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 15, .medium: 10, .hard: 5, .expert: 0]
     
     private var killerSudokuController = KillerSudokuController()
     
@@ -17,14 +17,13 @@ class KillerSudokuViewController: GeneralSudokuViewController {
     private var areasSum: [[Int]] = []
 
     override func viewDidLoad() {
-        super.configureInit()
-        super.gameName = "Killer Sudoku"
-        super.gapNotesShift = 5
-        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 15
+        super.gameSettings.gameName = "Killer Sudoku"
+        super.gameSettings.gapNotesShift = 5
+        super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 15
 
         super.viewDidLoad()
         
-        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
+        let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         killerSudokuAreas = killerSudokuController.getKillerSudokuAreas(sudokuNumbers: sudokuNumbers)
         
         areasSum = killerSudokuController.getAreasSum()
@@ -36,7 +35,7 @@ class KillerSudokuViewController: GeneralSudokuViewController {
     func drawKillerCells() {
         for i in 0...8 {
             for j in 0...8 {
-                let pointCenter = CGPoint(x: CGFloat(i) * cellSize + 1/2 * cellSize, y: CGFloat(j) * cellSize + 1/2 * cellSize)
+                let pointCenter = CGPoint(x: Double(i) * gameSettings.cellSize + 1/2 * gameSettings.cellSize, y: Double(j) * gameSettings.cellSize + 1/2 * gameSettings.cellSize)
                 
                 if killerSudokuAreas[i][j] == 0 {
                     continue
@@ -106,8 +105,9 @@ class KillerSudokuViewController: GeneralSudokuViewController {
     
     private func drawSquare(i: Int, j: Int, center: CGPoint) {
         let squareCellView = SquareCellView()
-        squareCellView.configureCell(cellSize: cellSize)
+        squareCellView.configureCell(cellSize: gameSettings.cellSize)
 
+        let gridView = super.gameController.gridView
         squareCellView.center = gridView.convert(center, from: gridView)
         gridView.addSubview(squareCellView)
     }
@@ -116,21 +116,23 @@ class KillerSudokuViewController: GeneralSudokuViewController {
         let recessCellView = RecessCellView()
         
         if areasSum[i][j] != 0 {
-            recessCellView.configureCell(cellSize: cellSize, isEmptyArea: true, isLeft: isLeft)
+            recessCellView.configureCell(cellSize: gameSettings.cellSize, isEmptyArea: true, isLeft: isLeft)
         } else {
-            recessCellView.configureCell(cellSize: cellSize, isEmptyArea: false, isLeft: true)
+            recessCellView.configureCell(cellSize: gameSettings.cellSize, isEmptyArea: false, isLeft: true)
         }
         recessCellView.transform = recessCellView.transform.rotated(by: .pi * rotate)
 
+        let gridView = super.gameController.gridView
         recessCellView.center = gridView.convert(center, from: gridView)
         gridView.addSubview(recessCellView)
     }
     
     private func drawStraignt(i: Int, j: Int, center: CGPoint, rotate: Double) {
         let straightCellView = StraightCellView()
-        straightCellView.configureCell(cellSize: cellSize)
+        straightCellView.configureCell(cellSize: gameSettings.cellSize)
         straightCellView.transform = straightCellView.transform.rotated(by: .pi * rotate)
 
+        let gridView = super.gameController.gridView
         straightCellView.center = gridView.convert(center, from: gridView)
         gridView.addSubview(straightCellView)
     }
@@ -139,29 +141,32 @@ class KillerSudokuViewController: GeneralSudokuViewController {
         let angleCellView = AngleCellView()
         
         if areasSum[i][j] != 0 {
-            angleCellView.configureCell(cellSize: cellSize, isEmptyArea: true)
+            angleCellView.configureCell(cellSize: gameSettings.cellSize, isEmptyArea: true)
         } else {
-            angleCellView.configureCell(cellSize: cellSize, isEmptyArea: false)
+            angleCellView.configureCell(cellSize: gameSettings.cellSize, isEmptyArea: false)
         }
         angleCellView.transform = angleCellView.transform.rotated(by: .pi * rotate)
 
+        let gridView = super.gameController.gridView
         angleCellView.center = gridView.convert(center, from: gridView)
         gridView.addSubview(angleCellView)
     }
     
     private func drawTShape(i: Int, j: Int, center: CGPoint, rotate: Double) {
         let tShapeCellView = TShapeCellView()
-        tShapeCellView.configureCell(cellSize: cellSize)
+        tShapeCellView.configureCell(cellSize: gameSettings.cellSize)
         tShapeCellView.transform = tShapeCellView.transform.rotated(by: .pi * rotate)
 
+        let gridView = super.gameController.gridView
         tShapeCellView.center = gridView.convert(center, from: gridView)
         gridView.addSubview(tShapeCellView)
     }
     
     private func drawCross(i: Int, j: Int, center: CGPoint) {
         let crossCellView = CrossCellView()
-        crossCellView.configureCell(cellSize: cellSize)
+        crossCellView.configureCell(cellSize: gameSettings.cellSize)
 
+        let gridView = super.gameController.gridView
         crossCellView.center = gridView.convert(center, from: gridView)
         gridView.addSubview(crossCellView)
     }
@@ -170,13 +175,13 @@ class KillerSudokuViewController: GeneralSudokuViewController {
         for i in 0...8 {
             for j in 0...8 {
                 if areasSum[i][j] != 0 {
-                    let label = UILabel(frame: CGRect(x: CGFloat(i) * cellSize + cellSize / 30, y: CGFloat(j) * cellSize + cellSize / 30, width: cellSize / 3, height: cellSize / 5))
+                    let label = UILabel(frame: CGRect(x: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 30, y: Double(j) * gameSettings.cellSize + gameSettings.cellSize / 30, width: gameSettings.cellSize / 3, height: gameSettings.cellSize / 5))
                     label.text = String(areasSum[i][j])
                     label.font = .systemFont(ofSize: 10)
                     label.textColor = .blueSys
                     label.textAlignment = .center
                     
-                    gridView.addSubview(label)
+                    super.gameController.gridView.addSubview(label)
                 }
             }
         }

@@ -9,20 +9,21 @@ import UIKit
 
 class DotsSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 12, .medium: 7, .hard: 3, .expert: 0]
     
     override func viewDidLoad() {
-        super.configureInit()
-        super.gameName = "Dots Sudoku"
-        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 12
+        super.gameSettings.gameName = "Dots Sudoku"
+        super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 12
+        
+        
         super.viewDidLoad()
         
         configureDots()
     }
     
     func configureDots() {
-
-        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
+        let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
+        let gridView = super.gameController.gridView
 
         for i in 0...8 {
             for j in 0..<8 {
@@ -31,18 +32,18 @@ class DotsSudokuViewController: GeneralSudokuViewController {
                     var a = sudokuNumbers[i][j]
                     var b = sudokuNumbers[i][j + 1]
 
-                    var pointCenter = CGPoint(x: CGFloat(i) * cellSize + cellSize / 2, y: (CGFloat(j) + 1) * cellSize)
+                    var pointCenter = CGPoint(x: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 2, y: (Double(j) + 1) * gameSettings.cellSize)
 
                     if k == 2 {
                         a = sudokuNumbers[j][i]
                         b = sudokuNumbers[j + 1][i]
-                        pointCenter = CGPoint(x: (CGFloat(j) + 1) * cellSize, y: CGFloat(i) * cellSize + cellSize / 2)
+                        pointCenter = CGPoint(x: (Double(j) + 1) * gameSettings.cellSize, y: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 2)
                     }
 
 
                     if ifTwoNumbersDiffersInOne(a: a, b: b) {
                         let dotView = WhiteDot()
-                        dotView.configureDot(cellSize: cellSize)
+                        dotView.configureDot(cellSize: gameSettings.cellSize)
 
                         dotView.center = gridView.convert(pointCenter, from: gridView)
                         gridView.addSubview(dotView)
@@ -50,7 +51,7 @@ class DotsSudokuViewController: GeneralSudokuViewController {
 
                     if ifTwoNumbersDifferTwice(a: a, b: b) {
                         let dotView = BlackDot()
-                        dotView.configureDot(cellSize: cellSize)
+                        dotView.configureDot(cellSize: gameSettings.cellSize)
 
                         dotView.center = gridView.convert(pointCenter, from: gridView)
                         gridView.addSubview(dotView)
@@ -59,7 +60,7 @@ class DotsSudokuViewController: GeneralSudokuViewController {
                     if ifTwoNumbersDifferTwice(a: a, b: b) && ifTwoNumbersDiffersInOne(a: a, b: b) {
                         if Bool.random() {
                             let dotView = WhiteDot()
-                            dotView.configureDot(cellSize: cellSize)
+                            dotView.configureDot(cellSize: gameSettings.cellSize)
 
                             dotView.center = gridView.convert(pointCenter, from: gridView)
                             gridView.addSubview(dotView)

@@ -9,14 +9,13 @@ import UIKit
 
 class MathraxViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: CGFloat] = [.easy: 28, .medium: 23, .hard: 15, .expert: 10]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 28, .medium: 23, .hard: 15, .expert: 10]
     
     override func viewDidLoad() {
-        super.configureInit()
-        super.gameName = "Mathrax"
-        super.sudokuType = .sudoku2D
-        super.withBoldAreas = false
-        super.openedNum = openedNumsLevels[gameLevel] ?? openedNumsLevels[.easy] ?? 28
+        super.gameSettings.gameName = "Mathrax"
+        super.gameSettings.sudokuType = .sudoku2D
+        super.gameSettings.withBoldAreas = false
+        super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 28
         
         super.viewDidLoad()
         
@@ -24,7 +23,7 @@ class MathraxViewController: GeneralSudokuViewController {
     }
     
     private func fillCircles() {
-        let sudokuNumbers = generalSudokuController.getSudokuNumbers()
+        let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         
         for i in 0..<8 {
             for j in 0..<8 {
@@ -34,15 +33,15 @@ class MathraxViewController: GeneralSudokuViewController {
                 let a2 = sudokuNumbers[i+1][j]
                 let b2 = sudokuNumbers[i][j + 1]
                 
-                let pointCenter = CGPoint(x: (CGFloat(i) + 1) * cellSize, y: (CGFloat(j) + 1) * cellSize)
+                let pointCenter = CGPoint(x: (Double(i) + 1) * super.gameSettings.cellSize, y: (Double(j) + 1) * super.gameSettings.cellSize)
                 
                 if let (circleType, value) = defineCircleType(a1: a1, b1: b1, a2: a2, b2: b2) {
                     let circle = CircleWithSurCellsInfo()
-                    circle.configureCircle(cellSize: cellSize, circleType: circleType, value: value)
+                    circle.configureCircle(cellSize: super.gameSettings.cellSize, circleType: circleType, value: value)
                     
+                    let gridView = super.gameController.gridView
                     circle.center = gridView.convert(pointCenter, from: gridView)
                     gridView.addSubview(circle)
-                    
                 }
             }
         }
