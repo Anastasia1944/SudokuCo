@@ -9,15 +9,15 @@ import Foundation
 
 struct GameInfos {
     
-    private let gameInfos: [String: String] = ["Classic Sudoku": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row, vertical column, square block each number occurs only once.",
-                                               "Comparison Sudoku": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row, vertical column, square block each number occurs only once. Also it has comparison signs (“>” and “<”), showing the ratio of numbers in adjacent cells.",
-                                               "Dots Sudoku" : "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row, vertical column, square block each number occurs only once. If in neighboring cells one number is twice as large as the other, there is a black dot between them. If the numbers in neighboring cells differ by one, the dot between them is white.",
-                                               "Frame Sudoku": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row, vertical column, square block each number occurs only once. This variant of Sudoku contains numbers around the grid instead of the usual task. Each of the numbers represents the sum of the nearest three digits in a row or column.",
-                                               "Odd-Even Sudoku": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row, vertical column, square block each number occurs only once. In this variant of Sudoku, information is given about the evenness or oddness of the numbers in the cells. Cells with odd numbers are marked with circles.",
-                                               "2D Sudoku": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row and vertical column each number occurs only once. In this puzzle, unlike the classic Sudoku, there is no block limit.",
-                                               "No Neighbors": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row and vertical column each number occurs only once. In neighboring cells, separated by a bold line, there are consecutive numbers. Numbers without a line between them cannot be consecutive.",
-                                               "Mathrax": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row and vertical column each number occurs only once. In some nodes of the grid there are circles with information about the ratio of numbers adjacent to them. Either the number and sign of a mathematical operation (+, -, *, /), where the number is the result of this operation applied to both pairs of numbers in diagonally adjacent cells. Or an \"E\" or \"O\" - if all four adjacent numbers even or odd. If several operations can be correlated the surrounding numbers - operation is chosen randomly. If no circle is assign to the surroundings numbers, there is no any correlation.",
-                                               "Killer Sudoku": "Task - to fill empty cells with numbers from 1 to 9 in such way: in each horizontal row, vertical column, square block each number occurs only once. This variant of Sudoku contains areas with numbers - each number is the sum of the digits inside the corresponding area. In each area each number can occur only once."]
+    private var gameInfos: [String: String] = ["Classic Sudoku": NSLocalizedString("Classic Sudoku Info", comment: ""),
+                                                "Comparison Sudoku": NSLocalizedString("Comparison Sudoku Info", comment: ""),
+                                                "Dots Sudoku": NSLocalizedString("Dots Sudoku Info", comment: ""),
+                                                "Frame Sudoku": NSLocalizedString("Frame Sudoku Info", comment: ""),
+                                                "Odd-Even Sudoku": NSLocalizedString("Odd-Even Sudoku Info", comment: ""),
+                                                "2D Sudoku": NSLocalizedString("2D Sudoku Info", comment: ""),
+                                                "No Neighbors": NSLocalizedString("No Neighbors Info", comment: ""),
+                                                "Mathrax": NSLocalizedString("Mathrax Info", comment: ""),
+                                                "Killer Sudoku": NSLocalizedString("Killer Sudoku Info", comment: "")]
     
     func getInfoByGameName(_ gameName: String) -> String {
         return gameInfos[gameName] ?? "There are no Game Info now"
