@@ -25,8 +25,8 @@ class MathraxViewController: GeneralSudokuViewController {
     private func fillCircles() {
         let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         
-        for i in 0..<8 {
-            for j in 0..<8 {
+        for i in Constants.sudokuHalfRange {
+            for j in Constants.sudokuHalfRange {
                 let a1 = sudokuNumbers[i][j]
                 let b1 = sudokuNumbers[i + 1][j + 1]
                 

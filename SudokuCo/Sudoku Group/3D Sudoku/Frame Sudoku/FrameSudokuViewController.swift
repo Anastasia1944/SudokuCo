@@ -29,7 +29,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
         surroundingNumbersLabels = [[], [], [], []]
         let gridView = super.gameController.gridView
         
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: -super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
@@ -40,7 +40,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             gridView.addSubview(label)
         }
         
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let label = UILabel(frame: CGRect(x: super.gameSettings.cellSize * 9, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
@@ -51,7 +51,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             gridView.addSubview(label)
         }
         
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: super.gameSettings.cellSize * 9, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
@@ -62,7 +62,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             gridView.addSubview(label)
         }
         
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let label = UILabel(frame: CGRect(x: -super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)

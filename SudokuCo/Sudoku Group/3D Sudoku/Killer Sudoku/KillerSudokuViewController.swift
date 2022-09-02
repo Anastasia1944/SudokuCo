@@ -33,8 +33,8 @@ class KillerSudokuViewController: GeneralSudokuViewController {
     }
     
     func drawKillerCells() {
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 let pointCenter = CGPoint(x: Double(i) * gameSettings.cellSize + 1/2 * gameSettings.cellSize, y: Double(j) * gameSettings.cellSize + 1/2 * gameSettings.cellSize)
                 
                 if killerSudokuAreas[i][j] == 0 {
@@ -172,8 +172,8 @@ class KillerSudokuViewController: GeneralSudokuViewController {
     }
     
     private func drawTipsAreas() {
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 if areasSum[i][j] != 0 {
                     let label = UILabel(frame: CGRect(x: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 30, y: Double(j) * gameSettings.cellSize + gameSettings.cellSize / 30, width: gameSettings.cellSize / 3, height: gameSettings.cellSize / 5))
                     label.text = String(areasSum[i][j])

@@ -26,9 +26,9 @@ class GeneralSudokuProcessor {
     }
     
     func fillNotesNumbersArray() {
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             gameState.notesNumbers.append([])
-            for j in 0...8 {
+            for j in Constants.sudokuRange {
                 gameState.notesNumbers[i].append([:])
                 gameState.notesNumbers[i][j] = [1: false, 2: false, 3: false,4: false, 5: false, 6: false, 7: false, 8: false, 9: false]
             }
@@ -36,7 +36,7 @@ class GeneralSudokuProcessor {
     }
     
     func checkIfAllCellsFilled() -> Bool {
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             if gameState.openedNumbers[i].contains(0) {
                 return false
             }

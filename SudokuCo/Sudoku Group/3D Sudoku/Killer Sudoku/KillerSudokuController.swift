@@ -24,7 +24,7 @@ struct KillerSudokuController {
     }
     
     private mutating func fillAreasByZeros() {
-        for _ in 0...8 {
+        for _ in Constants.sudokuRange {
             killerSudokuAreasOnMatrix.append([Int](repeating: 0, count: 9))
         }
     }
@@ -39,8 +39,8 @@ struct KillerSudokuController {
         var x = 1
         
         while x != 26 {
-            let i = Int.random(in: 0...8)
-            let j = Int.random(in: 0...8)
+            let i = Int.random(in: Constants.sudokuRange)
+            let j = Int.random(in: Constants.sudokuRange)
             
             if killerSudokuAreasOnMatrix[i][j] == 0 {
                 if let (i1, j1) = getRandomFreeCellNeighbor(i: i, j: j) {
@@ -80,8 +80,8 @@ struct KillerSudokuController {
     private mutating func configureRemainingCells() {
         var x = 26
         
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 if killerSudokuAreasOnMatrix[i][j] == 0 {
                     if let (i1, j1, area) = getRandomNeighborAvailableArea(i: i, j: j) {
                         if area != 0 {
@@ -158,14 +158,14 @@ struct KillerSudokuController {
     func getAreasSum() -> [[Int]] {
         var areaNums: [[Int]] = []
         
-        for _ in 0...8 {
+        for _ in Constants.sudokuRange {
             areaNums.append([Int](repeating: 0, count: 9))
         }
         
         var markedAreas: Set<Int> = []
         
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 let areaNum = killerSudokuAreasOnMatrix[i][j]
                 
                 if !markedAreas.contains(areaNum) {

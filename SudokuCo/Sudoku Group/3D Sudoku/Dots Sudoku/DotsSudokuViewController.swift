@@ -25,8 +25,8 @@ class DotsSudokuViewController: GeneralSudokuViewController {
         let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         let gridView = super.gameController.gridView
 
-        for i in 0...8 {
-            for j in 0..<8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuHalfRange {
                 for k in 1...2 {
 
                     var a = sudokuNumbers[i][j]

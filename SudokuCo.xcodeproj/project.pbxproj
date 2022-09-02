@@ -21,6 +21,7 @@
 		5D1183CE28A5537D00F3B32D /* StatisticsGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */; };
 		5D1BC3D328BE667000649C52 /* GeneralSudokuProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1BC3D228BE667000649C52 /* GeneralSudokuProcessor.swift */; };
 		5D1BC3D528BEB73600649C52 /* GameSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1BC3D428BEB73600649C52 /* GameSettings.swift */; };
+		5D1BC3DB28C29CE100649C52 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1BC3DA28C29CE100649C52 /* Constants.swift */; };
 		5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */; };
 		5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */; };
 		5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */; };
@@ -80,6 +81,7 @@
 		5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGameController.swift; sourceTree = "<group>"; };
 		5D1BC3D228BE667000649C52 /* GeneralSudokuProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralSudokuProcessor.swift; sourceTree = "<group>"; };
 		5D1BC3D428BEB73600649C52 /* GameSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettings.swift; sourceTree = "<group>"; };
+		5D1BC3DA28C29CE100649C52 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesInfoCoding.swift; sourceTree = "<group>"; };
 		5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSudoku.swift; sourceTree = "<group>"; };
 		5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGames.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				5D1183C728A47D9F00F3B32D /* Difficulty levels.swift */,
 				5D05EBB828A6AE83001A28FE /* GameInfos.swift */,
 				5D7BB4F92866670400AA1461 /* Extensions.swift */,
+				5D1BC3DA28C29CE100649C52 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				5DA0999E286E09D400385380 /* ComparisonSudokuViewController.swift in Sources */,
 				5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */,
 				5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */,
+				5D1BC3DB28C29CE100649C52 /* Constants.swift in Sources */,
 				5D7BB515286DE0CD00AA1461 /* DotsViews.swift in Sources */,
 				5DC743E428595A5700F1C4F6 /* GridView.swift in Sources */,
 				5DCF1DA42879D4F60032DD04 /* CompleteGameController.swift in Sources */,

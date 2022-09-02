@@ -145,7 +145,7 @@ struct GenerateSudoku {
     }
     
     private mutating func changeTwoRandomRows(row1: Int, row2: Int) {
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let elementBuf = sudokuNumbers[i][row1]
             sudokuNumbers[i][row1] = sudokuNumbers[i][row2]
             sudokuNumbers[i][row2] = elementBuf
@@ -153,7 +153,7 @@ struct GenerateSudoku {
     }
     
     private mutating func changeTwoRandomColumns(column1: Int, column2: Int) {
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let elementBuf = sudokuNumbers[column1][i]
             sudokuNumbers[column1][i] = sudokuNumbers[column2][i]
             sudokuNumbers[column2][i] = elementBuf

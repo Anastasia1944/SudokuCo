@@ -23,8 +23,8 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
     func makeCircles() {
         let sudokuNumbers = super.gameController.gameProcessor.gameState.sudokuNumbers
         
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 
                 if sudokuNumbers[i][j] % 2 != 0 {
                     let circle = UIBezierPath(arcCenter: CGPoint(x: Double(i) * super.gameSettings.cellSize + super.gameSettings.cellSize / 2, y: Double(j) * super.gameSettings.cellSize + super.gameSettings.cellSize / 2), radius: 0.8 * CGFloat((super.gameSettings.cellSize / 2)), startAngle: 0, endAngle: Double.pi * 2, clockwise: true)

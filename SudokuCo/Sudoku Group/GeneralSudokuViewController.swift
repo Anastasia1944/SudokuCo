@@ -184,9 +184,9 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     private func configureGridLabels() {
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             gameController.filledNumbersLabels.append([])
-            for j in 0...8 {
+            for j in Constants.sudokuRange {
                 let label = UILabel(frame: CGRect(x: Double(i) * gameSettings.cellSize, y: Double(j) * gameSettings.cellSize, width: gameSettings.cellSize, height: gameSettings.cellSize))
                 label.textAlignment = .center
                 label.font = .systemFont(ofSize: 28)
@@ -202,11 +202,11 @@ class GeneralSudokuViewController: UIViewController {
         let cellSize = gameSettings.cellSize
         let gapNotesShift = gameSettings.gapNotesShift
         
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             gameController.notesLabels.append([])
-            for j in 0...8 {
+            for j in Constants.sudokuRange {
                 gameController.notesLabels[i].append([])
-                for k in 0...8 {
+                for k in Constants.sudokuRange {
                     let xSize = Double(i) * cellSize + Double(k % 3) * (cellSize - 2 * gap - gapNotesShift) / 3
                     let ySize = Double(j) * cellSize + Double(k / 3) * (cellSize - 2 * gap - gapNotesShift) / 3
                     

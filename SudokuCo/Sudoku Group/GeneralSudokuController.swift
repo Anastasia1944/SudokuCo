@@ -103,8 +103,8 @@ class GeneralSudokuController {
         let openedNumbers = gameProcessor.gameState.openedNumbers
         let originallyOpenedNumbers = gameProcessor.gameState.originallyOpenedNumbers
         
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 if openedNumbers[i][j] != 0 {
                     self.filledNumbersLabels[i][j].text = String(openedNumbers[i][j])
                     
@@ -121,8 +121,8 @@ class GeneralSudokuController {
     func displayNotes() {
         let notesNumbers = gameProcessor.gameState.notesNumbers
         
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 for k in 1...9 {
                     if notesNumbers[i][j][k] == true {
                         self.notesLabels[i][j][k - 1].text = String(k)
@@ -207,7 +207,7 @@ class GeneralSudokuController {
     @objc func tapPanelButtonNote(sender: UIButton!) {
         gameProcessor.isNote = !gameProcessor.isNote
         
-        for i in 0...8 {
+        for i in Constants.sudokuRange {
             let button = numberPanelStackView.arrangedSubviews[i] as? UIButton
             button?.isSelected = gameProcessor.isNote
         }
@@ -322,8 +322,8 @@ class GeneralSudokuController {
         runTimer()
         gameProcessor.resetTimer()
         
-        for i in 0...8 {
-            for j in 0...8 {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
                 if gameProcessor.gameState.originallyOpenedNumbers[i][j] == 0 {
                     _ = gameProcessor.fillCell(x: i, y: j, value: 0)
                     gameProcessor.gameState.openedNumbers[i][j] = 0
