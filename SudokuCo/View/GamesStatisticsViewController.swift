@@ -9,12 +9,10 @@ import UIKit
 
 class GamesStatisticsViewController: UIViewController {
     
-//    private var difficultyLevelsStringToEnum = DifficultyLevelsStringToEnum()
-    
     private var statisticsLevelsSegmentedController = UISegmentedControl()
     private let statisticsTableView = UITableView()
     
-    private var myAvaillableGamesNames: [String] = []
+    private var myAvaillableGamesNames: [GamesNames] = []
     private var stats: [GameStatistics] = []
 
     override func viewDidLoad() {
@@ -74,8 +72,8 @@ class GamesStatisticsViewController: UIViewController {
                 stats.append(s)
             }
         }
-        myAvaillableGamesNames = myAvaillableGamesNames.sorted()
-        stats = stats.sorted(by: { $0.gameName < $1.gameName })
+        myAvaillableGamesNames = myAvaillableGamesNames.sorted(by: {$0.rawValue < $1.rawValue})
+        stats = stats.sorted(by: { $0.gameName.rawValue < $1.gameName.rawValue })
     }
     
     private func setTableSettings() {

@@ -16,7 +16,7 @@ class MyGamesViewController: UIViewController {
     
     var allGames = AllGames()
     
-    var gamesName: [String] = []
+    var gamesName: [GamesNames] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.dataSource = self
         myGamesTableView.delegate = self
         
-        gamesName = allGames.getMyGamesNames().sorted()
+        gamesName = allGames.getMyGamesNames().sorted(by: {$0.rawValue < $1.rawValue})
         
         setTableSettings()
         
@@ -73,8 +73,8 @@ class MyGamesViewController: UIViewController {
         }
     }
     
-    func openDeleteAlert(gameName: String) {
-        let alert = UIAlertController(title: "Delete \"\(gameName)\" from My Games?", message: nil, preferredStyle: .alert)
+    func openDeleteAlert(gameName: GamesNames) {
+        let alert = UIAlertController(title: "Delete \"\(gameName.rawValue)\" from My Games?", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
@@ -109,7 +109,7 @@ class MyGamesViewController: UIViewController {
         myGamesTableView.separatorStyle = .none
     }
     
-    func openMenuAlert(gameName: String) {
+    func openMenuAlert(gameName: GamesNames) {
         let alert = UIAlertController()
         
         let levels = DifficultyLevels.allCases.map{ $0 }
@@ -131,7 +131,7 @@ class MyGamesViewController: UIViewController {
         self.present(alert, animated: true, completion: {})
     }
     
-    func transitionToGameVC(_ gameName: String, isNewGame: Bool = true, gameLevel: DifficultyLevels = .easy) {
+    func transitionToGameVC(_ gameName: GamesNames, isNewGame: Bool = true, gameLevel: DifficultyLevels = .easy) {
         let stringVC = allGames.getVCNameByGameName(gameName: gameName)
         let sudokuGameVC = stringVC!.getViewController()! as! GeneralSudokuViewController
         
@@ -146,7 +146,7 @@ class MyGamesViewController: UIViewController {
     }
     
     func updateGamesList() {
-        gamesName = allGames.getMyGamesNames().sorted()
+        gamesName = allGames.getMyGamesNames().sorted(by: {$0.rawValue < $1.rawValue})
         myGamesTableView.reloadData()
     }
 }
@@ -167,7 +167,7 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
         
         let gameName = gamesName[indexPath.row]
         
-        gameCell.gameLabel.text = gameName
+        gameCell.gameLabel.text = gameName.rawValue
         gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
         
         return gameCell

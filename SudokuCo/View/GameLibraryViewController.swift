@@ -13,7 +13,7 @@ class GameLibraryViewController: UIViewController {
     
     var allGames = AllGames()
     
-    var gamesName: [String] = []
+    var gamesName: [GamesNames] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +23,8 @@ class GameLibraryViewController: UIViewController {
         gameLibraryTableView.dataSource = self
         gameLibraryTableView.delegate = self
         
-        gamesName = allGames.getAllGamesNames().sorted()
-        
+        gamesName = allGames.getAllGamesNames().sorted(by: {$0.rawValue < $1.rawValue})
+
         tableSettings()
     }
     
@@ -57,7 +57,7 @@ class GameLibraryViewController: UIViewController {
         }
     }
     
-    func openAddGameAlert(gameName: String) {
+    func openAddGameAlert(gameName: GamesNames) {
         let alert = UIAlertController(title: "Add \"\(gameName)\" to My Games?", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -69,7 +69,7 @@ class GameLibraryViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    func transitipnToGameVC(gameName: String) {
+    func transitipnToGameVC(gameName: GamesNames) {
         let stringVC = allGames.getVCNameByGameName(gameName: gameName)
         let sudokuGameVC = stringVC!.getViewController()! as! GeneralSudokuViewController
         
@@ -96,7 +96,7 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         
         let gameName = gamesName[indexPath.row]
         
-        gameCell.gameLabel.text = gameName
+        gameCell.gameLabel.text = gameName.rawValue
         gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
         
         return gameCell

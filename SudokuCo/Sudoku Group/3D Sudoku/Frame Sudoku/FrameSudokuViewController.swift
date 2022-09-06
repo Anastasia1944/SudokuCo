@@ -14,7 +14,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
     var surroundingNumbersLabels: [[UILabel]] = []
     
     override func viewDidLoad() {
-        super.gameSettings.gameName = "Frame Sudoku"
+        super.gameSettings.gameName = .frameSudoku
         super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 12
         super.gameSettings.gridWidth = Double(((UIScreen.main.bounds.width - 20) / 11) * 9)
         super.gameSettings.cellSize = super.gameSettings.gridWidth / 9

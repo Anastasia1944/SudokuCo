@@ -9,10 +9,10 @@ import UIKit
 
 class GameSettings {
     var isNewGame: Bool = true
+    var gameName: GamesNames = .classicSudoku
     var gameLevel: DifficultyLevels = .easy
     var isSaving: Bool = true
     var openedNum: Int = 0
-    var gameName: String = ""
     var gameTime: Int = 0
     var sudokuType: SudokuTypes = .sudoku3D
     var withOuterBoldBorder: Bool = true

@@ -8,7 +8,7 @@
 import Foundation
 
 struct GameStatistics: Codable {
-    var gameName: String = ""
+    var gameName: GamesNames = .classicSudoku
     var gameLevel: DifficultyLevels = .easy
     var times: [Int] = []
     var allgamesCount: Int = 0

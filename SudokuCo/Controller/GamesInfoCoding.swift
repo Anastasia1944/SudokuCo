@@ -18,11 +18,11 @@ struct GamesInfoCoding {
         encode(game: game, gameName: gameName, fileName: gameFileName)
     }
     
-    func getGameInfo(gameName: String) -> Any? {
+    func getGameInfo(gameName: GamesNames) -> Any? {
         return decode(gameName: gameName)
     }
     
-    private func getGameFileName(gameName: String) -> String {
+    private func getGameFileName(gameName: GamesNames) -> String {
         var gameFileName = ""
         
         if let gameFile = AllGames().getGameInfoFileByName(gameName: gameName) {
@@ -34,7 +34,7 @@ struct GamesInfoCoding {
         return gameFileName
     }
     
-    func isThereUnfinishedGame(gameName: String) -> Bool {
+    func isThereUnfinishedGame(gameName: GamesNames) -> Bool {
         let fileName = getGameFileName(gameName: gameName)
 
         let decoder = JSONDecoder()
@@ -52,7 +52,7 @@ struct GamesInfoCoding {
         return true
     }
     
-    private func encode(game: SudokuState, gameName: String, fileName: String) {
+    private func encode(game: SudokuState, gameName: GamesNames, fileName: String) {
         let encoder = JSONEncoder()
         
         if let dir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
@@ -66,7 +66,7 @@ struct GamesInfoCoding {
         }
     }
     
-    private func decode(gameName: String) -> Any? {
+    private func decode(gameName: GamesNames) -> Any? {
         let fileName = getGameFileName(gameName: gameName)
 
         let decoder = JSONDecoder()
@@ -83,7 +83,7 @@ struct GamesInfoCoding {
         return nil
     }
     
-    func deleteGameInfo(gameName: String) {
+    func deleteGameInfo(gameName: GamesNames) {
         let fileName = getGameFileName(gameName: gameName)
         
         if let dir = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {

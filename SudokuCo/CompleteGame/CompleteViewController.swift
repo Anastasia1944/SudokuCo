@@ -30,7 +30,7 @@ class CompleteViewController: UIViewController {
     var startOver: ((Bool) -> Void)?
     var continueGame: ((Bool) -> Void)?
     
-    var gameName: String = ""
+    var gameName: GamesNames = .classicSudoku
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,7 +42,7 @@ class CompleteViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
-    func configureCompleteVC(isWin: Bool, time: Int, gameName: String, isSaving: Bool, level: DifficultyLevels) {
+    func configureCompleteVC(isWin: Bool, time: Int, gameName: GamesNames, isSaving: Bool, level: DifficultyLevels) {
         self.gameName = gameName
         
         completeController.addNewElementStatistic(gameName: gameName, gameLevel: level ,time: time, isWin: isWin, isSaving: isSaving)

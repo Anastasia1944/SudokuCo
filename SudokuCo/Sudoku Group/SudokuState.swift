@@ -9,7 +9,7 @@ import Foundation
 
 class SudokuState: Codable {
     
-    var gameName: String = ""
+    var gameName: GamesNames = .classicSudoku
     var gameLevel: DifficultyLevels = .easy
     
     var sudokuNumbers: [[Int]] = []

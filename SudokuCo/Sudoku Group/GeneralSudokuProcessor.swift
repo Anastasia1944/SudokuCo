@@ -13,7 +13,7 @@ class GeneralSudokuProcessor {
     var sudokuActions: [SudokuAction] = []
     var isNote: Bool = false
     
-    func generateSudoku(gameName: String, sudokuType: SudokuTypes = .sudoku3D, openedNum: Int = 0, gameLevel: DifficultyLevels) {
+    func generateSudoku(gameName: GamesNames, sudokuType: SudokuTypes = .sudoku3D, openedNum: Int = 0, gameLevel: DifficultyLevels) {
         gameState.gameLevel = gameLevel
         gameState.gameName = gameName
         

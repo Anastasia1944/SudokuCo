@@ -12,7 +12,7 @@ class MathraxViewController: GeneralSudokuViewController {
     private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 28, .medium: 23, .hard: 15, .expert: 10]
     
     override func viewDidLoad() {
-        super.gameSettings.gameName = "Mathrax"
+        super.gameSettings.gameName = .mathraxSudoku
         super.gameSettings.sudokuType = .sudoku2D
         super.gameSettings.withBoldAreas = false
         super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 28

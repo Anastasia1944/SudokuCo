@@ -11,7 +11,7 @@ struct StatiscticsGameController {
     
     private var statisticsCoding = StatisticGameCoding()
     
-    func addNewStatisticsElement(gameName: String, gameLevel: DifficultyLevels, time: Int, isWin: Bool) -> GameStatistics {
+    func addNewStatisticsElement(gameName: GamesNames, gameLevel: DifficultyLevels, time: Int, isWin: Bool) -> GameStatistics {
         var statistics = GameStatistics()
         
         if let stats = statisticsCoding.getStatistics(gameName: gameName, gameLevel: gameLevel) {
@@ -32,7 +32,7 @@ struct StatiscticsGameController {
         return statistics
     }
     
-    func getStatistics(gameName: String, gameLevel: DifficultyLevels) -> GameStatistics? {
+    func getStatistics(gameName: GamesNames, gameLevel: DifficultyLevels) -> GameStatistics? {
         guard let statistics = statisticsCoding.getStatistics(gameName: gameName, gameLevel: gameLevel) else { return nil }
         
         return statistics

@@ -12,7 +12,7 @@ class SudokuClassicViewController: GeneralSudokuViewController {
     private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 40, .medium: 35, .hard: 27, .expert: 21]
     
     override func viewDidLoad() {
-        super.gameSettings.gameName = "Classic Sudoku"
+        super.gameSettings.gameName = .classicSudoku
         super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 40
         
         super.viewDidLoad()

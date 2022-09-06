@@ -23,7 +23,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func configureCell(gameName: String, gamesWon: Int, winRate: String, averageTime: String) {
+    func configureCell(gameName: GamesNames, gamesWon: Int, winRate: String, averageTime: String) {
         viewCell = UIView()
         
         gameNameLabel = UILabel()
@@ -37,7 +37,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         configureView(gameName: gameName, gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
     }
     
-    private func configureView(gameName: String, gamesWon: Int, winRate: String, averageTime: String) {
+    private func configureView(gameName: GamesNames, gamesWon: Int, winRate: String, averageTime: String) {
         viewCell.backgroundColor = .graySys
         viewCell.layer.cornerRadius = 30
         
@@ -54,8 +54,8 @@ class GameStatisticsTableViewCell: UITableViewCell {
         configureGamesStatsStackView(gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
     }
     
-    private func configureGameNameLabel(gameName: String) {
-        gameNameLabel.text = gameName
+    private func configureGameNameLabel(gameName: GamesNames) {
+        gameNameLabel.text = gameName.rawValue
         gameNameLabel.font = .systemFont(ofSize: 20)
         gameNameLabel.textAlignment = .center
         
@@ -66,8 +66,8 @@ class GameStatisticsTableViewCell: UITableViewCell {
         gameNameLabel.centerXAnchor.constraint(equalTo: viewCell.centerXAnchor).isActive = true
     }
     
-    private func configureImageView(gameName: String) {
-        gameImageView.image = UIImage(named: gameName)
+    private func configureImageView(gameName: GamesNames) {
+        gameImageView.image = UIImage(named: gameName.rawValue)
         
         viewCell.addSubview(gameImageView)
         

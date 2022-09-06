@@ -9,7 +9,7 @@ import UIKit
 
 class GameInfoViewController: UIViewController {
     
-    var gameName: String = ""
+    var gameName: GamesNames = .classicSudoku
     
     private let gameInfoTextLabel = UILabel()
 

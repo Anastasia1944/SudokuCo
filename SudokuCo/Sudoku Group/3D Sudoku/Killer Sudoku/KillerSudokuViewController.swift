@@ -17,7 +17,7 @@ class KillerSudokuViewController: GeneralSudokuViewController {
     private var areasSum: [[Int]] = []
 
     override func viewDidLoad() {
-        super.gameSettings.gameName = "Killer Sudoku"
+        super.gameSettings.gameName = .killerSudoku
         super.gameSettings.gapNotesShift = 5
         super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 15
 
