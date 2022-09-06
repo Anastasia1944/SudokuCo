@@ -7,18 +7,6 @@
 
 import UIKit
 
-enum GamesNames: String, Codable{
-    case classicSudoku = "Classic Sudoku"
-    case oddEvenSudoku = "Odd-Even Sudoku"
-    case frameSudoku = "Frame Sudoku"
-    case dotsSudoku = "Dots Sudoku"
-    case comparisonSudoku = "Comparison Sudoku"
-    case sudoku2D = "2D Sudoku"
-    case noNeighboursSudoku = "No Neighbors"
-    case mathraxSudoku = "Mathrax"
-    case killerSudoku = "Killer Sudoku"
-}
-
 struct AllGames {
     private struct Game {
         let gameInfoFile: String
