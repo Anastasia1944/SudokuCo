@@ -22,10 +22,11 @@ class SquareCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
@@ -63,10 +64,11 @@ class RecessCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
@@ -97,10 +99,11 @@ class AngleCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
@@ -119,10 +122,11 @@ class InsideAngleCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
@@ -142,10 +146,11 @@ class StraightCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
@@ -169,10 +174,11 @@ class TShapeCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
@@ -201,10 +207,11 @@ class CrossCellView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
+        shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
         shapeLayer.strokeColor = UIColor.gray.cgColor
-        shapeLayer.lineWidth = 0.5
+        shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
     }
