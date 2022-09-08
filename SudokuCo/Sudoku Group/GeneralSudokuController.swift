@@ -64,6 +64,7 @@ class GeneralSudokuController {
     
     func continueGame() {
         gameProcessor.gameState = gamesInfoCoding.getGameInfo(gameName: gameSettings.gameName) as! SudokuState
+        displayAllNumbers()
     }
     
     // MARK: - Timer
@@ -110,6 +111,14 @@ class GeneralSudokuController {
             for j in Constants.sudokuRange {
                 if openedNumbers[i][j] != 0 {
                     self.filledNumbersLabels[i][j].text = String(openedNumbers[i][j])
+                    
+                    if openedNumbers[i][j] != gameProcessor.gameState.sudokuNumbers[i][j] {
+                        if UserDefaults.standard.bool(forKey: Settings.autoCheckMistakes.rawValue) {
+                            self.filledNumbersLabels[i][j].textColor = .red
+                        }
+                    } else {
+                        self.filledNumbersLabels[i][j].textColor = .blackSys
+                    }
                     
                     if originallyOpenedNumbers[i][j] != 0 {
                         self.filledNumbersLabels[i][j].textColor = .gray
