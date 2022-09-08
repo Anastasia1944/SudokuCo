@@ -57,6 +57,8 @@
 		5DCF1DA42879D4F60032DD04 /* CompleteGameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */; };
 		5DCF1DA6287DB48B0032DD04 /* GamesStatisticsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */; };
 		5DCF1DA8288052C20032DD04 /* GameStatisticsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */; };
+		5DE1418528CA35DC00609FD2 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1418428CA35DC00609FD2 /* SettingsViewController.swift */; };
+		5DE1418928CA3E2600609FD2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1418828CA3E2600609FD2 /* Settings.swift */; };
 		5DE4D20028861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -124,6 +126,8 @@
 		5DCF1DA32879D4F60032DD04 /* CompleteGameController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteGameController.swift; sourceTree = "<group>"; };
 		5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesStatisticsViewController.swift; sourceTree = "<group>"; };
 		5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameStatisticsTableViewCell.swift; sourceTree = "<group>"; };
+		5DE1418428CA35DC00609FD2 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		5DE1418828CA3E2600609FD2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5DE4D1FD28861D18008A4AF5 /* SudokuCoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuCoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuCoGenerateSudokuTests.swift; sourceTree = "<group>"; };
 		5DE4D20128861D18008A4AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -217,8 +221,8 @@
 		5D1183D228A5BD3800F3B32D /* Statistics */ = {
 			isa = PBXGroup;
 			children = (
-				5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */,
 				5DCF1DA02878942D0032DD04 /* GameStatistics.swift */,
+				5D1183CD28A5537D00F3B32D /* StatisticsGameController.swift */,
 				5DCF1D9E2878929C0032DD04 /* StatisticsGameCoding.swift */,
 			);
 			path = Statistics;
@@ -341,6 +345,7 @@
 		5DC743BF2858FF3700F1C4F6 /* SudokuCo */ = {
 			isa = PBXGroup;
 			children = (
+				5DE1418328CA35CC00609FD2 /* Settings */,
 				5D1BC3E828CA061000649C52 /* Extensions */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
 				5D7BB4E828639E3E00AA1461 /* View */,
@@ -365,6 +370,15 @@
 				5DCF1D9A28772C660032DD04 /* CompleteViewController.swift */,
 			);
 			path = CompleteGame;
+			sourceTree = "<group>";
+		};
+		5DE1418328CA35CC00609FD2 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				5DE1418428CA35DC00609FD2 /* SettingsViewController.swift */,
+				5DE1418828CA3E2600609FD2 /* Settings.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 		5DE4D1FE28861D18008A4AF5 /* SudokuCoTests */ = {
@@ -500,6 +514,7 @@
 				5DA099A2286E0C1600385380 /* MoreLessSignView.swift in Sources */,
 				5DA0999E286E09D400385380 /* ComparisonSudokuViewController.swift in Sources */,
 				5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */,
+				5DE1418528CA35DC00609FD2 /* SettingsViewController.swift in Sources */,
 				5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */,
 				5D1BC3DB28C29CE100649C52 /* Constants.swift in Sources */,
 				5D7BB515286DE0CD00AA1461 /* DotsViews.swift in Sources */,
@@ -522,6 +537,7 @@
 				5DCF1D99287716AB0032DD04 /* GameInfoViewController.swift in Sources */,
 				5D1BC3EA28CA06B500649C52 /* String+Extensions.swift in Sources */,
 				5D05EBB928A6AE83001A28FE /* GameInfos.swift in Sources */,
+				5DE1418928CA3E2600609FD2 /* Settings.swift in Sources */,
 				5DCF1D9B28772C660032DD04 /* CompleteViewController.swift in Sources */,
 				5DCF1DA12878942D0032DD04 /* GameStatistics.swift in Sources */,
 			);

@@ -75,8 +75,11 @@ class GeneralSudokuController {
     
     @objc func fireTimer() {
         runCount += 1
-        let currentTimeLabel = timeModeStackView.arrangedSubviews[1] as? UILabel
-        currentTimeLabel?.text = timeIntToString(gameProcessor.gameState.time + runCount)
+        
+        if UserDefaults.standard.bool(forKey: Settings.showTime.rawValue) {
+            let currentTimeLabel = timeModeStackView.arrangedSubviews[1] as? UILabel
+            currentTimeLabel?.text = timeIntToString(gameProcessor.gameState.time + runCount)
+        }
     }
     
     private func timeIntToString(_ timeInt: Int) -> String {

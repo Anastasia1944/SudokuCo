@@ -30,7 +30,7 @@ class MyGamesViewController: UIViewController {
         
         setTableSettings()
         
-        configureInfoAppButton()
+        configureInfoAppButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,9 +39,14 @@ class MyGamesViewController: UIViewController {
         updateGamesList()
     }
     
-    func configureInfoAppButton() {
-        let button = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(infoItemTapped))
-        self.navigationItem.rightBarButtonItem  = button
+    func configureInfoAppButtons() {
+        let infoButtonImg = UIImage(systemName: "info.circle")
+        let settingsButtonImg = UIImage(systemName: "gearshape")
+        
+        let infoButton = UIBarButtonItem(image: infoButtonImg, style: .plain, target: self, action: #selector(infoItemTapped))
+        let settingsButton = UIBarButtonItem(image: settingsButtonImg, style: .plain, target: self, action: #selector(settingsButtonTapped))
+        
+        navigationItem.rightBarButtonItems = [infoButton, settingsButton]
     }
     
     @objc func infoItemTapped() {
@@ -61,6 +66,12 @@ class MyGamesViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func settingsButtonTapped() {
+        let settingsVC = SettingsViewController()
+        
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
     
     @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
