@@ -21,7 +21,7 @@ class MyGamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .graySys
+        self.view.backgroundColor = .white
         
         myGamesTableView.dataSource = self
         myGamesTableView.delegate = self

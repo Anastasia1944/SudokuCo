@@ -40,7 +40,7 @@ class MainViewController: UITabBarController {
         }
         
         self.tabBar.tintColor = .blueSys
-        self.tabBar.backgroundColor = .graySys
+        self.tabBar.backgroundColor = .white
     }
 }
 
