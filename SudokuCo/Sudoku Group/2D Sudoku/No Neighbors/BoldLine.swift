@@ -15,8 +15,9 @@ class BoldLine: UIView {
         let path = UIBezierPath(roundedRect: self.bounds, cornerRadius: CGFloat(3))
         
         let shapeLayer = CAShapeLayer()
-        
         shapeLayer.path = path.cgPath
+        shapeLayer.strokeColor = UIColor.blackSys.cgColor
+        shapeLayer.fillColor = UIColor.blackSys.cgColor
         
         self.layer.addSublayer(shapeLayer)
     }

@@ -50,7 +50,7 @@ class GridView: UIView {
             
             let shapeLayerY = CAShapeLayer()
             shapeLayerY.path = lineY.cgPath
-            shapeLayerY.strokeColor = UIColor.black.cgColor
+            shapeLayerY.strokeColor = UIColor.blackSys.cgColor
             shapeLayerY.lineWidth = borderWidth
             
             self.layer.addSublayer(shapeLayerY)
@@ -62,7 +62,7 @@ class GridView: UIView {
             
             let shapeLayerX = CAShapeLayer()
             shapeLayerX.path = lineX.cgPath
-            shapeLayerX.strokeColor = UIColor.black.cgColor
+            shapeLayerX.strokeColor = UIColor.blackSys.cgColor
             shapeLayerX.lineWidth = borderWidth
             
             self.layer.addSublayer(shapeLayerX)

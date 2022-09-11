@@ -20,6 +20,7 @@ class MainViewController: UITabBarController {
         
         let myGamesNavVC = UINavigationController(rootViewController: myGamesVC)
         myGamesNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 24)]
+        myGamesNavVC.navigationBar.backgroundColor = .whiteSys
         myGamesVC.title = "SudokuCo"
         
         let gameLibraryNavVC = UINavigationController(rootViewController: gameLibraryVC)
@@ -40,7 +41,7 @@ class MainViewController: UITabBarController {
         }
         
         self.tabBar.tintColor = .blueSys
-        self.tabBar.backgroundColor = .white
+        self.tabBar.backgroundColor = .whiteSys
     }
 }
 

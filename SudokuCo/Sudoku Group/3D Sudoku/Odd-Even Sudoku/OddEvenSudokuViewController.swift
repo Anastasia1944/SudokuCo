@@ -25,7 +25,6 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
         
         for i in Constants.sudokuRange {
             for j in Constants.sudokuRange {
-                
                 if sudokuNumbers[i][j] % 2 != 0 {
                     let circle = UIBezierPath(arcCenter: CGPoint(x: Double(i) * super.gameSettings.cellSize + super.gameSettings.cellSize / 2, y: Double(j) * super.gameSettings.cellSize + super.gameSettings.cellSize / 2), radius: 0.8 * CGFloat((super.gameSettings.cellSize / 2)), startAngle: 0, endAngle: Double.pi * 2, clockwise: true)
                     
@@ -33,7 +32,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
                     shapeLayer.path = circle.cgPath
                     shapeLayer.strokeColor = UIColor.darkGray.cgColor
                     shapeLayer.fillColor = UIColor.clear.cgColor
-                    shapeLayer.lineWidth = 0.2
+                    shapeLayer.lineWidth = 0.5
                     
                     super.gameController.gridView.layer.addSublayer(shapeLayer)
                 }

@@ -46,7 +46,7 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     private func configureView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteSys
         
         configureTimeModeStackView()
         configureGameElementsStack()
@@ -179,7 +179,7 @@ class GeneralSudokuViewController: UIViewController {
             let button = UIButton()
             button.setTitle(String(i), for: .normal)
             button.titleLabel?.font = .systemFont(ofSize: 35)
-            button.setTitleColor(.black, for: .normal)
+            button.setTitleColor(.blackSys, for: .normal)
             button.setTitleColor(.graySys, for: .selected)
             button.addTarget(gameController, action: #selector(gameController.tapNumberPanelButton), for: .touchUpInside)
             numberPanelStackView.addArrangedSubview(button)

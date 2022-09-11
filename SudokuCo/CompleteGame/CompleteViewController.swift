@@ -53,7 +53,7 @@ class CompleteViewController: UIViewController {
     }
     
     func configureView(isWin: Bool, isSaving: Bool, gameLevel: String) {
-        view.backgroundColor = .white
+        view.backgroundColor = .whiteSys
         
         view.addSubview(stackView)
         
