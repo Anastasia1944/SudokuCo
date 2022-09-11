@@ -142,7 +142,11 @@ class GeneralSudokuController {
             for j in Constants.sudokuRange {
                 for k in 1...9 {
                     if notesNumbers[i][j][k] == true {
-                        self.notesLabels[i][j][k - 1].text = String(k)
+                        if gameSettings.fillElements == .ints {
+                            self.notesLabels[i][j][k - 1].text = String(k)
+                        } else {
+                            self.notesLabels[i][j][k - 1].text = String(Character(UnicodeScalar(k + 64)!))
+                        }
                     } else {
                         self.notesLabels[i][j][k - 1].text = ""
                     }
@@ -224,7 +228,7 @@ class GeneralSudokuController {
     @objc func tapPanelButtonNote(sender: UIButton!) {
         gameProcessor.isNote = !gameProcessor.isNote
         
-        for i in Constants.sudokuRange {
+        for i in 0..<numberPanelStackView.arrangedSubviews.count {
             let button = numberPanelStackView.arrangedSubviews[i] as? UIButton
             button?.isSelected = gameProcessor.isNote
         }
