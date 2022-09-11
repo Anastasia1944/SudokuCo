@@ -8,25 +8,17 @@
 import Foundation
 
 struct GenerateSudoku {
-
     private var sudokuNumbers: [[Int]] = []
-    private var originallyOpenedNumbers: [[Int]] = []
-    
-    private var openedNumbersCount: Int = 0
     
     private var sudokuType: SudokuTypes
-    
     private let n = 3
     
-    init(sudokuType: SudokuTypes = .sudoku3D, openedNum: Int = 30) {
+    init(sudokuType: SudokuTypes = .sudoku3D) {
         for _ in 0..<n*n {
-            originallyOpenedNumbers.append([Int](repeating: 0, count: n*n))
             sudokuNumbers.append([Int](repeating: 0, count: n*n))
         }
         
-        self.openedNumbersCount = openedNum
         self.sudokuType = sudokuType
-        
         generateSudoku()
     }
     
@@ -38,8 +30,6 @@ struct GenerateSudoku {
         if sudokuType == .sudoku2D {
             shuffleColumnsAndRows()
         }
-        
-        generateOpenedNumbers()
     }
     
     private mutating func generateBasic() {
@@ -160,25 +150,7 @@ struct GenerateSudoku {
         }
     }
     
-    private mutating func generateOpenedNumbers() {
-        var index = 0
-        
-        while index != openedNumbersCount {
-            let pointX = Int.random(in: 0..<n*n)
-            let pointY = Int.random(in: 0..<n*n)
-            
-            if originallyOpenedNumbers[pointX][pointY] == 0 {
-                originallyOpenedNumbers[pointX][pointY] = sudokuNumbers[pointX][pointY]
-                index += 1
-            }
-        }
-    }
-    
     func getSudokuNumbers() -> [[Int]] {
         return sudokuNumbers
-    }
-    
-    func getOriginallyOpenedNumbers() -> [[Int]] {
-        return originallyOpenedNumbers
     }
 }

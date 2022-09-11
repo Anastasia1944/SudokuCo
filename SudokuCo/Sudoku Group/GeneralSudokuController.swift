@@ -110,7 +110,12 @@ class GeneralSudokuController {
         for i in Constants.sudokuRange {
             for j in Constants.sudokuRange {
                 if openedNumbers[i][j] != 0 {
-                    self.filledNumbersLabels[i][j].text = String(openedNumbers[i][j])
+                    
+                    if gameSettings.fillElements == .ints {
+                        self.filledNumbersLabels[i][j].text = String(openedNumbers[i][j])
+                    } else {
+                        self.filledNumbersLabels[i][j].text = String(Character(UnicodeScalar(openedNumbers[i][j] + 64)!))
+                    }
                     
                     if openedNumbers[i][j] != gameProcessor.gameState.sudokuNumbers[i][j] {
                         if UserDefaults.standard.bool(forKey: Settings.autoCheckMistakes.rawValue) {

@@ -17,7 +17,8 @@ struct GameInfos {
                                                    .sudoku2D: NSLocalizedString("2D Sudoku Info", comment: ""),
                                                    .noNeighboursSudoku: NSLocalizedString("No Neighbors Info", comment: ""),
                                                    .mathraxSudoku: NSLocalizedString("Mathrax Info", comment: ""),
-                                                   .killerSudoku: NSLocalizedString("Killer Sudoku Info", comment: "")]
+                                                   .killerSudoku: NSLocalizedString("Killer Sudoku Info", comment: ""),
+                                                   .easyAsABC: NSLocalizedString("Easy As ABC Info", comment: "")]
     
     func getInfoByGameName(_ gameName: GamesNames) -> String {
         return gameInfos[gameName] ?? "There are no Game Info now"

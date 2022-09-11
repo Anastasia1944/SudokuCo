@@ -17,12 +17,45 @@ class GeneralSudokuProcessor {
         gameState.gameLevel = gameSettings.gameLevel
         gameState.gameName = gameSettings.gameName
         
+        fillOriginallyOpenedNums()
         fillNotesNumbersArray()
         
-        let generateSudoku = GenerateSudoku(sudokuType: gameSettings.sudokuType, openedNum: gameSettings.openedNum)
+        let generateSudoku = GenerateSudoku(sudokuType: gameSettings.sudokuType)
         gameState.sudokuNumbers = generateSudoku.getSudokuNumbers()
-        gameState.originallyOpenedNumbers = generateSudoku.getOriginallyOpenedNumbers()
+        
+        removeUnusedNumbers(gameSettings: gameSettings)
+        configureOpenedNums(openedNums: gameSettings.openedNum)
+    }
+    
+    func removeUnusedNumbers(gameSettings: GameSettings) {
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange{
+                if !gameSettings.whichNumsSaved.contains(gameState.sudokuNumbers[i][j]) {
+                    gameState.sudokuNumbers[i][j] = 0
+                }
+            }
+        }
+    }
+    
+    func configureOpenedNums(openedNums: Int) {
+        var index = 0
+
+        while index != openedNums {
+            let pointX = Int.random(in: Constants.sudokuRange)
+            let pointY = Int.random(in: Constants.sudokuRange)
+
+            if gameState.originallyOpenedNumbers[pointX][pointY] == 0 {
+                gameState.originallyOpenedNumbers[pointX][pointY] = gameState.sudokuNumbers[pointX][pointY]
+                index += 1
+            }
+        }
         gameState.openedNumbers = gameState.originallyOpenedNumbers
+    }
+    
+    func fillOriginallyOpenedNums() {
+        for _ in Constants.sudokuRange {
+            gameState.originallyOpenedNumbers.append([Int](repeating: 0, count: 9))
+        }
     }
     
     func fillNotesNumbersArray() {
@@ -30,7 +63,7 @@ class GeneralSudokuProcessor {
             gameState.notesNumbers.append([])
             for j in Constants.sudokuRange {
                 gameState.notesNumbers[i].append([:])
-                gameState.notesNumbers[i][j] = [1: false, 2: false, 3: false,4: false, 5: false, 6: false, 7: false, 8: false, 9: false]
+                gameState.notesNumbers[i][j] = [1: false, 2: false, 3: false, 4: false, 5: false, 6: false, 7: false, 8: false, 9: false]
             }
         }
     }

@@ -19,7 +19,9 @@ class GameSettings {
     var withBoldAreas: Bool = true
     var gapNotesShift: Double = 0
     var isOpenLibraryAlert: Bool = true
-    
+    var whichNumsSaved: ClosedRange<Int> = 1...9
+    var fillElements: FillElementsTypes = .ints
+ 
     var gridWidth: Double = Double(UIScreen.main.bounds.width - 20)
     var cellSize: Double = Double(UIScreen.main.bounds.width - 20) / 9
 }
