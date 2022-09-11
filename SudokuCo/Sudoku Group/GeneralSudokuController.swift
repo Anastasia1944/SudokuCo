@@ -48,7 +48,7 @@ class GeneralSudokuController {
     func newGame() {
         _ = autoLosingPreviousGame()
         
-        gameProcessor.generateSudoku(gameName: gameSettings.gameName, sudokuType: gameSettings.sudokuType, openedNum: gameSettings.openedNum, gameLevel: gameSettings.gameLevel)
+        gameProcessor.generateSudoku(gameSettings: gameSettings)
         
         saveInfoIfNedded()
     }

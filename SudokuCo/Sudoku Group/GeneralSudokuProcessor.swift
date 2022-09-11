@@ -13,13 +13,13 @@ class GeneralSudokuProcessor {
     var sudokuActions: [SudokuAction] = []
     var isNote: Bool = false
     
-    func generateSudoku(gameName: GamesNames, sudokuType: SudokuTypes = .sudoku3D, openedNum: Int = 0, gameLevel: DifficultyLevels) {
-        gameState.gameLevel = gameLevel
-        gameState.gameName = gameName
+    func generateSudoku(gameSettings: GameSettings) {
+        gameState.gameLevel = gameSettings.gameLevel
+        gameState.gameName = gameSettings.gameName
         
         fillNotesNumbersArray()
         
-        let generateSudoku = GenerateSudoku(sudokuType: sudokuType, openedNum: openedNum)
+        let generateSudoku = GenerateSudoku(sudokuType: gameSettings.sudokuType, openedNum: gameSettings.openedNum)
         gameState.sudokuNumbers = generateSudoku.getSudokuNumbers()
         gameState.originallyOpenedNumbers = generateSudoku.getOriginallyOpenedNumbers()
         gameState.openedNumbers = gameState.originallyOpenedNumbers
