@@ -36,6 +36,9 @@ class GeneralSudokuViewController: UIViewController {
         gameController.isTransitionToCompleteVC = { completeVC in
             self.navigationController?.pushViewController(completeVC, animated: true)
         }
+
+        self.title = gameController.gameProcessor.gameState.gameName.rawValue
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 20)]
     }
     
     override func viewWillDisappear(_ animated: Bool) {

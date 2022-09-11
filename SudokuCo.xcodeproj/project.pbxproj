@@ -270,8 +270,8 @@
 				5DCF1D9428738E270032DD04 /* GeneralSudokuController.swift */,
 				5D1BC3D228BE667000649C52 /* GeneralSudokuProcessor.swift */,
 				5DA099A72870DBD900385380 /* SudokuState.swift */,
-				5D1BC3D428BEB73600649C52 /* GameSettings.swift */,
 				5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */,
+				5D1BC3D428BEB73600649C52 /* GameSettings.swift */,
 				5D1183C528A465D600F3B32D /* SudokuTypes.swift */,
 				5D7BB4F7286617F500AA1461 /* SudokuAction.swift */,
 			);
@@ -713,6 +713,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.goryachevskayaao.SudokuCo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -733,6 +734,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.goryachevskayaao.SudokuCo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
