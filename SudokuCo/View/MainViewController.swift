@@ -27,9 +27,9 @@ class MainViewController: UITabBarController {
         gameLibraryNavVC.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 24)]
         gameLibraryVC.title = "SudokuCo"
         
-        myGamesNavVC.title = "My Games"
-        gameLibraryNavVC.title = "Game Library"
-        statisticsVC.title = "Statistics"
+        myGamesNavVC.title = NSLocalizedString("My Games", comment: "")
+        gameLibraryNavVC.title = NSLocalizedString("Game Library", comment: "")
+        statisticsVC.title = NSLocalizedString("Statistics", comment: "")
         
         self.setViewControllers([myGamesNavVC, gameLibraryNavVC, statisticsVC], animated: false)
         

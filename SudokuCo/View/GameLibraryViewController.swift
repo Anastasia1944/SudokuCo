@@ -58,11 +58,11 @@ class GameLibraryViewController: UIViewController {
     }
     
     func openAddGameAlert(gameName: GamesNames) {
-        let alert = UIAlertController(title: "Add \"\(gameName)\" to My Games?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Add", comment: "") + " " + gameName.rawValue + " " + NSLocalizedString("To My Games", comment: ""), message: nil, preferredStyle: .alert) 
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
-        alert.addAction(UIAlertAction(title: "Add", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Add", comment: ""), style: .default, handler: { _ in
             self.allGames.addGameToMyGames(gameName: gameName)
         }))
         

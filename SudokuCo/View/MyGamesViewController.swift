@@ -50,9 +50,9 @@ class MyGamesViewController: UIViewController {
     }
     
     @objc func infoItemTapped() {
-        let alert = UIAlertController(title: "App Info", message: "If you have any suggestions or questions, please write them to this email: sudokuCoGame@outlook.com", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("App Info", comment: ""), message: NSLocalizedString("Feedback", comment: ""), preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Write", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Write", comment: ""), style: .default, handler: { _ in
             let email = "sudokuCoGame@outlook.com"
             if let url = URL(string: "mailto:\(email)") {
                 if #available(iOS 10.0, *) {
@@ -63,7 +63,7 @@ class MyGamesViewController: UIViewController {
             }
         }))
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: nil)
     }
@@ -85,11 +85,11 @@ class MyGamesViewController: UIViewController {
     }
     
     func openDeleteAlert(gameName: GamesNames) {
-        let alert = UIAlertController(title: "Delete \"\(gameName.rawValue)\" from My Games?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Delete", comment: "") + " " + gameName.rawValue + " " + NSLocalizedString("From My Games", comment: ""), message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Delete", comment: ""), style: .destructive, handler: { _ in
             self.gamesInfoCoding.deleteGameInfo(gameName: gameName)
             self.statsGameCoding.deleteGameStatistics(gameName: gameName)
             self.allGames.deleteMyGame(gameName: gameName)
@@ -126,18 +126,18 @@ class MyGamesViewController: UIViewController {
         let levels = DifficultyLevels.allCases.map{ $0 }
         
         for level in levels {
-            alert.addAction(UIAlertAction(title: level.rawValue, style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString(level.rawValue, comment: ""), style: .default, handler: { _ in
                 self.transitionToGameVC(gameName, gameLevel: level)
             }))
         }
         
         if gamesInfoCoding.isThereUnfinishedGame(gameName: gameName) {
-            alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Continue", comment: ""), style: .default, handler: { _ in
                 self.transitionToGameVC(gameName, isNewGame: false)
             }))
         }
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
         self.present(alert, animated: true, completion: {})
     }
@@ -166,7 +166,7 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if gamesName.count == 0 {
-            tableView.setEmptyView(mainText: "There are no games yet", addText: "Go to Game Library")
+            tableView.setEmptyView(mainText: NSLocalizedString("No Games Yet", comment: ""), addText: NSLocalizedString("Go to Game Library", comment: ""))
         } else {
             tableView.restore()
         }

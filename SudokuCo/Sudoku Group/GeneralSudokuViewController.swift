@@ -74,11 +74,9 @@ class GeneralSudokuViewController: UIViewController {
     
     private func addModeTimeToStack() {
         let modeLabel = UILabel()
-        modeLabel.text = gameSettings.gameLevel.rawValue
         modeLabel.textColor = .gray
         
         let currentTimeLabel = UILabel()
-        currentTimeLabel.text = ""
         currentTimeLabel.textColor = .gray
         
         gameController.timeModeStackView.addArrangedSubview(modeLabel)
@@ -131,7 +129,7 @@ class GeneralSudokuViewController: UIViewController {
         sudokuPanelStackView.spacing = 2
         
         let buttonIcons = ["arrow.counterclockwise", "delete.left", "square.and.pencil", "lightbulb"]
-        let buttonLabelsTexts = ["Cancel", "Delete", "Notes", "Tip"]
+        let buttonLabelsTexts = [NSLocalizedString("Continue", comment: ""), NSLocalizedString("Delete", comment: ""), NSLocalizedString("Notes", comment: ""), NSLocalizedString("Tip", comment: "")]
         
         for i in 0..<buttonIcons.count {
             
@@ -234,11 +232,11 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     private func openLibraryAlert() {
-        let alert = UIAlertController(title: "This Game will not be saved in statistics. Play from the \"My Games\" to save it.", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("Statistics Not Saving", comment: ""), message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Ok", comment: ""), style: .cancel, handler: nil))
         
-        alert.addAction(UIAlertAction(title: "Don't show again", style: .default, handler: { _ in
+        alert.addAction(UIAlertAction(title: NSLocalizedString("Don't show again", comment: ""), style: .default, handler: { _ in
             let defaults = UserDefaults.standard
             
             defaults.set(true, forKey: "Do not Show Library Alert")

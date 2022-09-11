@@ -114,7 +114,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         gamesWonStackView.addArrangedSubview(gamesWonNameLabel)
         
-        gamesWonNameLabel.text = "Games Won"
+        gamesWonNameLabel.text = NSLocalizedString("Games Won", comment: "")
         gamesWonNameLabel.font = .systemFont(ofSize: 16)
         gamesWonNameLabel.textColor = .blueSys
         
@@ -141,7 +141,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         winRateStackView.addArrangedSubview(winRateNameLabel)
         
-        winRateNameLabel.text = "Win rate"
+        winRateNameLabel.text = NSLocalizedString("Win rate", comment: "")
         winRateNameLabel.font = .systemFont(ofSize: 16)
         winRateNameLabel.textColor = .blueSys
         
@@ -168,7 +168,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
         
         averageTimeStackView.addArrangedSubview(averageTimeNameLabel)
         
-        averageTimeNameLabel.text = "Average Time"
+        averageTimeNameLabel.text = NSLocalizedString("Average Time", comment: "")
         averageTimeNameLabel.font = .systemFont(ofSize: 16)
         averageTimeNameLabel.textColor = .blueSys
         

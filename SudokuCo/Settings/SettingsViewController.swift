@@ -11,7 +11,7 @@ class SettingsViewController: UIViewController {
     
     let settignsTableView = UITableView()
     
-    var settings: [String] = Settings.allCases.map{ $0.rawValue }
+    var settings: [String] = Settings.allCases.map{ NSLocalizedString($0.rawValue, comment: "") }
     
     let defaults = UserDefaults.standard
     

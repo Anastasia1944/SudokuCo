@@ -25,7 +25,7 @@ class GamesStatisticsViewController: UIViewController {
         
         statisticsTableView.register(GameStatisticsTableViewCell.self, forCellReuseIdentifier: "statisticsCell")
         
-        let levels = DifficultyLevels.allCases.map{ $0.rawValue }
+        let levels = DifficultyLevels.allCases.map{ NSLocalizedString($0.rawValue, comment: "") }
         statisticsLevelsSegmentedController = UISegmentedControl(items: levels)
 
         setSegmenteControlSettings()
@@ -107,7 +107,7 @@ class GamesStatisticsViewController: UIViewController {
 extension GamesStatisticsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if stats.count == 0 {
-            tableView.setEmptyView(mainText: "There are no statistics now", addText: "Play some games at My Games")
+            tableView.setEmptyView(mainText: NSLocalizedString("No Statistics", comment: ""), addText: NSLocalizedString("Play Some Games", comment: ""))
         } else {
             tableView.restore()
         }

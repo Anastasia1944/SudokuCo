@@ -158,12 +158,12 @@ class GeneralSudokuController {
     func addTipsCount() {
         let tipsStackView = sudokuPanelStackView.arrangedSubviews[3] as? UIStackView
         let tipLabel = tipsStackView?.arrangedSubviews[1] as? UILabel
-        tipLabel?.text = "Tip (\(gameProcessor.gameState.tips))"
+        tipLabel?.text = NSLocalizedString("Tip", comment: "") + " (\(gameProcessor.gameState.tips))"
     }
     
     func addGameMode() {
         let modeLabel = timeModeStackView.arrangedSubviews[0] as? UILabel
-        modeLabel?.text = gameProcessor.gameState.gameLevel.rawValue
+        modeLabel?.text = NSLocalizedString(gameProcessor.gameState.gameLevel.rawValue, comment: "")
     }
     
     // MARK: - Users Taps on UI Elements
