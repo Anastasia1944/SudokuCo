@@ -8,6 +8,6 @@
 import Foundation
 
 enum FillElementsTypes {
-    case words
+    case letters
     case ints
 }

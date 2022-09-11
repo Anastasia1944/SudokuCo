@@ -26,7 +26,7 @@ class EasyAsABCViewController: GeneralSudokuViewController {
         super.gameSettings.gridWidth = Double(((UIScreen.main.bounds.width - 20) / 11) * 9)
         super.gameSettings.cellSize = super.gameSettings.gridWidth / 9
         super.gameSettings.whichNumsSaved = 1...5
-        super.gameSettings.fillElements = .words
+        super.gameSettings.fillElements = .letters
         
         super.viewDidLoad()
         

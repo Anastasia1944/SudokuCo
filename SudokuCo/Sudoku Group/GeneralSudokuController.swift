@@ -18,7 +18,7 @@ class GeneralSudokuController {
     let timeModeStackView = UIStackView()
     let gameElementsStackView = UIStackView()
     let sudokuPanelStackView = UIStackView()
-    let numberPanelStackView = UIStackView()
+    var numberPanelStackView = UIStackView()
     
     let selectedCellView = UIView()
     
@@ -268,12 +268,11 @@ class GeneralSudokuController {
         }
         
         let (x, y) = getCellsByCoordinates()
-        let value = sender.titleLabel!.text!
         
         if gameProcessor.isNote {
-            fillCellByNote(x: x, y: y, value: Int(value)!)
+            fillCellByNote(x: x, y: y, value: sender.tag)
         } else {
-            fillCellByNumber(x: x, y: y, value: Int(value)!)
+            fillCellByNumber(x: x, y: y, value: sender.tag)
         }
         
         saveInfoIfNedded()

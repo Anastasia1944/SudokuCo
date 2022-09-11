@@ -168,21 +168,17 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     private func configureNumberPanel() {
-        let numberPanelStackView = gameController.numberPanelStackView
-        gameController.gameElementsStackView.addArrangedSubview(numberPanelStackView)
-        
-        numberPanelStackView.axis = .horizontal
-        numberPanelStackView.distribution = .fillEqually
-        numberPanelStackView.spacing = 2
-        
-        for i in 1...9 {
-            let button = UIButton()
-            button.setTitle(String(i), for: .normal)
-            button.titleLabel?.font = .systemFont(ofSize: 35)
-            button.setTitleColor(.blackSys, for: .normal)
-            button.setTitleColor(.graySys, for: .selected)
-            button.addTarget(gameController, action: #selector(gameController.tapNumberPanelButton), for: .touchUpInside)
-            numberPanelStackView.addArrangedSubview(button)
+        switch gameSettings.fillElements {
+        case .ints:
+            let numberPanelStackView = NumbersPanelView()
+            numberPanelStackView.configurePanel(gameController: gameController)
+            gameController.numberPanelStackView = numberPanelStackView
+            gameController.gameElementsStackView.addArrangedSubview(numberPanelStackView)
+        case .letters:
+            let lettersPanelStackView = LettersPanelView()
+            lettersPanelStackView.configurePanel(gameController: gameController, lettersRange: gameSettings.whichNumsSaved)
+            gameController.numberPanelStackView = lettersPanelStackView
+            gameController.gameElementsStackView.addArrangedSubview(lettersPanelStackView)
         }
     }
     

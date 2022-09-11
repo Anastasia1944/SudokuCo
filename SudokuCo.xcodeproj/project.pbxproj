@@ -61,6 +61,8 @@
 		5DE1418928CA3E2600609FD2 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1418828CA3E2600609FD2 /* Settings.swift */; };
 		5DE1418D28CD6C2B00609FD2 /* EasyAsABCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1418C28CD6C2B00609FD2 /* EasyAsABCViewController.swift */; };
 		5DE1418F28CE75AF00609FD2 /* FillElementsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1418E28CE75AF00609FD2 /* FillElementsTypes.swift */; };
+		5DE1419128CE937800609FD2 /* NumbersPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1419028CE937800609FD2 /* NumbersPanelView.swift */; };
+		5DE1419328CE986C00609FD2 /* LettersPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE1419228CE986C00609FD2 /* LettersPanelView.swift */; };
 		5DE4D20028861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -132,6 +134,8 @@
 		5DE1418828CA3E2600609FD2 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		5DE1418C28CD6C2B00609FD2 /* EasyAsABCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EasyAsABCViewController.swift; sourceTree = "<group>"; };
 		5DE1418E28CE75AF00609FD2 /* FillElementsTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FillElementsTypes.swift; sourceTree = "<group>"; };
+		5DE1419028CE937800609FD2 /* NumbersPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumbersPanelView.swift; sourceTree = "<group>"; };
+		5DE1419228CE986C00609FD2 /* LettersPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LettersPanelView.swift; sourceTree = "<group>"; };
 		5DE4D1FD28861D18008A4AF5 /* SudokuCoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SudokuCoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DE4D1FF28861D18008A4AF5 /* SudokuCoGenerateSudokuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuCoGenerateSudokuTests.swift; sourceTree = "<group>"; };
 		5DE4D20128861D18008A4AF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 				5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */,
 				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 				5DC743E328595A5700F1C4F6 /* GridView.swift */,
+				5DE1419028CE937800609FD2 /* NumbersPanelView.swift */,
+				5DE1419228CE986C00609FD2 /* LettersPanelView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -505,6 +511,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5DE1419128CE937800609FD2 /* NumbersPanelView.swift in Sources */,
 				5DCF1D9F2878929C0032DD04 /* StatisticsGameCoding.swift in Sources */,
 				5DC743E228594CA000F1C4F6 /* SudokuClassicViewController.swift in Sources */,
 				5D05EBC528A6F315001A28FE /* CircleWithSurCellsInfo.swift in Sources */,
@@ -538,6 +545,7 @@
 				5D7BB511286DD8ED00AA1461 /* DotsSudokuViewController.swift in Sources */,
 				5DCF1DA6287DB48B0032DD04 /* GamesStatisticsViewController.swift in Sources */,
 				5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */,
+				5DE1419328CE986C00609FD2 /* LettersPanelView.swift in Sources */,
 				5D05EBBC28A6B314001A28FE /* NoNeighborsViewController.swift in Sources */,
 				5D05EBBE28A6B42E001A28FE /* BoldLine.swift in Sources */,
 				5D1BC3D328BE667000649C52 /* GeneralSudokuProcessor.swift in Sources */,
