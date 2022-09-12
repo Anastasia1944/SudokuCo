@@ -319,6 +319,11 @@ class GeneralSudokuController {
             stopTimer()
             transitionToCompleteVC(isWin: gameProcessor.checkIfAllCellsRight())
         }
+        
+        if gameProcessor.checkIfAllCellsRight() {
+            stopTimer()
+            transitionToCompleteVC(isWin: true)
+        }
     }
     
     private func transitionToCompleteVC(isWin: Bool) {
