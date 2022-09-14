@@ -27,5 +27,15 @@ class GamePanelElementsView: UIStackView {
             button.addTarget(gameController, action: #selector(gameController.tapNumberPanelButton), for: .touchUpInside)
             self.addArrangedSubview(button)
         }
+        
+        if gameController.gameSettings.whichNumsSaved != Constants.sudokuRange {
+            let button = UIButton()
+            button.setTitle("-", for: .normal)
+            button.tag = -1
+            button.titleLabel?.font = .systemFont(ofSize: 35)
+            button.setTitleColor(.blackSys, for: .normal)
+            button.addTarget(gameController, action: #selector(gameController.tapNumberPanelButton), for: .touchUpInside)
+            self.addArrangedSubview(button)
+        }
     }
 }

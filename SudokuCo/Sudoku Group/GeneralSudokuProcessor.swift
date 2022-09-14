@@ -44,7 +44,7 @@ class GeneralSudokuProcessor {
             let pointX = Int.random(in: Constants.sudokuRange)
             let pointY = Int.random(in: Constants.sudokuRange)
 
-            if gameState.originallyOpenedNumbers[pointX][pointY] == 0 {
+            if gameState.originallyOpenedNumbers[pointX][pointY] == 0 && gameState.sudokuNumbers[pointX][pointY] != 0 {
                 gameState.originallyOpenedNumbers[pointX][pointY] = gameState.sudokuNumbers[pointX][pointY]
                 index += 1
             }
@@ -78,10 +78,14 @@ class GeneralSudokuProcessor {
     }
     
     func checkIfAllCellsRight() -> Bool {
-        if gameState.openedNumbers == gameState.sudokuNumbers {
-            return true
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
+                if Constants.sudokuNumbersRange.contains(gameState.sudokuNumbers[i][j]) && gameState.openedNumbers[i][j] != gameState.sudokuNumbers[i][j] {
+                    return false
+                }
+            }
         }
-        return false
+        return true
     }
     
     func fillCell(x: Int, y: Int, value: Int) -> Bool {

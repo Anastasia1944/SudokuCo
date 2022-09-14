@@ -111,13 +111,15 @@ class GeneralSudokuController {
             for j in Constants.sudokuRange {
                 if openedNumbers[i][j] != 0 {
                     
-                    if gameSettings.fillElements == .ints {
+                    if openedNumbers[i][j] == -1 {
+                        self.filledNumbersLabels[i][j].text = "-"
+                    } else if gameSettings.fillElements == .ints {
                         self.filledNumbersLabels[i][j].text = String(openedNumbers[i][j])
                     } else {
                         self.filledNumbersLabels[i][j].text = String(Character(UnicodeScalar(openedNumbers[i][j] + 64)!))
                     }
                     
-                    if openedNumbers[i][j] != gameProcessor.gameState.sudokuNumbers[i][j] {
+                    if openedNumbers[i][j] != gameProcessor.gameState.sudokuNumbers[i][j] && openedNumbers[i][j] != -1 {
                         if UserDefaults.standard.bool(forKey: Settings.autoCheckMistakes.rawValue) {
                             self.filledNumbersLabels[i][j].textColor = .red
                         }
@@ -140,7 +142,7 @@ class GeneralSudokuController {
         
         for i in Constants.sudokuRange {
             for j in Constants.sudokuRange {
-                for k in 1...9 {
+                for k in Constants.sudokuNumbersRange {
                     if notesNumbers[i][j][k] == true {
                         if gameSettings.fillElements == .ints {
                             self.notesLabels[i][j][k - 1].text = String(k)
@@ -273,7 +275,7 @@ class GeneralSudokuController {
         
         let (x, y) = getCellsByCoordinates()
         
-        if gameProcessor.isNote {
+        if gameProcessor.isNote && sender.tag != -1 {
             fillCellByNote(x: x, y: y, value: sender.tag)
         } else {
             fillCellByNumber(x: x, y: y, value: sender.tag)
