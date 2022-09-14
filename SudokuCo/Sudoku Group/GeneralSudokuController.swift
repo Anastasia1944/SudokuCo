@@ -188,7 +188,7 @@ class GeneralSudokuController {
             
             if lastAction.note {
                 if lastAction.isAddNote {
-                    gameProcessor.gameState.notesNumbers[x][y][num] = !gameProcessor.gameState.notesNumbers[x][y][num]!
+                    gameProcessor.gameState.notesNumbers[x][y][num] = false
                 } else {
                     gameProcessor.gameState.notesNumbers[x][y] = lastAction.noteStack!
                 }
@@ -246,16 +246,9 @@ class GeneralSudokuController {
         if gameProcessor.gameState.tips > 0 {
             gameProcessor.decreaseTipsNumbers()
             
-            var isUndoPrevious: Bool = false
             if !gameProcessor.isNotesEmpty(x: x, y: y) {
-                gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false,
-                                                     noteStack: gameProcessor.gameState.notesNumbers[x][y]))
                 gameProcessor.clearCellNotes(x: x, y: y)
-                isUndoPrevious = true
             }
-            
-            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y], isUndoPreviousAction: isUndoPrevious))
-            
             gameProcessor.gameState.openedNumbers[x][y] = gameProcessor.fillCellbyRightNumber(x: x, y: y)
         }
         
