@@ -313,11 +313,11 @@ class GeneralSudokuController {
         if gameProcessor.checkIfAllCellsFilled() {
             stopTimer()
             transitionToCompleteVC(isWin: gameProcessor.checkIfAllCellsRight())
-        }
-        
-        if gameProcessor.checkIfAllCellsRight() {
-            stopTimer()
-            transitionToCompleteVC(isWin: true)
+        } else {
+            if gameProcessor.checkIfAllCellsRight() {
+                stopTimer()
+                transitionToCompleteVC(isWin: true)
+            }
         }
     }
     
