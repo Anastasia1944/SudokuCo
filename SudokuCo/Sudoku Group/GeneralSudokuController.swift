@@ -50,8 +50,6 @@ class GeneralSudokuController {
         
         gameProcessor.generateSudoku(gameSettings: gameSettings)
         
-        print(gameProcessor.gameState.sudokuNumbers)
-        
         saveInfoIfNedded()
     }
     

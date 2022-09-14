@@ -142,6 +142,7 @@ class GeneralSudokuViewController: UIViewController {
             let button = UIButton(type: .system)
             let label = UILabel()
             label.text = buttonLabelsTexts[i]
+            label.adjustsFontSizeToFitWidth = true
             
             buttonStackView.addArrangedSubview(button)
             buttonStackView.addArrangedSubview(label)
