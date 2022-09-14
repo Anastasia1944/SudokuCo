@@ -13,11 +13,12 @@ enum Direction {
 
 class EasyAsABCViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 15, .medium: 10, .hard: 5, .expert: 0]
-    private let numsCount = 5
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 15, .medium: 11, .hard: 6, .expert: 3]
+    private let openedLettersRange: [DifficultyLevels: ClosedRange<Int>] = [.easy: 1...6, .medium: 1...6, .hard: 1...5, .expert: 1...5]
+    private let removedLettersCount: [DifficultyLevels: Int] = [.easy: 0, .medium: 2, .hard: 4, .expert: 6]
     
     var surroundingNumbersLabels: [[UILabel]] = []
-
+    
     override func viewDidLoad() {
         super.gameSettings.gameName = .easyAsABC
         super.gameSettings.sudokuType = .sudoku2D
@@ -25,12 +26,13 @@ class EasyAsABCViewController: GeneralSudokuViewController {
         super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 15
         super.gameSettings.gridWidth = Double(((UIScreen.main.bounds.width - 20) / 11) * 9)
         super.gameSettings.cellSize = super.gameSettings.gridWidth / 9
-        super.gameSettings.whichNumsSaved = 1...5
+        super.gameSettings.whichNumsSaved = openedLettersRange[super.gameSettings.gameLevel] ?? openedLettersRange[.easy] ?? 1...6
         super.gameSettings.fillElements = .letters
         
         super.viewDidLoad()
         
         configureSurroundingNumbersOfGrid()
+        removeLetters()
     }
     
     func configureSurroundingNumbersOfGrid() {
@@ -38,55 +40,54 @@ class EasyAsABCViewController: GeneralSudokuViewController {
         let gridView = super.gameController.gridView
         
         for i in Constants.sudokuRange {
-            if Double.random(in: 0...1) > 0.1 {
-                let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: -super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
-                label.textAlignment = .center
-                label.font = .systemFont(ofSize: 20)
-                label.textColor = .blackSys
-                label.text = findNearestLetter(x: i, y: 0, direction: .down)
-                
-                surroundingNumbersLabels[0].append(label)
-                gridView.addSubview(label)
-            }
+            let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: -super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 20)
+            label.textColor = .blackSys
+            label.text = findNearestLetter(x: i, y: 0, direction: .down)
+            
+            surroundingNumbersLabels[0].append(label)
+            gridView.addSubview(label)
+            
         }
         
         for i in Constants.sudokuRange {
-            if Double.random(in: 0...1) > 0.1 {
-                let label = UILabel(frame: CGRect(x: super.gameSettings.cellSize * 9, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
-                label.textAlignment = .center
-                label.font = .systemFont(ofSize: 20)
-                label.textColor = .blackSys
-                label.text = findNearestLetter(x: 8, y: i, direction: .left)
-                
-                surroundingNumbersLabels[1].append(label)
-                gridView.addSubview(label)
-            }
+            
+            let label = UILabel(frame: CGRect(x: super.gameSettings.cellSize * 9, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 20)
+            label.textColor = .blackSys
+            label.text = findNearestLetter(x: 8, y: i, direction: .left)
+            
+            surroundingNumbersLabels[1].append(label)
+            gridView.addSubview(label)
+            
         }
         
         for i in Constants.sudokuRange {
-            if Double.random(in: 0...1) > 0.1 {
-                let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: super.gameSettings.cellSize * 9, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
-                label.textAlignment = .center
-                label.font = .systemFont(ofSize: 20)
-                label.textColor = .blackSys
-                label.text = findNearestLetter(x: i, y: 8, direction: .up)
-                
-                surroundingNumbersLabels[2].append(label)
-                gridView.addSubview(label)
-            }
+            
+            let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: super.gameSettings.cellSize * 9, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 20)
+            label.textColor = .blackSys
+            label.text = findNearestLetter(x: i, y: 8, direction: .up)
+            
+            surroundingNumbersLabels[2].append(label)
+            gridView.addSubview(label)
+            
         }
         
         for i in Constants.sudokuRange {
-            if Double.random(in: 0...1) > 0.1 {
-                let label = UILabel(frame: CGRect(x: -super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
-                label.textAlignment = .center
-                label.font = .systemFont(ofSize: 20)
-                label.textColor = .blackSys
-                label.text = findNearestLetter(x: 0, y: i, direction: .right)
-                
-                surroundingNumbersLabels[3].append(label)
-                gridView.addSubview(label)
-            }
+            
+            let label = UILabel(frame: CGRect(x: -super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
+            label.textAlignment = .center
+            label.font = .systemFont(ofSize: 20)
+            label.textColor = .blackSys
+            label.text = findNearestLetter(x: 0, y: i, direction: .right)
+            
+            surroundingNumbersLabels[3].append(label)
+            gridView.addSubview(label)
+            
         }
     }
     
@@ -111,5 +112,16 @@ class EasyAsABCViewController: GeneralSudokuViewController {
             }
         }
         return "A"
+    }
+    
+    func removeLetters() {
+        let removingCount = removedLettersCount[super.gameSettings.gameLevel] ?? 0
+        
+        for _ in 0..<removingCount {
+            let side = Int.random(in: 0...3)
+            let letterNum = Int.random(in: Constants.sudokuRange)
+            
+            surroundingNumbersLabels[side][letterNum].text = ""
+        }
     }
 }
