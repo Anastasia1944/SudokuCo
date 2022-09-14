@@ -166,18 +166,10 @@ class GeneralSudokuViewController: UIViewController {
     }
     
     private func configureNumberPanel() {
-        switch gameSettings.fillElements {
-        case .ints:
-            let numberPanelStackView = NumbersPanelView()
-            numberPanelStackView.configurePanel(gameController: gameController)
-            gameController.numberPanelStackView = numberPanelStackView
-            gameController.gameElementsStackView.addArrangedSubview(numberPanelStackView)
-        case .letters:
-            let lettersPanelStackView = LettersPanelView()
-            lettersPanelStackView.configurePanel(gameController: gameController, lettersRange: gameSettings.whichNumsSaved)
-            gameController.numberPanelStackView = lettersPanelStackView
-            gameController.gameElementsStackView.addArrangedSubview(lettersPanelStackView)
-        }
+        let gamePanelStackView = GamePanelElementsView()
+        gamePanelStackView.configurePanel(gameController: gameController)
+        gameController.numberPanelStackView = gamePanelStackView
+        gameController.gameElementsStackView.addArrangedSubview(gamePanelStackView)
     }
     
     private func configureGridLabels() {
