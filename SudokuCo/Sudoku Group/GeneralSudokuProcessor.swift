@@ -110,9 +110,18 @@ class GeneralSudokuProcessor {
     
     func fillCellbyRightNumber(x: Int, y: Int) -> Int {
         if gameState.originallyOpenedNumbers[x][y] == 0 {
-            gameState.openedNumbers[x][y] = gameState.sudokuNumbers[x][y]
+            if gameState.sudokuNumbers[x][y] == 0 {
+                gameState.openedNumbers[x][y] = -1
+            } else {
+                gameState.openedNumbers[x][y] = gameState.sudokuNumbers[x][y]
+            }
+            addNumToOriginnalyOpenedNums(x: x, y: y)
         }
-        return gameState.sudokuNumbers[x][y]
+        return gameState.openedNumbers[x][y]
+    }
+    
+    func addNumToOriginnalyOpenedNums(x: Int, y: Int) {
+        gameState.originallyOpenedNumbers[x][y] = gameState.sudokuNumbers[x][y] == 0 ? -1 : gameState.sudokuNumbers[x][y]
     }
     
     func deleteCellNumber(x: Int, y: Int) -> Bool {
