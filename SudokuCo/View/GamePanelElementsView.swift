@@ -28,7 +28,7 @@ class GamePanelElementsView: UIStackView {
             self.addArrangedSubview(button)
         }
         
-        if gameController.gameSettings.whichNumsSaved != Constants.sudokuRange {
+        if gameController.gameSettings.whichNumsSaved != Constants.sudokuNumbersRange {
             let button = UIButton()
             button.setTitle("-", for: .normal)
             button.tag = -1

@@ -55,7 +55,11 @@ struct AllGames {
         .easyAsABC: Game(gameInfoFile: "EasyAsABCInfo.json",
                             gameImageName: "Easy As ABC",
                             statsFileName: "EasyAsABCStats.json",
-                            viewControllerName: "EasyAsABCViewController")]
+                            viewControllerName: "EasyAsABCViewController"),
+        .skyscrapers: Game(gameInfoFile: "SkyscrapersInfo.json",
+                           gameImageName: "Skyscrapers",
+                           statsFileName: "SkyscrapersStats.json",
+                           viewControllerName: "SkyscrapersViewController")]
     
     private var myGamesNames: Set<GamesNames> = []
     private let myGamesFile = "myGames.json"

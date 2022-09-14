@@ -18,4 +18,5 @@ enum GamesNames: String, Codable{
     case mathraxSudoku = "Mathrax"
     case killerSudoku = "Killer Sudoku"
     case easyAsABC = "Easy As ABC"
+    case skyscrapers = "Skyscrapers"
 }
