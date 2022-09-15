@@ -13,7 +13,7 @@ class MainViewController: UITabBarController {
     let gameLibraryVC = GameLibraryViewController()
     let statisticsVC = GamesStatisticsViewController()
     
-    let itemsImages = ["gamecontroller", "folder", "chart.bar.doc.horizontal"]
+    let itemsImages = ["gamecontroller", "folder", "text.badge.star"]
     
     override func viewDidLoad() {
         super.viewDidLoad()

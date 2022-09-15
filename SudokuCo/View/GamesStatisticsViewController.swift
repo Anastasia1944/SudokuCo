@@ -117,7 +117,7 @@ extension GamesStatisticsViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let statisticsCell = tableView.dequeueReusableCell(withIdentifier: "statisticsCell", for: indexPath) as! GameStatisticsTableViewCell
         
-        let gameName = myAvaillableGamesNames[indexPath.row]
+        let gameName = stats[indexPath.row].gameName
         let gamesWon = stats[indexPath.row].winGamesCount
         
         let winRatePercentage = Double(stats[indexPath.row].winGamesCount) / Double(stats[indexPath.row].allgamesCount) * 100
