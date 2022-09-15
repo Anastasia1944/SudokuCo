@@ -186,22 +186,26 @@ class GeneralSudokuController {
             let y = lastAction.yCell
             let num = lastAction.lastNumber
             
-            if lastAction.note {
-                if lastAction.isAddNote {
-                    gameProcessor.gameState.notesNumbers[x][y][num] = false
+            if gameProcessor.gameState.originallyOpenedNumbers[x][y] == 0 {
+                if lastAction.note {
+                    if lastAction.isAddNote {
+                        gameProcessor.gameState.notesNumbers[x][y][num] = false
+                    } else {
+                        gameProcessor.gameState.notesNumbers[x][y] = lastAction.noteStack!
+                    }
                 } else {
-                    gameProcessor.gameState.notesNumbers[x][y] = lastAction.noteStack!
+                    gameProcessor.gameState.openedNumbers[x][y] = lastAction.lastNumber
+                }
+                
+                if lastAction.isUndoPreviousAction {
+                    tapPanelButtonCancel(sender: sender)
                 }
             } else {
-                gameProcessor.gameState.openedNumbers[x][y] = lastAction.lastNumber
+                tapPanelButtonCancel(sender: sender)
             }
             
             saveInfoIfNedded()
             displayAllNumbers()
-            
-            if lastAction.isUndoPreviousAction {
-                tapPanelButtonCancel(sender: sender)
-            }
         }
     }
     
@@ -294,18 +298,20 @@ class GeneralSudokuController {
     }
     
     func fillCellByNumber(x: Int, y: Int, value: Int) {
-        var isUndoPrevious: Bool = false
-        if !gameProcessor.isNotesEmpty(x: x, y: y) {
-            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false,
-                                                 noteStack: gameProcessor.gameState.notesNumbers[x][y]))
+        if gameProcessor.gameState.openedNumbers[x][y] != value {
+            var isUndoPrevious: Bool = false
+            if !gameProcessor.isNotesEmpty(x: x, y: y) {
+                gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: 0, note: true, isAddNote: false,
+                                                     noteStack: gameProcessor.gameState.notesNumbers[x][y]))
+                
+                gameProcessor.clearCellNotes(x: x, y: y)
+                isUndoPrevious = true
+            }
             
-            gameProcessor.clearCellNotes(x: x, y: y)
-            isUndoPrevious = true
+            gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y],
+                                                 isUndoPreviousAction: isUndoPrevious))
+            _ = gameProcessor.fillCell(x: x, y: y, value: value)
         }
-        
-        gameProcessor.addAction(SudokuAction(xCell: x, yCell: y, lastNumber: gameProcessor.gameState.openedNumbers[x][y],
-                                             isUndoPreviousAction: isUndoPrevious))
-        _ = gameProcessor.fillCell(x: x, y: y, value: value)
     }
     
     // MARK: - End Game
