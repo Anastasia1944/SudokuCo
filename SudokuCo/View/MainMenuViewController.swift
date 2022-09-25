@@ -142,12 +142,13 @@ class MainMenuViewController: UIViewController {
         myGamesButton.setBackgroundColor(color: .beige, forState: .normal)
         myGamesButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
         myGamesButton.layer.cornerRadius = 20
-        myGamesButton.setTitle("My Games", for: .normal)
+        myGamesButton.setTitle(NSLocalizedString("My Games", comment: ""), for: .normal)
         myGamesButton.setTitleColor(.lightBlue, for: .normal)
         myGamesButton.setTitleColor(.beige, for: .highlighted)
         myGamesButton.titleLabel?.font = .systemFont(ofSize: 26)
         myGamesButton.layer.borderWidth = 2
         myGamesButton.layer.borderColor = UIColor.lightBlue.cgColor
+        myGamesButton.tag = 0
         myGamesButton.addTarget(self, action: #selector(transitionToVC), for: .touchUpInside)
         
         myGamesButton.translatesAutoresizingMaskIntoConstraints = false
@@ -161,12 +162,13 @@ class MainMenuViewController: UIViewController {
         gamesLibraryButton.setBackgroundColor(color: .beige, forState: .normal)
         gamesLibraryButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
         gamesLibraryButton.layer.cornerRadius = 20
-        gamesLibraryButton.setTitle("Game Library", for: .normal)
+        gamesLibraryButton.setTitle(NSLocalizedString("Game Library", comment: ""), for: .normal)
         gamesLibraryButton.setTitleColor(.lightBlue, for: .normal)
         gamesLibraryButton.setTitleColor(.beige, for: .highlighted)
         gamesLibraryButton.titleLabel?.font = .systemFont(ofSize: 26)
         gamesLibraryButton.layer.borderWidth = 2
         gamesLibraryButton.layer.borderColor = UIColor.lightBlue.cgColor
+        gamesLibraryButton.tag = 1
         gamesLibraryButton.addTarget(self, action: #selector(transitionToVC), for: .touchUpInside)
         
         gamesLibraryButton.translatesAutoresizingMaskIntoConstraints = false
@@ -180,12 +182,13 @@ class MainMenuViewController: UIViewController {
         statisticsButton.setBackgroundColor(color: .beige, forState: .normal)
         statisticsButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
         statisticsButton.layer.cornerRadius = 20
-        statisticsButton.setTitle("Statistics", for: .normal)
+        statisticsButton.setTitle(NSLocalizedString("Statistics", comment: ""), for: .normal)
         statisticsButton.setTitleColor(.lightBlue, for: .normal)
         statisticsButton.setTitleColor(.beige, for: .highlighted)
         statisticsButton.titleLabel?.font = .systemFont(ofSize: 26)
         statisticsButton.layer.borderWidth = 2
         statisticsButton.layer.borderColor = UIColor.lightBlue.cgColor
+        statisticsButton.tag = 2
         statisticsButton.addTarget(self, action: #selector(transitionToVC), for: .touchUpInside)
         
         statisticsButton.translatesAutoresizingMaskIntoConstraints = false
@@ -194,14 +197,14 @@ class MainMenuViewController: UIViewController {
     }
     
     @objc func transitionToVC(sender: UIButton) {
-        switch sender.titleLabel?.text {
-        case "My Games":
+        switch sender.tag {
+        case 0:
             let myGamesVC = MyGamesViewController()
             navigationController?.pushViewController(myGamesVC, animated: true)
-        case "Game Library":
+        case 1:
             let gameLibraryVC = GameLibraryViewController()
             navigationController?.pushViewController(gameLibraryVC, animated: true)
-        case "Statistics":
+        case 2:
             let statisticsVC = GamesStatisticsViewController()
             navigationController?.pushViewController(statisticsVC, animated: true)
         default:
