@@ -27,6 +27,9 @@
 		5D1BC3EA28CA06B500649C52 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1BC3E928CA06B500649C52 /* String+Extensions.swift */; };
 		5D1BC3EC28CA06EC00649C52 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1BC3EB28CA06EC00649C52 /* UITableView+Extensions.swift */; };
 		5D1BC3EE28CA070F00649C52 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1BC3ED28CA070F00649C52 /* UIColor+Extension.swift */; };
+		5D26780928DF35C7008DBEFF /* UIButton+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D26780828DF35C7008DBEFF /* UIButton+Extensions.swift */; };
+		5D26780B28DF3B91008DBEFF /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D26780A28DF3B91008DBEFF /* MainMenuViewController.swift */; };
+		5D26780F28E084A6008DBEFF /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D26780E28E084A6008DBEFF /* WaveView.swift */; };
 		5D7BB4EA28639FB900AA1461 /* GamesInfoCoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */; };
 		5D7BB4EC2863AC3600AA1461 /* GenerateSudoku.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */; };
 		5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */; };
@@ -98,6 +101,9 @@
 		5D1BC3E928CA06B500649C52 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		5D1BC3EB28CA06EC00649C52 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		5D1BC3ED28CA070F00649C52 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		5D26780828DF35C7008DBEFF /* UIButton+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extensions.swift"; sourceTree = "<group>"; };
+		5D26780A28DF3B91008DBEFF /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		5D26780E28E084A6008DBEFF /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		5D7BB4E928639FB900AA1461 /* GamesInfoCoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesInfoCoding.swift; sourceTree = "<group>"; };
 		5D7BB4EB2863AC3600AA1461 /* GenerateSudoku.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateSudoku.swift; sourceTree = "<group>"; };
 		5D7BB4ED2864FE7B00AA1461 /* AllGames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGames.swift; sourceTree = "<group>"; };
@@ -244,6 +250,7 @@
 				5D1BC3E928CA06B500649C52 /* String+Extensions.swift */,
 				5D1BC3EB28CA06EC00649C52 /* UITableView+Extensions.swift */,
 				5D1BC3ED28CA070F00649C52 /* UIColor+Extension.swift */,
+				5D26780828DF35C7008DBEFF /* UIButton+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -252,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				5DC743C42858FF3700F1C4F6 /* MainViewController.swift */,
+				5D26780A28DF3B91008DBEFF /* MainMenuViewController.swift */,
 				5DC743D428591C1500F1C4F6 /* MyGamesViewController.swift */,
 				5DC743D728591C5900F1C4F6 /* GameLibraryViewController.swift */,
 				5DC743DF2859410100F1C4F6 /* MyGameTableViewCell.swift */,
@@ -260,6 +268,7 @@
 				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
 				5DC743E328595A5700F1C4F6 /* GridView.swift */,
 				5DE141AB28D1EBF400609FD2 /* GamePanelElementsView.swift */,
+				5D26780E28E084A6008DBEFF /* WaveView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -532,6 +541,7 @@
 				5D7BB4EE2864FE7B00AA1461 /* AllGames.swift in Sources */,
 				5DCF1D9528738E270032DD04 /* GeneralSudokuController.swift in Sources */,
 				5D1BC3E528C766EC00649C52 /* GamesNames.swift in Sources */,
+				5D26780928DF35C7008DBEFF /* UIButton+Extensions.swift in Sources */,
 				5DE1418F28CE75AF00609FD2 /* FillElementsTypes.swift in Sources */,
 				5D05EBB728A6A9A1001A28FE /* Sudoku2DViewController.swift in Sources */,
 				5DA099A82870DBD900385380 /* SudokuState.swift in Sources */,
@@ -552,6 +562,7 @@
 				5DCF1DA42879D4F60032DD04 /* CompleteGameController.swift in Sources */,
 				5D7BB511286DD8ED00AA1461 /* DotsSudokuViewController.swift in Sources */,
 				5DCF1DA6287DB48B0032DD04 /* GamesStatisticsViewController.swift in Sources */,
+				5D26780F28E084A6008DBEFF /* WaveView.swift in Sources */,
 				5DC743C32858FF3700F1C4F6 /* SceneDelegate.swift in Sources */,
 				5D05EBBC28A6B314001A28FE /* NoNeighborsViewController.swift in Sources */,
 				5D05EBBE28A6B42E001A28FE /* BoldLine.swift in Sources */,
@@ -564,6 +575,7 @@
 				5DE141AC28D1EBF400609FD2 /* GamePanelElementsView.swift in Sources */,
 				5D1183C628A465D600F3B32D /* SudokuTypes.swift in Sources */,
 				5D1BC3EE28CA070F00649C52 /* UIColor+Extension.swift in Sources */,
+				5D26780B28DF3B91008DBEFF /* MainMenuViewController.swift in Sources */,
 				5D7BB4F4286615B500AA1461 /* OddEvenSudokuViewController.swift in Sources */,
 				5D1BC3EC28CA06EC00649C52 /* UITableView+Extensions.swift in Sources */,
 				5DCF1D99287716AB0032DD04 /* GameInfoViewController.swift in Sources */,

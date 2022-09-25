@@ -13,4 +13,11 @@ extension UIColor {
     static let graySys: UIColor = UIColor(named: "graySys")!
     static let orangeSys: UIColor = UIColor(named: "orangeSys")!
     static let whiteSys: UIColor = UIColor(named: "whiteSys")!
+    
+    
+    static let beige: UIColor = UIColor(named: "beige")!
+    static let lightPink: UIColor = UIColor(named: "lightPink")!
+    static let lightGray: UIColor = UIColor(named: "lightGray")!
+    static let lightBlue: UIColor = UIColor(named: "lightBlue")!
+    static let darkBlue: UIColor = UIColor(named: "darkBlue")!
 }
