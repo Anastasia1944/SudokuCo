@@ -21,16 +21,15 @@ class MyGamesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .whiteSys
+        self.view.backgroundColor = .beige
         
         myGamesTableView.dataSource = self
         myGamesTableView.delegate = self
         
         gamesName = allGames.getMyGamesNames().sorted(by: {$0.rawValue < $1.rawValue})
         
+        navBarSettings()
         setTableSettings()
-        
-        configureInfoAppButtons()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,48 +38,21 @@ class MyGamesViewController: UIViewController {
         updateGamesList()
     }
     
-    func configureInfoAppButtons() {
-        let infoButtonImg = UIImage(systemName: "info.circle")
-        let settingsButtonImg = UIImage(systemName: "gearshape")
+    func navBarSettings() {
+        navigationItem.title = "SudokuCo"
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.lightBlue, .font: UIFont.systemFont(ofSize: 24)]
+        navigationController?.navigationBar.barTintColor = .beige
         
-        let infoButton = UIBarButtonItem(image: infoButtonImg, style: .plain, target: self, action: #selector(infoItemTapped))
-        let settingsButton = UIBarButtonItem(image: settingsButtonImg, style: .plain, target: self, action: #selector(settingsButtonTapped))
-        
-        navigationItem.rightBarButtonItems = [infoButton, settingsButton]
-    }
-    
-    @objc func infoItemTapped() {
-        let alert = UIAlertController(title: NSLocalizedString("App Info", comment: ""), message: NSLocalizedString("Feedback", comment: ""), preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Write", comment: ""), style: .default, handler: { _ in
-            let email = "sudokuCoGame@outlook.com"
-            if let url = URL(string: "mailto:\(email)") {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
-    }
-    
-    @objc func settingsButtonTapped() {
-        let settingsVC = SettingsViewController()
-        
-        navigationController?.pushViewController(settingsVC, animated: true)
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .lightBlue
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     @objc func handleLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            let touchPoint = sender.location(in: myGamesTableView)
-            if let indexPath = myGamesTableView.indexPathForRow(at: touchPoint) {
-                let gameName = gamesName[indexPath.row]
-                openDeleteAlert(gameName: gameName)
-            }
+            let gameName = GamesNames(rawValue: sender.accessibilityLabel!)!
+            openDeleteAlert(gameName: gameName)
         }
     }
     
@@ -103,37 +75,38 @@ class MyGamesViewController: UIViewController {
     func setTableSettings() {
         view.addSubview(myGamesTableView)
         
-        myGamesTableView.register(MyGameTableViewCell.self, forCellReuseIdentifier: "gameCell")
+        myGamesTableView.separatorStyle = .none
+        myGamesTableView.allowsSelection = false
+        myGamesTableView.backgroundColor = .clear
+
+        myGamesTableView.register(GamesListTableViewCell.self, forCellReuseIdentifier: "gameCell")
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         myGamesTableView.addGestureRecognizer(longPress)
         
         myGamesTableView.translatesAutoresizingMaskIntoConstraints = false
-        
         myGamesTableView.topAnchor.constraint(equalTo:view.safeAreaLayoutGuide.topAnchor).isActive = true
         myGamesTableView.leadingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         myGamesTableView.trailingAnchor.constraint(equalTo:view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         myGamesTableView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        myGamesTableView.rowHeight = 100.0
-        
-        myGamesTableView.separatorStyle = .none
     }
     
-    func openMenuAlert(gameName: GamesNames) {
+    @objc func openMenuAlert(sender: UIButton!) {
+        let gameNameEnum = GamesNames(rawValue: sender.accessibilityLabel!)!
+        
         let alert = UIAlertController()
         
         let levels = DifficultyLevels.allCases.map{ $0 }
         
         for level in levels {
             alert.addAction(UIAlertAction(title: NSLocalizedString(level.rawValue, comment: ""), style: .default, handler: { _ in
-                self.transitionToGameVC(gameName, gameLevel: level)
+                self.transitionToGameVC(gameNameEnum, gameLevel: level)
             }))
         }
         
-        if gamesInfoCoding.isThereUnfinishedGame(gameName: gameName) {
+        if gamesInfoCoding.isThereUnfinishedGame(gameName: gameNameEnum) {
             alert.addAction(UIAlertAction(title: NSLocalizedString("Continue", comment: ""), style: .default, handler: { _ in
-                self.transitionToGameVC(gameName, isNewGame: false)
+                self.transitionToGameVC(gameNameEnum, isNewGame: false)
             }))
         }
         
@@ -170,21 +143,34 @@ extension MyGamesViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             tableView.restore()
         }
-        return gamesName.count
+        return (gamesName.count + 1) / 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath) as! MyGameTableViewCell
         
-        let gameName = gamesName[indexPath.row]
         
-        gameCell.gameLabel.text = gameName.rawValue
-        gameCell.gameImageView.image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
+        let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell") as! GamesListTableViewCell
+        
+        let gameNameLeft = gamesName[indexPath.row * 2]
+        gameCell.gameButtonLeft.setImage(UIImage(named: allGames.getGameImageNameByName(gameName: gameNameLeft) ?? ""), for: .normal)
+        gameCell.gameButtonLeft.accessibilityLabel = gameNameLeft.rawValue
+        gameCell.gameNameLabelLeft.text = gameNameLeft.rawValue
+        gameCell.gameButtonLeft.addTarget(self, action: #selector(openMenuAlert), for: .touchUpInside)
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+        longPress.accessibilityLabel = gameNameLeft.rawValue
+        gameCell.gameButtonLeft.addGestureRecognizer(longPress)
+        
+        if indexPath.row * 2 + 1 < gamesName.count {
+            let gameNameRight = gamesName[indexPath.row * 2 + 1]
+            gameCell.gameButtonRight.setImage(UIImage(named: allGames.getGameImageNameByName(gameName: gameNameRight) ?? ""), for: .normal)
+            gameCell.gameButtonRight.accessibilityLabel = gameNameRight.rawValue
+            gameCell.gameNameLabelRight.text = gameNameRight.rawValue
+            gameCell.gameButtonRight.addTarget(self, action: #selector(openMenuAlert), for: .touchUpInside)
+            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+            longPress.accessibilityLabel = gameNameRight.rawValue
+            gameCell.gameButtonRight.addGestureRecognizer(longPress)
+        }
         
         return gameCell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.openMenuAlert(gameName: gamesName[indexPath.row])
     }
 }

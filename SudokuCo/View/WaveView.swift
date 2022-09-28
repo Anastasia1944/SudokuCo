@@ -12,6 +12,8 @@ class WaveView: UIView {
     private weak var displayLink: CADisplayLink?
     private var startTime: CFTimeInterval = 0
     
+    var strokeColor: UIColor = .darkBlue
+    
     var speed = 10
     var time = 0.0
     var frequency = 9.0
@@ -104,7 +106,7 @@ class WaveView: UIView {
         myLayer.path = path.cgPath
         myLayer.lineWidth = 1
         myLayer.fillColor = UIColor.clear.cgColor
-        myLayer.strokeColor = UIColor.darkBlue.cgColor
+        myLayer.strokeColor = strokeColor.cgColor
         self.layer.addSublayer(myLayer)
     }
 }
