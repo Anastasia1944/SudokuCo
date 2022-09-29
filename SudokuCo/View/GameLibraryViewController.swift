@@ -103,9 +103,12 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell") as! GamesListTableViewCell
         
         let gameNameLeft = gamesName[indexPath.row * 2]
-        gameCell.gameButtonLeft.setImage(UIImage(named: allGames.getGameImageNameByName(gameName: gameNameLeft) ?? ""), for: .normal)
+        
+        let image = UIImage(named: allGames.getGameImageNameByName(gameName: gameNameLeft) ?? "")
+        gameCell.gameButtonLeft.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
         gameCell.gameButtonLeft.accessibilityLabel = gameNameLeft.rawValue
         gameCell.gameNameLabelLeft.text = gameNameLeft.rawValue
+        
         gameCell.gameButtonLeft.addTarget(self, action: #selector(transitionToGameVC), for: .touchUpInside)
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
@@ -114,9 +117,11 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
         
         if indexPath.row * 2 + 1 < gamesName.count {
             let gameNameRight = gamesName[indexPath.row * 2 + 1]
-            gameCell.gameButtonRight.setImage(UIImage(named: allGames.getGameImageNameByName(gameName: gameNameRight) ?? ""), for: .normal)
+            let image = UIImage(named: allGames.getGameImageNameByName(gameName: gameNameRight) ?? "")
+            gameCell.gameButtonRight.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
             gameCell.gameButtonRight.accessibilityLabel = gameNameRight.rawValue
             gameCell.gameNameLabelRight.text = gameNameRight.rawValue
+            
             gameCell.gameButtonRight.addTarget(self, action: #selector(transitionToGameVC), for: .touchUpInside)
             
             let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))

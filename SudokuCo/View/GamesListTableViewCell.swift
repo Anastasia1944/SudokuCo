@@ -59,6 +59,8 @@ class GamesListTableViewCell: UITableViewCell {
     
     func gameButtonSettingsLeft() {
         gameIconStackLeft.addArrangedSubview(gameButtonLeft)
+        
+        gameButtonLeft.tintColor = .lightBlue
 
         gameButtonLeft.translatesAutoresizingMaskIntoConstraints = false
         gameButtonLeft.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -87,6 +89,8 @@ class GamesListTableViewCell: UITableViewCell {
     
     func gameButtonSettingsRight() {
         gameIconStackRight.addArrangedSubview(gameButtonRight)
+        
+        gameButtonRight.tintColor = .lightBlue
 
         gameButtonRight.translatesAutoresizingMaskIntoConstraints = false
         gameButtonRight.heightAnchor.constraint(equalToConstant: 100).isActive = true
