@@ -30,7 +30,7 @@ class OddEvenSudokuViewController: GeneralSudokuViewController {
                     
                     let shapeLayer = CAShapeLayer()
                     shapeLayer.path = circle.cgPath
-                    shapeLayer.strokeColor = UIColor.darkGray.cgColor
+                    shapeLayer.strokeColor = UIColor.darkBlue.cgColor
                     shapeLayer.fillColor = UIColor.clear.cgColor
                     shapeLayer.lineWidth = 0.5
                     

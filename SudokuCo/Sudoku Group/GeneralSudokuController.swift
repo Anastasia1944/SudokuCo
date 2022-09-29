@@ -119,16 +119,16 @@ class GeneralSudokuController {
                         self.filledNumbersLabels[i][j].text = String(Character(UnicodeScalar(openedNumbers[i][j] + 64)!))
                     }
                     
+                    self.filledNumbersLabels[i][j].textColor = .lightBlue
+                    
                     if openedNumbers[i][j] != gameProcessor.gameState.sudokuNumbers[i][j] && openedNumbers[i][j] != -1 {
                         if UserDefaults.standard.bool(forKey: Settings.autoCheckMistakes.rawValue) {
                             self.filledNumbersLabels[i][j].textColor = .red
                         }
-                    } else {
-                        self.filledNumbersLabels[i][j].textColor = .blackSys
                     }
                     
                     if originallyOpenedNumbers[i][j] != 0 {
-                        self.filledNumbersLabels[i][j].textColor = .gray
+                        self.filledNumbersLabels[i][j].textColor = .lightPink
                     }
                 } else {
                     self.filledNumbersLabels[i][j].text = ""
@@ -177,7 +177,7 @@ class GeneralSudokuController {
         gridView.sendSubviewToBack(selectedCellView)
         
         selectedCellView.frame = CGRect(x: floor(touchX / gameSettings.cellSize) * gameSettings.cellSize, y: floor(touchY / gameSettings.cellSize) * gameSettings.cellSize, width: gameSettings.cellSize, height: gameSettings.cellSize)
-        selectedCellView.backgroundColor = .graySys
+        selectedCellView.backgroundColor = .lightPink.withAlphaComponent(0.3)
     }
     
     @objc func tapPanelButtonCancel(sender: UIButton!) {

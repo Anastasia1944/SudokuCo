@@ -43,7 +43,7 @@ class EasyAsABCViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: -super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = findNearestLetter(x: i, y: 0, direction: .down)
             
             surroundingNumbersLabels[0].append(label)
@@ -56,7 +56,7 @@ class EasyAsABCViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: super.gameSettings.cellSize * 9, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = findNearestLetter(x: 8, y: i, direction: .left)
             
             surroundingNumbersLabels[1].append(label)
@@ -69,7 +69,7 @@ class EasyAsABCViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: super.gameSettings.cellSize * 9, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = findNearestLetter(x: i, y: 8, direction: .up)
             
             surroundingNumbersLabels[2].append(label)
@@ -82,7 +82,7 @@ class EasyAsABCViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: -super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = findNearestLetter(x: 0, y: i, direction: .right)
             
             surroundingNumbersLabels[3].append(label)

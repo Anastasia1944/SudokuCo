@@ -37,16 +37,25 @@ class GeneralSudokuViewController: UIViewController {
             self.navigationController?.pushViewController(completeVC, animated: true)
         }
 
-        self.title = gameController.gameProcessor.gameState.gameName.rawValue
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.blueSys, .font: UIFont.systemFont(ofSize: 20)]
+        navBarSettings()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         gameController.stopTimer()
     }
     
+    func navBarSettings() {
+        self.title = gameController.gameProcessor.gameState.gameName.rawValue
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.lightBlue, .font: UIFont.systemFont(ofSize: 20)]
+
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .lightBlue
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
+    }
+    
     private func configureView() {
-        view.backgroundColor = .whiteSys
+        view.backgroundColor = .beige
         
         configureTimeModeStackView()
         configureGameElementsStack()
@@ -74,10 +83,10 @@ class GeneralSudokuViewController: UIViewController {
     
     private func addModeTimeToStack() {
         let modeLabel = UILabel()
-        modeLabel.textColor = .gray
+        modeLabel.textColor = .lightGray
         
         let currentTimeLabel = UILabel()
-        currentTimeLabel.textColor = .gray
+        currentTimeLabel.textColor = .lightGray
         
         gameController.timeModeStackView.addArrangedSubview(modeLabel)
         gameController.timeModeStackView.addArrangedSubview(currentTimeLabel)
@@ -143,12 +152,13 @@ class GeneralSudokuViewController: UIViewController {
             let label = UILabel()
             label.text = buttonLabelsTexts[i]
             label.adjustsFontSizeToFitWidth = true
+            label.textColor = .lightBlue
             
             buttonStackView.addArrangedSubview(button)
             buttonStackView.addArrangedSubview(label)
             
-            let image = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.blackSys, renderingMode: .alwaysOriginal)
-            let highlightedImage = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.graySys, renderingMode: .alwaysOriginal)
+            let image = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.lightBlue, renderingMode: .alwaysOriginal)
+            let highlightedImage = UIImage(systemName: buttonIcons[i], withConfiguration: UIImage.SymbolConfiguration(pointSize: 25))?.withTintColor(.lightGray, renderingMode: .alwaysOriginal)
             
             button.setImage(image, for: .normal)
             button.setImage(highlightedImage, for: .highlighted)
@@ -215,6 +225,7 @@ class GeneralSudokuViewController: UIViewController {
     private func configureInfoGameButton() {
         let button = UIBarButtonItem(image: UIImage(systemName: "info.circle"), style: .plain, target: self, action: #selector(infoItemTapped))
         self.navigationItem.rightBarButtonItem  = button
+        button.tintColor = .lightBlue
     }
     
     @objc func infoItemTapped() {

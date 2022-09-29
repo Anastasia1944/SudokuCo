@@ -20,7 +20,7 @@ class MoreLessSignView: UIView {
         
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = path.cgPath
-        shapeLayer.strokeColor = UIColor.blackSys.cgColor
+        shapeLayer.strokeColor = UIColor.lightBlue.cgColor
         shapeLayer.lineWidth = 1.0
         
         self.layer.addSublayer(shapeLayer)

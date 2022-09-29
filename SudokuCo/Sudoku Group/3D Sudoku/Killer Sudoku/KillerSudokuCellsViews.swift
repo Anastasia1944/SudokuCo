@@ -25,7 +25,7 @@ class SquareCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
@@ -67,7 +67,7 @@ class RecessCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
@@ -102,7 +102,7 @@ class AngleCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
@@ -125,7 +125,7 @@ class InsideAngleCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
@@ -149,7 +149,7 @@ class StraightCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
@@ -177,7 +177,7 @@ class TShapeCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)
@@ -210,7 +210,7 @@ class CrossCellView: UIView {
         shapeLayer.lineDashPattern = [4, 1]
         
         shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = UIColor.gray.cgColor
+        shapeLayer.strokeColor = UIColor.lightGray.cgColor
         shapeLayer.lineWidth = 1
         
         self.layer.addSublayer(shapeLayer)

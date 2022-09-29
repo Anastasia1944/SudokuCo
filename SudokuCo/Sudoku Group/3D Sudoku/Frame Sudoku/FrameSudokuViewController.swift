@@ -33,7 +33,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: -super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = String(sudokuNumbers[i][0] + sudokuNumbers[i][1] + sudokuNumbers[i][2])
             
             surroundingNumbersLabels[0].append(label)
@@ -44,7 +44,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: super.gameSettings.cellSize * 9, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = String(sudokuNumbers[6][i] + sudokuNumbers[7][i] + sudokuNumbers[8][i])
             
             surroundingNumbersLabels[1].append(label)
@@ -55,7 +55,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: Double(i) * super.gameSettings.cellSize, y: super.gameSettings.cellSize * 9, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = String(sudokuNumbers[i][6] + sudokuNumbers[i][7] + sudokuNumbers[i][8])
             
             surroundingNumbersLabels[1].append(label)
@@ -66,7 +66,7 @@ class FrameSudokuViewController: GeneralSudokuViewController {
             let label = UILabel(frame: CGRect(x: -super.gameSettings.cellSize, y: Double(i) * super.gameSettings.cellSize, width: super.gameSettings.cellSize, height: super.gameSettings.cellSize))
             label.textAlignment = .center
             label.font = .systemFont(ofSize: 20)
-            label.textColor = .blackSys
+            label.textColor = .lightBlue
             label.text = String(sudokuNumbers[0][i] + sudokuNumbers[1][i] + sudokuNumbers[2][i])
             
             surroundingNumbersLabels[1].append(label)

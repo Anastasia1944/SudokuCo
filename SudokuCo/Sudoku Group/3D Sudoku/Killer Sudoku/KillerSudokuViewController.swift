@@ -178,7 +178,7 @@ class KillerSudokuViewController: GeneralSudokuViewController {
                     let label = UILabel(frame: CGRect(x: Double(i) * gameSettings.cellSize + gameSettings.cellSize / 30, y: Double(j) * gameSettings.cellSize + gameSettings.cellSize / 30, width: gameSettings.cellSize / 3, height: gameSettings.cellSize / 5))
                     label.text = String(areasSum[i][j])
                     label.font = .systemFont(ofSize: 10)
-                    label.textColor = .blueSys
+                    label.textColor = .lightGray
                     label.textAlignment = .center
                     
                     super.gameController.gridView.addSubview(label)

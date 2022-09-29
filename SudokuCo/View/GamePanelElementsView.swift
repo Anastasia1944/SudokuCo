@@ -22,8 +22,8 @@ class GamePanelElementsView: UIStackView {
             }
             button.tag = i
             button.titleLabel?.font = .systemFont(ofSize: 35)
-            button.setTitleColor(.blackSys, for: .normal)
-            button.setTitleColor(.graySys, for: .selected)
+            button.setTitleColor(.lightBlue, for: .normal)
+            button.setTitleColor(.lightGray, for: .selected)
             button.addTarget(gameController, action: #selector(gameController.tapNumberPanelButton), for: .touchUpInside)
             self.addArrangedSubview(button)
         }
@@ -33,7 +33,7 @@ class GamePanelElementsView: UIStackView {
             button.setTitle("-", for: .normal)
             button.tag = -1
             button.titleLabel?.font = .systemFont(ofSize: 35)
-            button.setTitleColor(.blackSys, for: .normal)
+            button.setTitleColor(.lightBlue, for: .normal)
             button.addTarget(gameController, action: #selector(gameController.tapNumberPanelButton), for: .touchUpInside)
             self.addArrangedSubview(button)
         }

@@ -26,8 +26,8 @@ class CircleWithSurCellsInfo: UIView {
         let shapeLayer = CAShapeLayer()
         shapeLayer.path = circlePath.cgPath
         
-        shapeLayer.fillColor = UIColor.whiteSys.cgColor
-        shapeLayer.strokeColor = UIColor.blackSys.cgColor
+        shapeLayer.fillColor = UIColor.beige.cgColor
+        shapeLayer.strokeColor = UIColor.lightBlue.cgColor
         shapeLayer.lineWidth = 1.0
         
         self.layer.addSublayer(shapeLayer)
@@ -37,6 +37,7 @@ class CircleWithSurCellsInfo: UIView {
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 12)
         label.text = value + types[circleType]!
+        label.textColor = .lightBlue
         self.addSubview(label)
     }
 }
