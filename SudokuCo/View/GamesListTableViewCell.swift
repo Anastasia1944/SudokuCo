@@ -11,13 +11,7 @@ class GamesListTableViewCell: UITableViewCell {
     
     let cellStack = UIStackView()
     
-    let gameIconStackLeft = UIStackView()
-    let gameButtonLeft = UIButton()
-    let gameNameLabelLeft = UILabel()
-    
-    let gameIconStackRight = UIStackView()
-    let gameButtonRight = UIButton()
-    let gameNameLabelRight = UILabel()
+    var buttonsLabels: [(UIButton, UILabel)] = []
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -40,69 +34,37 @@ class GamesListTableViewCell: UITableViewCell {
         cellStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         cellStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
         cellStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10).isActive = true
-        
-        addLeftGameSettings()
-        addRightGameSettings()
     }
     
-    func addLeftGameSettings() {
-        cellStack.addArrangedSubview(gameIconStackLeft)
-        
-        gameIconStackLeft.axis = .vertical
-        gameIconStackLeft.distribution = .equalSpacing
-        gameIconStackLeft.alignment = .center
-        gameIconStackLeft.spacing = 10
-        
-        gameButtonSettingsLeft()
-        gameNameLabelSettingsLeft()
+    func addGames() {
+        for (button, label) in buttonsLabels {
+            let stackView = UIStackView()
+            cellStack.addArrangedSubview(stackView)
+            
+            stackView.axis = .vertical
+            stackView.distribution = .equalSpacing
+            stackView.alignment = .center
+            stackView.spacing = 10
+            
+            stackView.addArrangedSubview(button)
+            buttonSettings(button: button)
+            
+            stackView.addArrangedSubview(label)
+            labelSettings(label: label)
+        }
     }
     
-    func gameButtonSettingsLeft() {
-        gameIconStackLeft.addArrangedSubview(gameButtonLeft)
-        
-        gameButtonLeft.tintColor = .lightBlue
-
-        gameButtonLeft.translatesAutoresizingMaskIntoConstraints = false
-        gameButtonLeft.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        gameButtonLeft.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    }
-
-    func gameNameLabelSettingsLeft() {
-        gameIconStackLeft.addArrangedSubview(gameNameLabelLeft)
-
-        gameNameLabelLeft.font = UIFont.systemFont(ofSize: 20)
-        gameNameLabelLeft.textAlignment = .center
-        gameNameLabelLeft.textColor = .lightBlue
+    func buttonSettings(button: UIButton) {
+        button.tintColor = .lightBlue
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
-    func addRightGameSettings() {
-        cellStack.addArrangedSubview(gameIconStackRight)
-        
-        gameIconStackRight.axis = .vertical
-        gameIconStackRight.distribution = .equalSpacing
-        gameIconStackRight.alignment = .center
-        gameIconStackRight.spacing = 10
-        
-        gameButtonSettingsRight()
-        gameNameLabelSettingsRight()
-    }
-    
-    func gameButtonSettingsRight() {
-        gameIconStackRight.addArrangedSubview(gameButtonRight)
-        
-        gameButtonRight.tintColor = .lightBlue
-
-        gameButtonRight.translatesAutoresizingMaskIntoConstraints = false
-        gameButtonRight.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        gameButtonRight.widthAnchor.constraint(equalToConstant: 100).isActive = true
-    }
-
-    func gameNameLabelSettingsRight() {
-        gameIconStackRight.addArrangedSubview(gameNameLabelRight)
-
-        gameNameLabelRight.font = UIFont.systemFont(ofSize: 20)
-        gameNameLabelRight.textAlignment = .center
-        gameNameLabelRight.textColor = .lightBlue
+    func labelSettings(label: UILabel) {
+        label.font = UIFont.systemFont(ofSize: 20)
+        label.textAlignment = .center
+        label.textColor = .lightBlue
     }
 
     required init?(coder: NSCoder) {

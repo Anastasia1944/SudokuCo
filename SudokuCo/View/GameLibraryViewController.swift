@@ -24,7 +24,7 @@ class GameLibraryViewController: UIViewController {
         gameLibraryTableView.delegate = self
         
         gamesName = allGames.getAllGamesNames().sorted(by: {$0.rawValue < $1.rawValue})
-
+        
         navBarSettings()
         tableSettings()
     }
@@ -64,7 +64,7 @@ class GameLibraryViewController: UIViewController {
     }
     
     func openAddGameAlert(gameName: GamesNames) {
-        let alert = UIAlertController(title: NSLocalizedString("Add", comment: "") + " " + gameName.rawValue + " " + NSLocalizedString("To My Games", comment: ""), message: nil, preferredStyle: .alert) 
+        let alert = UIAlertController(title: NSLocalizedString("Add", comment: "") + " " + gameName.rawValue + " " + NSLocalizedString("To My Games", comment: ""), message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
         
@@ -102,32 +102,29 @@ extension GameLibraryViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let gameCell = tableView.dequeueReusableCell(withIdentifier: "gameCell") as! GamesListTableViewCell
         
-        let gameNameLeft = gamesName[indexPath.row * 2]
-        
-        let image = UIImage(named: allGames.getGameImageNameByName(gameName: gameNameLeft) ?? "")
-        gameCell.gameButtonLeft.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
-        gameCell.gameButtonLeft.accessibilityLabel = gameNameLeft.rawValue
-        gameCell.gameNameLabelLeft.text = gameNameLeft.rawValue
-        
-        gameCell.gameButtonLeft.addTarget(self, action: #selector(transitionToGameVC), for: .touchUpInside)
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        longPress.accessibilityLabel = gameNameLeft.rawValue
-        gameCell.gameButtonLeft.addGestureRecognizer(longPress)
-        
-        if indexPath.row * 2 + 1 < gamesName.count {
-            let gameNameRight = gamesName[indexPath.row * 2 + 1]
-            let image = UIImage(named: allGames.getGameImageNameByName(gameName: gameNameRight) ?? "")
-            gameCell.gameButtonRight.setImage(image?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate), for: .normal)
-            gameCell.gameButtonRight.accessibilityLabel = gameNameRight.rawValue
-            gameCell.gameNameLabelRight.text = gameNameRight.rawValue
+        for i in indexPath.row * 2...indexPath.row * 2 + 1 {
+            let button = UIButton()
+            let label = UILabel()
             
-            gameCell.gameButtonRight.addTarget(self, action: #selector(transitionToGameVC), for: .touchUpInside)
+            gameCell.buttonsLabels.append((button, label))
             
-            let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-            longPress.accessibilityLabel = gameNameRight.rawValue
-            gameCell.gameButtonRight.addGestureRecognizer(longPress)
+            if !(i == indexPath.row * 2 + 1 && i >= gamesName.count) {
+                let gameName = gamesName[i]
+                
+                let image = UIImage(named: allGames.getGameImageNameByName(gameName: gameName) ?? "")
+                button.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
+                button.accessibilityLabel = gameName.rawValue
+                label.text = gameName.rawValue
+                
+                button.addTarget(self, action: #selector(transitionToGameVC), for: .touchUpInside)
+                
+                let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
+                longPress.accessibilityLabel = gameName.rawValue
+                button.addGestureRecognizer(longPress)
+            }
         }
+        
+        gameCell.addGames()
         
         return gameCell
     }
