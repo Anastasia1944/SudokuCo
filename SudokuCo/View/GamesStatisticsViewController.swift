@@ -18,18 +18,31 @@ class GamesStatisticsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .whiteSys
+        view.backgroundColor = .beige
         
         statisticsTableView.delegate = self
         statisticsTableView.dataSource = self
         
         statisticsTableView.register(GameStatisticsTableViewCell.self, forCellReuseIdentifier: "statisticsCell")
         
+        navBarSettings()
+        
         let levels = DifficultyLevels.allCases.map{ NSLocalizedString($0.rawValue, comment: "") }
         statisticsLevelsSegmentedController = UISegmentedControl(items: levels)
 
         setSegmenteControlSettings()
         setTableSettings()
+    }
+    
+    func navBarSettings() {
+        navigationItem.title = "SudokuCo"
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.lightBlue, .font: UIFont.systemFont(ofSize: 24)]
+        navigationController?.navigationBar.barTintColor = .beige
+        
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        backButton.tintColor = .lightBlue
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,6 +54,10 @@ class GamesStatisticsViewController: UIViewController {
         view.addSubview(statisticsLevelsSegmentedController)
         
         statisticsLevelsSegmentedController.selectedSegmentIndex = 0
+        statisticsLevelsSegmentedController.backgroundColor = .lightBlue
+        statisticsLevelsSegmentedController.selectedSegmentTintColor = .beige
+        statisticsLevelsSegmentedController.setTitleTextAttributes([.foregroundColor: UIColor.beige], for: .normal)
+        statisticsLevelsSegmentedController.setTitleTextAttributes([.foregroundColor: UIColor.lightBlue], for: .selected)
         
         statisticsLevelsSegmentedController.addTarget(self, action: #selector(self.segmentedValueChanged(_:)), for: .valueChanged)
         
@@ -48,7 +65,7 @@ class GamesStatisticsViewController: UIViewController {
         statisticsLevelsSegmentedController.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         statisticsLevelsSegmentedController.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         statisticsLevelsSegmentedController.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        statisticsLevelsSegmentedController.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        statisticsLevelsSegmentedController.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     @objc func segmentedValueChanged(_ sender: UISegmentedControl!)
@@ -79,6 +96,7 @@ class GamesStatisticsViewController: UIViewController {
     private func setTableSettings() {
         view.addSubview(statisticsTableView)
         
+        statisticsTableView.backgroundColor = .clear
         statisticsTableView.separatorStyle = .none
         statisticsTableView.allowsSelection = false
         
@@ -87,13 +105,6 @@ class GamesStatisticsViewController: UIViewController {
         statisticsTableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         statisticsTableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         statisticsTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-    }
-    
-    private func intTimeToString(time: Int) -> String {
-        let formatter = DateComponentsFormatter()
-        formatter.allowedUnits = [.hour, .minute, .second]
-        formatter.unitsStyle = .positional
-        return formatter.string(from: TimeInterval(time))!
     }
     
     private func reloadInfo() {
@@ -117,21 +128,9 @@ extension GamesStatisticsViewController: UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let statisticsCell = tableView.dequeueReusableCell(withIdentifier: "statisticsCell", for: indexPath) as! GameStatisticsTableViewCell
         
-        let gameName = stats[indexPath.row].gameName
-        let gamesWon = stats[indexPath.row].winGamesCount
+        statisticsCell.gameStatistics = stats[indexPath.row]
         
-        let winRatePercentage = Double(stats[indexPath.row].winGamesCount) / Double(stats[indexPath.row].allgamesCount) * 100
-        let winRate = String(round(winRatePercentage * 10) / 10) + "%"
-        
-        var time = 0
-        
-        for i in 0..<stats[indexPath.row].times.count {
-            time += stats[indexPath.row].times[i]
-        }
-        
-        let averageTime = intTimeToString(time: time / stats[indexPath.row].allgamesCount)
-        
-        statisticsCell.configureCell(gameName: gameName, gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
+        statisticsCell.configureCell()
         
         return statisticsCell
     }

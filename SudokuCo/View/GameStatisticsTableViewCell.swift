@@ -9,175 +9,212 @@ import UIKit
 
 class GameStatisticsTableViewCell: UITableViewCell {
     
-    private var viewCell = UIView()
-    
-    private var gameNameLabel = UILabel()
-    private var gameImageView = UIImageView()
-    
-    private var gamesStatsStackView = UIStackView()
-    private var gamesWonStackView = UIStackView()
-    private var winRateStackView = UIStackView()
-    private var averageTimeStackView = UIStackView()
+    private let gameStackView = UIStackView()
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    private let gameNameLabel = UILabel()
+    
+    private let statsImgView = UIView()
+    private let gamesWonNameLabel = UILabel()
+    private let gamesWonLabel = UILabel()
+    
+    private let averageTimeNameLabel = UILabel()
+    private let averageTimeLabel = UILabel()
+    
+    private let gameImageView = UIImageView()
+
+    private let gamesStatsStackView = UIStackView()
+    private let gamesWonStackView = UIStackView()
+    private let averageTimeStackView = UIStackView()
+    
+    private let allGamesLineView = UIView()
+    private let winGamesLineView = UIView()
+    
+    private let percentageView = UILabel()
+    
+    var gameStatistics: GameStatistics = GameStatistics()
+    
+    func configureCell() {
+        self.backgroundColor = .clear
+
+        configureView()
     }
     
-    func configureCell(gameName: GamesNames, gamesWon: Int, winRate: String, averageTime: String) {
-        viewCell = UIView()
+    override func prepareForReuse() {
+        super.prepareForReuse()
         
-        gameNameLabel = UILabel()
-        gameImageView = UIImageView()
-        
-        gamesStatsStackView = UIStackView()
-        gamesWonStackView = UIStackView()
-        winRateStackView = UIStackView()
-        averageTimeStackView = UIStackView()
-        
-        configureView(gameName: gameName, gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
+        winGamesLineView.removeFromSuperview()
     }
-    
-    private func configureView(gameName: GamesNames, gamesWon: Int, winRate: String, averageTime: String) {
-        viewCell.backgroundColor = .graySys
-        viewCell.layer.cornerRadius = 30
+
+    private func configureView() {
+        contentView.addSubview(gameStackView)
         
-        contentView.addSubview(viewCell)
+        gameStackView.axis = .vertical
+        gameStackView.distribution = .equalSpacing
+        gameStackView.spacing = 10
         
-        viewCell.translatesAutoresizingMaskIntoConstraints = false
-        viewCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
-        viewCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
-        viewCell.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30).isActive = true
-        viewCell.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30).isActive = true
-        
-        configureGameNameLabel(gameName: gameName)
-        configureImageView(gameName: gameName)
-        configureGamesStatsStackView(gamesWon: gamesWon, winRate: winRate, averageTime: averageTime)
+        gameStackView.translatesAutoresizingMaskIntoConstraints = false
+        gameStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15).isActive = true
+        gameStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -15).isActive = true
+        gameStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30).isActive = true
+        gameStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 30).isActive = true
+
+        configureGameNameLabel()
+        configureStatsImgView()
+        winRateLineSettings()
     }
-    
-    private func configureGameNameLabel(gameName: GamesNames) {
-        gameNameLabel.text = gameName.rawValue
+
+    private func configureGameNameLabel() {
+        gameNameLabel.text = gameStatistics.gameName.rawValue
         gameNameLabel.font = .systemFont(ofSize: 20)
         gameNameLabel.textAlignment = .center
-        
-        viewCell.addSubview(gameNameLabel)
-        
-        gameNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        gameNameLabel.topAnchor.constraint(equalTo: viewCell.topAnchor, constant: 10).isActive = true
-        gameNameLabel.centerXAnchor.constraint(equalTo: viewCell.centerXAnchor).isActive = true
+        gameNameLabel.textColor = .lightBlue
+
+        gameStackView.addArrangedSubview(gameNameLabel)
     }
-    
-    private func configureImageView(gameName: GamesNames) {
-        gameImageView.image = UIImage(named: gameName.rawValue)
-        
-        viewCell.addSubview(gameImageView)
-        
+
+    private func configureStatsImgView() {
+        gameStackView.addArrangedSubview(statsImgView)
+
+        configureImageView()
+        configureGamesStatsStackView()
+    }
+
+
+    private func configureImageView() {
+        gameImageView.image = UIImage(named: gameStatistics.gameName.rawValue)?.withTintColor(.lightBlue)
+
+        statsImgView.addSubview(gameImageView)
+
         gameImageView.translatesAutoresizingMaskIntoConstraints = false
-        gameImageView.topAnchor.constraint(equalTo: gameNameLabel.bottomAnchor, constant: 10).isActive = true
-        gameImageView.bottomAnchor.constraint(equalTo: viewCell.bottomAnchor, constant: -10).isActive = true
-        gameImageView.trailingAnchor.constraint(equalTo: viewCell.trailingAnchor, constant: -10).isActive = true
+        gameImageView.topAnchor.constraint(equalTo: statsImgView.topAnchor).isActive = true
+        gameImageView.bottomAnchor.constraint(equalTo: statsImgView.bottomAnchor).isActive = true
+        gameImageView.trailingAnchor.constraint(equalTo: statsImgView.trailingAnchor).isActive = true
         gameImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
         gameImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
-    
-    private func configureGamesStatsStackView(gamesWon: Int, winRate: String, averageTime: String) {
+
+    private func configureGamesStatsStackView() {
         gamesStatsStackView.axis = .vertical
         gamesStatsStackView.distribution = .equalSpacing
         gamesStatsStackView.alignment = .center
         gamesStatsStackView.spacing = 10
         gamesStatsStackView.isLayoutMarginsRelativeArrangement = true
         gamesStatsStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
-        
-        viewCell.addSubview(gamesStatsStackView)
-        
+
+        statsImgView.addSubview(gamesStatsStackView)
+
         gamesStatsStackView.translatesAutoresizingMaskIntoConstraints = false
-        gamesStatsStackView.topAnchor.constraint(equalTo: gameNameLabel.bottomAnchor, constant: 10).isActive = true
-        gamesStatsStackView.leadingAnchor.constraint(equalTo: viewCell.leadingAnchor, constant: 10).isActive = true
-        gamesStatsStackView.trailingAnchor.constraint(equalTo: gameImageView.leadingAnchor, constant: -10).isActive = true
-        gamesStatsStackView.bottomAnchor.constraint(equalTo: viewCell.bottomAnchor, constant: -10).isActive = true
-        
-        gamesWonStackViewSettings(gamesWon: gamesWon)
-        winRateStackViewSettings(winRate: winRate)
-        averageTimeStackViewSettings(averageTime: averageTime)
+        gamesStatsStackView.topAnchor.constraint(equalTo: statsImgView.topAnchor).isActive = true
+        gamesStatsStackView.leadingAnchor.constraint(equalTo: statsImgView.leadingAnchor).isActive = true
+        gamesStatsStackView.trailingAnchor.constraint(equalTo: gameImageView.leadingAnchor).isActive = true
+        gamesStatsStackView.bottomAnchor.constraint(equalTo: statsImgView.bottomAnchor).isActive = true
+
+        gamesWonStackViewSettings()
+        averageTimeStackViewSettings()
     }
-    
-    private func gamesWonStackViewSettings(gamesWon: Int) {
+
+    private func gamesWonStackViewSettings() {
         gamesStatsStackView.addArrangedSubview(gamesWonStackView)
-        
+
         gamesWonStackView.axis = .horizontal
         gamesWonStackView.distribution = .equalCentering
-        
+
         gamesWonStackView.translatesAutoresizingMaskIntoConstraints = false
         gamesWonStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor, constant: -10).isActive = true
         gamesWonStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor, constant: 10).isActive = true
-        
-        let gamesWonNameLabel = UILabel()
-        
+
         gamesWonStackView.addArrangedSubview(gamesWonNameLabel)
-        
+
         gamesWonNameLabel.text = NSLocalizedString("Games Won", comment: "")
         gamesWonNameLabel.font = .systemFont(ofSize: 16)
-        gamesWonNameLabel.textColor = .blueSys
-        
-        let gamesWonLabel = UILabel()
-        
+        gamesWonNameLabel.textColor = .lightBlue
+
         gamesWonStackView.addArrangedSubview(gamesWonLabel)
-        
-        gamesWonLabel.text = String(gamesWon)
+
+        gamesWonLabel.text = String(gameStatistics.winGamesCount)
         gamesWonLabel.font = .systemFont(ofSize: 16)
-        gamesWonLabel.textColor = .blueSys
+        gamesWonLabel.textColor = .lightBlue
     }
-    
-    func winRateStackViewSettings(winRate: String) {
-        gamesStatsStackView.addArrangedSubview(winRateStackView)
-        
-        winRateStackView.axis = .horizontal
-        winRateStackView.distribution = .equalCentering
-        
-        winRateStackView.translatesAutoresizingMaskIntoConstraints = false
-        winRateStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor, constant: -10).isActive = true
-        winRateStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor, constant: 10).isActive = true
-        
-        let winRateNameLabel = UILabel()
-        
-        winRateStackView.addArrangedSubview(winRateNameLabel)
-        
-        winRateNameLabel.text = NSLocalizedString("Win rate", comment: "")
-        winRateNameLabel.font = .systemFont(ofSize: 16)
-        winRateNameLabel.textColor = .blueSys
-        
-        let winRateLabel = UILabel()
-        
-        winRateStackView.addArrangedSubview(winRateLabel)
-        
-        winRateLabel.text = winRate
-        winRateLabel.font = .systemFont(ofSize: 16)
-        winRateLabel.textColor = .blueSys
-    }
-    
-    func averageTimeStackViewSettings(averageTime: String) {
+
+    private func averageTimeStackViewSettings() {
         gamesStatsStackView.addArrangedSubview(averageTimeStackView)
-        
+
         averageTimeStackView.axis = .horizontal
         averageTimeStackView.distribution = .equalCentering
-        
+
         averageTimeStackView.translatesAutoresizingMaskIntoConstraints = false
         averageTimeStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor, constant: -10).isActive = true
         averageTimeStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor, constant: 10).isActive = true
-        
-        let averageTimeNameLabel = UILabel()
-        
+
         averageTimeStackView.addArrangedSubview(averageTimeNameLabel)
-        
+
         averageTimeNameLabel.text = NSLocalizedString("Average Time", comment: "")
         averageTimeNameLabel.font = .systemFont(ofSize: 16)
-        averageTimeNameLabel.textColor = .blueSys
-        
-        let averageTimeLabel = UILabel()
-        
+        averageTimeNameLabel.textColor = .lightBlue
+
         averageTimeStackView.addArrangedSubview(averageTimeLabel)
-        
-        averageTimeLabel.text = averageTime
+
+        averageTimeLabel.text = getAverageTime()
         averageTimeLabel.font = .systemFont(ofSize: 16)
-        averageTimeLabel.textColor = .blueSys
+        averageTimeLabel.textColor = .lightBlue
+    }
+
+    private func winRateLineSettings() {
+        allGamesLineView.backgroundColor = .lightBlue.withAlphaComponent(0.3)
+        allGamesLineView.layer.cornerRadius = 10
+        
+        gameStackView.addArrangedSubview(allGamesLineView)
+        
+        allGamesLineView.translatesAutoresizingMaskIntoConstraints = false
+        allGamesLineView.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
+        let winRatePercentage = Double(gameStatistics.winGamesCount) / Double(gameStatistics.allgamesCount)
+        
+        winGamesLineViewSettings(winPersantage: winRatePercentage)
+        percentageViewSettings(winPersantage: winRatePercentage)
+    }
+    
+    private func winGamesLineViewSettings(winPersantage: Double) {
+        winGamesLineView.backgroundColor = .lightBlue
+        winGamesLineView.layer.cornerRadius = 10
+        
+        allGamesLineView.addSubview(winGamesLineView)
+        
+        winGamesLineView.translatesAutoresizingMaskIntoConstraints = false
+        winGamesLineView.topAnchor.constraint(equalTo: allGamesLineView.topAnchor).isActive = true
+        winGamesLineView.widthAnchor.constraint(equalTo: allGamesLineView.widthAnchor, multiplier: winPersantage).isActive = true
+        winGamesLineView.bottomAnchor.constraint(equalTo: allGamesLineView.bottomAnchor).isActive = true
+        winGamesLineView.leadingAnchor.constraint(equalTo: allGamesLineView.leadingAnchor).isActive = true
+    }
+    
+    private func percentageViewSettings(winPersantage: Double) {
+        percentageView.textAlignment = .left
+        
+        percentageView.text = String(round(winPersantage * 1000) / 10) + "%"
+        percentageView.textColor = .beige
+
+        winGamesLineView.addSubview(percentageView)
+
+        percentageView.translatesAutoresizingMaskIntoConstraints = false
+        percentageView.topAnchor.constraint(equalTo: winGamesLineView.topAnchor).isActive = true
+        percentageView.bottomAnchor.constraint(equalTo: winGamesLineView.bottomAnchor).isActive = true
+        percentageView.leadingAnchor.constraint(equalTo: winGamesLineView.leadingAnchor, constant: 10).isActive = true
+    }
+
+    private func getAverageTime() -> String {
+        var time = 0
+
+        for i in 0..<gameStatistics.times.count {
+            time += gameStatistics.times[i]
+        }
+
+        return intTimeToString(time: time / gameStatistics.allgamesCount)
+    }
+
+    private func intTimeToString(time: Int) -> String {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.hour, .minute, .second]
+        formatter.unitsStyle = .positional
+        return formatter.string(from: TimeInterval(time))!
     }
 }
