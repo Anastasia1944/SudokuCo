@@ -19,6 +19,7 @@ class GamesStatisticsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .beige
+        view.setBackgroundWaves(waves: 3, color: .lightBlue.withAlphaComponent(0.5))
         
         statisticsTableView.delegate = self
         statisticsTableView.dataSource = self

@@ -44,27 +44,4 @@ extension UITableView {
     func restore() {
         self.backgroundView = nil
     }
-    
-    func setBackgroundWaves(waves: Int, color: UIColor = .darkBlue) {
-        let emptyView = UIView(frame: CGRect(x: self.center.x, y: self.center.y, width: self.bounds.size.width, height: self.bounds.size.height))
-        
-        for _ in 1...waves {
-            let wave = WaveView()
-            emptyView.addSubview(wave)
-            
-            wave.transform = wave.transform.rotated(by: .pi * Double.random(in: -0.2...0.2))
-            wave.strokeColor = color
-            
-            wave.translatesAutoresizingMaskIntoConstraints = false
-            wave.heightAnchor.constraint(equalToConstant: 400).isActive = true
-            wave.bottomAnchor.constraint(equalTo: emptyView.bottomAnchor).isActive = true
-            wave.leadingAnchor.constraint(equalTo: emptyView.leadingAnchor, constant: -100).isActive = true
-            wave.trailingAnchor.constraint(equalTo: emptyView.trailingAnchor, constant: 100).isActive = true
-            
-            DispatchQueue.main.asyncAfter(deadline: .now()) {
-                wave.animationStart()
-            }
-        }
-        self.backgroundView = emptyView
-    }
 }

@@ -34,7 +34,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
     var gameStatistics: GameStatistics = GameStatistics()
     
     func configureCell() {
-        self.backgroundColor = .clear
+        self.backgroundColor = .beige.withAlphaComponent(0.5)
 
         configureView()
     }

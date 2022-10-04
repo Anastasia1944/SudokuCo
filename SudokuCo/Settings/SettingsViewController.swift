@@ -18,7 +18,8 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.backgroundColor = .beige
+        view.backgroundColor = .beige
+        view.setBackgroundWaves(waves: 3, color: .lightBlue.withAlphaComponent(0.5))
         
         settignsTableView.dataSource = self
         settignsTableView.delegate = self
