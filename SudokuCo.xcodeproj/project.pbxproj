@@ -258,6 +258,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		5D3A165228EC769300207E9C /* Game Elements */ = {
+			isa = PBXGroup;
+			children = (
+				5DE141AB28D1EBF400609FD2 /* GamePanelElementsView.swift */,
+				5D26780E28E084A6008DBEFF /* WaveView.swift */,
+				5DC743E328595A5700F1C4F6 /* GridView.swift */,
+			);
+			path = "Game Elements";
+			sourceTree = "<group>";
+		};
 		5D7BB4E828639E3E00AA1461 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,9 +279,6 @@
 				5DCF1DA5287DB48B0032DD04 /* GamesStatisticsViewController.swift */,
 				5DCF1DA7288052C20032DD04 /* GameStatisticsTableViewCell.swift */,
 				5DCF1D98287716AB0032DD04 /* GameInfoViewController.swift */,
-				5DC743E328595A5700F1C4F6 /* GridView.swift */,
-				5DE141AB28D1EBF400609FD2 /* GamePanelElementsView.swift */,
-				5D26780E28E084A6008DBEFF /* WaveView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -369,6 +376,7 @@
 		5DC743BF2858FF3700F1C4F6 /* SudokuCo */ = {
 			isa = PBXGroup;
 			children = (
+				5D3A165228EC769300207E9C /* Game Elements */,
 				5DE1418328CA35CC00609FD2 /* Settings */,
 				5D1BC3E828CA061000649C52 /* Extensions */,
 				5D7BB4F12865DB8E00AA1461 /* Model */,
