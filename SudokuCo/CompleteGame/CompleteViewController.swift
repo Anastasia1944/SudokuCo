@@ -70,7 +70,7 @@ class CompleteViewController: UIViewController {
         stackView.axis = .vertical
         stackView.distribution = .equalSpacing
         stackView.alignment = .center
-        stackView.spacing = 20
+        stackView.spacing = 30
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
@@ -127,7 +127,7 @@ class CompleteViewController: UIViewController {
         gameStatsStackView.axis = .vertical
         gameStatsStackView.distribution = .equalSpacing
         gameStatsStackView.alignment = .center
-        gameStatsStackView.spacing = 10
+        gameStatsStackView.spacing = 15
         
         gameStatsStackView.translatesAutoresizingMaskIntoConstraints = false
         gameStatsStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
