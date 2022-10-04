@@ -20,9 +20,9 @@ class CompleteViewController: UIViewController {
     private let winGamesLineView = UIView()
     private let percentageView = UILabel()
 
-    private let mainMenuButton = UIButton()
-    private let startOverButton = UIButton()
-    private let continueButton = UIButton()
+    private let mainMenuButton = GameBaseButton()
+    private let startOverButton = GameBaseButton()
+    private let continueButton = GameBaseButton()
     
     private var completeController = CompleteGameController()
     
@@ -220,20 +220,8 @@ class CompleteViewController: UIViewController {
     func mainMenuButtonSettings() {
         stackView.addArrangedSubview(mainMenuButton)
         
-        mainMenuButton.setBackgroundColor(color: .beige, forState: .normal)
-        mainMenuButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
-        mainMenuButton.layer.cornerRadius = 20
-        mainMenuButton.setTitle(NSLocalizedString("Main Menu", comment: ""), for: .normal)
-        mainMenuButton.setTitleColor(.lightBlue, for: .normal)
-        mainMenuButton.setTitleColor(.beige, for: .highlighted)
-        mainMenuButton.titleLabel?.font = .systemFont(ofSize: 26)
-        mainMenuButton.layer.borderWidth = 2
-        mainMenuButton.layer.borderColor = UIColor.lightBlue.cgColor
+        mainMenuButton.configureButton(buttonText: "Main Menu")
         mainMenuButton.addTarget(self, action: #selector(tapMainMenuButton), for: .touchUpInside)
-
-        mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
-        mainMenuButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        mainMenuButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
     @objc func tapMainMenuButton() {
@@ -246,20 +234,8 @@ class CompleteViewController: UIViewController {
     func startOverButtonSettings() {
         stackView.addArrangedSubview(startOverButton)
         
-        startOverButton.setBackgroundColor(color: .beige, forState: .normal)
-        startOverButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
-        startOverButton.layer.cornerRadius = 20
-        startOverButton.setTitle(NSLocalizedString("Start Over", comment: ""), for: .normal)
-        startOverButton.setTitleColor(.lightBlue, for: .normal)
-        startOverButton.setTitleColor(.beige, for: .highlighted)
-        startOverButton.titleLabel?.font = .systemFont(ofSize: 26)
-        startOverButton.layer.borderWidth = 2
-        startOverButton.layer.borderColor = UIColor.lightBlue.cgColor
+        startOverButton.configureButton(buttonText: "Start Over")
         startOverButton.addTarget(self, action: #selector(tapStartOverButton), for: .touchUpInside)
-
-        startOverButton.translatesAutoresizingMaskIntoConstraints = false
-        startOverButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        startOverButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
     @objc func tapStartOverButton() {
@@ -270,20 +246,8 @@ class CompleteViewController: UIViewController {
     func continueButtonSettings() {
         stackView.addArrangedSubview(continueButton)
         
-        continueButton.setBackgroundColor(color: .beige, forState: .normal)
-        continueButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
-        continueButton.layer.cornerRadius = 20
-        continueButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
-        continueButton.setTitleColor(.lightBlue, for: .normal)
-        continueButton.setTitleColor(.beige, for: .highlighted)
-        continueButton.titleLabel?.font = .systemFont(ofSize: 26)
-        continueButton.layer.borderWidth = 2
-        continueButton.layer.borderColor = UIColor.lightBlue.cgColor
+        continueButton.configureButton(buttonText: "Continue")
         continueButton.addTarget(self, action: #selector(tapContinueButton), for: .touchUpInside)
-
-        continueButton.translatesAutoresizingMaskIntoConstraints = false
-        continueButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        continueButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
     @objc func tapContinueButton() {

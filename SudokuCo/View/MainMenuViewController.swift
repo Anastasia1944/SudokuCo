@@ -14,9 +14,9 @@ class MainMenuViewController: UIViewController {
     
     let sudokuCoLabel = UILabel()
     
-    let myGamesButton = UIButton()
-    let gamesLibraryButton = UIButton()
-    let statisticsButton = UIButton()
+    let myGamesButton = GameBaseButton()
+    let gamesLibraryButton = GameBaseButton()
+    let statisticsButton = GameBaseButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,61 +139,25 @@ class MainMenuViewController: UIViewController {
     func myGamesButtonSettings() {
         buttonsStackView.addArrangedSubview(myGamesButton)
         
-        myGamesButton.setBackgroundColor(color: .beige, forState: .normal)
-        myGamesButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
-        myGamesButton.layer.cornerRadius = 20
-        myGamesButton.setTitle(NSLocalizedString("My Games", comment: ""), for: .normal)
-        myGamesButton.setTitleColor(.lightBlue, for: .normal)
-        myGamesButton.setTitleColor(.beige, for: .highlighted)
-        myGamesButton.titleLabel?.font = .systemFont(ofSize: 26)
-        myGamesButton.layer.borderWidth = 2
-        myGamesButton.layer.borderColor = UIColor.lightBlue.cgColor
+        myGamesButton.configureButton(buttonText: "My Games")
         myGamesButton.tag = 0
         myGamesButton.addTarget(self, action: #selector(transitionToVC), for: .touchUpInside)
-        
-        myGamesButton.translatesAutoresizingMaskIntoConstraints = false
-        myGamesButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        myGamesButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     func gameLibraryButtonSettings() {
         buttonsStackView.addArrangedSubview(gamesLibraryButton)
         
-        gamesLibraryButton.setBackgroundColor(color: .beige, forState: .normal)
-        gamesLibraryButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
-        gamesLibraryButton.layer.cornerRadius = 20
-        gamesLibraryButton.setTitle(NSLocalizedString("Game Library", comment: ""), for: .normal)
-        gamesLibraryButton.setTitleColor(.lightBlue, for: .normal)
-        gamesLibraryButton.setTitleColor(.beige, for: .highlighted)
-        gamesLibraryButton.titleLabel?.font = .systemFont(ofSize: 26)
-        gamesLibraryButton.layer.borderWidth = 2
-        gamesLibraryButton.layer.borderColor = UIColor.lightBlue.cgColor
+        gamesLibraryButton.configureButton(buttonText: "Game Library")
         gamesLibraryButton.tag = 1
         gamesLibraryButton.addTarget(self, action: #selector(transitionToVC), for: .touchUpInside)
-        
-        gamesLibraryButton.translatesAutoresizingMaskIntoConstraints = false
-        gamesLibraryButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        gamesLibraryButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     func statisticsButtonSettings() {
         buttonsStackView.addArrangedSubview(statisticsButton)
         
-        statisticsButton.setBackgroundColor(color: .beige, forState: .normal)
-        statisticsButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
-        statisticsButton.layer.cornerRadius = 20
-        statisticsButton.setTitle(NSLocalizedString("Statistics", comment: ""), for: .normal)
-        statisticsButton.setTitleColor(.lightBlue, for: .normal)
-        statisticsButton.setTitleColor(.beige, for: .highlighted)
-        statisticsButton.titleLabel?.font = .systemFont(ofSize: 26)
-        statisticsButton.layer.borderWidth = 2
-        statisticsButton.layer.borderColor = UIColor.lightBlue.cgColor
+        statisticsButton.configureButton(buttonText: "Statistics")
         statisticsButton.tag = 2
         statisticsButton.addTarget(self, action: #selector(transitionToVC), for: .touchUpInside)
-        
-        statisticsButton.translatesAutoresizingMaskIntoConstraints = false
-        statisticsButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
-        statisticsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
     
     @objc func transitionToVC(sender: UIButton) {
