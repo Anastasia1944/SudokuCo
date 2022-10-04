@@ -11,6 +11,7 @@ class GamesListTableViewCell: UITableViewCell {
     
     let cellStack = UIStackView()
     
+    var rowStacks: [UIStackView] = []
     var buttonsLabels: [(UIButton, UILabel)] = []
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -19,6 +20,17 @@ class GamesListTableViewCell: UITableViewCell {
         self.backgroundColor = .clear
         
         cellStackSettings()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        rowStacks.forEach {
+            $0.removeFromSuperview()
+        }
+        
+        buttonsLabels = []
+        rowStacks = []
     }
     
     func cellStackSettings() {
@@ -39,6 +51,8 @@ class GamesListTableViewCell: UITableViewCell {
     func addGames() {
         for (button, label) in buttonsLabels {
             let stackView = UIStackView()
+            rowStacks.append(stackView)
+            
             cellStack.addArrangedSubview(stackView)
             
             stackView.axis = .vertical
