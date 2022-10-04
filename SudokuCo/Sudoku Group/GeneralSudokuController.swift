@@ -353,6 +353,7 @@ class GeneralSudokuController {
                 if gameProcessor.gameState.originallyOpenedNumbers[i][j] == 0 {
                     _ = gameProcessor.fillCell(x: i, y: j, value: 0)
                     gameProcessor.gameState.openedNumbers[i][j] = 0
+                    displayAllNumbers()
                 }
             }
         }
