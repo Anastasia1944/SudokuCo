@@ -12,15 +12,14 @@ class CompleteViewController: UIViewController {
     private let stackView = UIStackView()
     
     private let winLoseLabel = UILabel()
-    private let gameLevelLabel = UILabel()
-    private let statisticStackView = UIStackView()
+    private let gameNameLabel = UILabel()
     
-    private let statisticsLabel = UILabel()
-    private let timeStackView = UIStackView()
-    private let gamesWonStackView = UIStackView()
-    private let winRateStackView = UIStackView()
-    private let averageTimeStackView = UIStackView()
+    private let gameStatsStackView = UIStackView()
     
+    private let allGamesLineView = UIView()
+    private let winGamesLineView = UIView()
+    private let percentageView = UILabel()
+
     private let mainMenuButton = UIButton()
     private let startOverButton = UIButton()
     private let continueButton = UIButton()
@@ -29,9 +28,13 @@ class CompleteViewController: UIViewController {
     
     var startOver: ((Bool) -> Void)?
     var continueGame: ((Bool) -> Void)?
-    
-    var gameName: GamesNames = .classicSudoku
-    
+
+    private var gameName: GamesNames = .classicSudoku
+    private var gameLevel: DifficultyLevels = .easy
+    private var isWin: Bool = true
+    private var isSaving: Bool = true
+    private var time: Int = 0
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -44,31 +47,23 @@ class CompleteViewController: UIViewController {
     
     func configureCompleteVC(isWin: Bool, time: Int, gameName: GamesNames, isSaving: Bool, level: DifficultyLevels) {
         self.gameName = gameName
+        self.gameLevel = level
+        self.isWin = isWin
+        self.isSaving = isSaving
+        self.time = time
         
-        completeController.addNewElementStatistic(gameName: gameName, gameLevel: level ,time: time, isWin: isWin, isSaving: isSaving)
+        completeController.addNewElementStatistic(gameName: gameName, gameLevel: level, time: time, isWin: isWin, isSaving: isSaving)
         
-        let gameLevelString = level.rawValue
-        
-        configureView(isWin: isWin, isSaving: isSaving, gameLevel: gameLevelString)
+        configureView()
     }
     
-    func configureView(isWin: Bool, isSaving: Bool, gameLevel: String) {
-        view.backgroundColor = .whiteSys
+    func configureView() {
+        view.backgroundColor = .beige
         
         view.addSubview(stackView)
+        view.setBackgroundWaves(waves: 5, color: .lightBlue.withAlphaComponent(0.5))
         
         stackSettings()
-        
-        winLoseLabelSettings(isWin: isWin)
-        gameLevelLabelSettings(gameLevel: gameLevel)
-        statisticViewSettings(isSaving: isSaving)
-        
-        mainMenuButtonSettings()
-        startOverButtonSettings()
-        
-        if !isWin {
-            continueButtonSettings()
-        }
     }
     
     func stackSettings() {
@@ -81,9 +76,20 @@ class CompleteViewController: UIViewController {
         stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
         stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        
+        winLoseLabelSettings()
+        gameNameLabelSettings()
+        gameStatsStacksSettings()
+        winRateLineSettings()
+        
+        mainMenuButtonSettings()
+        startOverButtonSettings()
+        if !isWin {
+            continueButtonSettings()
+        }
     }
     
-    func winLoseLabelSettings(isWin: Bool) {
+    func winLoseLabelSettings() {
         stackView.addArrangedSubview(winLoseLabel)
         
         if isWin {
@@ -94,236 +100,194 @@ class CompleteViewController: UIViewController {
         
         winLoseLabel.textAlignment = .center
         winLoseLabel.font = .systemFont(ofSize: 32)
-        winLoseLabel.textColor = .blueSys
+        winLoseLabel.textColor = .lightBlue
         
         winLoseLabel.translatesAutoresizingMaskIntoConstraints = false
         winLoseLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
         winLoseLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
     }
     
-    func gameLevelLabelSettings(gameLevel: String) {
-        stackView.addArrangedSubview(gameLevelLabel)
+    func gameNameLabelSettings() {
+        stackView.addArrangedSubview(gameNameLabel)
         
-        gameLevelLabel.text = "Level: \(gameLevel)"
+        gameNameLabel.text = gameName.rawValue
         
-        gameLevelLabel.textAlignment = .center
-        gameLevelLabel.font = .systemFont(ofSize: 20)
-        gameLevelLabel.textColor = .blueSys
+        gameNameLabel.textAlignment = .center
+        gameNameLabel.font = .systemFont(ofSize: 20)
+        gameNameLabel.textColor = .lightBlue
         
-        gameLevelLabel.translatesAutoresizingMaskIntoConstraints = false
-        gameLevelLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
-        gameLevelLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
+        gameNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        gameNameLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
+        gameNameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
     }
     
-    func statisticViewSettings(isSaving: Bool) {
-        stackView.addArrangedSubview(statisticStackView)
+    func gameStatsStacksSettings() {
+        stackView.addArrangedSubview(gameStatsStackView)
         
-        statisticStackView.axis = .vertical
-        statisticStackView.distribution = .equalSpacing
-        statisticStackView.alignment = .center
-        statisticStackView.spacing = 20
-        statisticStackView.isLayoutMarginsRelativeArrangement = true
-        statisticStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 0, bottom: 30, trailing: 0)
+        gameStatsStackView.axis = .vertical
+        gameStatsStackView.distribution = .equalSpacing
+        gameStatsStackView.alignment = .center
+        gameStatsStackView.spacing = 10
         
-        statisticStackView.backgroundColor = .graySys
-        statisticStackView.layer.cornerRadius = 30
+        gameStatsStackView.translatesAutoresizingMaskIntoConstraints = false
+        gameStatsStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
+        gameStatsStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
         
-        statisticStackView.translatesAutoresizingMaskIntoConstraints = false
-        statisticStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
-        statisticStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
-        
-        statisticLabelSettings()
-        timeStackViewSettings()
-        
-        if isSaving {
-            gamesWonStackViewSettings()
-            winRateStackViewSettings()
-            averageTimeStackViewSettings()
+        let stats: [(String, String)] = [("Level", gameLevel.rawValue),
+                                         ("Games Played", String(completeController.getAllGamesCount())),
+                                         ("Current Time", completeController.getCurrentTimeString()),
+                                         ("Average Time", completeController.getAverageTimeString())]
+
+        for stat in stats {
+            addStatRow(leftString: stat.0, rightString: stat.1)
         }
     }
     
-    func statisticLabelSettings() {
-        statisticStackView.addArrangedSubview(statisticsLabel)
+    func addStatRow(leftString: String, rightString: String) {
+        let statStackView = UIStackView()
         
-        statisticsLabel.text = "Statistics:"
-        statisticsLabel.textAlignment = .center
-        statisticsLabel.font = .systemFont(ofSize: 24)
-        statisticsLabel.textColor = .blueSys
-        
-        statisticsLabel.translatesAutoresizingMaskIntoConstraints = false
-        statisticsLabel.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
-        statisticsLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
+        gameStatsStackView.addArrangedSubview(statStackView)
+
+        statStackView.axis = .horizontal
+        statStackView.distribution = .equalCentering
+
+        statStackView.translatesAutoresizingMaskIntoConstraints = false
+        statStackView.trailingAnchor.constraint(equalTo: gameStatsStackView.trailingAnchor, constant: -10).isActive = true
+        statStackView.leadingAnchor.constraint(equalTo: gameStatsStackView.leadingAnchor, constant: 10).isActive = true
+
+        let leftLabel = UILabel()
+
+        statStackView.addArrangedSubview(leftLabel)
+
+        leftLabel.text = leftString
+        leftLabel.font = .systemFont(ofSize: 24)
+        leftLabel.textColor = .lightBlue
+
+        let rightLabel = UILabel()
+
+        statStackView.addArrangedSubview(rightLabel)
+
+        rightLabel.text = rightString
+        rightLabel.font = .systemFont(ofSize: 24)
+        rightLabel.textColor = .lightBlue
     }
     
-    func timeStackViewSettings() {
-        statisticStackView.addArrangedSubview(timeStackView)
+    private func winRateLineSettings() {
+        allGamesLineView.backgroundColor = .lightBlue.withAlphaComponent(0.3)
+        allGamesLineView.layer.cornerRadius = 10
         
-        timeStackView.axis = .horizontal
-        timeStackView.distribution = .equalCentering
+        stackView.addArrangedSubview(allGamesLineView)
         
-        timeStackView.translatesAutoresizingMaskIntoConstraints = false
-        timeStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -10).isActive = true
-        timeStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 10).isActive = true
+        allGamesLineView.translatesAutoresizingMaskIntoConstraints = false
+        allGamesLineView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        allGamesLineView.trailingAnchor.constraint(equalTo: gameStatsStackView.trailingAnchor).isActive = true
+        allGamesLineView.leadingAnchor.constraint(equalTo: gameStatsStackView.leadingAnchor).isActive = true
         
-        let timeNameLabel = UILabel()
+        let winRatePercentage = Double(completeController.getWinGamesCount()) / Double(completeController.getAllGamesCount())
         
-        timeStackView.addArrangedSubview(timeNameLabel)
-        
-        timeNameLabel.text = "Time"
-        timeNameLabel.font = .systemFont(ofSize: 24)
-        timeNameLabel.textColor = .blueSys
-        
-        let timeLabel = UILabel()
-        
-        timeStackView.addArrangedSubview(timeLabel)
-        
-        timeLabel.text = completeController.getCurrentTimeString()
-        timeLabel.font = .systemFont(ofSize: 24)
-        timeLabel.textColor = .blueSys
+        winGamesLineViewSettings(winPersantage: winRatePercentage)
     }
     
-    func gamesWonStackViewSettings() {
-        statisticStackView.addArrangedSubview(gamesWonStackView)
+    private func winGamesLineViewSettings(winPersantage: Double) {
+        winGamesLineView.backgroundColor = .lightBlue
+        winGamesLineView.layer.cornerRadius = 10
+
+        allGamesLineView.addSubview(winGamesLineView)
+
+        winGamesLineView.translatesAutoresizingMaskIntoConstraints = false
+        winGamesLineView.topAnchor.constraint(equalTo: allGamesLineView.topAnchor).isActive = true
+        winGamesLineView.widthAnchor.constraint(equalTo: allGamesLineView.widthAnchor, multiplier: winPersantage).isActive = true
+        winGamesLineView.bottomAnchor.constraint(equalTo: allGamesLineView.bottomAnchor).isActive = true
+        winGamesLineView.leadingAnchor.constraint(equalTo: allGamesLineView.leadingAnchor).isActive = true
         
-        gamesWonStackView.axis = .horizontal
-        gamesWonStackView.distribution = .equalCentering
-        
-        gamesWonStackView.translatesAutoresizingMaskIntoConstraints = false
-        gamesWonStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -10).isActive = true
-        gamesWonStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 10).isActive = true
-        
-        let gamesWonNameLabel = UILabel()
-        
-        gamesWonStackView.addArrangedSubview(gamesWonNameLabel)
-        
-        gamesWonNameLabel.text = "Games Won"
-        gamesWonNameLabel.font = .systemFont(ofSize: 24)
-        gamesWonNameLabel.textColor = .blueSys
-        
-        let gamesWonLabel = UILabel()
-        
-        gamesWonStackView.addArrangedSubview(gamesWonLabel)
-        
-        gamesWonLabel.text = String(completeController.getWinGamesCount())
-        gamesWonLabel.font = .systemFont(ofSize: 24)
-        gamesWonLabel.textColor = .blueSys
+        percentageViewSettings(winPersantage: winPersantage)
     }
-    
-    func winRateStackViewSettings() {
-        statisticStackView.addArrangedSubview(winRateStackView)
-        
-        winRateStackView.axis = .horizontal
-        winRateStackView.distribution = .equalCentering
-        
-        winRateStackView.translatesAutoresizingMaskIntoConstraints = false
-        winRateStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -10).isActive = true
-        winRateStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 10).isActive = true
-        
-        let winRateNameLabel = UILabel()
-        
-        winRateStackView.addArrangedSubview(winRateNameLabel)
-        
-        winRateNameLabel.text = "Win rate"
-        winRateNameLabel.font = .systemFont(ofSize: 24)
-        winRateNameLabel.textColor = .blueSys
-        
-        let winRateLabel = UILabel()
-        
-        winRateStackView.addArrangedSubview(winRateLabel)
-        
-        winRateLabel.text = completeController.getWinRatePercentage()
-        winRateLabel.font = .systemFont(ofSize: 24)
-        winRateLabel.textColor = .blueSys
-    }
-    
-    func averageTimeStackViewSettings() {
-        statisticStackView.addArrangedSubview(averageTimeStackView)
-        
-        averageTimeStackView.axis = .horizontal
-        averageTimeStackView.distribution = .equalCentering
-        
-        averageTimeStackView.translatesAutoresizingMaskIntoConstraints = false
-        averageTimeStackView.trailingAnchor.constraint(equalTo: statisticStackView.trailingAnchor, constant: -10).isActive = true
-        averageTimeStackView.leadingAnchor.constraint(equalTo: statisticStackView.leadingAnchor, constant: 10).isActive = true
-        
-        let averageTimeNameLabel = UILabel()
-        
-        averageTimeStackView.addArrangedSubview(averageTimeNameLabel)
-        
-        averageTimeNameLabel.text = "Average Time"
-        averageTimeNameLabel.font = .systemFont(ofSize: 24)
-        averageTimeNameLabel.textColor = .blueSys
-        
-        let averageTimeLabel = UILabel()
-        
-        averageTimeStackView.addArrangedSubview(averageTimeLabel)
-        
-        averageTimeLabel.text = completeController.getAverageTimeString()
-        averageTimeLabel.font = .systemFont(ofSize: 24)
-        averageTimeLabel.textColor = .blueSys
+
+    private func percentageViewSettings(winPersantage: Double) {
+        percentageView.textAlignment = .left
+
+        percentageView.text = String(round(winPersantage * 1000) / 10) + "%"
+        percentageView.textColor = .beige
+
+        winGamesLineView.addSubview(percentageView)
+
+        percentageView.translatesAutoresizingMaskIntoConstraints = false
+        percentageView.topAnchor.constraint(equalTo: winGamesLineView.topAnchor).isActive = true
+        percentageView.bottomAnchor.constraint(equalTo: winGamesLineView.bottomAnchor).isActive = true
+        percentageView.leadingAnchor.constraint(equalTo: winGamesLineView.leadingAnchor, constant: 10).isActive = true
     }
     
     func mainMenuButtonSettings() {
         stackView.addArrangedSubview(mainMenuButton)
         
-        mainMenuButton.backgroundColor = .blueSys
-        mainMenuButton.layer.cornerRadius = 10
-        mainMenuButton.setTitle("Main Menu", for: .normal)
-        mainMenuButton.setTitleColor(.whiteSys, for: .normal)
+        mainMenuButton.setBackgroundColor(color: .beige, forState: .normal)
+        mainMenuButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
+        mainMenuButton.layer.cornerRadius = 20
+        mainMenuButton.setTitle(NSLocalizedString("Main Menu", comment: ""), for: .normal)
+        mainMenuButton.setTitleColor(.lightBlue, for: .normal)
+        mainMenuButton.setTitleColor(.beige, for: .highlighted)
         mainMenuButton.titleLabel?.font = .systemFont(ofSize: 26)
+        mainMenuButton.layer.borderWidth = 2
+        mainMenuButton.layer.borderColor = UIColor.lightBlue.cgColor
         mainMenuButton.addTarget(self, action: #selector(tapMainMenuButton), for: .touchUpInside)
-        
+
         mainMenuButton.translatesAutoresizingMaskIntoConstraints = false
         mainMenuButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         mainMenuButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
-    
+
     @objc func tapMainMenuButton() {
         let gameInfoCoding = GamesInfoCoding()
         gameInfoCoding.deleteGameInfo(gameName: gameName)
-        
+
         navigationController?.popToRootViewController(animated: true)
     }
-    
+
     func startOverButtonSettings() {
         stackView.addArrangedSubview(startOverButton)
         
-        startOverButton.backgroundColor = .blueSys
-        startOverButton.layer.cornerRadius = 10
-        startOverButton.setTitle("Restart Game", for: .normal)
-        startOverButton.setTitleColor(.whiteSys, for: .normal)
+        startOverButton.setBackgroundColor(color: .beige, forState: .normal)
+        startOverButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
+        startOverButton.layer.cornerRadius = 20
+        startOverButton.setTitle(NSLocalizedString("Start Over", comment: ""), for: .normal)
+        startOverButton.setTitleColor(.lightBlue, for: .normal)
+        startOverButton.setTitleColor(.beige, for: .highlighted)
         startOverButton.titleLabel?.font = .systemFont(ofSize: 26)
+        startOverButton.layer.borderWidth = 2
+        startOverButton.layer.borderColor = UIColor.lightBlue.cgColor
         startOverButton.addTarget(self, action: #selector(tapStartOverButton), for: .touchUpInside)
-        
+
         startOverButton.translatesAutoresizingMaskIntoConstraints = false
         startOverButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         startOverButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
-    
+
     @objc func tapStartOverButton() {
         self.startOver!(true)
-        
         navigationController?.popViewController(animated: true)
     }
-    
+
     func continueButtonSettings() {
         stackView.addArrangedSubview(continueButton)
         
-        continueButton.backgroundColor = .blueSys
-        continueButton.layer.cornerRadius = 10
-        continueButton.setTitle("Continue", for: .normal)
-        continueButton.setTitleColor(.whiteSys, for: .normal)
+        continueButton.setBackgroundColor(color: .beige, forState: .normal)
+        continueButton.setBackgroundColor(color: .lightBlue, forState: .highlighted)
+        continueButton.layer.cornerRadius = 20
+        continueButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
+        continueButton.setTitleColor(.lightBlue, for: .normal)
+        continueButton.setTitleColor(.beige, for: .highlighted)
         continueButton.titleLabel?.font = .systemFont(ofSize: 26)
+        continueButton.layer.borderWidth = 2
+        continueButton.layer.borderColor = UIColor.lightBlue.cgColor
         continueButton.addTarget(self, action: #selector(tapContinueButton), for: .touchUpInside)
-        
+
         continueButton.translatesAutoresizingMaskIntoConstraints = false
         continueButton.widthAnchor.constraint(equalToConstant: 240).isActive = true
         continueButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
-    
+
     @objc func tapContinueButton() {
         self.continueGame!(true)
-        
         navigationController?.popViewController(animated: true)
     }
 }
