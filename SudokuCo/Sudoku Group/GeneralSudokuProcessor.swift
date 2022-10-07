@@ -12,6 +12,7 @@ class GeneralSudokuProcessor {
     var gameState = SudokuState()
     var sudokuActions: [SudokuAction] = []
     var isNote: Bool = false
+    let N = 9
     
     func generateSudoku(gameSettings: GameSettings) {
         gameState.gameLevel = gameSettings.gameLevel
@@ -168,5 +169,78 @@ class GeneralSudokuProcessor {
             return true
         }
         return false
+    }
+    
+    func checkIfOneSolution() -> [[Int]]? {
+        let openedNums = gameState.originallyOpenedNumbers
+        return ifNotOneSolution(sudokuOpenedNums: openedNums, row: 0, column: 0).1
+    }
+    
+    private func ifNotOneSolution(sudokuOpenedNums: [[Int]], row: Int, column: Int) -> (Bool, [[Int]]?) {
+        var row = row
+        var column = column
+        var sudokuOpenedNums = sudokuOpenedNums
+
+        if row >= N - 1 && column >= N {
+            if sudokuOpenedNums == gameState.sudokuNumbers {
+                return (false, nil)
+            }
+            return (true, sudokuOpenedNums)
+        }
+
+        if column == N {
+            row += 1
+            column = 0
+        }
+
+        if sudokuOpenedNums[row][column] != 0 {
+            return ifNotOneSolution(sudokuOpenedNums: sudokuOpenedNums, row: row, column: column + 1)
+        }
+
+        for num in Constants.sudokuNumbersRange {
+            if checkAll(sudokuOpenedNums: sudokuOpenedNums, x: row, y: column, num: num) {
+                sudokuOpenedNums[row][column] = num
+
+                let sudokuSolution = ifNotOneSolution(sudokuOpenedNums: sudokuOpenedNums, row: row, column: column + 1)
+                if  sudokuSolution.0 {
+                    return (true, sudokuSolution.1)
+                }
+            }
+            sudokuOpenedNums[row][column] = 0
+        }
+        return (false, nil)
+    }
+
+    private func checkAll(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+        return checkColumn(sudokuOpenedNums: sudokuOpenedNums, x: x, y: y, num: num) &&
+        checkRow(sudokuOpenedNums: sudokuOpenedNums, x: x, y: y, num: num) &&
+        checkArea(sudokuOpenedNums: sudokuOpenedNums, x: x, y: y, num: num)
+    }
+
+    private func checkColumn(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+        return !sudokuOpenedNums[x].contains(num)
+    }
+
+    private func checkRow(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+        for i in Constants.sudokuRange {
+            if sudokuOpenedNums[i][y] == num {
+                return false
+            }
+        }
+        return true
+    }
+
+    private func checkArea(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+        let areaX = x / 3
+        let areaY = y / 3
+
+        for i in 3 * areaX...3 * areaX + 2 {
+            for j in 3 * areaY...3 * areaY + 2 {
+                if sudokuOpenedNums[i][j] == num {
+                    return false
+                }
+            }
+        }
+        return true
     }
 }
