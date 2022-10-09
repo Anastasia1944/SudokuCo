@@ -10,39 +10,67 @@ import Foundation
 class SudokuClassicProcessor: GeneralSudokuProcessor {
     
     override func configureOpenedNums(openedNums: Int) {
-        gameState.originallyOpenedNumbers = gameState.sudokuNumbers
+        var coordinates: [(Int, Int)] = []
         
-        var coordinates: [(Int, Int)] = Constants.sudokuRange.flatMap{ coordinateX in
-            Constants.sudokuRange.map{ coordinateY in (coordinateX, coordinateY) }
-        }
-        
-        var remainingNumsCount = N * N
-        
-        var index = N * N - openedNums
-        while index != 0 && !coordinates.isEmpty {
-            coordinates.shuffle()
-            let (pointX, pointY) = coordinates.popLast() ?? (0, 0)
+        var index = 0
 
-            if removeNumIfNeeded(x: pointX, y: pointY) {
-                index -= 1
-                remainingNumsCount -= 1
+        while index != openedNums {
+            let pointX = Int.random(in: Constants.sudokuRange)
+            let pointY = Int.random(in: Constants.sudokuRange)
+
+            if gameState.originallyOpenedNumbers[pointX][pointY] == 0 && gameState.sudokuNumbers[pointX][pointY] != 0 {
+                coordinates.append((pointX, pointY))
+                gameState.originallyOpenedNumbers[pointX][pointY] = gameState.sudokuNumbers[pointX][pointY]
+                index += 1
             }
         }
         
+        addMissingNums(filledCoordinates: coordinates)
         gameState.openedNumbers = gameState.originallyOpenedNumbers
     }
     
-    func removeNumIfNeeded(x: Int, y: Int) -> Bool {
-        if gameState.originallyOpenedNumbers[x][y] != 0 {
-            gameState.originallyOpenedNumbers[x][y] = 0
-
-            let solution = super.checkIfOneSolution()
-            if solution != nil {
-                gameState.originallyOpenedNumbers[x][y] = gameState.sudokuNumbers[x][y]
-            } else {
-                return true
+    func addMissingNums(filledCoordinates: [(Int, Int)]) {
+        var solution = checkIfOneSolution()
+        
+        var numsAdded = 0
+        while solution != nil {
+            numsAdded += 1
+            let (randomX, randomY) = findCellsDifference(matr1: gameState.sudokuNumbers, matr2: solution!).randomElement() ?? (0, 0)
+            gameState.originallyOpenedNumbers[randomX][randomY] = gameState.sudokuNumbers[randomX][randomY]
+            solution = checkIfOneSolution()
+        }
+        
+        removePossibleNums(filledCoordinates: filledCoordinates, count: numsAdded)
+    }
+    
+    func findCellsDifference(matr1: [[Int]], matr2: [[Int]]) -> [(Int, Int)] {
+        var diff: [(Int, Int)] = []
+        for i in Constants.sudokuRange {
+            for j in Constants.sudokuRange {
+                if matr1[i][j] != matr2[i][j] {
+                    diff.append((i, j))
+                }
             }
         }
-        return false
+        return diff
+    }
+    
+    func removePossibleNums(filledCoordinates: [(Int, Int)], count: Int) {
+        var index = 0
+        var filledCoordinates = filledCoordinates
+        
+        while index != count && !filledCoordinates.isEmpty {
+            filledCoordinates.shuffle()
+            let (pointX, pointY) = filledCoordinates.popLast() ?? (0, 0)
+            
+            gameState.originallyOpenedNumbers[pointX][pointY] = 0
+            
+            let solution = checkIfOneSolution()
+            if solution != nil {
+                gameState.originallyOpenedNumbers[pointX][pointY] = gameState.sudokuNumbers[pointX][pointY]
+            } else {
+                index += 1
+            }
+        }
     }
 }
