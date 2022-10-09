@@ -12,6 +12,8 @@ class Sudoku2DViewController: GeneralSudokuViewController {
     private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 40, .medium: 35, .hard: 30, .expert: 25]
 
     override func viewDidLoad() {
+        super.gameController.gameProcessor = Sudoku2DProcessor()
+        
         super.gameSettings.gameName = .sudoku2D
         super.gameSettings.sudokuType = .sudoku2D
         super.gameSettings.withBoldAreas = false

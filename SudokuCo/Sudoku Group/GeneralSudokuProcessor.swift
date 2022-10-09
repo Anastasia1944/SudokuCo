@@ -211,17 +211,17 @@ class GeneralSudokuProcessor {
         return (false, nil)
     }
 
-    private func checkAll(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+    func checkAll(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
         return checkColumn(sudokuOpenedNums: sudokuOpenedNums, x: x, y: y, num: num) &&
         checkRow(sudokuOpenedNums: sudokuOpenedNums, x: x, y: y, num: num) &&
         checkArea(sudokuOpenedNums: sudokuOpenedNums, x: x, y: y, num: num)
     }
 
-    private func checkColumn(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+    func checkColumn(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
         return !sudokuOpenedNums[x].contains(num)
     }
 
-    private func checkRow(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+    func checkRow(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
         for i in Constants.sudokuRange {
             if sudokuOpenedNums[i][y] == num {
                 return false
@@ -230,7 +230,7 @@ class GeneralSudokuProcessor {
         return true
     }
 
-    private func checkArea(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
+    func checkArea(sudokuOpenedNums: [[Int]], x: Int, y: Int, num: Int) -> Bool {
         let areaX = x / 3
         let areaY = y / 3
 
