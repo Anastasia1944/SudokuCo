@@ -9,7 +9,7 @@ import UIKit
 
 class Sudoku2DViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 40, .medium: 35, .hard: 30, .expert: 25]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 47, .medium: 41, .hard: 37, .expert: 33]
 
     override func viewDidLoad() {
         super.gameController.gameProcessor = Sudoku2DProcessor()

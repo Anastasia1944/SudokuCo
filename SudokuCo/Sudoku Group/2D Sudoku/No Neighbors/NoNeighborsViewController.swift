@@ -9,7 +9,7 @@ import UIKit
 
 class NoNeighborsViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 30, .medium: 25, .hard: 20, .expert: 15]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 20, .medium: 16, .hard: 12, .expert: 7]
     
     override func viewDidLoad() {
         super.gameSettings.gameName = .noNeighboursSudoku
