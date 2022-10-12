@@ -7,15 +7,19 @@
 
 import Foundation
 
-struct KillerSudokuController {
+class KillerSudokuController {
     
     private var killerSudokuAreasOnMatrix: [[Int]] = []
     private var killerSudokuAreas: [Int: Set<Int>] = [:]
     
     private var sudokuNumbers: [[Int]] = []
     
-    mutating func getKillerSudokuAreas(sudokuNumbers: [[Int]]) -> [[Int]] {
+    var diagonalCoordinates: [(Int, Int, Int, Int)] = []
+    
+    func getKillerSudokuAreas(sudokuNumbers: [[Int]]) -> [[Int]] {
         self.sudokuNumbers = sudokuNumbers
+        
+        checkSquaresNums()
         
         fillAreasByZeros()
         configureAreas()
@@ -23,39 +27,70 @@ struct KillerSudokuController {
         return killerSudokuAreasOnMatrix
     }
     
-    private mutating func fillAreasByZeros() {
+    private func fillAreasByZeros() {
         for _ in Constants.sudokuRange {
             killerSudokuAreasOnMatrix.append([Int](repeating: 0, count: 9))
         }
     }
     
-    private mutating func configureAreas() {
+    func checkSquaresNums() {
+        for i in 0..<8 {
+            for j in 0..<8 {
+                for k in i + 1...8 {
+                    let coord = sudokuNumbers[k].firstIndex(of: sudokuNumbers[i][j])!
+                    
+                    if coord > j {
+                        if sudokuNumbers[k][j] == sudokuNumbers[i][coord] && (k + 1 == i || k - 1 == i || coord + 1 == j || coord - 1 == j) {
+                            self.diagonalCoordinates.append((i, j, k, coord))
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private func configureAreas() {
         configureDoubleAreas()
         
         configureRemainingCells()
     }
     
-    private mutating func configureDoubleAreas() {
-        var x = 1
+    private func configureDoubleAreas() {
+        var i = 1
         
-        while x != 26 {
-            let i = Int.random(in: Constants.sudokuRange)
-            let j = Int.random(in: Constants.sudokuRange)
+        for group in diagonalCoordinates {
+            var allCoordinates = [(group.0, group.1), (group.0, group.3), (group.2, group.1), (group.2, group.3)]
+            allCoordinates.shuffle()
+            _ = allCoordinates.popLast()
             
-            if killerSudokuAreasOnMatrix[i][j] == 0 {
-                if let (i1, j1) = getRandomFreeCellNeighbor(i: i, j: j) {
-                    self.killerSudokuAreasOnMatrix[i][j] = x
-                    self.killerSudokuAreasOnMatrix[i1][j1] = x
+            for coordinate in allCoordinates {
+                let x = coordinate.0
+                let y = coordinate.1
+                
+                if killerSudokuAreasOnMatrix[x][y] == 0 {
+                    var availableNeighbors = getAllFreeCellNeighbor(i: x, j: y)
+                    availableNeighbors.removeAll(where: { coord in allCoordinates.contains(where: { $0 == coord }) })
                     
-                    killerSudokuAreas[x] = [sudokuNumbers[i][j], sudokuNumbers[i1][j1]]
-                    
-                    x += 1
+                    if let (neighborX, neighborY) = availableNeighbors.randomElement() {
+                        self.killerSudokuAreasOnMatrix[x][y] = i
+                        self.killerSudokuAreasOnMatrix[neighborX][neighborY] = i
+
+                        killerSudokuAreas[i] = [sudokuNumbers[x][y], sudokuNumbers[neighborX][neighborY]]
+
+                        i += 1
+                    }
                 }
             }
         }
     }
     
     private func getRandomFreeCellNeighbor(i: Int, j: Int) -> (Int, Int)? {
+        let variants = getAllFreeCellNeighbor(i: i, j: j)
+        
+        return variants.isEmpty ? nil : variants.randomElement()
+    }
+    
+    private func getAllFreeCellNeighbor(i: Int, j: Int) -> [(Int, Int)] {
         var variants: [(Int, Int)] = []
         
         if i != 0 && killerSudokuAreasOnMatrix[i - 1][j] == 0 {
@@ -74,10 +109,10 @@ struct KillerSudokuController {
             variants.append((i, j + 1))
         }
         
-        return variants.isEmpty ? nil : variants.randomElement()
+        return variants
     }
     
-    private mutating func configureRemainingCells() {
+    private func configureRemainingCells() {
         var x = 26
         
         for i in Constants.sudokuRange {
