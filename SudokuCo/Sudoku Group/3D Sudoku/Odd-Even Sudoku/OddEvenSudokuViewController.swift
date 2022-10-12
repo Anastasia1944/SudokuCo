@@ -9,9 +9,11 @@ import UIKit
 
 class OddEvenSudokuViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 30, .medium: 25, .hard: 20, .expert: 15]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 35, .medium: 30, .hard: 27, .expert: 23]
     
     override func viewDidLoad() {
+        super.gameController.gameProcessor = OddEvenSudokuProcessor()
+        
         super.gameSettings.gameName = .oddEvenSudoku
         super.gameSettings.openedNum = openedNumsLevels[super.gameSettings.gameLevel] ?? openedNumsLevels[.easy] ?? 30
         
