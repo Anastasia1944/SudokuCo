@@ -31,6 +31,7 @@
 		5D26780B28DF3B91008DBEFF /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D26780A28DF3B91008DBEFF /* MainMenuViewController.swift */; };
 		5D26780F28E084A6008DBEFF /* WaveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D26780E28E084A6008DBEFF /* WaveView.swift */; };
 		5D38C42228F6E2BB0028C602 /* OddEvenSudokuProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D38C42128F6E2BB0028C602 /* OddEvenSudokuProcessor.swift */; };
+		5D38C42428F6EA470028C602 /* MathraxProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D38C42328F6EA470028C602 /* MathraxProcessor.swift */; };
 		5D3A165128EC555A00207E9C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3A165028EC555A00207E9C /* UIView+Extensions.swift */; };
 		5D3A165428EC77DC00207E9C /* GameBaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3A165328EC77DC00207E9C /* GameBaseButton.swift */; };
 		5D3A165A28F0459400207E9C /* SudokuClassicProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D3A165928F0459400207E9C /* SudokuClassicProcessor.swift */; };
@@ -110,6 +111,7 @@
 		5D26780A28DF3B91008DBEFF /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		5D26780E28E084A6008DBEFF /* WaveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveView.swift; sourceTree = "<group>"; };
 		5D38C42128F6E2BB0028C602 /* OddEvenSudokuProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OddEvenSudokuProcessor.swift; sourceTree = "<group>"; };
+		5D38C42328F6EA470028C602 /* MathraxProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathraxProcessor.swift; sourceTree = "<group>"; };
 		5D3A165028EC555A00207E9C /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		5D3A165328EC77DC00207E9C /* GameBaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameBaseButton.swift; sourceTree = "<group>"; };
 		5D3A165928F0459400207E9C /* SudokuClassicProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SudokuClassicProcessor.swift; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 			children = (
 				5D05EBC228A6EDBE001A28FE /* MathraxViewController.swift */,
 				5D05EBC428A6F315001A28FE /* CircleWithSurCellsInfo.swift */,
+				5D38C42328F6EA470028C602 /* MathraxProcessor.swift */,
 			);
 			path = Mathrax;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				5D05EBBC28A6B314001A28FE /* NoNeighborsViewController.swift in Sources */,
 				5D05EBBE28A6B42E001A28FE /* BoldLine.swift in Sources */,
 				5D1BC3D328BE667000649C52 /* GeneralSudokuProcessor.swift in Sources */,
+				5D38C42428F6EA470028C602 /* MathraxProcessor.swift in Sources */,
 				5D1183C828A47D9F00F3B32D /* Difficulty levels.swift in Sources */,
 				5DC743D828591C5900F1C4F6 /* GameLibraryViewController.swift in Sources */,
 				5DE1418D28CD6C2B00609FD2 /* EasyAsABCViewController.swift in Sources */,
