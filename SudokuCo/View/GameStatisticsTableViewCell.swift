@@ -185,6 +185,11 @@ class GameStatisticsTableViewCell: UITableViewCell {
         winGamesLineView.widthAnchor.constraint(equalTo: allGamesLineView.widthAnchor, multiplier: winPersantage).isActive = true
         winGamesLineView.bottomAnchor.constraint(equalTo: allGamesLineView.bottomAnchor).isActive = true
         winGamesLineView.leadingAnchor.constraint(equalTo: allGamesLineView.leadingAnchor).isActive = true
+        
+        UIView.animate(withDuration: 2.0, delay: 0.0) {
+            let width = self.frame.width + 30
+            self.winGamesLineView.frame.size.width += width * winPersantage
+        }
     }
     
     private func percentageViewSettings(winPersantage: Double) {
