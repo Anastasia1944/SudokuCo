@@ -15,6 +15,18 @@ extension UIView {
             let wave = WaveView()
             emptyView.addSubview(wave)
             
+            // cut part outside the screen
+            let shapeLayer = CAShapeLayer()
+            shapeLayer.frame = emptyView.bounds
+            shapeLayer.fillRule = .evenOdd
+            
+            let path = UIBezierPath(rect: emptyView.bounds)
+            path.append(UIBezierPath(rect: wave.bounds))
+            shapeLayer.path = path.cgPath
+
+            emptyView.layer.mask = shapeLayer
+            
+            // random transform wave
             wave.transform = wave.transform.rotated(by: .pi * Double.random(in: -0.2...0.2))
             wave.strokeColor = color
             
