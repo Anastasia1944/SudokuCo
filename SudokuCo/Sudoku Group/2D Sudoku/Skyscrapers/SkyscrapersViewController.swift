@@ -9,8 +9,8 @@ import UIKit
 
 class SkyscrapersViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 25, .medium: 17, .hard: 9, .expert: 3]
-    private let removedLettersCount: [DifficultyLevels: Int] = [.easy: 0, .medium: 2, .hard: 4, .expert: 6]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 25, .medium: 20, .hard: 15, .expert: 10]
+    private let removedLettersCount: [DifficultyLevels: Int] = [.easy: 0, .medium: 1, .hard: 2, .expert: 3]
     
     var surroundingNumbersLabels: [[UILabel]] = []
 

@@ -13,7 +13,7 @@ enum Direction {
 
 class EasyAsABCViewController: GeneralSudokuViewController {
     
-    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 15, .medium: 11, .hard: 6, .expert: 3]
+    private let openedNumsLevels: [DifficultyLevels: Int] = [.easy: 20, .medium: 15, .hard: 13, .expert: 10]
     private let openedLettersRange: [DifficultyLevels: ClosedRange<Int>] = [.easy: 1...6, .medium: 1...6, .hard: 1...5, .expert: 1...5]
     private let removedLettersCount: [DifficultyLevels: Int] = [.easy: 0, .medium: 2, .hard: 4, .expert: 6]
     
