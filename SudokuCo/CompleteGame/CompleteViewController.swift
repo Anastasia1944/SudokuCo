@@ -89,7 +89,7 @@ class CompleteViewController: UIViewController {
             cell.birthRate = 10
             cell.velocity = 50
             cell.color = $0.cgColor
-            cell.contents = UIImage(named: "Confetti")!.cgImage
+            cell.contents = UIImage(named: "Confetti")?.cgImage
             return cell
         }
         
