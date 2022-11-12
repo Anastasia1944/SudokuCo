@@ -18,6 +18,8 @@ class MyGamesViewController: UIViewController {
     
     var gamesName: [GamesNames] = []
     
+    let loadingActivity = UIActivityIndicatorView(style: .large)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,8 +36,15 @@ class MyGamesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        configureLoadingActivity()
         updateGamesList()
+    }
+    
+    func configureLoadingActivity() {
+        view.addSubview(loadingActivity)
+        loadingActivity.center = view.center
+        loadingActivity.alpha = 0.1
+        loadingActivity.color = .lightPink
     }
     
     func navBarSettings() {
@@ -126,7 +135,13 @@ class MyGamesViewController: UIViewController {
         sudokuGameVC.gameSettings.gameLevel = gameLevel
         sudokuGameVC.gameSettings.isNewGame = isNewGame
         
-        navigationController?.pushViewController(sudokuGameVC, animated: true)
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+            self.loadingActivity.alpha = 1.0
+            self.loadingActivity.startAnimating()
+        }) { (isAnimationComplete) in
+            self.navigationController?.pushViewController(sudokuGameVC, animated: true)
+        }
     }
     
     func updateGamesList() {
