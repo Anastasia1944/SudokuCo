@@ -232,6 +232,11 @@ class CompleteViewController: UIViewController {
         winGamesLineView.bottomAnchor.constraint(equalTo: allGamesLineView.bottomAnchor).isActive = true
         winGamesLineView.leadingAnchor.constraint(equalTo: allGamesLineView.leadingAnchor).isActive = true
         
+        UIView.animate(withDuration: 2.0, delay: 0.0) {
+            let width = self.view.frame.width + 20
+            self.winGamesLineView.frame.size.width += width * winPersantage
+        }
+        
         percentageViewSettings(winPersantage: winPersantage)
     }
 
