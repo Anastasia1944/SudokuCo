@@ -59,11 +59,43 @@ class CompleteViewController: UIViewController {
     
     func configureView() {
         view.backgroundColor = .beige
+        configureConfettiIfWin()
         
         view.addSubview(stackView)
         view.setBackgroundWaves(waves: 5, color: .lightBlue.withAlphaComponent(0.5))
         
         stackSettings()
+    }
+    
+    private func configureConfettiIfWin() {
+        if !isWin {
+            return
+        }
+        
+        let layer = CAEmitterLayer()
+        layer.emitterPosition = CGPoint(x: view.center.x, y: -10)
+        
+        let colors: [UIColor] = [.darkBlue,
+                                 .lightBlue,
+                                 .lightPink,
+                                 .lightGray,
+                                 .lightPink]
+        
+        let cells: [CAEmitterCell] = colors.compactMap {
+            let cell = CAEmitterCell()
+            cell.scale = 0.03
+            cell.emissionRange = .pi * 2
+            cell.lifetime = 10
+            cell.birthRate = 10
+            cell.velocity = 50
+            cell.color = $0.cgColor
+            cell.contents = UIImage(named: "Confetti")!.cgImage
+            return cell
+        }
+        
+        layer.emitterCells = cells
+        
+        view.layer.addSublayer(layer)
     }
     
     func stackSettings() {
