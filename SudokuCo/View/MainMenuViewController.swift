@@ -27,6 +27,8 @@ class MainMenuViewController: UIViewController {
     func configureView() {
         view.backgroundColor = .beige
         
+        navigationController?.navigationBar.barTintColor = .beige
+        
         addNavButtons()
         
         addBackgroundWaves()
@@ -43,34 +45,11 @@ class MainMenuViewController: UIViewController {
     }
     
     func addNavButtons() {
-        let infoButtonImg = UIImage(systemName: "info.circle")
-        let infoButton = UIBarButtonItem(image: infoButtonImg, style: .plain, target: self, action: #selector(infoItemTapped))
-        infoButton.tintColor = .lightBlue
-        
-        let settingsButtonImg = UIImage(systemName: "gearshape")
+        let settingsButtonImg = UIImage(systemName: "gear")
         let settingsButton = UIBarButtonItem(image: settingsButtonImg, style: .plain, target: self, action: #selector(settingsButtonTapped))
         settingsButton.tintColor = .lightBlue
         
-        navigationItem.rightBarButtonItems = [infoButton, settingsButton]
-    }
-    
-    @objc func infoItemTapped() {
-        let alert = UIAlertController(title: NSLocalizedString("App Info", comment: ""), message: NSLocalizedString("Feedback", comment: ""), preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Write", comment: ""), style: .default, handler: { _ in
-            let email = "sudokuCoGame@outlook.com"
-            if let url = URL(string: "mailto:\(email)") {
-                if #available(iOS 10.0, *) {
-                    UIApplication.shared.open(url)
-                } else {
-                    UIApplication.shared.openURL(url)
-                }
-            }
-        }))
-        
-        alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: nil))
-        
-        self.present(alert, animated: true, completion: nil)
+        navigationItem.rightBarButtonItems = [settingsButton]
     }
     
     @objc func settingsButtonTapped() {
