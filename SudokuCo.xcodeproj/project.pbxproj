@@ -785,6 +785,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8QQ2UAQU6U;
 				INFOPLIST_FILE = SudokuCo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SudokuCo;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -807,6 +809,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8QQ2UAQU6U;
 				INFOPLIST_FILE = SudokuCo/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SudokuCo;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
