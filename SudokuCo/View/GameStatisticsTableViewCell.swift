@@ -17,6 +17,9 @@ class GameStatisticsTableViewCell: UITableViewCell {
     private let gamesWonNameLabel = UILabel()
     private let gamesWonLabel = UILabel()
     
+    private let allGamesPlayedNameLabel = UILabel()
+    private let allGamesPlayedLabel = UILabel()
+    
     private let averageTimeNameLabel = UILabel()
     private let averageTimeLabel = UILabel()
     
@@ -24,6 +27,7 @@ class GameStatisticsTableViewCell: UITableViewCell {
 
     private let gamesStatsStackView = UIStackView()
     private let gamesWonStackView = UIStackView()
+    private let allGamesPlayedStackView = UIStackView()
     private let averageTimeStackView = UIStackView()
     
     private let allGamesLineView = UIView()
@@ -106,11 +110,35 @@ class GameStatisticsTableViewCell: UITableViewCell {
         gamesStatsStackView.translatesAutoresizingMaskIntoConstraints = false
         gamesStatsStackView.topAnchor.constraint(equalTo: statsImgView.topAnchor).isActive = true
         gamesStatsStackView.leadingAnchor.constraint(equalTo: statsImgView.leadingAnchor).isActive = true
-        gamesStatsStackView.trailingAnchor.constraint(equalTo: gameImageView.leadingAnchor).isActive = true
+        gamesStatsStackView.trailingAnchor.constraint(equalTo: gameImageView.leadingAnchor, constant: -10).isActive = true
         gamesStatsStackView.bottomAnchor.constraint(equalTo: statsImgView.bottomAnchor).isActive = true
 
+        allGamesPlayedStackViewSettings()
         gamesWonStackViewSettings()
         averageTimeStackViewSettings()
+    }
+    
+    private func allGamesPlayedStackViewSettings() {
+        gamesStatsStackView.addArrangedSubview(allGamesPlayedStackView)
+
+        allGamesPlayedStackView.axis = .horizontal
+        allGamesPlayedStackView.distribution = .equalCentering
+
+        allGamesPlayedStackView.translatesAutoresizingMaskIntoConstraints = false
+        allGamesPlayedStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor).isActive = true
+        allGamesPlayedStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor).isActive = true
+
+        allGamesPlayedStackView.addArrangedSubview(allGamesPlayedNameLabel)
+
+        allGamesPlayedNameLabel.text = NSLocalizedString("Games Played", comment: "")
+        allGamesPlayedNameLabel.font = .systemFont(ofSize: 16)
+        allGamesPlayedNameLabel.textColor = .lightBlue
+
+        allGamesPlayedStackView.addArrangedSubview(allGamesPlayedLabel)
+
+        allGamesPlayedLabel.text = String(gameStatistics.allgamesCount)
+        allGamesPlayedLabel.font = .systemFont(ofSize: 16)
+        allGamesPlayedLabel.textColor = .lightBlue
     }
 
     private func gamesWonStackViewSettings() {
@@ -120,8 +148,8 @@ class GameStatisticsTableViewCell: UITableViewCell {
         gamesWonStackView.distribution = .equalCentering
 
         gamesWonStackView.translatesAutoresizingMaskIntoConstraints = false
-        gamesWonStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor, constant: -10).isActive = true
-        gamesWonStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor, constant: 10).isActive = true
+        gamesWonStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor).isActive = true
+        gamesWonStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor).isActive = true
 
         gamesWonStackView.addArrangedSubview(gamesWonNameLabel)
 
@@ -143,8 +171,8 @@ class GameStatisticsTableViewCell: UITableViewCell {
         averageTimeStackView.distribution = .equalCentering
 
         averageTimeStackView.translatesAutoresizingMaskIntoConstraints = false
-        averageTimeStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor, constant: -10).isActive = true
-        averageTimeStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor, constant: 10).isActive = true
+        averageTimeStackView.trailingAnchor.constraint(equalTo: gamesStatsStackView.trailingAnchor).isActive = true
+        averageTimeStackView.leadingAnchor.constraint(equalTo: gamesStatsStackView.leadingAnchor).isActive = true
 
         averageTimeStackView.addArrangedSubview(averageTimeNameLabel)
 

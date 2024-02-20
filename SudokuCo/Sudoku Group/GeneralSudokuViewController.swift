@@ -138,7 +138,7 @@ class GeneralSudokuViewController: UIViewController {
         sudokuPanelStackView.spacing = 2
         
         let buttonIcons = ["arrow.counterclockwise", "delete.left", "square.and.pencil", "lightbulb"]
-        let buttonLabelsTexts = [NSLocalizedString("Continue", comment: ""), NSLocalizedString("Delete", comment: ""), NSLocalizedString("Notes", comment: ""), NSLocalizedString("Tip", comment: "")]
+        let buttonLabelsTexts = [NSLocalizedString("Cancel", comment: ""), NSLocalizedString("Delete", comment: ""), NSLocalizedString("Notes", comment: ""), NSLocalizedString("Tip", comment: "")]
         
         for i in 0..<buttonIcons.count {
             
