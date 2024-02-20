@@ -112,7 +112,9 @@ class CompleteViewController: UIViewController {
         winLoseLabelSettings()
         gameNameLabelSettings()
         gameStatsStacksSettings()
-        winRateLineSettings()
+        if isSaving {
+            winRateLineSettings()
+        }
         
         mainMenuButtonSettings()
         startOverButtonSettings()
@@ -165,10 +167,7 @@ class CompleteViewController: UIViewController {
         gameStatsStackView.trailingAnchor.constraint(equalTo: stackView.trailingAnchor, constant: -20).isActive = true
         gameStatsStackView.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20).isActive = true
         
-        let stats: [(String, String)] = [("Level", gameLevel.rawValue),
-                                         ("Games Played", String(completeController.getAllGamesCount())),
-                                         ("Current Time", completeController.getCurrentTimeString()),
-                                         ("Average Time", completeController.getAverageTimeString())]
+        let stats = completeController.getGameStats(isSaving: isSaving, gameLevel: gameLevel.rawValue)
 
         for stat in stats {
             addStatRow(leftString: stat.0, rightString: stat.1)

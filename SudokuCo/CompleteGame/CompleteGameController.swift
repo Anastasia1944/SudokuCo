@@ -50,6 +50,17 @@ class CompleteGameController {
         return String(round(doubleVar * 10) / 10) + "%"
     }
     
+    func getGameStats(isSaving: Bool, gameLevel: String) -> [(String, String)] {
+        if isSaving {
+            return [("Level", gameLevel),
+                    ("Games Played", String(getAllGamesCount())),
+                    ("Current Time", getCurrentTimeString()),
+                    ("Average Time", getAverageTimeString())]
+        }
+        return [("Level", gameLevel),
+                ("Current Time", getCurrentTimeString())]
+    }
+    
     private func intTimeToString(time: Int) -> String {
         let formatter = DateComponentsFormatter()
         formatter.allowedUnits = [.hour, .minute, .second]
