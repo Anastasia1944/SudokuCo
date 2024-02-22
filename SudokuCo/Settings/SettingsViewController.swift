@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
     }
     
     func navBarSettings() {
-        navigationItem.title = "Settings"
+        navigationItem.title = NSLocalizedString("Settings", comment: "")
         navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.lightBlue, .font: UIFont.systemFont(ofSize: 24)]
         navigationController?.navigationBar.barTintColor = .beige
         
@@ -76,7 +76,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switchView.addTarget(self, action: #selector(self.switchChanged(_:)), for: .valueChanged)
         cell.accessoryView = switchView
         
-        cell.textLabel?.text = settings[indexPath.row]
+        cell.textLabel?.text = NSLocalizedString(settings[indexPath.row], comment: "") 
         cell.textLabel?.textColor = .lightBlue
         
         return cell

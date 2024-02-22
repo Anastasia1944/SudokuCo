@@ -9,6 +9,7 @@
 "My Games" = "My Games";
 "Game Library" = "Game Library";
 "Statistics" = "Statistics";
+"Settings" = "Settings";
 
 "Easy" = "Easy";
 "Medium" = "Medium";
@@ -42,6 +43,14 @@
 "Games Played" = "Games Played";
 "Win rate" = "Win rate";
 "Average Time" = "Average Time";
+"Current Time" = "Current Time";
+"Level" = "Level";
+
+"You Win" = "You Win!";
+"You Lose" = "You Lose";
+
+"Main Menu" = "Main Menu";
+"Start Over" = "Start Over";
 
 "Show Time" = "Show Time";
 "Auto-Check for Mistakes" = "Auto-Check for Mistakes";

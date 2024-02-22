@@ -126,11 +126,7 @@ class CompleteViewController: UIViewController {
     func winLoseLabelSettings() {
         stackView.addArrangedSubview(winLoseLabel)
         
-        if isWin {
-            winLoseLabel.text = "You Win!"
-        } else {
-            winLoseLabel.text = "You Lose"
-        }
+        winLoseLabel.text = isWin ? NSLocalizedString("You Win", comment: "") : NSLocalizedString("You Lose", comment: "")
         
         winLoseLabel.textAlignment = .center
         winLoseLabel.font = .systemFont(ofSize: 32)
@@ -170,7 +166,7 @@ class CompleteViewController: UIViewController {
         let stats = completeController.getGameStats(isSaving: isSaving, gameLevel: gameLevel.rawValue)
 
         for stat in stats {
-            addStatRow(leftString: stat.0, rightString: stat.1)
+            addStatRow(leftString: NSLocalizedString(stat.0, comment: ""), rightString: stat.1)
         }
     }
     
@@ -256,7 +252,7 @@ class CompleteViewController: UIViewController {
     func mainMenuButtonSettings() {
         stackView.addArrangedSubview(mainMenuButton)
         
-        mainMenuButton.configureButton(buttonText: "Main Menu")
+        mainMenuButton.configureButton(buttonText: NSLocalizedString("Main Menu", comment: ""))
         mainMenuButton.addTarget(self, action: #selector(tapMainMenuButton), for: .touchUpInside)
     }
 
@@ -270,7 +266,7 @@ class CompleteViewController: UIViewController {
     func startOverButtonSettings() {
         stackView.addArrangedSubview(startOverButton)
         
-        startOverButton.configureButton(buttonText: "Start Over")
+        startOverButton.configureButton(buttonText: NSLocalizedString("Start Over", comment: ""))
         startOverButton.addTarget(self, action: #selector(tapStartOverButton), for: .touchUpInside)
     }
 
@@ -282,7 +278,7 @@ class CompleteViewController: UIViewController {
     func continueButtonSettings() {
         stackView.addArrangedSubview(continueButton)
         
-        continueButton.configureButton(buttonText: "Continue")
+        continueButton.configureButton(buttonText: NSLocalizedString("Continue", comment: ""))
         continueButton.addTarget(self, action: #selector(tapContinueButton), for: .touchUpInside)
     }
 

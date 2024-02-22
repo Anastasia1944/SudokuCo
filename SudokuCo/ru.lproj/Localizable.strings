@@ -9,6 +9,7 @@
 "My Games" = "Мои Игры";
 "Game Library" = "Библиотека Игр";
 "Statistics" = "Статистика";
+"Settings" = "Настройки";
 
 "Easy" = "Легкий";
 "Medium" = "Средний";
@@ -42,6 +43,14 @@
 "Games Played" = "Игр Сыграно";
 "Win rate" = "Процент выигрыша";
 "Average Time" = "Среднее время";
+"Current Time" = "Время";
+"Level" = "Уровень";
+
+"You Win" = "Вы выиграли!";
+"You Lose" = "Вы проиграли";
+
+"Main Menu" = "Главное Меню";
+"Start Over" = "Начать заново";
 
 "Show Time" = "Показывать время";
 "Auto-Check for Mistakes" = "Авто-проверка ошибок";

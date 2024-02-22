@@ -52,12 +52,12 @@ class CompleteGameController {
     
     func getGameStats(isSaving: Bool, gameLevel: String) -> [(String, String)] {
         if isSaving {
-            return [("Level", gameLevel),
+            return [("Level", NSLocalizedString(gameLevel, comment: "")),
                     ("Games Played", String(getAllGamesCount())),
                     ("Current Time", getCurrentTimeString()),
                     ("Average Time", getAverageTimeString())]
         }
-        return [("Level", gameLevel),
+        return [("Level", NSLocalizedString(gameLevel, comment: "")),
                 ("Current Time", getCurrentTimeString())]
     }
     
