@@ -153,13 +153,13 @@ class GameStatisticsTableViewCell: UITableViewCell {
 
         gamesWonStackView.addArrangedSubview(gamesWonNameLabel)
 
-        gamesWonNameLabel.text = NSLocalizedString("Games Won", comment: "")
+        gamesWonNameLabel.text = NSLocalizedString("Best Time", comment: "")
         gamesWonNameLabel.font = .systemFont(ofSize: 16)
         gamesWonNameLabel.textColor = .lightBlue
 
         gamesWonStackView.addArrangedSubview(gamesWonLabel)
 
-        gamesWonLabel.text = String(gameStatistics.winGamesCount)
+        gamesWonLabel.text = getMinTime()
         gamesWonLabel.font = .systemFont(ofSize: 16)
         gamesWonLabel.textColor = .lightBlue
     }
@@ -232,6 +232,10 @@ class GameStatisticsTableViewCell: UITableViewCell {
         percentageView.topAnchor.constraint(equalTo: winGamesLineView.topAnchor).isActive = true
         percentageView.bottomAnchor.constraint(equalTo: winGamesLineView.bottomAnchor).isActive = true
         percentageView.leadingAnchor.constraint(equalTo: winGamesLineView.leadingAnchor, constant: 10).isActive = true
+    }
+    
+    private func getMinTime() -> String {
+        return intTimeToString(time: gameStatistics.times.min() ?? 0 / gameStatistics.allgamesCount)
     }
 
     private func getAverageTime() -> String {
